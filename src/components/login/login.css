@@ -1,0 +1,61 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /*border: solid 1px;*/
+  }
+  
+  /*****Response modo Celular*******/
+  .App{
+    height: 100px;
+  }
+  .login {
+  padding: 20px 20px;
+  text-align: center;
+  height:631px
+  }
+  .image{
+    height: 200px;
+  }
+  .text {
+    border: none;
+    width: 100%;
+    padding: 20px 10px;
+    display: block;
+    height: 15px;
+    border-radius: 20px;
+    border: 2px solid rgb(139, 138, 138);
+    overflow: hidden;
+    margin-top: 15px;
+    color:black;
+    transition: all 0.5s ease-in-out;
+    
+  }
+  .text::placeholder {
+    color:rgba(102, 97, 97, 0.924);
+  }
+  
+  .text:focus {
+    outline: 0;
+    border: 2px solid black;
+    border-radius: 20px;
+    background: rgba(105, 255, 220, .3);
+  }
+  
+  .signin {
+     margin-top: 20px;
+      width: 220px;
+      height: 36px;
+      background:#46A461;
+      border-radius:20px;
+      border:none;
+      outline:none;
+      color: black;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      transition: 0.2s ease;
+      cursor: pointer;
+  }
+  
+  
+  
