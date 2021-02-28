@@ -18,7 +18,7 @@ export const Login = ({ history }) => {
 
   //Verificacion de datos
   const verifyUser = async (e) => {
-    let result = await axios.post("http://localhost:3030/api/users/login", user);
+    let result = await axios.post("http://localhost:4000/api/users/login", user);
   setErrores(result.data);
 
 if(result.data.user){

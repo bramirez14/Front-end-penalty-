@@ -27,7 +27,7 @@ export const Routes = () => {
          <RouteGerente exact path ="/anticipos/sueldos" component={ AnticipoSueldo } />
          <RouteGerente exact path ="/solicitudes/vacaciones" component={ SolicitudVacaciones }/>
          <RouteAdmin exact path ="/tarea2" component={ Tarea2 }/>
-         <RouteAdmin   exact path ="/tarea3" component={ Tarea3 }/>
+         <RouteGerente  exact path ="/tarea3" component={ Tarea3 }/>
         <RouteGerente exact path ="/profile" component={Profile}/>
         <Redirect to="/" />
       </Switch>

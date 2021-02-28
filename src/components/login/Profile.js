@@ -27,7 +27,7 @@ return (
    <SubMenu  title="Solicitudes y Reservas">
     <Nav className="flex-column">
      <NavLink exact to="/anticipos/sueldos"> Anticipo de Sueldo </NavLink>
-       <NavLink exact to="/tarea1"> Solicitud de Vacaciones</NavLink>
+       <NavLink exact to="/solicitudes/vacaciones"> Solicitud de Vacaciones</NavLink>
          <NavLink exact to="/tarea1"> Reserva de Hotoles </NavLink>
            <NavLink exact to="/tarea1"> Reserva de Vuelos </NavLink>
              <NavLink exact to="/tarea1"> Reserva de Autos</NavLink>

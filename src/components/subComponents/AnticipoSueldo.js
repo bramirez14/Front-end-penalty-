@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "./anticipoSueldo.css";
+import './anticipoSueldo.css'
 import { FaHandHoldingUsd, FaSortNumericUp } from "react-icons/fa";
 import { GiMoneyStack } from "react-icons/gi";
 import { SiGooglecalendar } from "react-icons/si";
-import { Container, Form, Group } from "react-bootstrap";
+import { Container, Form, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -16,9 +16,9 @@ export const AnticipoSueldo = ({ history }) => {
     sueldo: "Sueldo",
     cuotas: "",
     importe: "",
-    fecha: "",
+    fecha: new Date(),
     mensaje: "",
-    anticipoId: "1",
+    usuarioId: "1",
   });
   const [selectedDate, setSelectedDate] = useState(new Date());
   /****Funcion de Alerta******/
@@ -91,21 +91,27 @@ export const AnticipoSueldo = ({ history }) => {
     });
   };
   const getUser = async () => {
-    let result = await axios.get("http://localhost:3030/api/users/allusers");
+    let result = await axios.get("http://localhost:4000/api/users/allusers");
     setUsers(result.data);
   };
   // en construccion 
-  /*const guardarAnticipo = async () => {
-    let result = await axios.post("http://localhost:3030/api/users/allusers");
-    axiosProducts
+  const guardarAnticipo = async () => {
+
+let result = await axios.post("http://localhost:4000/api/users/anticipo",anticipo);
+     console.log(result)
       
-        console.log(res);
-        /*if (res.status === 200) {
-          history.push("/crud");
-        }*/
+      
+        if (result.status === 200) {
+          history.push("/profile");
+        }
       
      
-  //}
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    guardarAnticipo();
+  };
+
   useEffect(() => {
     getUser();
     verifyMonth();
@@ -114,26 +120,28 @@ export const AnticipoSueldo = ({ history }) => {
   return (
     <>
       <h3 className="h3">Anticipo de Sueldo</h3>
-      <Container>
-        <Form.Group>
-          <div>
-            <label forhtml="name">Nombre del empleado</label>
-            <select name="anticipoId" onChange={(getUser, handleChange)}>
-              {users.map((list) => (
+      <Container as={Col} md={{ span: 10, offset: 3 }} >
+      <Form  as={Col} md="7" >
+       <Form.Group onSubmit={handleSubmit} >
+       <Form.Label>Nombre del Empleado</Form.Label>
+   
+    <Form.Control as="select" name="usuarioId" onChange={(getUser, handleChange)}>
+    {users.map((list) => (
                 <option key={list.id} value={list.id}>
                   {list.nombre}
                 </option>
               ))}
-            </select>
-          </div>
+    </Form.Control>
+      
+         
           <div>
             <label id="icon" forhtml="name">
               <FaHandHoldingUsd className="icono" />
             </label>
             <select
               name="sueldo"
-              id="input"
-              placeholder="Sueldo"
+              className="input"
+              placeholder="sueldo"
               className="sueldo"
               onChange={handleChange}
               required
@@ -148,8 +156,8 @@ export const AnticipoSueldo = ({ history }) => {
             </label>
             <select
               name="cuotas"
-              id="input"
-              placeholder="Cuota"
+              className="input"
+              placeholder="cuota"
               onChange={handleChange}
               required
             >
@@ -167,7 +175,7 @@ export const AnticipoSueldo = ({ history }) => {
             <input
               type="number"
               name="importe"
-              id="input"
+              className="input"
               placeholder="Importe"
               onChange={handleChange}
               required
@@ -178,7 +186,7 @@ export const AnticipoSueldo = ({ history }) => {
               <SiGooglecalendar className="icono" />
             </label>
             <DatePicker
-              id="input"
+              className="input"
               name="fecha"
               selected={selectedDate}
               onChange={calendar}
@@ -194,12 +202,13 @@ export const AnticipoSueldo = ({ history }) => {
             onChange={handleChange}
           />
 
-          <button className="btn btn-success " onClick={handleAlert}>
+          <button className="btn btn-success "  onClick={handleAlert}>
             {" "}
             Enviar{" "}
           </button>
+        
         </Form.Group>
-
+        </Form>
         <button onClick={handleBack}>Atras</button>
       </Container>
     </>
