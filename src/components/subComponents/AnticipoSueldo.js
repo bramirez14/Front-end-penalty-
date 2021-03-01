@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './anticipoSueldo.css'
+import "./anticipoSueldo.css";
 import { FaHandHoldingUsd, FaSortNumericUp } from "react-icons/fa";
 import { GiMoneyStack } from "react-icons/gi";
 import { SiGooglecalendar } from "react-icons/si";
@@ -94,19 +94,18 @@ export const AnticipoSueldo = ({ history }) => {
     let result = await axios.get("http://localhost:4000/api/users/allusers");
     setUsers(result.data);
   };
-  // en construccion 
+  // en construccion
   const guardarAnticipo = async () => {
+    let result = await axios.post(
+      "http://localhost:4000/api/users/anticipo",
+      anticipo
+    );
+    console.log(result);
 
-let result = await axios.post("http://localhost:4000/api/users/anticipo",anticipo);
-     console.log(result)
-      
-      
-        if (result.status === 200) {
-          history.push("/profile");
-        }
-      
-     
-  }
+    if (result.status === 200) {
+      history.push("/profile");
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     guardarAnticipo();
@@ -120,94 +119,96 @@ let result = await axios.post("http://localhost:4000/api/users/anticipo",anticip
   return (
     <>
       <h3 className="h3">Anticipo de Sueldo</h3>
-      <Container as={Col} md={{ span: 10, offset: 3 }} >
-      <Form  as={Col} md="7" >
-       <Form.Group onSubmit={handleSubmit} >
-       <Form.Label>Nombre del Empleado</Form.Label>
-   
-    <Form.Control as="select" name="usuarioId" onChange={(getUser, handleChange)}>
-    {users.map((list) => (
+      <Container as={Col} md={{ span: 10, offset: 3 }}>
+        <Form as={Col} md="7">
+          <Form.Group onSubmit={handleSubmit}>
+            <Form.Label>Nombre del Empleado</Form.Label>
+
+            <Form.Control
+              as="select"
+              name="usuarioId"
+              onChange={(getUser, handleChange)}
+            >
+              {users.map((list) => (
                 <option key={list.id} value={list.id}>
                   {list.nombre}
                 </option>
               ))}
-    </Form.Control>
-      
-         
-          <div>
-            <label id="icon" forhtml="name">
-              <FaHandHoldingUsd className="icono" />
-            </label>
-            <select
-              name="sueldo"
-              className="input"
-              placeholder="sueldo"
-              className="sueldo"
-              onChange={handleChange}
-              required
-            >
-              <option value="Sueldo">Sueldo</option>
-              <option value="Aguinaldo">Aguinaldo</option>
-            </select>
-          </div>
-          <div>
-            <label id="icon" forhtml="name">
-              <FaSortNumericUp className="icono" />
-            </label>
-            <select
-              name="cuotas"
-              className="input"
-              placeholder="cuota"
-              onChange={handleChange}
-              required
-            >
-              {data.map((cuota, i) => (
-                <option key={i} value={i+1}>
-                  {cuota}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label id="icon" forhtml="name">
-              <GiMoneyStack className="icono" />
-            </label>
-            <input
-              type="number"
-              name="importe"
-              className="input"
-              placeholder="Importe"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label id="icon" forhtml="calendario">
-              <SiGooglecalendar className="icono" />
-            </label>
-            <DatePicker
-              className="input"
-              name="fecha"
-              selected={selectedDate}
-              onChange={calendar}
-              dateFormat="dd/MM/yyyy"
-            />
-          </div>
-          <textarea
-            id="text"
-            name="mensaje"
-            rows="8"
-            cols="34"
-            defaultValue="Mensaje:"
-            onChange={handleChange}
-          />
+            </Form.Control>
 
-          <button className="btn btn-success "  onClick={handleAlert}>
-            {" "}
-            Enviar{" "}
-          </button>
-        
-        </Form.Group>
+            <div>
+              <label id="icon" forhtml="name">
+                <FaHandHoldingUsd className="icono" />
+              </label>
+              <select
+                name="sueldo"
+                className="input"
+                placeholder="sueldo"
+                className="sueldo"
+                onChange={handleChange}
+                required
+              >
+                <option value="Sueldo">Sueldo</option>
+                <option value="Aguinaldo">Aguinaldo</option>
+              </select>
+            </div>
+            <div>
+              <label id="icon" forhtml="name">
+                <FaSortNumericUp className="icono" />
+              </label>
+              <select
+                name="cuotas"
+                className="input"
+                placeholder="cuota"
+                onChange={handleChange}
+                required
+              >
+                {data.map((cuota, i) => (
+                  <option key={i} value={i + 1}>
+                    {cuota}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label id="icon" forhtml="name">
+                <GiMoneyStack className="icono" />
+              </label>
+              <input
+                type="number"
+                name="importe"
+                className="input"
+                placeholder="Importe"
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label id="icon" forhtml="calendario">
+                <SiGooglecalendar className="icono" />
+              </label>
+              <DatePicker
+                className="input"
+                name="fecha"
+                selected={selectedDate}
+                onChange={calendar}
+                dateFormat="dd/MM/yyyy"
+              />
+            </div>
+            <textarea
+              id="text"
+              name="mensaje"
+              rows="8"
+              cols="34"
+              defaultValue="Mensaje:"
+              onChange={handleChange}
+            />
+
+            <button className="btn btn-success " onClick={handleAlert}>
+              {" "}
+              Enviar{" "}
+            </button>
+          </Form.Group>
         </Form>
         <button onClick={handleBack}>Atras</button>
       </Container>

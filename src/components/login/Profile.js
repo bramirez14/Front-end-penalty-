@@ -34,7 +34,14 @@ return (
                <NavLink exact to="/tarea1"> Reserva de Remises</NavLink>
                  </Nav>
    </SubMenu>
- <SubMenu  title="Rendiciones de Gastos"  ></SubMenu>
+ <SubMenu  title="Rendiciones de Gastos"  >
+ <Nav className="flex-column">
+ <NavLink exact to="/rendicion/gastos"> Rendicion de Gastos </NavLink>
+ <NavLink exact to="/archivo/gastos"> Archivo de Gastos </NavLink>
+ </Nav>
+
+
+ </SubMenu>
  <SubMenu  title="Contacto de Cliente"  ></SubMenu>
  <SubMenu  title="Reporte de Usuarios"  ></SubMenu>
   <SubMenu  title="Reporte de Gestión"  ></SubMenu>
