@@ -1,0 +1,18 @@
+.contendor-encabezado{
+display: flex;
+flex-wrap:wrap;
+background: white;
+height: 150px;
+border-bottom: solid 2px #e1e1e1;
+}
+.logo{
+    width: 140px;
+    height: 149px;
+  margin-right: 10px;
+}
+.input{
+  border: 2px solid #bbdefb;}
+.input:focus{
+  border: 2px solid ;
+  box-shadow:0 0 0 .1rem #46a461
+}
