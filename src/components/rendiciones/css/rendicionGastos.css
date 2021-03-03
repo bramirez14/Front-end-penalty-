@@ -5,12 +5,14 @@
   /*border: solid 1px;*/
 }
 /*usamos css grid*/
+body{width: auto;}
 .contenedor{
   display: grid;
   grid-template-columns: minmax(100px,360px);
   grid-template-rows:auto;
   border: solid 1px;
   row-gap: 15px;
+  
 }
 .item-a{
   grid-column-start:1;

@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from '../../logoPenalty.jpg'
-import './encabezado.css'
+import './css/encabezado.css'
 export const Encabezado = () => {
     return (
         <div className='contendor-encabezado'>

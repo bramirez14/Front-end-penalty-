@@ -2,7 +2,7 @@ import React from 'react'
 import { Encabezado } from './Encabezado'
 import { Crud } from './Crud';
 import { CreateRendicion } from './CreateRendicion';
-import './rendicionGastos.css'
+import './css/rendicionGastos.css'
 import { FormularioRendicion } from './FormularioRendicion';
 
 export const RendicionGastos = () => {
