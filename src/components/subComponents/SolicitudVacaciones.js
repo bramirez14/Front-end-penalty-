@@ -6,6 +6,7 @@ import { GiMoneyStack } from "react-icons/gi";
 import { SiGooglecalendar } from "react-icons/si";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Titulo } from "../titulos/Titulo";
 
 export const SolicitudVacaciones = ({ history }) => {
   const [users, setUsers] = useState([]);
@@ -145,6 +146,7 @@ const handleSubmit = (e) => {
   console.log(vacaciones);
   return (
     <>
+        <Titulo titulo='Vacaciones'/>
       <Container>
         <Form onSubmit={handleSubmit}>
           <Form.Group>

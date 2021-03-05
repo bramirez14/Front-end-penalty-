@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./anticipoSueldo.css";
+//import "./anticipoSueldo.css";
 import { FaHandHoldingUsd, FaSortNumericUp } from "react-icons/fa";
 import { GiMoneyStack } from "react-icons/gi";
 import { SiGooglecalendar } from "react-icons/si";
@@ -7,6 +7,8 @@ import { Container, Form, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Titulo } from "../titulos/Titulo";
+import { InputSelect } from "../formularios/InputSelect";
 
 export const AnticipoSueldo = ({ history }) => {
   const [users, setUsers] = useState([]);
@@ -118,8 +120,10 @@ export const AnticipoSueldo = ({ history }) => {
   console.log(anticipo);
   return (
     <>
-      <h3 className="h3">Anticipo de Sueldo</h3>
+      <Titulo titulo='Anticipo de Sueldo'/>
+      
       <Container as={Col} md={{ span: 10, offset: 3 }}>
+      <InputSelect/> 
         <Form as={Col} md="7">
           <Form.Group onSubmit={handleSubmit}>
             <Form.Label>Nombre del Empleado</Form.Label>
@@ -158,7 +162,7 @@ export const AnticipoSueldo = ({ history }) => {
               </label>
               <select
                 name="cuotas"
-                className="input"
+                className="inputt"
                 placeholder="cuota"
                 onChange={handleChange}
                 required
