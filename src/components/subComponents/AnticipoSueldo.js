@@ -1,29 +1,63 @@
 import React, { useState, useEffect } from "react";
-//import "./anticipoSueldo.css";
-import { FaHandHoldingUsd, FaSortNumericUp } from "react-icons/fa";
+import "./anticipoSueldo.css";
 import { GiMoneyStack } from "react-icons/gi";
-import { SiGooglecalendar } from "react-icons/si";
-import { Container, Form, Col } from "react-bootstrap";
-import DatePicker from "react-datepicker";
+import { TiUser } from "react-icons/ti";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Titulo } from "../titulos/Titulo";
 import { InputSelect } from "../formularios/InputSelect";
+import { InputCalendario } from "../formularios/InputCalendario";
+import { InputIcon } from "../formularios/InputIcon";
+import { FaHandHoldingUsd, FaSortNumericUp ,FaLessThan } from "react-icons/fa";
+import { GiLockedDoor } from "react-icons/gi";
+import { InputMsg } from "../formularios/InputMsg";
 
 export const AnticipoSueldo = ({ history }) => {
   const [users, setUsers] = useState([]);
   const [data, setData] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
+  const [open4, setOpen4] = useState(false);
 
+  const [arrayDinero, setArrayDinero] = useState([
+    { id: 1, nombre: "Sueldo" },
+    { id: 2, nombre: "Aguinaldo" },
+  ]);
   const [anticipo, setAnticipo] = useState({
     sueldo: "Sueldo",
     cuotas: "",
     importe: "",
-    fecha: new Date(),
+    fecha: new Date().toLocaleDateString(),
     mensaje: "",
     usuarioId: "1",
+    empleado: "Empleado",
   });
+  const { empleado, sueldo } = anticipo;
   const [selectedDate, setSelectedDate] = useState(new Date());
   /****Funcion de Alerta******/
+
+  const handleSelectClick = (e) => {
+    let buscarEmpleado = users.find((user) => e.target.value == user.id);
+    setAnticipo({
+      ...anticipo,
+      empleado: buscarEmpleado.nombre,
+      usuarioId: e.target.value,
+    });
+    setOpen(false);
+  };
+  const handleClickDinero = (e) => {
+    let buscarCatgoriaDinero = arrayDinero.find(
+      (dinero) => e.target.value == dinero.id
+    );
+    console.log(buscarCatgoriaDinero);
+    setAnticipo({
+      ...anticipo,
+      sueldo: buscarCatgoriaDinero.nombre,
+    });
+    setOpen2(false);
+  };
+  
   const handleAlert = (e) => {
     Swal.fire({
       title: "Solicitud enviada",
@@ -96,7 +130,7 @@ export const AnticipoSueldo = ({ history }) => {
     let result = await axios.get("http://localhost:4000/api/users/allusers");
     setUsers(result.data);
   };
-  // en construccion
+  
   const guardarAnticipo = async () => {
     let result = await axios.post(
       "http://localhost:4000/api/users/anticipo",
@@ -117,105 +151,73 @@ export const AnticipoSueldo = ({ history }) => {
     getUser();
     verifyMonth();
   }, []);
+
   console.log(anticipo);
   return (
     <>
-      <Titulo titulo='Anticipo de Sueldo'/>
+  <Titulo titulo="Anticipo de Sueldo" />
+  <form onSubmit={handleSubmit}>
+    <div className='contenedor'>
+    
+    <div className='item-a'>
+        <InputSelect
+          icono={<TiUser />}
+          array={users}
+          empleado={empleado}
+          click={handleSelectClick}
+          open={open}
+          setOpen={setOpen}
+        />
+        <h5>
+          {" "}
+          <b>Fecha de Solicitud</b>
+        </h5>
+        <InputCalendario selected={selectedDate} calendar={calendar} />
+
+        <InputSelect
+          icono={<GiMoneyStack />}
+          array={arrayDinero}
+          empleado={sueldo}
+          click={handleClickDinero}
+          open={open2}
+          setOpen={setOpen2}
+        />
+        <InputIcon
+          name="importe"
+          placeholder="Importe"
+          change={handleChange}
+          icono={<FaHandHoldingUsd />}
+          open={open3}
+          setOpen={setOpen3}
+          type="number"
+        />
+        <InputIcon
+          name="cuotas"
+          placeholder="Cuota"
+          change={handleChange}
+          icono={<FaSortNumericUp />}
+          open={open4}
+          setOpen={setOpen4}
+          type="number"
+        /></div>
+        <div className='item-b'>
+
+        <InputMsg />
+
+<button className="btn btn-success " onClick={handleAlert}>
+  {" "}
+  Enviar{" "}
+</button>
+<button className='boton-atras' onClick={handleBack} ><FaLessThan className='atras'/>  Ir a Menú </button>
+
+        </div>
+        </div>
+        </form>
+
+   
+ 
       
-      <Container as={Col} md={{ span: 10, offset: 3 }}>
-      <InputSelect/> 
-        <Form as={Col} md="7">
-          <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Nombre del Empleado</Form.Label>
-
-            <Form.Control
-              as="select"
-              name="usuarioId"
-              onChange={(getUser, handleChange)}
-            >
-              {users.map((list) => (
-                <option key={list.id} value={list.id}>
-                  {list.nombre}
-                </option>
-              ))}
-            </Form.Control>
-
-            <div>
-              <label id="icon" forhtml="name">
-                <FaHandHoldingUsd className="icono" />
-              </label>
-              <select
-                name="sueldo"
-                className="input"
-                placeholder="sueldo"
-                className="sueldo"
-                onChange={handleChange}
-                required
-              >
-                <option value="Sueldo">Sueldo</option>
-                <option value="Aguinaldo">Aguinaldo</option>
-              </select>
-            </div>
-            <div>
-              <label id="icon" forhtml="name">
-                <FaSortNumericUp className="icono" />
-              </label>
-              <select
-                name="cuotas"
-                className="inputt"
-                placeholder="cuota"
-                onChange={handleChange}
-                required
-              >
-                {data.map((cuota, i) => (
-                  <option key={i} value={i + 1}>
-                    {cuota}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label id="icon" forhtml="name">
-                <GiMoneyStack className="icono" />
-              </label>
-              <input
-                type="number"
-                name="importe"
-                className="input"
-                placeholder="Importe"
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label id="icon" forhtml="calendario">
-                <SiGooglecalendar className="icono" />
-              </label>
-              <DatePicker
-                className="input"
-                name="fecha"
-                selected={selectedDate}
-                onChange={calendar}
-                dateFormat="dd/MM/yyyy"
-              />
-            </div>
-            <textarea
-              id="text"
-              name="mensaje"
-              rows="8"
-              cols="34"
-              defaultValue="Mensaje:"
-              onChange={handleChange}
-            />
-
-            <button className="btn btn-success " onClick={handleAlert}>
-              {" "}
-              Enviar{" "}
-            </button>
-          </Form.Group>
-        </Form>
-        <button onClick={handleBack}>Atras</button>
-      </Container>
+       
     </>
   );
 };

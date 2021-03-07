@@ -1,0 +1,67 @@
+button, input {
+  
+    height: 43px;
+    width: 265px;
+    border:   solid 2px rgba(0, 0, 0, 0.03);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    outline: none;
+}
+button, input:hover{
+    background: #f6fffa;
+
+}
+.label-icon-calendar{
+    background: rgba(0, 0, 0, 0.04);
+    color:white;
+    width: 45px;
+    height: 43px;
+   -webKit-border-top-left-radius: 20%;
+   -moz-border-top-left-radius: 20%;
+   -webKit-border-bottom-left-radius: 20%;
+   -moz-border-bottom-left-radius: 20%;
+    border-top-left-radius: 20%;
+    border-bottom-left-radius: 20%;
+    margin-left: 10px;
+    margin-top: 1px;
+    position: relative;
+    bottom: 1px;
+}
+.icono-calendario{
+    color:rgba(0, 0, 0, 0.7);
+position: absolute;
+margin-top: 8px;
+left: 10px;
+font-size: 27px;
+
+}
+/**************personalizacion del calendario*********/
+/*El input numero mas grandes*/
+button, input, optgroup, select, textarea {
+    font-size: 30px;
+    
+    
+}
+/* El fonodo de  las semanas y meses */
+.react-datepicker__header:not(.react-datepicker__header--has-time-select) {
+    border-top-right-radius: 0.3rem;
+    background: #47b886;
+}
+/* El fondo de recuadro de los dias*/
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range, .react-datepicker__month-text--selected, .react-datepicker__month-text--in-selecting-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--selected, .react-datepicker__quarter-text--in-selecting-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--selected, .react-datepicker__year-text--in-selecting-range, .react-datepicker__year-text--in-range {
+    border-radius: 50%;
+    background-color: #47b886;
+    color: #fff;
+}
+/*El fondo de la flecha superior*/
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before {
+    border-top: none;
+    border-bottom-color: #47b886;
+}
+/*****************fin de personalizacion del calendario **********/
+
+.oooo{
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  

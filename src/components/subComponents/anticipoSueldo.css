@@ -1,71 +1,52 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  /*  border: solid 1px;*/
-  }
-  .h3{
-   font-family: 'Courier', sans-serif;
-   text-align:center;
-   background-color: #018a57;
-   color: white 
-  }
-  .form{
-  display:flex;
-  flex-wrap:wrap;
-  flex-direction:column;
-  }
-  /*#icon {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+ /*border: solid 1px;*/
+}
+.contenedor{
+  display: grid;
+  grid-template-columns: minmax(100px,360px);
+  grid-template-rows:auto;
+  border: solid 1px;
+  row-gap: 15px;
   
-    width: 50px;
-    background-color: #018a57;
-    padding: 8px 0px 8px 15px;
-    margin-left: 15px;
-    margin-top:20px;
-    -webkit-border-radius: 4px 0px 0px 4px; 
-    -moz-border-radius: 4px 0px 0px 4px; 
-    border-radius: 4px 0px 0px 4px;
-    color: white;
-    
-    -webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.09);
-    -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
-    box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
-    border: solid 0px #cbc9c9;
-  }
+}
+.item-a{
+  grid-column-start:1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+
+}
+.item-b{
+  grid-column-start:1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 3;
   
-  #input{
-      width: 70%;
-       margin-top:20px;
-          padding: 8px 0px 8px 15px;
-          border-radius: 0px 4px 4px 0px;
-       box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
-      border: solid 0px gray;
-  
-  }
-  
-  #input:focus {
-    outline: none;
-    border:  2px solid #018a57;
-  height:41px;
-  }*/
-  
-  .icono{
-  font-size: 25px;}
-  
-  #text{
-   margin-top:10px;
-     -webkit-box-shadow: 5px 7px 5px rgba(0,0,0,.09);
-    -moz-box-shadow: 5px 7px 5px rgba(0,0,0,.09); 
-    box-shadow: 5px 7px 5px rgba(0,0,0,.09); 
-      border: solid 0px gray;
-  }
-  #text:focus {
-    outline: none;
-    border:  2px solid #018a57;
-  
-  }
-  .btn{
-    margin-top:20px;
-  }
-  
-  
+
+}
+
+
+h5{
+  text-align: center;
+  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.04);
+}
+b{ margin-right: 99px;}
+.btn{
+  width: 336px;
+  margin: 10px;
+}
+.atras{
+  font-size: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+
+}
+.boton-atras{
+font-size: 15px;
+margin-left: 0;
+width: 107px;
+}

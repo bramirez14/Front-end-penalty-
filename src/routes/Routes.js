@@ -5,6 +5,8 @@ import {
   Redirect,
 } from "react-router-dom";
 import { Input } from "../components/formularios/Input";
+import { InputCalendario } from "../components/formularios/InputCalendario";
+import { InputMsg } from "../components/formularios/InputMsg";
 import { InputSelect } from "../components/formularios/InputSelect";
 import { Login } from "../components/login/Login";
 import { Profile } from "../components/login/Profile";
@@ -30,7 +32,7 @@ export const Routes = () => {
          <RouteGerente exact path ="/anticipos/sueldos" component={ AnticipoSueldo } />
          <RouteGerente exact path ="/solicitudes/vacaciones" component={ SolicitudVacaciones }/>
          <RouteGerente exact path ='/rendicion/gastos' component = {RendicionGastos}/>
-         <RouteGerente exact path ='/prueba' component = {InputSelect}/>
+         <RouteGerente exact path ='/prueba' component = {InputMsg}/>
 
          <RouteAdmin exact path ="/tarea2" component={ Tarea2 }/>
          <RouteGerente  exact path ="/tarea3" component={ Tarea3 }/>

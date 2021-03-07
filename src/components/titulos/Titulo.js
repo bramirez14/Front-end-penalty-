@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './css/titulo.css'
 export const Titulo = ({titulo}) => {
     return (
         
