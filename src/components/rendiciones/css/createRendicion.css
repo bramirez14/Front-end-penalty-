@@ -51,6 +51,7 @@ a {
 }
 .file-upload {
   display: -webkit-box;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
@@ -60,6 +61,7 @@ a {
   padding: 1.5rem;
   background-color: #fff;
   -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   width:800px;
@@ -73,13 +75,16 @@ a {
   left: 0;
   right: 0;
   display: -webkit-box;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  -moz-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -moz-flex-pack: center;
   justify-content: center;
 }
 
@@ -122,9 +127,11 @@ a {
 .custom-file-drop-area {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -moz-flexbox;
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  -moz-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
@@ -140,9 +147,11 @@ a {
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  -moz-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -moz-flex-pack: center;
   justify-content: center;
   width: 100%;
   height: 100%;
@@ -175,9 +184,11 @@ a {
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  -moz-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -moz-flex-pack: center;
   justify-content: center;
   position: relative;
   border-radius: 5px;
@@ -202,9 +213,11 @@ a {
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  -moz-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -moz-flex-pack: center;
   justify-content: center;
   border-radius: 50px;
 background: transparent;
@@ -219,6 +232,7 @@ color:white
 .custom-file-preview .prev-img:hover span {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -moz-flexbox;
   display: flex;
 }
 .custom-file-preview .prev-img:hover::after {
@@ -237,9 +251,11 @@ color:white
   width: 100%;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  -moz-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -moz-flex-pack: center;
   justify-content: center;
   background-color: #333;
   color: #f1f1f1;

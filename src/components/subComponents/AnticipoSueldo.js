@@ -9,7 +9,6 @@ import { InputSelect } from "../formularios/InputSelect";
 import { InputCalendario } from "../formularios/InputCalendario";
 import { InputIcon } from "../formularios/InputIcon";
 import { FaHandHoldingUsd, FaSortNumericUp ,FaLessThan } from "react-icons/fa";
-import { GiLockedDoor } from "react-icons/gi";
 import { InputMsg } from "../formularios/InputMsg";
 
 export const AnticipoSueldo = ({ history }) => {
@@ -202,13 +201,13 @@ export const AnticipoSueldo = ({ history }) => {
         /></div>
         <div className='item-b'>
 
-        <InputMsg name='mensaje' change={handleChange} />
+        <InputMsg placeholder='Mensaje' width='334px' name='mensaje' change={handleChange} />
 
 <button className="btn btn-success " onClick={handleAlert}>
   {" "}
   Enviar{" "}
 </button>
-<button className='boton-atras' onClick={handleBack} ><FaLessThan className='atras'/>  Ir a Menú </button>
+<button className='boton-atras' onClick={handleBack} ><FaLessThan className='atras'/>  Ir al Menú </button>
 
         </div>
         </div>

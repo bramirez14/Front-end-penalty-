@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { VscNewFile} from "react-icons/vsc";
 import { Input } from "../formularios/Input";
+import { InputMsg } from "../formularios/InputMsg";
 
 import "./css/createRendicion.css";
 export const CreateRendicion = () => {
@@ -91,18 +92,15 @@ console.log(rendicion);
     <>
       <div className="contenedor-formulario">
         <div className="wrap">
-          <form
-            action=""
-            className="formulario"
-            name="formulario_registro"
-            method="get"
-          >
+         
               {/**Componentes reutilizables */}
-              <Input type='text' name='item' placeholder='Item' handleChange={handleChange}/>
-              <Input  type='text' name='categoria' placeholder='Categoria' handleChange={handleChange}/>
-              <Input  type='text' name='descripcion' placeholder='Descripcion' handleChange={handleChange}/>
-              <Input  type='text' name='nota' placeholder='Notas' handleChange={handleChange}/>
+              <Input  type='text' name='departamento' placeholder='Departamento:  ej Sistemas...' handleChange={handleChange}/>
+              <Input  type='text' name='Responsable' placeholder='Responsable:  ej Esteban, Cristian...' handleChange={handleChange}/>
+              <Input type='text' name='item' placeholder='Items  ej:Disco solido ssd,monitor etc...' handleChange={handleChange}/>
+              <Input  type='text' name='categoria' placeholder='Categoria  ej:informatica,almcen etc...' handleChange={handleChange}/>
               <Input  type='text' name='importe' placeholder='Importe' handleChange={handleChange}/>
+              <InputMsg width='300px' type='text'name='descripcion' placeholder='Descripcion:' handleChange={handleChange}/>
+
             
               
                <div>
@@ -152,7 +150,7 @@ console.log(rendicion);
 
               <button className ='enviar' type='submit' > Enviar </button>
             </div>
-          </form>
+          
         </div>
       </div>
     </>

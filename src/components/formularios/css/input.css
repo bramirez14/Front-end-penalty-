@@ -9,17 +9,25 @@
     outline: none;
     padding: 15px;
     background: none;
-    border: 2px solid #bbdefb;
+   
     border-radius: 12px;
+    font-size: 10px;
+    margin :auto;
   }
   .input-group input[placeholder]
   {
     font-size: 15px;
   }
   
- .input-group input[type="text"]:focus
+ .input-group input:focus
 {
  outline: none;
  border: 1px solid #46a461;
- box-shadow: 1px  2px #46a461
+ box-shadow: 1px  2px #46a461;
+ background-color: #f6fffa;
 }
+.texto{
+  font-size: 22px;
+  border-radius: 12px;
+}
+

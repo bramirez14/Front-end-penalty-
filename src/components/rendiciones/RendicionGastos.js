@@ -7,12 +7,12 @@ import { FormularioRendicion } from './FormularioRendicion';
 
 export const RendicionGastos = () => {
     return (
-        <div className='contenedor'>
+        < >
+        <form className='contenedor' action="post">
         <Encabezado className='item-a'/> 
-        <FormularioRendicion className='item-b'/>
-        <CreateRendicion className='item-c'/>
-       
-
+        <h5>Nueva Rendicion</h5>
+        <CreateRendicion className='item-b'/>
+        </form>
         
       {/*  
       <CreateRendicion/>*/}
@@ -23,6 +23,6 @@ export const RendicionGastos = () => {
     </Col>
   </Form.Group>
  */}
-        </div>
+        </>
     )
 }

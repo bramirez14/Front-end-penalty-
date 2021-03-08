@@ -5,6 +5,7 @@ export const Input = ({ handleChange,name,placeholder,type }) => {
     <>
       <div className="input-group">
         <input
+          className='texto'
           type={type}
           name={name}
           placeholder={placeholder}

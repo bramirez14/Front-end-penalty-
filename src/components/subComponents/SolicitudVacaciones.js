@@ -6,6 +6,7 @@ import { IoInfiniteOutline } from "react-icons/io5";
 import { GiMoneyStack } from "react-icons/gi";
 import { SiGooglecalendar } from "react-icons/si";
 import { TiUser } from "react-icons/ti";
+import { FaLessThan } from "react-icons/fa";
 
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -14,7 +15,7 @@ import { InputSelect } from "../formularios/InputSelect";
 import { InputIcon } from "../formularios/InputIcon";
 import { InputCalendario } from "../formularios/InputCalendario";
 import { InputMsg } from "../formularios/InputMsg";
-
+import './anticipoSueldo.css'
 export const SolicitudVacaciones = ({ history }) => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -172,6 +173,9 @@ const handleSubmit = (e) => {
   return (
     <>
         <Titulo titulo='Vacaciones'/>
+<form onSubmit={handleSubmit}> 
+<div className='contenedor'>
+<div className='item-a'>
         <InputSelect
         icono={<TiUser />}
         array={users}
@@ -213,33 +217,26 @@ const handleSubmit = (e) => {
         <h5>Fecha de finalizacion hasta </h5>
         <InputCalendario  selected={selectedDate.select3} calendar={fechaHasta} />
 
-<InputMsg name='obs' change={handleChange}/>
+        </div>
+        <div className='item-b'>
+        <InputMsg  placeholder='Mensaje' width='334px' name='obs' change={handleChange}/>
 
-      <Container>
-        <Form onSubmit={handleSubmit} >
-         
-       
-        
       
+<button className="btn btn-success " onClick={handleAlert}> Enviar </button>
+
+
+<button className='boton-atras' onClick={handleBack} ><FaLessThan className='atras'/>  Ir al Menú </button>
+        </div>
+</div>
+
+</form>
+       
 
 
         
-          <Form.Group>
-            <Form.Label>Observacion</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={8}
-              id="text"
-              name="obs"
-              defaultValue="Mensaje:"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <button className="btn btn-success " onClick={handleAlert}> Enviar </button>
-        </Form>
 
-        <button onClick={handleBack}>Atras</button>
-      </Container>
+
+     
     </>
   );
 };

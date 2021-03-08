@@ -8,7 +8,6 @@
   display: grid;
   grid-template-columns: minmax(100px,360px);
   grid-template-rows:auto;
-  border: solid 1px;
   row-gap: 15px;
   
 }
@@ -23,7 +22,7 @@
   grid-column-start:1;
   grid-column-end: 2;
   grid-row-start: 2;
-  grid-row-end: 3;
+  grid-row-end: auto;
   
 
 }
@@ -31,7 +30,7 @@
 
 h5{
   text-align: center;
-  margin-top: 20px;
+  margin: 12px;
   background: rgba(0, 0, 0, 0.04);
 }
 b{ margin-right: 99px;}
@@ -41,8 +40,8 @@ b{ margin-right: 99px;}
 }
 .atras{
   font-size: 20px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.2);
+  
+ 
 
 }
 .boton-atras{

@@ -10,7 +10,6 @@ body{width: auto;}
   display: grid;
   grid-template-columns: minmax(100px,360px);
   grid-template-rows:auto;
-  border: solid 1px;
   row-gap: 15px;
   
 }
@@ -21,15 +20,8 @@ body{width: auto;}
   grid-row-end: 2;
 
 }
-.item-b{
-  grid-column-start:1;
-  grid-column-end: 2;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  
 
-}
-.item-c{
+.item-b{
   grid-column-start:1;
   grid-column-end: 2;
   grid-row-start: 3;
