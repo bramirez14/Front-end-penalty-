@@ -202,7 +202,7 @@ export const AnticipoSueldo = ({ history }) => {
         /></div>
         <div className='item-b'>
 
-        <InputMsg />
+        <InputMsg name='mensaje' change={handleChange} />
 
 <button className="btn btn-success " onClick={handleAlert}>
   {" "}

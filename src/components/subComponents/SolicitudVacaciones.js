@@ -2,18 +2,31 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, InputGroup, FormControl } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { FaHandHoldingUsd, FaSortNumericUp } from "react-icons/fa";
+import { IoInfiniteOutline } from "react-icons/io5";
 import { GiMoneyStack } from "react-icons/gi";
 import { SiGooglecalendar } from "react-icons/si";
+import { TiUser } from "react-icons/ti";
+
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Titulo } from "../titulos/Titulo";
+import { InputSelect } from "../formularios/InputSelect";
+import { InputIcon } from "../formularios/InputIcon";
+import { InputCalendario } from "../formularios/InputCalendario";
+import { InputMsg } from "../formularios/InputMsg";
 
 export const SolicitudVacaciones = ({ history }) => {
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
+
+
+
   const [users, setUsers] = useState([]);
   const [selectedDate, setSelectedDate] = useState({
     select1: new Date(),
-    select2: "",
-    select3: "",
+    select2: new Date(),
+    select3: new Date(),
   });
   const [vacaciones, setVacaciones] = useState({
     periodo: "",
@@ -23,8 +36,19 @@ export const SolicitudVacaciones = ({ history }) => {
     dias:"",
     obs: "",
     idusuario: "1",
+    empleado:'Empleado'
   });
-  const { periodo,dias } = vacaciones;
+  const { periodo,dias,empleado} = vacaciones;
+
+  const handleSelectClick = (e) => {
+    let buscarEmpleado = users.find((user) => e.target.value == user.id);
+    setVacaciones({
+      ...vacaciones,
+      empleado: buscarEmpleado.nombre,
+      idusuario: e.target.value,
+    });
+    setOpen(false)
+  }
 
 /*Aleert */
 
@@ -96,7 +120,8 @@ const handleAlert = (e) => {
   };
   /**funcion para saber los dias de vacaciones **/
   const foundUser = ()=>{ let oneUserName = users?.find((user) => user.id == vacaciones.idusuario);
-  return oneUserName.nombre}
+  return oneUserName?.nombre}
+  console.log(foundUser());
   const vacationYears = () => {
     let oneUser = users?.find((user) => user.id == vacaciones.idusuario);
     const options = {
@@ -147,104 +172,58 @@ const handleSubmit = (e) => {
   return (
     <>
         <Titulo titulo='Vacaciones'/>
-      <Container>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Label>Nombre del empleado</Form.Label>
-            <Form.Control
-              as="select"
-              name="idusuario"
-              onChange={(getUser, handleChange)}
-            >
-              {users.map((list) => (
-                <option key={list.id} value={list.id}>
-                  {list.nombre}
-                </option>
-              ))}
-            </Form.Control>
-          </Form.Group>
-          {/**Periodo**/}
-          <Form.Group>
-          <Form.Label>Periodo</Form.Label>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>O</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                id="inlineFormInputGroupUsername"
-                name="periodo"
-                onChange={handleChange}
-              />
-            </InputGroup>
-          </Form.Group>
+        <InputSelect
+        icono={<TiUser />}
+        array={users}
+        empleado={empleado}
+          click={handleSelectClick}
+          open={open}
+          setOpen={setOpen}
+          
+        />
+        <InputIcon
+           name="periodo"
+           placeholder="Periodo"
+           change={handleChange}
+           icono={<IoInfiniteOutline />}
+           open={open2}
+           setOpen={setOpen2}
+           type="number"
+        />
           {periodo.length == 4 ? (
             <>
            <p>Se sugiere que el empleado {foundUser()} le corresponde {vacationDays()} dias usted puede determinar mas o menos a continuacion:</p> 
-           <Form.Group>
-           <InputGroup>
-             <InputGroup.Prepend>
-               <InputGroup.Text>O</InputGroup.Text>
-             </InputGroup.Prepend>
-             <FormControl
-               type='number'
-               name="dias"
-               onChange={handleChange}
-             />
-           </InputGroup>
-         </Form.Group>
+           <h5>Confirme los días</h5>
+           <InputIcon
+           name="dias"
+           placeholder="Dias"
+           change={handleChange}
+           icono={<FaHandHoldingUsd />}
+           open={open3}
+           setOpen={setOpen3}
+           type="number"
+        />
+          
          </>
           ) :""}
+          <h5>Fecha de Solicitud</h5>
+        <InputCalendario  selected={selectedDate.select1} calendar={fechaSolicitud} />
+        <h5>Fecha de vacaciones desde:</h5>
+        <InputCalendario  selected={selectedDate.select2} calendar={fechaDesde} />
+        <h5>Fecha de finalizacion hasta </h5>
+        <InputCalendario  selected={selectedDate.select3} calendar={fechaHasta} />
+
+<InputMsg name='obs' change={handleChange}/>
+
+      <Container>
+        <Form onSubmit={handleSubmit} >
+         
+       
+        
       
 
 
-          <Form.Group>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <SiGooglecalendar className="icono" />
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <DatePicker
-                className="input"
-                name="fechaSolicitud"
-                selected={selectedDate.select1}
-                onChange={fechaSolicitud}
-                dateFormat="dd/MM/yyyy"
-              />
-            </InputGroup>
-          </Form.Group>
-          <Form.Group>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <SiGooglecalendar className="icono" />
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <DatePicker
-                className="input"
-                name="fechaDesde"
-                selected={selectedDate.select2}
-                onChange={fechaDesde}
-                dateFormat="dd/MM/yyyy"
-              />
-            </InputGroup>
-          </Form.Group>{" "}
-          <Form.Group>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <SiGooglecalendar className="icono" />
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <DatePicker
-                className="input"
-                name="fechaHasta"
-                selected={selectedDate.select3}
-                onChange={fechaHasta}
-                dateFormat="dd/MM/yyyy"
-              />
-            </InputGroup>
-          </Form.Group>
+        
           <Form.Group>
             <Form.Label>Observacion</Form.Label>
             <Form.Control

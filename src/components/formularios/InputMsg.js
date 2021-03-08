@@ -1,12 +1,12 @@
 import React from 'react'
 import './css/inputMsg.css'
-export const InputMsg = () => {
+export const InputMsg = ({name,change}) => {
     return (
         <>
               <textarea
               className="mensaje"
-        
-              name="mensaje"
+            onChange={change}
+              name={name}
               rows="5"
               cols="34"
               defaultValue="Mensaje:"

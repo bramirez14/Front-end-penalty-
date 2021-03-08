@@ -17,7 +17,7 @@ export const InputCalendario = ({calendar,selected}) => {
 
           <DatePicker
                 className="input"
-                name="fecha"
+                
                 onChange={calendar}
                 selected={selected}
                 dateFormat="dd/MM/yyyy"
