@@ -5,14 +5,15 @@ import { CreateRendicion } from './CreateRendicion';
 import './css/rendicionGastos.css'
 import { FormularioRendicion } from './FormularioRendicion';
 
-export const RendicionGastos = () => {
+export const RendicionGastos = ({history}) => {
+  
     return (
         < >
-        <form className='contenedor' action="post">
+        <div className='contenedor' >
         <Encabezado className='item-a'/> 
         <h5>Nueva Rendicion</h5>
-        <CreateRendicion className='item-b'/>
-        </form>
+        <CreateRendicion history={history} className='item-b'/>
+        </div>
         
       {/*  
       <CreateRendicion/>*/}

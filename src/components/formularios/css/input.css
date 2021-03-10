@@ -9,7 +9,8 @@
     outline: none;
     padding: 15px;
     background: none;
-   
+    -webkit-appearance: none;
+    -moz-appearance: none;
     border-radius: 12px;
     font-size: 10px;
     margin :auto;
@@ -18,7 +19,6 @@
   {
     font-size: 15px;
   }
-  
  .input-group input:focus
 {
  outline: none;

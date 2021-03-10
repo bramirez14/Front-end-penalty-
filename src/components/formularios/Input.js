@@ -10,6 +10,7 @@ export const Input = ({ handleChange,name,placeholder,type }) => {
           name={name}
           placeholder={placeholder}
           onChange={handleChange}
+          required
         />
       </div>
     </>
