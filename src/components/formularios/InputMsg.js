@@ -7,7 +7,7 @@ export const InputMsg = ({ name, change, width, placeholder }) => {
                 className="mensaje"
                 onChange={change}
                 name={name}
-                rows="5"
+                rows="4"
                 style={{ width: width }}
                 placeholder={placeholder}
                 required

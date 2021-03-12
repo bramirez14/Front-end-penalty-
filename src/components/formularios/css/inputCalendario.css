@@ -1,8 +1,12 @@
 button, input {
   
     height: 43px;
-    width: 292px;
-    border:   solid 2px rgba(0, 0, 0, 0.03);
+    width: 254px;
+    border-top: solid 2px rgba(0, 0, 0, 0.2);
+    border-right: solid 2px rgba(0, 0, 0, 0.2);
+    border-bottom: solid 2px rgba(0, 0, 0, 0.2);
+    border-left: none;
+
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     outline: none;
@@ -26,6 +30,11 @@ button, input:hover{
     margin-top: 1px;
     position: relative;
     bottom: 1px;
+    border-top: solid 2px rgba(0, 0, 0, 0.2);
+    border-left: solid 2px rgba(0, 0, 0, 0.2);
+    border-bottom: solid 2px rgba(0, 0, 0, 0.2);
+    border-right: none;
+
 }
 .icono-calendario{
     color:rgba(0, 0, 0, 0.7);

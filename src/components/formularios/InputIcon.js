@@ -16,7 +16,6 @@ export const InputIcon = ({
   const handleClock = () => {
     setOpen(false);
   };
-  console.log(!!open);
   return (
     <>
       {!!open ? (
@@ -43,6 +42,7 @@ export const InputIcon = ({
             placeholder={placeholder}
             name={name}
             onChange={change}
+            required
           />
         </div>
       ) : (

@@ -4,13 +4,20 @@ flex-wrap:nowrap;
 background: white;
 height: 150px;
 border-bottom: solid 2px #e1e1e1;
+border-radius: 20px;
+width: 330px;
+
+margin: auto;
 }
 .logo{
   
-    width: 100px;
-    height: 149px;
+    width: 80px;
+    height: 120px;
   margin-right: 10px;
 }
 .negrita{
   margin-right:0;
 }
+img{border-radius: 20px;
+width: 120px;
+height: 150px;}

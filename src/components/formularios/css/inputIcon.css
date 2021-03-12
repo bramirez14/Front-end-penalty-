@@ -3,11 +3,11 @@
   flex-wrap: nowrap;
   margin-top: 20px;
   font-family: "Arial", sans-serif;
-  border: solid 2px rgba(0, 0, 0, 0.07);
+  border: solid 2px rgba(0, 0, 0, 0.2);
   border-radius: 14px;
-  width: 340px;
+  width: 300px;
   margin-left: 10px;
- 
+ margin-bottom: 20px;
   height: 45px;
 }
 .contenedor-input:hover{background-color: #f6fffa;}
@@ -34,7 +34,7 @@
 
 .importe{
     height: 41px;
-    width: 288px;
+    width: 227px;
     border:none;
     
     

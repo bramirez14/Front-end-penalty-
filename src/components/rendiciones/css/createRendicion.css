@@ -7,22 +7,13 @@
 }
 
 body {
-  background: white;
   font-family: "Roboto";
 }
 
 .wrap {
-  width: 92%;
-  padding: 14px;
+  width: 324px;
   margin: auto;
-  box-shadow: 0px 0px 3px grey;
-  border-radius: 7px;
 }
-
-
-
-
-
 
 .enviar{
   background: #2892d7;
@@ -42,6 +33,13 @@ body {
   background: #46A461;
  
 }
+.contenedor-inputgroup{
+  background: white;
+  border-radius: 20px;
+  padding-top: 4px;
+}
+
+
 /**Este es el Drag Drop no tocar **/
 img {
   max-width: 100%;
@@ -137,8 +135,12 @@ a {
   -ms-flex-pack: center;
   justify-content: center;
   border: 2px dashed #ddd;
-  height: 200px;
+  height: 160px;
   cursor: -webkit-grab;
+  width: 300px;
+  margin-left: 12px;
+  margin-top: 15px;
+  border-radius: 20px;
   cursor: grab;
 }
 .custom-file-drop-area label {
@@ -226,8 +228,9 @@ color:white
 .custom-file-preview .prev-img img {
   -o-object-fit: cover;
   object-fit: cover;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
+  outline: none;
 }
 .custom-file-preview .prev-img:hover span {
   display: -webkit-box;

@@ -5,9 +5,9 @@
    .input-group input[type]{ 
     font-family: "Roboto";
     color: black;
-    width: 100%;
+    width: 280px;
     outline: none;
-    padding: 15px;
+   
     background: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -17,8 +17,13 @@
   }
   .input-group input[placeholder]
   {
-    font-size: 15px;
+    font-size: 18px;
+    margin-left: 12px;
+    padding: 5px;
+    margin-top:1px;
+    width: 300px;
   }
+
  .input-group input:focus
 {
  outline: none;
@@ -29,5 +34,7 @@
 .texto{
   font-size: 22px;
   border-radius: 12px;
+  border: solid 2px rgba(0, 0, 0, 0.2);
+
 }
 

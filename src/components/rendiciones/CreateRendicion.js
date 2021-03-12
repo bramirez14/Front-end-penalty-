@@ -5,10 +5,14 @@ import { InputMsg } from "../formularios/InputMsg";
 import axios from "axios";
 import "./css/createRendicion.css";
 import { DragDrop } from "../formularios/DragDrop";
+import { InputSelect } from "../formularios/InputSelect";
+import { TiUser } from 'react-icons/ti';
 
 export const CreateRendicion = ({ history }) => {
-  const [highlight, setHighlight] = useState(false);
   const [data, setData] = useState([]);
+  const [highlight, setHighlight] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [users, setUsers] = useState([]);
   const [rendicion, setRendicion] = useState({
     departamento:'',
     responsable:'',
@@ -18,8 +22,10 @@ export const CreateRendicion = ({ history }) => {
     importe: "",
     imagen: [],
     deleteId: [],
+    userId:'1',
+    empleado: "Empleado"
   });
-  const { departamento,responsable, item, categoria, descripcion, importe, imagen,deleteId} = rendicion;
+  const { departamento,responsable, item, categoria, descripcion, importe, imagen,deleteId,empleado }= rendicion;
   console.log(rendicion);
   const handleChange = (e) => {
     setRendicion({
@@ -51,18 +57,46 @@ export const CreateRendicion = ({ history }) => {
     nuevoForm.append('categoria', categoria);
     nuevoForm.append('descripcion',descripcion);
     nuevoForm.append('importe', importe);
+    nuevoForm.append('userId',rendicion.userId)
     let respuesta = await axios.post(
       "http://localhost:4000/api/users/gastos",
       nuevoForm
     );
     console.log(respuesta);
-    //respuesta.status === 200 && history.push("/crud");
+    respuesta.status === 200 && history.push("/profile");
   };
+  const handleSelectClick = (e) => {
+    let buscarEmpleado = users.find((user) => e.target.value == user.id);
+    setRendicion({
+      ...rendicion,
+      empleado: buscarEmpleado.nombre,
+      userId: e.target.value,
+    });
+    setOpen(false);
+  };
+  const getUser = async () => {
+    let result = await axios.get('http://localhost:4000/api/users/allusers');
+    setUsers(result.data);
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
+
 
   return (
     <>
       <form className="wrap" onSubmit={handleSubmit}>
         {/**Componentes reutilizables */}
+      
+        <section className='contenedor-inputgroup'>
+        <InputSelect
+        icono={<TiUser />}
+        array={users}
+        titulo={empleado}
+        click={handleSelectClick}
+        open={open}
+        setOpen={setOpen}/>
+        <div style={{marginTop:'15px'}}>
         <Input
           type="text"
           name="departamento"
@@ -100,6 +134,7 @@ export const CreateRendicion = ({ history }) => {
           placeholder="Descripcion:"
           change={handleChange}
         />
+     </div>
         <DragDrop
           data={data}
           setData={setData}
@@ -110,8 +145,10 @@ export const CreateRendicion = ({ history }) => {
           imagen={imagen}
           deleteId={deleteId}
         />
-
-        <button className="enviar"> Enviar </button>
+         <button  className='btn btn-success '> Enviar </button>
+      </section>
+     
+       
       </form>
     </>
   );

@@ -4,7 +4,7 @@ import "./css/inputSelect.css";
 export const InputSelect = ({
   bottom,
   left,
-  empleado,
+  titulo,
   icono,
   click,
   array,
@@ -29,7 +29,7 @@ export const InputSelect = ({
             </div>
           </label>
 
-          <div className="seleccion">{empleado}</div>
+          <div className="seleccion">{titulo}</div>
 
           <div>
             <FaAngleDown className="flecha" />
@@ -50,7 +50,7 @@ export const InputSelect = ({
             </div>
           </label>
 
-          <div className="seleccion">{empleado}</div>
+          <div className="seleccion">{titulo}</div>
 
           <div>
             <FaAngleDown
