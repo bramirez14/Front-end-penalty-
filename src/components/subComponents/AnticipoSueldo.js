@@ -178,7 +178,16 @@ export const AnticipoSueldo = ({ history }) => {
           <b>Fecha de Solicitud</b>
         </h5>
         <InputCalendario selected={selectedDate} calendar={calendar} />
-
+        <InputIcon
+                  name="importe"
+                  placeholder="Importe"
+                  change={handleChange}
+                  icono={<FaHandHoldingUsd />}
+                  open={open3}
+                  setOpen={setOpen3}
+                  type="number"
+                />
+      
         <InputSelect
           icono={<GiMoneyStack />}
           array={arrayDinero}

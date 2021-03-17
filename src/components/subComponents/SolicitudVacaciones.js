@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, InputGroup, FormControl } from "react-bootstrap";
-import DatePicker from "react-datepicker";
 import { FaHandHoldingUsd, FaSortNumericUp } from "react-icons/fa";
 import { IoInfiniteOutline } from "react-icons/io5";
 import { GiMoneyStack } from "react-icons/gi";
+import { WiDaySunny } from "react-icons/wi";
 import { SiGooglecalendar } from "react-icons/si";
 import { TiUser } from "react-icons/ti";
 import { FaLessThan } from "react-icons/fa";
@@ -127,12 +127,12 @@ export const SolicitudVacaciones = ({ history }) => {
   };
 
   /***funcion para enviar la solicitud al back ***/
-
   const saveVacaciones = async () => {
     let result = await axios.post(
       "http://localhost:4000/api/users/vacaciones",
       vacaciones
     );
+    console.log(result);
     result.status === 200 && history.push("profile");
   };
   const handleSubmit = (e) => {
@@ -155,15 +155,17 @@ export const SolicitudVacaciones = ({ history }) => {
     let diaActual = new Date().toLocaleDateString().split("/")[0];
     let diaVuelta = calculadoraDiasVacaciones().split("/")[0];
    
-    const diasFaltantes = diasTotales - (diaVuelta - diaActual);
-    if (diasFaltantes < 0) {
+    const diasFaltantesFinales = (diasTotales - (diaVuelta - diaActual))
+    console.log(diasFaltantesFinales);
+    if (diasFaltantesFinales < 0) {
       alert("No podes tomarte mas dias de lo que te corresponde");
     } else {
-      alert(`Los dias de vacaciones restantes son ${diasFaltantes} dias `)
+      alert(`Los dias de vacaciones restantes son ${diasFaltantesFinales} dias `)
       console.log(diaVuelta);
     console.log(diaActual);
-    setVacaciones({...vacaciones,diasFaltantes:diasFaltantes})
-    setVacaciones({...vacaciones,fechaHasta:calculadoraDiasVacaciones()})
+    setVacaciones({...vacaciones,
+      fechaHasta:calculadoraDiasVacaciones(),
+      diasFaltantes:diasFaltantesFinales})
     }
   };
   useEffect(() => {
@@ -174,7 +176,7 @@ export const SolicitudVacaciones = ({ history }) => {
   return (
     <>
       <Titulo titulo="Vacaciones" />
-      <form className='formulario'onSubmit={handleSubmit}>
+      <form className='formulario' onSubmit={handleSubmit}>
         <div className="contenedor">
           <div className="item-a">
             <InputSelect
@@ -211,7 +213,7 @@ export const SolicitudVacaciones = ({ history }) => {
                   name="dias"
                   placeholder="Dias"
                   change={handleChange}
-                  icono={<FaHandHoldingUsd />}
+                  icono={<WiDaySunny />}
                   open={open3}
                   setOpen={setOpen3}
                   type="number"

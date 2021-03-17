@@ -5,6 +5,8 @@ import { CreateRendicion } from './CreateRendicion';
 import './css/rendicionGastos.css'
 import { FormularioRendicion } from './FormularioRendicion';
 import { Titulo } from '../titulos/Titulo';
+import { Form } from '../formularios/Form';
+
 
 export const RendicionGastos = ({history}) => {
   
@@ -15,8 +17,9 @@ export const RendicionGastos = ({history}) => {
         <Encabezado className='item-a'/> 
         <Titulo titulo={'Nueva Rendicion'}/>
         <CreateRendicion history={history} className='item-b'/>
+       
         </div>
-        
+        <Form/>
       
         </>
     )

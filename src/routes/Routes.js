@@ -11,7 +11,7 @@ import { InputSelect } from "../components/formularios/InputSelect";
 import { Login } from "../components/login/Login";
 import { Profile } from "../components/login/Profile";
 import { Register } from "../components/login/Register";
-import { CreateRendicion } from "../components/rendiciones/CreateRendicion";
+import { Sidebar } from "../components/Sidebar/Sidebar";
 import { RendicionGastos } from "../components/rendiciones/RendicionGastos";
 import { AnticipoSueldo } from "../components/subComponents/AnticipoSueldo";
 import { SolicitudVacaciones } from "../components/subComponents/SolicitudVacaciones";
@@ -33,12 +33,8 @@ export const Routes = () => {
          <RouteGerente exact path ="/anticipos/sueldos" component={ AnticipoSueldo } />
          <RouteGerente exact path ="/solicitudes/vacaciones" component={ SolicitudVacaciones }/>
          <RouteGerente exact path ='/rendicion/gastos' component = {RendicionGastos}/>
-         <RouteGerente exact path ='/prueba' component = {CreateRendicion}/>
+         <RouteGerente exact path ='/prueba' component = {Sidebar}/>
          <RouteGerente exact path ='/exito' component = {Tarea2}/>
-
-         
-
-
          <RouteAdmin exact path ="/tarea2" component={ Tarea2 }/>
          <RouteGerente  exact path ="/tarea3" component={ Tarea3 }/>
         <RouteGerente exact path ="/profile" component={Profile}/>

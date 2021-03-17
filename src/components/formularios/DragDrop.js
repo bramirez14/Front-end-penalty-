@@ -93,7 +93,6 @@ const handleSubirArchivos = (e) => {
     <input
       type="file"
       name="imagen"
-     
       multiple
       id="filephotos"
       onChange={handleSubirArchivos}
@@ -108,7 +107,7 @@ const handleSubirArchivos = (e) => {
       </h1>{" "}
     </label>
   </div>
-  <div className="custom-file-preview">
+  {/*<div className="custom-file-preview">
     {data === undefined ? (
       <h1>cargando...</h1>
     ) : (
@@ -125,7 +124,7 @@ const handleSubirArchivos = (e) => {
         </div>
       ))
     )}
-  </div>
+      </div>*/}
 </div>
 
     )

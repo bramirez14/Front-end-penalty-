@@ -78,6 +78,9 @@ export const CreateRendicion = ({ history }) => {
     let result = await axios.get('http://localhost:4000/api/users/allusers');
     setUsers(result.data);
   };
+  const llamarGerentes= async()=>{
+    let resultado=await axios.get('http://localhost:4000/api/users/allusers');
+  }
   useEffect(() => {
     getUser();
   }, []);
@@ -115,12 +118,7 @@ export const CreateRendicion = ({ history }) => {
           placeholder="Items  ej:Disco solido ssd,monitor etc..."
           handleChange={handleChange}
         />
-        <Input
-          type="text"
-          name="categoria"
-          placeholder="Categoria  ej:informatica,almcen etc..."
-          handleChange={handleChange}
-        />
+
         <Input
           type="number"
           name="importe"

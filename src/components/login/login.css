@@ -1,20 +1,24 @@
 
   
-  /*****Response modo Celular*******/
-  .App{
-    height: 100px;
-  }
+
   .login {
   padding: 20px 20px;
   text-align: center;
   height:631px
   }
-  .image{
-    height: 200px;
+  /*sector imagen*/
+  .imagen-penalty{
+    height: 230px;
+    width: 230px;
+    margin-left: 40px;
   }
-  .text {
+  /*fin sector imagen*/
+
+  /*sector inputs*/
+  .texto {
     border: none;
-    width: 100%;
+    width: 40%;
+    margin:auto;
     padding: 20px 10px;
     display: block;
     height: 15px;
@@ -24,21 +28,24 @@
     margin-top: 15px;
     color:black;
     transition: all 0.5s ease-in-out;
-    
+
   }
-  .text::placeholder {
+  /*fin sector inputs*/
+  
+  .texto::placeholder {
     color:rgba(102, 97, 97, 0.924);
   }
   
-  .text:focus {
+  .texto:focus {
     outline: 0;
-    border: 2px solid black;
+    border: 1px solid #46a461;
+    box-shadow: 1px  1px #46a461;
     border-radius: 20px;
-    background: rgba(105, 255, 220, .3);
   }
-  
-  .signin {
-     margin-top: 20px;
+
+
+  .ingresar{
+     margin-top: 50px;
       width: 220px;
       height: 36px;
       background:#46A461;
