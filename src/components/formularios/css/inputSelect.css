@@ -40,8 +40,6 @@ font-size: 36px;
   border: solid 2px rgba(0, 0, 0, 0.2);
   width: 300px;
   margin-left: 10px;
-  margin-top: 10px;
- 
   height: 45px;
   max-width: 100%;
   cursor: pointer;
@@ -50,6 +48,7 @@ font-size: 36px;
   appearance: none;
   outline: none;
   transition: all 0.4s;
+  margin-top:20px
 }
 .selected:hover {
   background: #f6fffa;

@@ -1,12 +1,28 @@
 .navbar {
-    background-color:white;
-    
     display: flex;
     justify-content: start;
     align-items: center;
+    background-color: #46a461;
+    height:50px 
+    
+    ;
   }
-  .navbar.active{
-   margin-left:250px;width:82.5%;height:786px; opacity:0.33;
+ 
+  .div-navbar{
+ 
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    height: 119vh;
+    background-color: rgba(0,0,0,0.2);
+    z-index: 997;
+    display: none;
+  }
+  .div-navbar.active{
+       display: block; 
+        opacity: 1;
   }
  
   .menu-bars {
@@ -17,19 +33,21 @@
   
   .nav-menu {
     background-color: #46a461;
-    width: 250px;
-    height: 100vh;
+    width: 271px;
+    height: 102vh;
     display: flex;
     justify-content: center;
     position: fixed;
     top: 0;
     left: -100%;
     transition: 850ms;
+    margin-top: -1px;
   }
   
   .nav-menu.active {
     left: 0;
     transition: 440ms;
+    z-index:1000;
     
   }
   
@@ -72,11 +90,55 @@
     align-items: center;
   }
   
-  span {
-    margin-left: 16px;
-  }
+ 
   .sidebar-open{
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
+    display: grid;
+  grid-template-columns: minmax(100px,300px);
+  grid-template-rows:200px;
+  row-gap: 15px;
+ 
   }
+.sidebar-img{
+  grid-column-start:1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.item{
+  grid-column-start:1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: auto;
+
+}
+.hamburguesa{
+  color:black
+}
+.x{
+position: absolute;
+top:0;
+right:0;
+font-size: 20px;
+color:white
+}
+/*Sector de sidebar react pro*/
+.pro-sidebar > .pro-sidebar-inner{
+  background: transparent;
+}
+.pro-sidebar .pro-menu.shaped .pro-menu-item > .pro-inner-item > .pro-icon-wrapper{
+  background: transparent;
+}
+.pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item{
+  background:#46a461;
+}
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item{
+  padding:0px;
+}
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item > .pro-item-content{
+  margin-left: -3px;
+
+}
+.pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item > div > ul {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}

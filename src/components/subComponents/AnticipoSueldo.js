@@ -144,7 +144,7 @@ export const AnticipoSueldo = ({ history }) => {
     );
 
     if (result.status === 200) {
-      history.push('/profile');
+      history.push('/login');
     }
   };
   const handleSubmit = (e) => {

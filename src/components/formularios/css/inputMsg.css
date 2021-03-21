@@ -1,13 +1,21 @@
  .mensaje{
-     margin:10px;
+     
+     
+     margin-top:20px;
      width: 250px;
      border-radius: 20px;
      border: solid 2px rgba(0, 0, 0, 0.2);
+     padding: 5px;
 
  }
 .mensaje:focus{
   
     background: #f6fffa;
     outline: none;
+    border:solid 2px #46a461;
     
+    
+}
+.mensaje:hover{
+    border:solid 2px #46a461;
 }

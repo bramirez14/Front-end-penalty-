@@ -3,7 +3,7 @@ import { FaHandHoldingUsd, FaAngleDown } from "react-icons/fa";
 import DatePicker from "react-datepicker";
 import { SiGooglecalendar } from "react-icons/si";
 
-import './css/inputCalendario.css'
+//import './css/inputCalendario.css'
 
 export const InputCalendario = ({calendar,selected}) => {
     return (

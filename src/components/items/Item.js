@@ -4,19 +4,19 @@ import { NavLink } from "react-router-dom";
 import { Menu, SubMenu } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { Avatar } from "../img/Avatar";
-
+import { BsFillAlarmFill } from "react-icons/bs";
 export const Item = () => {
   return (
     <>
         
     <Menu style={{marginTop:'50px'}}>
-      <SubMenu title="Solicitudes y Reservas">
+   <SubMenu title='Solicitudes y Reservas' icon={<BsFillAlarmFill/>} >
         <Nav className="flex-column">
-          <NavLink exact to="/anticipos/sueldos">
+         <NavLink to='/anticipos/sueldos' >
             {" "}
             Anticipo de Sueldo{" "}
           </NavLink>
-          <NavLink exact to="/solicitudes/vacaciones">
+          <NavLink to='/solicitudes/vacaciones'>
             {" "}
             Solicitud de Vacaciones
           </NavLink>

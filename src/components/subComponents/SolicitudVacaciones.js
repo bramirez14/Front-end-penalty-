@@ -79,7 +79,7 @@ export const SolicitudVacaciones = ({ history }) => {
   };
 
   const handleBack = () => {
-    history.push("/profile");
+    history.push("/login");
   };
 
   const fechaInicio = (fecha) => {

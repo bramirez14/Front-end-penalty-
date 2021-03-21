@@ -2,5 +2,8 @@
     font-family: 'Courier', sans-serif;
     text-align:center;
     background-color: #47b886;
-    color: white 
+    color: white;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+
    }
