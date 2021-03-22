@@ -1,8 +1,6 @@
 import React from 'react'
 import { BotonSubmit } from '../botones/BotonSubmit'
 import { InputMsg } from '../formularios/InputMsg'
-import { InputSelect } from '../formularios/InputSelect'
-import { InputGoogle } from '../inputGoogle/InputGoogle'
 import { Form, Col, Row, FormControl } from 'react-bootstrap';
 import { Select } from '../inputs/Select'
 

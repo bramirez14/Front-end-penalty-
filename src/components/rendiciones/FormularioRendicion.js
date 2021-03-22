@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Form,Row,Col,Button } from "react-bootstrap";
-import { Input } from '../formularios/Input';
+//import { Input } from '../formularios/Input';
 import './css/formularioRendicion.css'
 export const FormularioRendicion = () => {
     return (

@@ -1,3 +1,6 @@
-#opciones:hover{
-    background:#8af5c1 ;
-}
+option:hover{
+    z-index:10000;
+    background-color:purple;
+    
+  }
+  

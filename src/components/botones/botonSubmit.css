@@ -1,4 +1,16 @@
-.btn{
-    width: 77%;
-    margin-right:100px;
-  }
+ @media (min-width: 380px) {
+    .btn{
+        width: 94%;
+      }
+}
+@media (min-width: 720px) {
+    .btn{
+        width: 94%;
+      }
+
+}@media (min-width: 1024px) {
+    .btn{
+        width: 72%;
+      }
+}
+/*to be continued*/

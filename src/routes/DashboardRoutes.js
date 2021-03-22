@@ -9,8 +9,6 @@ import { Register } from '../components/login/Register'
 import { PerfilGerente } from '../components/perfiles/PerfilGerente'
 import { RendicionGastos } from '../components/rendiciones/RendicionGastos'
 import { Sidebar } from '../components/Sidebar/Sidebar'
-import { AnticipoSueldo } from '../components/subComponents/AnticipoSueldo'
-import { SolicitudVacaciones } from '../components/subComponents/SolicitudVacaciones'
 import { PublicRoute } from './PublicRoute';
 import { RouteGerente } from './RouteGerente'
 import { RouteAdmin } from "./RouteAdmin";

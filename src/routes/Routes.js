@@ -5,19 +5,11 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { Input } from "../components/formularios/Input";
 import { InputCalendario } from "../components/formularios/InputCalendario";
 import { InputMsg } from "../components/formularios/InputMsg";
-import { InputSelect } from "../components/formularios/InputSelect";
 import { Login } from "../components/login/Login";
 import { Profile } from "../components/login/Profile";
 import { Register } from "../components/login/Register";
-import { Sidebar } from "../components/Sidebar/Sidebar";
-import { RendicionGastos } from "../components/rendiciones/RendicionGastos";
-import { AnticipoSueldo } from "../components/subComponents/AnticipoSueldo";
-import { SolicitudVacaciones } from "../components/subComponents/SolicitudVacaciones";
-import { Tarea2 } from "../components/subComponents/Tarea2";
-import { Tarea3 } from "../components/subComponents/Tarea3";
 
 
 import { PrivateRoute } from './PrivateRoute';

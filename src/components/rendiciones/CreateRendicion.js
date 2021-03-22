@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-import { Input } from "../formularios/Input";
+//import { Input } from "../formularios/Input";
 import { InputMsg } from "../formularios/InputMsg";
 import axios from "axios";
 import "./css/createRendicion.css";
 import { DragDrop } from "../formularios/DragDrop";
-import { InputSelect } from "../formularios/InputSelect";
+//import { InputSelect } from "../formularios/InputSelect";
 import { TiUser } from 'react-icons/ti';
 
 export const CreateRendicion = ({ history }) => {

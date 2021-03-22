@@ -6,9 +6,12 @@ import axios from "axios";
 import "./sueldo.css";
 import { Form, Col } from "react-bootstrap";
 import { Select } from "../inputs/Select";
-import emailjs from 'emailjs-com';
+import emailjs from "emailjs-com";
 
 export const Sueldo = ({ history }) => {
+  const[usuario,setUsuario]=useState({
+    condicion:'aprobado'
+  })
   const [users, setUsers] = useState([]);
   const [data, setData] = useState([{ id: "", nombre: "" }]);
   const [arrayDinero] = useState([
@@ -21,11 +24,10 @@ export const Sueldo = ({ history }) => {
     importe: "",
     fecha: new Date().toLocaleDateString(),
     mensaje: "",
-    usuarioId: "1",
-    empleado: "Empleado",
+    usuarioId: "0",
+    condicion:"aprobado"
   });
   const { sueldo, importe, empleado, mensaje, fecha, cuotas } = anticipo;
-  /****Funcion de Alerta******/
 
   const handleClickDinero = (e) => {
     let buscarCatgoriaDinero = arrayDinero.find(
@@ -36,6 +38,7 @@ export const Sueldo = ({ history }) => {
       sueldo: buscarCatgoriaDinero.nombre,
     });
   };
+  /******fx de alerta para el usuario visual*******/
   const handleAlert = (e) => {
     Swal.fire({
       title: "Solicitud enviada",
@@ -47,8 +50,15 @@ export const Sueldo = ({ history }) => {
       imageAlt: "penalty",
     });
   };
-
-  /******Funciones*******/
+ const handleRechazo=()=>{
+    Swal.fire({
+      icon:'error',
+      title:'Oops...',
+      text:'NO PODES ENVIAR EL ANTICIPO PONGASE EN CONTACTO EL DEPARTAMENTO DE GERENCIA, GRACIAS',
+    }
+    )
+  }
+  /******fx para deteminar catidad  de cuotas *******/
   const verifyMonth = () => {
     const options = {
       weekday: "short",
@@ -67,6 +77,7 @@ export const Sueldo = ({ history }) => {
     }
     setData(vacio);
   };
+  /***********tiempo restante para la devolucion************** */
   const subtration = (fechaSolicitud) => {
     let b = "31/12";
     let date_a = fechaSolicitud.split("/"); // ['dd','mm','yyyy']
@@ -74,76 +85,106 @@ export const Sueldo = ({ history }) => {
     let year = date_a[2];
     let restaMes = date_b[1] - date_a[1];
     let restaDia = date_b[0] - date_a[0];
-    return(`
+    return `
     El pago se debera realizar dentro del año ${year}.
     Tenes ${restaDia} dias  y  ${restaMes} meses para la devolucion del anticipo.
-    Desde ya muchas gracias por su comprension`);
+    Desde ya muchas gracias por su comprension`;
   };
-  /***********calculamos el mes */
+  /*********** fin tiempo restante para la devolucion************** */
+
+  /***********calculamos el mes************ */
   const mes = () => {
     let day = new Date().toLocaleDateString().split("/")[1];
     return day;
   };
+  /*********** fin calculamos el mes***** */
+
   const handleChange = (e) => {
-    //console.log(e.target.value);
     setAnticipo({
-      ...anticipo, //copia del anticipo actual
+      ...anticipo, 
       [e.target.name]: e.target.value,
     });
   };
+
+  /******fx solicitud de usuarios a DB con axios *******/
   const getUser = async () => {
+   
     let result = await axios.get("http://localhost:4000/api/users/allusers");
-    console.log(result);
     setUsers(result.data);
+   // console.log(result.data[0].departamento);
   };
-console.log(users);
+  console.log(users);
+  /*********fx para guardar anticipo con axios en DB **********/
   const guardarAnticipo = async () => {
     let result = await axios.post(
       "http://localhost:4000/api/users/anticipo",
       anticipo
     );
-
     if (result.status === 200) {
       history.push("/");
     }
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    guardarAnticipo();
-    enviarMensaje();
-  };
-
+  /********enviamos el formulario a DB********/
+  console.log(usuario);
+/****efecto q se produce una vez despes del rederizado*****/
   useEffect(() => {
     getUser();
     verifyMonth();
   }, []);
-
-
-  const enviarMensaje=()=>{
- 
-
-let usuarioEncontrado= users.find( user => user.id==empleado );
-console.log(usuarioEncontrado);
-let datos={
-empleado:usuarioEncontrado.nombre,
-fecha:fecha,
-//fechaDevolucion:subtration(fecha), falta ria  la sustraccion de  aguinaldo
-mensaje: mensaje,
-importe:importe,
-sueldo:sueldo,
-cuotas:cuotas
-}
-
-emailjs.send('service_jow24ha','template_qgz07f5', datos, 'user_LA9p7MEAHHJWsAMu6m90s')
-    .then(function(response) {
-     console.log('SUCCESS!', response.status, response.text);
-    }, function(error) {
-       console.log('FAILED...', error);
-    });
-
-}
+  const departamento=()=>{
+    let usuarioDep=users.find(u=> u.id==anticipo.usuarioId)
+    return(usuarioDep?.departamento.departamento)
+  }
+ const aprobacion =()=>{
+   let a = users.find(u=> u.id==anticipo.usuarioId)
+  return(a?.condicion);
+ }
+ let handleSubmit;
+ if(aprobacion()!='aprobado'){
+  /*******condicion para envio de mail a cada departamento******* */
+   if(departamento()==='Sistemas'|| departamento()==='Logistica'){
+     handleSubmit = (e) => {
+    e.preventDefault();
+    guardarAnticipo();
+    enviarMensaje();
+  }}else{
+     handleSubmit = (e) => {
+      e.preventDefault();
+      guardarAnticipo();
+    }
+  }
+ }
+  /*********************funcion para enviar un mail de alerta ********************* */
+  const enviarMensaje = () => {
+    let usuarioEncontrado = users.find((user) => user.id == anticipo.usuarioId);
+    console.log(usuarioEncontrado);
+    let datos = {
+      empleado: usuarioEncontrado.nombre,
+      fecha: fecha,
+      //fechaDevolucion:subtration(fecha), falta ria  la sustraccion de  aguinaldo
+      mensaje: mensaje,
+      importe: importe,
+      sueldo: sueldo,
+      cuotas: cuotas,
+    };
+    emailjs
+      .send(
+        "service_jow24ha",
+        "template_qgz07f5",
+        datos,
+        "user_LA9p7MEAHHJWsAMu6m90s"
+      )
+      .then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
+  };
   console.log(anticipo);
-
+  /********************* fin funcion para enviar un mail de alerta ********************* */
   return (
     <>
       <form className="form" onSubmit={handleSubmit}>
@@ -153,11 +194,14 @@ emailjs.send('service_jow24ha','template_qgz07f5', datos, 'user_LA9p7MEAHHJWsAMu
           <Form.Group as={Col} xs={6}>
             <Select
               titulo="Empleado"
-              name="empleado"
+              name="usuarioId"
               array={users}
               change={handleChange}
+              
             />
+         
           </Form.Group>
+            {aprobacion()=='aprobado'?<h4>Ya tenes un anticipo pendiente!!!</h4>:
           <Form.Group as={Col}>
             <Form.Control
               type="number"
@@ -166,7 +210,8 @@ emailjs.send('service_jow24ha','template_qgz07f5', datos, 'user_LA9p7MEAHHJWsAMu
               onChange={handleChange}
             />
           </Form.Group>
-        </Form.Row>
+        
+}</Form.Row>
 
         {/* Fin de Empleado e Importe*/}
         {importe < 3000 ? (
@@ -197,7 +242,7 @@ emailjs.send('service_jow24ha','template_qgz07f5', datos, 'user_LA9p7MEAHHJWsAMu
             </Form.Row>
           </>
         )}
-
+        
         {sueldo === "Sueldo" ? (
           <Form.Row>
             <Form.Group as={Col} xs={12}>
@@ -228,9 +273,16 @@ emailjs.send('service_jow24ha','template_qgz07f5', datos, 'user_LA9p7MEAHHJWsAMu
           />
         )}
         {/**********Mensaje**********/}
+          <Form.Row> 
         <InputMsg width="500px" name="mensaje" change={handleChange} />
-        <BotonSubmit click={handleAlert} />
+        </Form.Row>
+
+        <Form.Row >
+        <BotonSubmit click={ aprobacion()==='aprobado'?handleRechazo:handleAlert} />
+        </Form.Row>
+        
         {/* Fin de Mensaje*/}
+          
       </form>
     </>
   );

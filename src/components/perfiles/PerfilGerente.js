@@ -8,7 +8,6 @@ import {
     Redirect,
     NavLink
   } from "react-router-dom";
-import { AnticipoSueldo } from '../subComponents/AnticipoSueldo';
 import { RouteGerente } from '../../routes/RouteGerente';
 import { Item2 } from '../items/Item2';
 import './perfilGerente.css'

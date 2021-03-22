@@ -5,7 +5,7 @@ import { CreateRendicion } from './CreateRendicion';
 import './css/rendicionGastos.css'
 import { FormularioRendicion } from './FormularioRendicion';
 import { Titulo } from '../titulos/Titulo';
-import { Form } from '../formularios/Form';
+//import { Form } from '../formularios/Form';
 
 
 export const RendicionGastos = ({history}) => {
