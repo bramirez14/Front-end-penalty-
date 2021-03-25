@@ -6,7 +6,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import { Register } from '../components/login/Register'
-import { PerfilGerente } from '../components/perfiles/PerfilGerente'
 import { RendicionGastos } from '../components/rendiciones/RendicionGastos'
 import { Sidebar } from '../components/Sidebar/Sidebar'
 import { PublicRoute } from './PublicRoute';
@@ -15,8 +14,6 @@ import { RouteAdmin } from "./RouteAdmin";
 import { Sueldo } from '../components/solicitudes/Sueldo';
 import { Vacaciones } from '../components/solicitudes/Vacaciones';
 export const DashboardRoutes = ({ history }) => {
-
-
 
   return (
     <>

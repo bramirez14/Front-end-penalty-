@@ -10,9 +10,6 @@ export const InputMsg = ({ name, change, width, placeholder }) => {
                 rows="5"
                 style={{ width: width }}
                 placeholder={ placeholder}
-              
-
-            // onChange={handleChange}
             />
         </>
     )

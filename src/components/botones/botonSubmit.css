@@ -10,7 +10,9 @@
 
 }@media (min-width: 1024px) {
     .btn{
-        width: 72%;
+      margin-top:10px;
+      margin-left: 17px;
+        width: 74%;
       }
 }
 /*to be continued*/

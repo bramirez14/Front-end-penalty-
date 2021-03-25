@@ -1,6 +1,4 @@
 import React from 'react'
-import { Sidebar } from '../Sidebar/Sidebar'
-import { SolicitudVacaciones } from '../subComponents/SolicitudVacaciones'
 import {
     BrowserRouter as Router,
     Switch,
@@ -8,14 +6,12 @@ import {
     Redirect,
     NavLink
   } from "react-router-dom";
-import { RouteGerente } from '../../routes/RouteGerente';
-import { Item2 } from '../items/Item2';
+
 import './perfilGerente.css'
 export const PerfilGerente = () => {
     return (
   <>
   
-  <Router>
   
  
   <div className='contenedor'>
@@ -25,10 +21,7 @@ export const PerfilGerente = () => {
   </div>
 
 
-  <Switch>
-  <Route path ="/solicitudes/vacaciones" component={ SolicitudVacaciones }/>
-  </Switch>  
-  </Router>
+  
   </>
       )
 }

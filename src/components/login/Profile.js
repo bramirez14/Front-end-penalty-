@@ -5,8 +5,6 @@ import {  Menu, SubMenu } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { logout } from '../../auth/localStorage';
 
-//import {FaAngleRight} from 'react-icons/fa'
-
 export const Profile = ({history}) => {
 
   const handleLogout = () => {

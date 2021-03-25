@@ -5,10 +5,27 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import "./sueldo.css";
 import { Form, Col } from "react-bootstrap";
-import { Select } from "../inputs/Select";
 import emailjs from "emailjs-com";
+import { Select } from "../../input/Select";
+import * as yup from 'yup'
+
+
 
 export const Sueldo = ({ history }) => {
+  const validate = values =>{
+    console.log(values)
+    const errores ={} 
+    if(!values?.importe){
+      errores.importe='este campo es obligatorio'
+    }
+    if(!values?.empleado){
+      errores.empleado='este campo es obligatorio'
+
+    }
+    console.log(errores);
+    return errores
+  }
+
   const[usuario,setUsuario]=useState({
     condicion:'aprobado'
   })
@@ -24,10 +41,14 @@ export const Sueldo = ({ history }) => {
     importe: "",
     fecha: new Date().toLocaleDateString(),
     mensaje: "",
-    usuarioId: "0",
-    condicion:"aprobado"
-  });
-  const { sueldo, importe, empleado, mensaje, fecha, cuotas } = anticipo;
+    usuarioId: "",
+    condicion:"aprobado",
+    empleado:'Empleado',
+    errors:""
+  },
+ );
+ const { sueldo, importe, empleado, mensaje, fecha, cuotas, errors } = anticipo;
+
 
   const handleClickDinero = (e) => {
     let buscarCatgoriaDinero = arrayDinero.find(
@@ -38,6 +59,27 @@ export const Sueldo = ({ history }) => {
       sueldo: buscarCatgoriaDinero.nombre,
     });
   };
+  const handleClickChange = (e ) => {
+    let valor=e.target.attributes.name.value
+    if(valor=='usuarioId'){
+//let buscar= users.find((user) => e.target.value == user.id);
+setAnticipo({
+  ...anticipo,
+  empleado: e.target.innerHTML,
+  usuarioId: e.target.value,
+});
+    }
+if(valor=='cuotas'){
+      console.log('cuotas');
+      setAnticipo({
+        ...anticipo,
+        cuotas: e.target.innerHTML,
+        //cuotas: e.target.value,
+      });
+    }
+   
+  }
+ 
   /******fx de alerta para el usuario visual*******/
   const handleAlert = (e) => {
     Swal.fire({
@@ -51,12 +93,23 @@ export const Sueldo = ({ history }) => {
     });
   };
  const handleRechazo=()=>{
+  
     Swal.fire({
       icon:'error',
       title:'Oops...',
       text:'NO PODES ENVIAR EL ANTICIPO PONGASE EN CONTACTO EL DEPARTAMENTO DE GERENCIA, GRACIAS',
     }
     )
+   setAnticipo({ sueldo: "Sueldo",
+   cuotas: "Cuotas",
+   importe: "",
+   fecha: new Date().toLocaleDateString(),
+   mensaje: "",
+   usuarioId: "",
+   condicion:"aprobado",
+   empleado:'Empleado',
+   errors:""})
+    
   }
   /******fx para deteminar catidad  de cuotas *******/
   const verifyMonth = () => {
@@ -68,9 +121,7 @@ export const Sueldo = ({ history }) => {
     };
     let vacio = [];
     let day = new Date().toLocaleDateString(options).split("/");
-    console.log(day);
     let dataEnd = "31/12".split("/");
-    console.log(dataEnd);
     let resta = dataEnd[1] - day[1];
     for (let i = 1; i <= resta; i++) {
       vacio.push({ id: i, nombre: i });
@@ -113,7 +164,6 @@ export const Sueldo = ({ history }) => {
     setUsers(result.data);
    // console.log(result.data[0].departamento);
   };
-  console.log(users);
   /*********fx para guardar anticipo con axios en DB **********/
   const guardarAnticipo = async () => {
     let result = await axios.post(
@@ -125,7 +175,6 @@ export const Sueldo = ({ history }) => {
     }
   };
   /********enviamos el formulario a DB********/
-  console.log(usuario);
 /****efecto q se produce una vez despes del rederizado*****/
   useEffect(() => {
     getUser();
@@ -139,23 +188,50 @@ export const Sueldo = ({ history }) => {
    let a = users.find(u=> u.id==anticipo.usuarioId)
   return(a?.condicion);
  }
+
+ /************submit para enviar el formulario ************************ */
  let handleSubmit;
+
  if(aprobacion()!='aprobado'){
   /*******condicion para envio de mail a cada departamento******* */
    if(departamento()==='Sistemas'|| departamento()==='Logistica'){
      handleSubmit = (e) => {
-    e.preventDefault();
-    guardarAnticipo();
-    enviarMensaje();
+      e.preventDefault();
+      const result = validate(anticipo)
+      setAnticipo({errors:result})
+      console.log(result)
+      if(!Object.keys(result).length){
+        guardarAnticipo();
+         enviarMensaje()
+         handleAlert();
+      }else{
+        alert('estas loco hay errores eso no lo envio')
+              }
   }}else{
      handleSubmit = (e) => {
       e.preventDefault();
-      guardarAnticipo();
+      const result = validate(anticipo)
+      setAnticipo({errors:result})
+      console.log(result)
+      if(!Object.keys(result).length){
+        guardarAnticipo();
+        enviarMensaje()
+      }else{
+        alert('estas loco hay errores eso no lo envio')
+              }
     }
   }
+ }else{
+  handleSubmit = (e) => {
+    e.preventDefault();
+handleRechazo();
+  }
  }
+
+ /************fin submit para enviar el formulario ************************ */
+
   /*********************funcion para enviar un mail de alerta ********************* */
-  const enviarMensaje = () => {
+  const enviarMensaje = () => {//SgJZ2KTta9X#SMG
     let usuarioEncontrado = users.find((user) => user.id == anticipo.usuarioId);
     console.log(usuarioEncontrado);
     let datos = {
@@ -183,24 +259,33 @@ export const Sueldo = ({ history }) => {
         }
       );
   };
-  console.log(anticipo);
+ 
+
+
+
+ console.log(anticipo);
+ // console.log(errors);
+
   /********************* fin funcion para enviar un mail de alerta ********************* */
   return (
     <>
       <form className="form" onSubmit={handleSubmit}>
-        <h3 className="titulo">Anticipo de Sueldo</h3>
+        <h2 className="titulo">Anticipo de Sueldo</h2>
         {/***********Empleado e Importe***********/}
         <Form.Row>
           <Form.Group as={Col} xs={6}>
+          
             <Select
-              titulo="Empleado"
-              name="usuarioId"
-              array={users}
-              change={handleChange}
-              
-            />
-         
+            array={users}
+            width='300px'
+            height='200px'
+            titulo={ empleado||'Empleado'}
+            name="usuarioId"
+            click={handleClickChange}/>
+          { errors?.empleado && <p style={{marginLeft:'12px'}}>{errors.importe} </p>}
+
           </Form.Group>
+     
             {aprobacion()=='aprobado'?<h4>Ya tenes un anticipo pendiente!!!</h4>:
           <Form.Group as={Col}>
             <Form.Control
@@ -209,77 +294,84 @@ export const Sueldo = ({ history }) => {
               placeholder="Importe"
               onChange={handleChange}
             />
+            
+          { errors?.importe && <p style={{marginLeft:'12px'}}>{errors.importe} </p>}
+
           </Form.Group>
+        
         
 }</Form.Row>
 
         {/* Fin de Empleado e Importe*/}
         {importe < 3000 ? (
           <>
+         
             <Form.Row>
               <Form.Group as={Col} xs={12}>
                 <Select
-                  titulo="Devolucion"
+                  titulo={sueldo||'Devolucion'}
                   name="sueldo"
                   array={arrayDinero}
-                  change={handleClickDinero}
+                  click={handleClickDinero}
+                  widthSelect='654px'
+                  width='654px'
+                  height='auto'
+                  name='devolucion'
+
                 />
               </Form.Group>
             </Form.Row>
           </>
         ) : (
           <>
-            <Form.Row>
-              <Form.Group as={Col} xs={12}>
-                <Form.Control
-                  type="text"
-                  name="sueldo"
-                  placeholder="Sueldo"
-                  disabled
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Form.Row>
+            <div className='fuera-servicio'>Sueldo</div>
           </>
         )}
         
         {sueldo === "Sueldo" ? (
-          <Form.Row>
-            <Form.Group as={Col} xs={12}>
               <Select
-                titulo="Cuotas"
+                titulo={cuotas || 'Cuotas'}
                 array={data}
                 name="cuotas"
-                change={handleChange}
+                click={handleClickChange}
+                widthSelect='654px'
+                width='654px'
+                height='200px'
+                name='cuotas'
               />
-            </Form.Group>
-          </Form.Row>
         ) : mes() > 0 && mes() <= 5 ? (
           <Select
-            titulo="Cuotas"
+          titulo={cuotas || 'Cuotas'}
             array={[{ id: 1, nombre: 1 }]}
             name="cuotas"
-            change={handleChange}
+            click={handleClickChange}
+            widthSelect='654px'
+            height='auto'
+            width='654px'
           />
         ) : (
           <Select
-            titulo="Cuotas"
+          titulo={cuotas || 'Cuotas'}        
             array={[
               { id: 1, nombre: 1 },
               { id: 2, nombre: 2 },
             ]}
             name="cuotas"
-            change={handleChange}
+            click={handleClickChange}
+            height='auto'
+            width='654px'
           />
         )}
         {/**********Mensaje**********/}
           <Form.Row> 
         <InputMsg width="500px" name="mensaje" change={handleChange} />
         </Form.Row>
-
+        
+              
         <Form.Row >
-        <BotonSubmit click={ aprobacion()==='aprobado'?handleRechazo:handleAlert} />
+        <BotonSubmit  />
         </Form.Row>
+
         
         {/* Fin de Mensaje*/}
           
