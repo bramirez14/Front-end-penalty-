@@ -32,7 +32,7 @@ console.log(result.data);
         "tipo",
         JSON.stringify(result.data.user.tipousuario)
       );
-      history.push("/anticipos/sueldos");
+      history.push("/gerencia/perfil");
     } else {
       setMsg(result.data.message);
     }

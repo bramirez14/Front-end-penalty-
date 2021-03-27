@@ -1,0 +1,31 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 25% 100px auto;
+    border:solid 1px black;
+    min-width :100%;
+    height :auto;
+    
+  }
+  .container-active{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 25% 100px auto;
+    border:solid 1px black;
+    min-width :100%;
+    height :auto;
+    padding-left:284px
+  }
+  .sector1{
+      background: blueviolet;
+      height: 500px;
+  }
+  .sector2{
+ background: brown;
+  }
+  .sector3{
+      background: cadetblue;
+  }
+  .sector4{
+      background:aqua;
+  }

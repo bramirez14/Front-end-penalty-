@@ -18,13 +18,18 @@ import { RouteAdmin } from "./RouteAdmin";
 import { RouteGerente } from "./RouteGerente";
 import { PerfilGerente } from "../components/perfiles/PerfilGerente";
 import { DashboardRoutes } from "./DashboardRoutes";
+import { Sidebar } from "../components/Sidebar/Sidebar";
+import SidebarContext from "../components/context/SidebarContext";
 export const Routes = () => {
   return (
     <Router>
     <Switch>
+     
       <PublicRoute exact path="/login" component={ Login } />
       <PublicRoute exact path ="/register" component={Register}/>
+    
       <Route path="/" component={ DashboardRoutes } />
+     
     </Switch>
   </Router>
 
