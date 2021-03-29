@@ -7,28 +7,10 @@ import "./sueldo.css";
 import { Form, Col } from "react-bootstrap";
 import emailjs from "emailjs-com";
 import { Select } from "../../input/Select";
-import * as yup from 'yup'
-
 
 
 export const Sueldo = ({ history }) => {
-  const validate = values =>{
-    console.log(values)
-    const errores ={} 
-    if(!values?.importe){
-      errores.importe='este campo es obligatorio'
-    }
-    if(!values?.empleado){
-      errores.empleado='este campo es obligatorio'
 
-    }
-    console.log(errores);
-    return errores
-  }
-
-  const[usuario,setUsuario]=useState({
-    condicion:'aprobado'
-  })
   const [users, setUsers] = useState([]);
   const [data, setData] = useState([{ id: "", nombre: "" }]);
   const [arrayDinero] = useState([
@@ -197,28 +179,18 @@ if(valor=='cuotas'){
    if(departamento()==='Sistemas'|| departamento()==='Logistica'){
      handleSubmit = (e) => {
       e.preventDefault();
-      const result = validate(anticipo)
-      setAnticipo({errors:result})
-      console.log(result)
-      if(!Object.keys(result).length){
+      handleAlert();
         guardarAnticipo();
          enviarMensaje()
-         handleAlert();
-      }else{
-        alert('estas loco hay errores eso no lo envio')
-              }
-  }}else{
+       
+      }
+  }else{
      handleSubmit = (e) => {
       e.preventDefault();
-      const result = validate(anticipo)
-      setAnticipo({errors:result})
-      console.log(result)
-      if(!Object.keys(result).length){
+      handleAlert();
         guardarAnticipo();
         enviarMensaje()
-      }else{
-        alert('estas loco hay errores eso no lo envio')
-              }
+      
     }
   }
  }else{
@@ -259,13 +231,7 @@ handleRechazo();
         }
       );
   };
- 
-
-
-
  console.log(anticipo);
- // console.log(errors);
-
   /********************* fin funcion para enviar un mail de alerta ********************* */
   return (
     <>
@@ -294,18 +260,12 @@ handleRechazo();
               placeholder="Importe"
               onChange={handleChange}
             />
-            
-          { errors?.importe && <p style={{marginLeft:'12px'}}>{errors.importe} </p>}
-
           </Form.Group>
-        
-        
-}</Form.Row>
+          }</Form.Row>
 
         {/* Fin de Empleado e Importe*/}
         {importe < 3000 ? (
           <>
-         
             <Form.Row>
               <Form.Group as={Col} xs={12}>
                 <Select

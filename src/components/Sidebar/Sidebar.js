@@ -14,7 +14,6 @@ export const Sidebar = () => {
 
  const Sidebar=useContext(UserContext)
  const {open,setOpen}=Sidebar;
- console.log(open);
   const showSidebar = () => setOpen(!open);
   return (
     <>
