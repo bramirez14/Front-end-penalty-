@@ -284,8 +284,16 @@ handleRechazo();
           </>
         ) : (
           <>
-            <div className='fuera-servicio'>Sueldo</div>
-          </>
+          <Form.Row>
+          <Form.Group as={Col} xs={12}>
+          <Form.Control
+          placeholder='Sueldo'
+            type='text'
+             disabled
+          />
+        </Form.Group>
+        </Form.Row>
+        </>
         )}
         
         {sueldo === "Sueldo" ? (
