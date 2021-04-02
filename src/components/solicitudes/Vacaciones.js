@@ -83,12 +83,12 @@ const handleAlert = () => {
     let buscarVacaciones=vaca.find(u=>u.id==e.target.value);//este vaca es del estado vaca no de users
 
     if(valor=='usuarioId'){
-      setDia({datosDias:arrayDias})
+      setDia('dias')
       setPeriodo({datosPeriodo:arrayPeriodo})
       setVacaciones({
         ...vacaciones,
         usuarioId: e.target.value,
-        dias: maximoDeDiasVacaciones().toString()
+        dias: diasDeVacacionesPorAño().toString()
       })
     }else if(valor==='periodo'){
       let periodoId= e.target.value
@@ -97,6 +97,8 @@ const handleAlert = () => {
       setVacaciones({...vacaciones,periodo:buscarPeriodo?.nombre.toString()})
       setDia(buscarVacaciones?.diasFaltantes)
       
+    }else if(valor==='fechaDesde'){
+
     }else{
       setVacaciones({
         ...vacaciones,
@@ -106,43 +108,14 @@ const handleAlert = () => {
 
   };
   
-  /*const handleClickChange = (e) => {
-   
-    
-    //console.log(users)
- let buscarVacaciones=vaca.find(u=>u.id==e.target.value);
- //console.log(buscarVacaciones?.diasFaltantes);
-
-if(valor=='usuarioId'){
-
-  setDia({datosDias:arrayDias})
-  setPeriodo({datosPeriodo:arrayPeriodo})
-  
-  setVacaciones({
-    ...vacaciones,
-    empleado: e.target.innerHTML,
-    usuarioId: e.target.value,
-    dias: maximoDeDiasVacaciones().toString()
-  })
- 
-
-}else if(valor==='periodo'){
-  setPeriodo({...periodo,titulo:e.target.innerHTML})
-  setVacaciones({...vacaciones,periodo:e.target.innerHTML})
-  setDia(buscarVacaciones?.diasFaltantes)
-}else if(valor=='dias'){
-  console.log(vacaciones);
- let aaa = users.map(o=>o.vaca)
- let bbb= aaa.map(o=>o.vaca)
- //console.log(aaa);
-} };*/
 
 const diasDeVacacionesEmpleado=()=>{
-  //console.log(users);
   let buscarUsuario= users.find(v=>v.id==vacaciones.usuarioId)
+  console.log(buscarUsuario);
   let f=new Date().toLocaleDateString().split('/')[2]-buscarUsuario?.fechaContratacion.split('/')[2]
   return(f);
 }
+console.log(diasDeVacacionesEmpleado());
 
 const diasDeVacacionesPorAño = () => {
   let vacation =
@@ -155,7 +128,7 @@ const diasDeVacacionesPorAño = () => {
       : 35;
   return vacation;
 };
-
+console.log(diasDeVacacionesPorAño());
 const maximoDeDiasVacaciones=()=>{
 let buscarPorDiasVacaciones = diasVacaciones.find(d=>d.nombre==diasDeVacacionesPorAño())
 //console.log(buscarPorDiasVacaciones?.nombre);
@@ -240,7 +213,7 @@ let fechaActual= new Date();
       setValidated(true);
      }
 
-console.log(verificarSiUsuarioTieneVacacionesPendientes())
+console.log(dia)
 
 console.log(vacaciones);
     return (
@@ -301,13 +274,13 @@ console.log(vacaciones);
           <Form.Label style={{marginLeft:'10px'}}>Dias</Form.Label>
           <Form.Control
           placeholder={dia||'dias'}
-            type='text'
-             disabled
+            type='number'
+            disabled
           />
         </Form.Group>
         <Form.Group as={Col} md="6" >
         <Form.Label style={{marginLeft:'20px'}}>Inicio de Vacaciones</Form.Label>
-       <InputCalendario selected={selectedDate.select2} change={fechaInicio} />
+       <InputCalendario selected={selectedDate.select2} name={'fechaDesde'} change={fechaInicio} />
           </Form.Group>
      
         </>
