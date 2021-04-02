@@ -4,66 +4,37 @@ import { InputMsg } from "../formularios/InputMsg";
 import Swal from "sweetalert2";
 import axios from "axios";
 import "./sueldo.css";
-import { Form, Col } from "react-bootstrap";
+import { Form, Col, InputGroup, Button } from "react-bootstrap";
 import emailjs from "emailjs-com";
-import { Select } from "../../input/Select";
-
+import { Select } from "../inputs/Select";
 
 export const Sueldo = ({ history }) => {
-
+  const [validated, setValidated] = useState(false);
   const [users, setUsers] = useState([]);
   const [data, setData] = useState([{ id: "", nombre: "" }]);
-  const [arrayDinero] = useState([
-    { id: 1, nombre: "Sueldo" },
-    { id: 2, nombre: "Aguinaldo" },
-  ]);
   const [anticipo, setAnticipo] = useState({
     sueldo: "Sueldo",
-    cuotas: "Cuotas",
+    cuotas: "",
     importe: "",
     fecha: new Date().toLocaleDateString(),
     mensaje: "",
-    usuarioId: "",
+    usuId: "",
     condicion:"aprobado",
-    empleado:'Empleado',
-    errors:""
+   
   },
  );
- const { sueldo, importe, empleado, mensaje, fecha, cuotas, errors } = anticipo;
+ const { sueldo, importe, empleado, mensaje, fecha, cuotas } = anticipo;
+ const handleChange = (e) => {
+  setAnticipo({
+    ...anticipo, 
+    [e.target.name]: e.target.value,
+  });
+};
 
 
-  const handleClickDinero = (e) => {
-    let buscarCatgoriaDinero = arrayDinero.find(
-      (dinero) => e.target.value == dinero.id
-    );
-    setAnticipo({
-      ...anticipo,
-      sueldo: buscarCatgoriaDinero.nombre,
-    });
-  };
-  const handleClickChange = (e ) => {
-    let valor=e.target.attributes.name.value
-    if(valor=='usuarioId'){
-//let buscar= users.find((user) => e.target.value == user.id);
-setAnticipo({
-  ...anticipo,
-  empleado: e.target.innerHTML,
-  usuarioId: e.target.value,
-});
-    }
-if(valor=='cuotas'){
-      console.log('cuotas');
-      setAnticipo({
-        ...anticipo,
-        cuotas: e.target.innerHTML,
-        //cuotas: e.target.value,
-      });
-    }
-   
-  }
  
   /******fx de alerta para el usuario visual*******/
-  const handleAlert = (e) => {
+  const handleAlert = () => {
     Swal.fire({
       title: "Solicitud enviada",
       text: "Se aprobara en un plazo de 24hs, gracias por la espera.",
@@ -75,34 +46,20 @@ if(valor=='cuotas'){
     });
   };
  const handleRechazo=()=>{
-  
+
     Swal.fire({
       icon:'error',
       title:'Oops...',
       text:'NO PODES ENVIAR EL ANTICIPO PONGASE EN CONTACTO EL DEPARTAMENTO DE GERENCIA, GRACIAS',
     }
     )
-   setAnticipo({ sueldo: "Sueldo",
-   cuotas: "Cuotas",
-   importe: "",
-   fecha: new Date().toLocaleDateString(),
-   mensaje: "",
-   usuarioId: "",
-   condicion:"aprobado",
-   empleado:'Empleado',
-   errors:""})
+   
     
   }
   /******fx para deteminar catidad  de cuotas *******/
-  const verifyMonth = () => {
-    const options = {
-      weekday: "short",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
+  const verificarMes = () => {
     let vacio = [];
-    let day = new Date().toLocaleDateString(options).split("/");
+    let day = new Date().toLocaleDateString().split("/");
     let dataEnd = "31/12".split("/");
     let resta = dataEnd[1] - day[1];
     for (let i = 1; i <= resta; i++) {
@@ -132,13 +89,6 @@ if(valor=='cuotas'){
   };
   /*********** fin calculamos el mes***** */
 
-  const handleChange = (e) => {
-    setAnticipo({
-      ...anticipo, 
-      [e.target.name]: e.target.value,
-    });
-  };
-
   /******fx solicitud de usuarios a DB con axios *******/
   const getUser = async () => {
    
@@ -152,6 +102,7 @@ if(valor=='cuotas'){
       "http://localhost:4000/api/users/anticipo",
       anticipo
     );
+    console.log(result);
     if (result.status === 200) {
       history.push("/");
     }
@@ -160,17 +111,30 @@ if(valor=='cuotas'){
 /****efecto q se produce una vez despes del rederizado*****/
   useEffect(() => {
     getUser();
-    verifyMonth();
+    verificarMes();
   }, []);
+
   const departamento=()=>{
-    let usuarioDep=users.find(u=> u.id==anticipo.usuarioId)
+    let usuarioDep=users.find(u=> u.id==anticipo.usuId)
     return(usuarioDep?.departamento.departamento)
   }
  const aprobacion =()=>{
-   let a = users.find(u=> u.id==anticipo.usuarioId)
+   let a = users.find(u=> u.id==anticipo.usuId)
   return(a?.condicion);
  }
 
+ const validacion=(e)=>{
+  const form = e.currentTarget;
+  if (form.checkValidity() == false) {
+    e.preventDefault();
+    e.stopPropagation();
+ }else{
+  handleAlert();
+  guardarAnticipo();
+  //enviarMensaje()
+ }
+  setValidated(true);
+ }
  /************submit para enviar el formulario ************************ */
  let handleSubmit;
 
@@ -179,24 +143,24 @@ if(valor=='cuotas'){
    if(departamento()==='Sistemas'|| departamento()==='Logistica'){
      handleSubmit = (e) => {
       e.preventDefault();
-      handleAlert();
-        guardarAnticipo();
-         enviarMensaje()
+      validacion(e);
+      
        
       }
   }else{
      handleSubmit = (e) => {
       e.preventDefault();
-      handleAlert();
-        guardarAnticipo();
-        enviarMensaje()
-      
+      validacion(e);
+     
     }
   }
  }else{
   handleSubmit = (e) => {
     e.preventDefault();
-handleRechazo();
+    validacion(e);
+    handleRechazo(e);
+
+
   }
  }
 
@@ -204,10 +168,10 @@ handleRechazo();
 
   /*********************funcion para enviar un mail de alerta ********************* */
   const enviarMensaje = () => {//SgJZ2KTta9X#SMG
-    let usuarioEncontrado = users.find((user) => user.id == anticipo.usuarioId);
+    let usuarioEncontrado = users.find((user) => user.id == anticipo.usuId);
     console.log(usuarioEncontrado);
     let datos = {
-      empleado: usuarioEncontrado.nombre,
+      empleado: usuarioEncontrado?.nombre,
       fecha: fecha,
       //fechaDevolucion:subtration(fecha), falta ria  la sustraccion de  aguinaldo
       mensaje: mensaje,
@@ -235,115 +199,86 @@ handleRechazo();
   /********************* fin funcion para enviar un mail de alerta ********************* */
   return (
     <>
-      <form className="form" onSubmit={handleSubmit}>
-        <h2 className="titulo">Anticipo de Sueldo</h2>
-        {/***********Empleado e Importe***********/}
-        <Form.Row>
-          <Form.Group as={Col} xs={6}>
-          
-            <Select
-            array={users}
-            width='300px'
-            height='200px'
-            titulo={ empleado||'Empleado'}
-            name="usuarioId"
-            click={handleClickChange}/>
-          { errors?.empleado && <p style={{marginLeft:'12px'}}>{errors.importe} </p>}
-
-          </Form.Group>
-     
-            {aprobacion()=='aprobado'?<h4>Ya tenes un anticipo pendiente!!!</h4>:
-          <Form.Group as={Col}>
-            <Form.Control
-              type="number"
-              name="importe"
-              placeholder="Importe"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          }</Form.Row>
-
-        {/* Fin de Empleado e Importe*/}
-        {importe < 3000 ? (
-          <>
-            <Form.Row>
-              <Form.Group as={Col} xs={12}>
-                <Select
-                  titulo={sueldo||'Devolucion'}
-                  name="sueldo"
-                  array={arrayDinero}
-                  click={handleClickDinero}
-                  widthSelect='654px'
-                  width='654px'
-                  height='auto'
-                  name='devolucion'
-
-                />
-              </Form.Group>
-            </Form.Row>
-          </>
-        ) : (
-          <>
-          <Form.Row>
-          <Form.Group as={Col} xs={12}>
-          <Form.Control
-          placeholder='Sueldo'
-            type='text'
-             disabled
-          />
+       <Form className='form' noValidate validated={validated}  onSubmit={handleSubmit}>
+       <h3 className="titulo">Anticipo de Sueldo</h3>
+      <Form.Row>
+        <Form.Group as={Col} md="6" controlId="validationCustom01">
+          <Select
+          titulo="Empleado"
+          name="usuId"
+          array={users}
+          change={handleChange}
+          />{/*Selec boostrap personal */}
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         </Form.Group>
-        </Form.Row>
-        </>
-        )}
-        
-        {sueldo === "Sueldo" ? (
-              <Select
-                titulo={cuotas || 'Cuotas'}
-                array={data}
-                name="cuotas"
-                click={handleClickChange}
-                widthSelect='654px'
-                width='654px'
-                height='200px'
-                name='cuotas'
-              />
-        ) : mes() > 0 && mes() <= 5 ? (
-          <Select
-          titulo={cuotas || 'Cuotas'}
-            array={[{ id: 1, nombre: 1 }]}
-            name="cuotas"
-            click={handleClickChange}
-            widthSelect='654px'
-            height='auto'
-            width='654px'
+        {aprobacion()=='aprobado'?<h4>Ya tenes un anticipo pendiente!!!</h4>:
+        <Form.Group as={Col} md="6" controlId="validationCustom02">
+          <Form.Control
+            required
+            type="number"
+            placeholder="Importe"
+            name='importe'
+            onChange={handleChange}
           />
-        ) : (
-          <Select
-          titulo={cuotas || 'Cuotas'}        
-            array={[
-              { id: 1, nombre: 1 },
-              { id: 2, nombre: 2 },
-            ]}
-            name="cuotas"
-            click={handleClickChange}
-            height='auto'
-            width='654px'
-          />
-        )}
-        {/**********Mensaje**********/}
-          <Form.Row> 
-        <InputMsg width="500px" name="mensaje" change={handleChange} />
-        </Form.Row>
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        </Form.Group>
+}
+      </Form.Row>
+{/*Separacio............................................. */}
+<Form.Row>
+{importe < 3000 ?   <Form.Group as={Col} md="12" controlId="validationCustom03">
         
-              
-        <Form.Row >
-        <BotonSubmit  />
-        </Form.Row>
+          <Form.Control as='select' name="sueldo" onChange={handleChange}>
+          <option value="Sueldo">Sueldo</option>
+    <option value="Aguinaldo">Aguinaldo</option>
+    
+  </Form.Control>
+          <Form.Control.Feedback type="invalid">
+           Selecione una opcion
+          </Form.Control.Feedback>
+        </Form.Group>
+        :
+         <Form.Group as={Col} md="12" controlId="validationCustom03">
+        <Form.Control  disabled placeholder='Sueldo'/>
+        
+       </Form.Group>}
+      {sueldo === "Sueldo" ? 
+        <Form.Group as={Col} md="12" controlId="validationCustom04">
+          <Select 
+          titulo="Cuotas"
+          name="cuotas"
+          array={data}
+          change={handleChange}
+          />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid state.
+          </Form.Control.Feedback>
+        </Form.Group>
+        :
+        mes() > 0 && mes() <= 5 ?
+        <Form.Group as={Col} md="12" >
+         <Form.Control as='select' name='cuotas'>
+           <option value='1'>1</option>
+         </Form.Control>
+       </Form.Group>
+        :
+        <Form.Group as={Col} md="12" >
+           <Form.Control as='select' name='cuotas'>
+           <option value='1'>1</option>
+           <option value='2'>2</option>
 
-        
-        {/* Fin de Mensaje*/}
-          
-      </form>
+         </Form.Control>
+          </Form.Group>} 
+     
+
+       
+      </Form.Row>
+      <Form.Group controlId="exampleForm.ControlTextarea1">
+    
+    <Form.Control as="textarea" placeholder='Mensaje' rows={4} name='mensaje' onChange={handleChange}/>
+  </Form.Group>
+  <Button  style={{width:'620px'}}type="submit" variant="success" >Enviar</Button>
+    </Form>
     </>
   );
 };

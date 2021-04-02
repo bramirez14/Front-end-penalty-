@@ -6,25 +6,18 @@ import './css/inputCalendario.css'
 
 export const InputCalendario = ({change,selected}) => {
     return (
-       
-
        <div className='oooo'>
-          
           <label className="label-icon-calendar">
           <SiGooglecalendar className="icono-calendario" />
           </label>
 
-         <DatePicker
+         <DatePicker 
                 className="input"
-                
                 onChange={change}
                 selected={selected}
                 dateFormat="dd/MM/yyyy"
+               
               />
 </div>
-   
-     
-      
-    
-    )
+)
 }

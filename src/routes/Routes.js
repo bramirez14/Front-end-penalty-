@@ -28,7 +28,7 @@ export const Routes = () => {
       <PublicRoute exact path="/login" component={ Login } />
       <PublicRoute exact path ="/register" component={Register}/>
     
-      <Route path="/" component={ DashboardRoutes } />
+      <PrivateRoute path="/" component={ DashboardRoutes } />
      
     </Switch>
   </Router>

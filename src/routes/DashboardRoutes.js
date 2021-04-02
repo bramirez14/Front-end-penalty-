@@ -31,7 +31,7 @@ export const DashboardRoutes = ({ history }) => {
           <RouteGerente exact path='/penalty/gastos' component={RendicionGastos} />
           <RouteGerente exact path='/prueba' component={Sidebar} />
      
-          <Redirect to="/gerencia/perfil" />
+          <Redirect to="/login" />
       
         </Switch>
 

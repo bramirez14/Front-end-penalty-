@@ -5,7 +5,7 @@ import { isLogged } from '../auth/localStorage'
 export const PrivateRoute = props => isLogged()
 
     ? <Route { ...props }/>
-    : <Redirect to="/"/>
+    : <Redirect to="/login"/>
     
 
     

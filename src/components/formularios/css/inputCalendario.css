@@ -1,56 +1,56 @@
 button, input {
   
-    height: 43px;
-    width: 254px;
-    border-top: solid 1px rgba(0, 0, 0, 0.2);
-    border-right: solid 1px rgba(0, 0, 0, 0.2);
-    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+    height: 34px;
+    width: 240px;
+    border-top: solid 2px rgba(0, 0, 0, 0.2);
+    border-right: solid 2px rgba(0, 0, 0, 0.2);
+    border-bottom: solid 2px rgba(0, 0, 0, 0.2);
     border-left: none;
+    
 
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
     outline: none;
 }
 button, input:hover{
     background: #f6fffa;
-    border:solid 2px #46a461;
 
 }
 .label-icon-calendar{
     background: rgba(0, 0, 0, 0.04);
     color:white;
     width: 45px;
-    height: 43px;
-   -webKit-border-top-left-radius: 20%;
-   -moz-border-top-left-radius: 20%;
-   -webKit-border-bottom-left-radius: 20%;
-   -moz-border-bottom-left-radius: 20%;
-    border-top-left-radius: 20%;
-    border-bottom-left-radius: 20%;
-    margin-left: 10px;
+    height: 34px;
+   -webKit-border-top-left-radius: 14px;
+   -moz-border-top-left-radius: 14px;
+   -webKit-border-bottom-left-radius: 14px;
+   -moz-border-bottom-left-radius: 14px;
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+    /*margin-left: 10px;*/
     margin-top: 1px;
     position: relative;
     bottom: 1px;
-    border-top: solid 1px rgba(0, 0, 0, 0.2);
-    border-left: solid 1px rgba(0, 0, 0, 0.2);
-    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+    border-top: solid 2px rgba(0, 0, 0, 0.2);
+    border-left: solid 2px rgba(0, 0, 0, 0.2);
+    border-bottom: solid 2px rgba(0, 0, 0, 0.2);
     border-right: none;
 
 }
 .icono-calendario{
     color:rgba(0, 0, 0, 0.7);
 position: absolute;
-margin-top: 8px;
+margin-top: 3px;
 left: 10px;
-font-size: 27px;
+font-size: 24px;
+
 
 }
 /**************personalizacion del calendario*********/
 /*El input numero mas grandes*/
 button, input, optgroup, select, textarea {
     font-size: 25px;
-    
-    
+    padding: 10px;
 }
 /* El fonodo de  las semanas y meses */
 .react-datepicker__header:not(.react-datepicker__header--has-time-select) {
@@ -73,5 +73,7 @@ button, input, optgroup, select, textarea {
 .oooo{
     display: flex;
     flex-wrap: nowrap;
+    margin-top:10px;
+    margin-left:27px;
   }
   

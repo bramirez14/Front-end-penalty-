@@ -5,7 +5,7 @@ export const Select = ({titulo,array,change,name,click}) => {
     return (
         <Form.Control xs={7} as='select'  name={name} onChange={change} defaultValue={titulo} required>
           
-      <option  >{titulo}</option>
+      <option>{titulo}</option>
       { 
          array?.map((list) => (
            <option 
