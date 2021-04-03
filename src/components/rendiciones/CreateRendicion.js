@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-
-import { Input } from "../formularios/Input";
 import { InputMsg } from "../formularios/InputMsg";
 import axios from "axios";
 import "./css/createRendicion.css";
 import { DragDrop } from "../formularios/DragDrop";
-import { InputSelect } from "../formularios/InputSelect";
 import { TiUser } from 'react-icons/ti';
 
 export const CreateRendicion = ({ history }) => {
@@ -78,6 +75,9 @@ export const CreateRendicion = ({ history }) => {
     let result = await axios.get('http://localhost:4000/api/users/allusers');
     setUsers(result.data);
   };
+  const llamarGerentes= async()=>{
+    let resultado=await axios.get('http://localhost:4000/api/users/allusers');
+  }
   useEffect(() => {
     getUser();
   }, []);
@@ -86,7 +86,7 @@ export const CreateRendicion = ({ history }) => {
   return (
     <>
       <form className="wrap" onSubmit={handleSubmit}>
-        {/**Componentes reutilizables */}
+        {/**Componentes reutilizables 
       
         <section className='contenedor-inputgroup'>
         <InputSelect
@@ -115,12 +115,7 @@ export const CreateRendicion = ({ history }) => {
           placeholder="Items  ej:Disco solido ssd,monitor etc..."
           handleChange={handleChange}
         />
-        <Input
-          type="text"
-          name="categoria"
-          placeholder="Categoria  ej:informatica,almcen etc..."
-          handleChange={handleChange}
-        />
+
         <Input
           type="number"
           name="importe"
@@ -148,7 +143,7 @@ export const CreateRendicion = ({ history }) => {
          <button  className='btn btn-success '> Enviar </button>
       </section>
      
-       
+       */}
       </form>
     </>
   );

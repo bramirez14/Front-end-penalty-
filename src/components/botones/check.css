@@ -1,0 +1,14 @@
+div .contenedor-check {
+  display: flex;
+  flex-direction: row;
+  
+}
+.label-check{
+ 
+  font-size: 15px;
+}
+input[type=radio] {
+  position: relative;
+  top: 5px;
+  left: 6px;
+}

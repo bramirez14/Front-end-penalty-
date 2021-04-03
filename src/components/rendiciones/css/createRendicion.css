@@ -165,6 +165,7 @@ a {
 .custom-file-drop-area input {
   display: none;
 }
+
 .custom-file-drop-area.highlight {
   border-color: blue;
 }

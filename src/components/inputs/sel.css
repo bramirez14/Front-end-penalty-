@@ -1,0 +1,11 @@
+select {
+    background-color: yellow;
+  }
+  
+  option {
+    background-color: green;
+  }
+  
+  option:checked {
+    background-color: lime;
+  }

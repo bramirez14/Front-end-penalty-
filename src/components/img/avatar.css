@@ -1,0 +1,24 @@
+#img{
+ display: none;
+}
+.div-img{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    top: 30px;
+    left:85px;
+  
+}
+.avatar{
+    border-radius: 50%;
+    font-size: 30px;
+    position: absolute;
+    top: 68px;
+    left: 64px;
+color:rgba(0, 0, 0, 0.7);
+background-color: rgb(223, 219, 219);
+padding: 2px;
+
+
+}

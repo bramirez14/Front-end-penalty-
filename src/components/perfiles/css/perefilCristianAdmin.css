@@ -1,0 +1,69 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows:auto;
+    grid-template-areas: 
+    "header header header header"
+    "body   body   body   body"
+    "body2  body2  body2  body2"
+    "footer footer footer footer";
+    column-gap: 10px;
+    row-gap: 15px;
+    border:solid 1px black;
+    min-width :100%;
+    height :auto;
+    
+    
+  }
+  .container-active{
+    display: grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-template-rows:auto;
+    grid-template-areas: 
+    "header header header header"
+    "body   body   body   body"
+    "body2  body2  body2  body2"
+    "footer footer footer footer";
+    column-gap: 10px;
+    row-gap: 15px;
+    border:solid 1px black;
+   width: 99%;
+    height :auto;
+    padding-left:284px
+  }
+  /*el setctor 1 tmb uso  css grid*/
+  .sector1{
+    display: grid;
+    grid-template-columns:  auto auto auto auto;
+    grid-template-rows: auto;
+    grid-area: header;
+    column-gap: 10px;
+    
+    align-self: center;
+    background: blueviolet;
+      
+  }
+  .sector1-active{
+        display: grid;
+    grid-template-columns: repeat(4,auto);
+    grid-template-rows: auto;
+    grid-area: header;
+    column-gap: 20px;
+    align-self: center;
+      background: blueviolet;
+  }
+  .sector2{
+    grid-area: body;
+
+ background: brown;
+  }
+  .sector3{
+    grid-area: body2;
+
+      background: cadetblue;
+  }
+  .sector4{
+    grid-area: footer;
+
+      background:aqua;
+  }
