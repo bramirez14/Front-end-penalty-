@@ -268,7 +268,8 @@ export const Sueldo = ({ history }) => {
            <option value='2'>2</option>
 
          </Form.Control>
-          </Form.Group>} 
+          </Form.Group>
+      } 
      
 
        
