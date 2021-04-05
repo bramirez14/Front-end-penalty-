@@ -1,23 +1,21 @@
-.contendor-encabezado{
-display: flex;
-flex-wrap:nowrap;
-background: white;
-height: 150px;
-border-bottom: solid 2px #e1e1e1;
-border-radius: 20px;
-width: 330px;
-
-margin: auto;
+.columna{
+  border-bottom: 1px solid rgba(0,0,0,0.2);
 }
 .logo{
-  
-    width: 80px;
-    height: 120px;
-  margin-right: 10px;
+  width: 180px;
+  height: 148px;
 }
-.negrita{
-  margin-right:0;
+.div-logo{
+margin-left:20px;
 }
-img{border-radius: 20px;
-width: 120px;
-height: 150px;}
+
+.parrafo{
+  font-size: 20px;
+}
+.parrafo2{
+  margin-left: 10px;
+  font-size: 20px;
+}
+.ant-col-sm-8{
+  height: 150px;
+}

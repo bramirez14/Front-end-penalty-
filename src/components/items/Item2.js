@@ -37,12 +37,23 @@ export const Item2 = () => {
         >
           <MenuItem>
             Anticipo de Sueldo
-            <Link to="/penalty/sueldos" />
+            <Link to="/sueldos" />
           </MenuItem>
           <MenuItem>
             Solicitud de Vacaciones
-            <Link to="/penalty/vacaciones" />
+            <Link to="/vacaciones" />
           </MenuItem>
+        </SubMenu>
+        <SubMenu
+          title="Rendiciones de Gastos"
+          icon={<FaEnvelope />}
+          style={{ fontSize: "18px", color: "white", marginLeft: "10px" }}
+        >
+          <MenuItem>
+                Rendicion de Gastos
+            <Link to="/gastos" />
+          </MenuItem>
+       
         </SubMenu>
       </Menu>
     </ProSidebar>
