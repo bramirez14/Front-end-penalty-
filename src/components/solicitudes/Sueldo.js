@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { BotonSubmit } from "../botones/BotonSubmit";
-import { InputMsg } from "../formularios/InputMsg";
 import Swal from "sweetalert2";
 import axios from "axios";
 import "./sueldo.css";

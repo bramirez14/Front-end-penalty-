@@ -134,7 +134,7 @@ console.log(departamento)
 
   return (
     <Form style={{ padding: "20px" }}>
-      <Row>
+      <Row gutter={30}>
         <Col xs={24} sm={12} lg={12} style={{ border: "solid 1px" }}>
           <h2>Rendicion de Gastos</h2>
           <Form.Item
@@ -175,6 +175,7 @@ console.log(departamento)
           </p>
           <p>
             <b>Departamento:</b> {departamento}
+            <h1>Pendiente...</h1>
           </p>
         </Col>
         <Col xs={24} sm={12} lg={12} style={{ border: "solid 1px" }}></Col>

@@ -40,9 +40,14 @@ export const Item2 = () => {
             <Link to="/sueldos" />
           </MenuItem>
           <MenuItem>
+            Anticipo de Gastos
+            <Link to="/anticipo/gastos" />
+          </MenuItem>
+          <MenuItem>
             Solicitud de Vacaciones
             <Link to="/vacaciones" />
           </MenuItem>
+         
         </SubMenu>
         <SubMenu
           title="Rendiciones de Gastos"
