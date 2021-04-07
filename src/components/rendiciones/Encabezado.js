@@ -16,21 +16,21 @@ export const Encabezado = () => {
 
       <Col xs={8} sm={8} lg={8} className="columna">
         <div>
-          <p className="parrafo">
+          <span className="spanarrafo">
             {" "}
             <b className="negrita"> E-mail:</b> info@penalty.com.ar <br />
             <b className="negrita">Telefono:</b>+54112120-0200 <br />
             <b className="negrita">Sito Web:</b> www.penalty.com.ar <br />
-          </p>
+          </span>
         </div>
       </Col>
       <Col xs={8} sm={8} lg={8} className="columna">
         <div>
-          <p className="parrafo2">
+          <span className="parrafo2">
             <b>Penalty Argentina S.A</b>
             <br />
             Dirección:Av.Libertador 6680 CABA
-          </p>
+          </span>
         </div>
       </Col>
     </Row>

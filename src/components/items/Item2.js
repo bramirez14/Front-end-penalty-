@@ -10,7 +10,10 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { FaEnvelope } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BsFillHouseFill } from "react-icons/bs";
-export const Item2 = () => {
+
+export const Item2 = ({click,click2}) => {
+  const mediaqueryList = window.matchMedia("(max-width: 768px)");
+  const q=mediaqueryList.matches
   return (
     <ProSidebar>
       <Menu>
@@ -25,7 +28,7 @@ export const Item2 = () => {
               color:'white'
             }}
           />
-          <MenuItem style={{ marginLeft: "55px", fontSize: "18px",color:'white' }}>
+          <MenuItem style={{ marginLeft: "55px", fontSize: "18px",color:'white' }} onClick={q?click:click2} >
             Dashboard
             <Link to="/gerencia/perfil" />
           </MenuItem>
@@ -35,15 +38,15 @@ export const Item2 = () => {
           icon={<FaEnvelope />}
           style={{ fontSize: "18px", color: "white", marginLeft: "10px" }}
         >
-          <MenuItem>
+          <MenuItem onClick={q?click:click2} >
             Anticipo de Sueldo
             <Link to="/sueldos" />
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={q?click:click2} >
             Anticipo de Gastos
             <Link to="/anticipo/gastos" />
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={q?click:click2} >
             Solicitud de Vacaciones
             <Link to="/vacaciones" />
           </MenuItem>
@@ -54,7 +57,7 @@ export const Item2 = () => {
           icon={<FaEnvelope />}
           style={{ fontSize: "18px", color: "white", marginLeft: "10px" }}
         >
-          <MenuItem>
+          <MenuItem onClick={q?click:click2}>
                 Rendicion de Gastos
             <Link to="/gastos" />
           </MenuItem>

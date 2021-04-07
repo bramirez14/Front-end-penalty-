@@ -170,13 +170,13 @@ console.log(departamento)
               ))}
             </Select>
           </Form.Item>
-          <p>
+          <span>
             <b>Email:</b> {email}
-          </p>
-          <p>
+          </span>
+          <span>
             <b>Departamento:</b> {departamento}
             <h1>Pendiente...</h1>
-          </p>
+          </span>
         </Col>
         <Col xs={24} sm={12} lg={12} style={{ border: "solid 1px" }}></Col>
       </Row>
