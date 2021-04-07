@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { BotonSubmit } from "../botones/BotonSubmit";
-import { InputMsg } from "../formularios/InputMsg";
 import Swal from "sweetalert2";
 import axios from "axios";
 import "./sueldo.css";
@@ -14,7 +12,7 @@ export const Sueldo = ({ history }) => {
   const [data, setData] = useState([{ id: "", nombre: "" }]);
   const [anticipo, setAnticipo] = useState({
     sueldo: "Sueldo",
-    cuotas: "",
+    cuotas: "1",
     importe: "",
     fecha: new Date().toLocaleDateString(),
     mensaje: "",
@@ -255,15 +253,15 @@ export const Sueldo = ({ history }) => {
           </Form.Control.Feedback>
         </Form.Group>
         :
-        mes() > 0 && mes() <= 5 ?
+        mes() > 0 && mes() <=5 ?
         <Form.Group as={Col} md="12" >
-         <Form.Control as='select' name='cuotas'>
-           <option value='1'>1</option>
-         </Form.Control>
+
+         <Form.Control  name='cuotas'  placeholder='1' disabled />
+           
        </Form.Group>
         :
         <Form.Group as={Col} md="12" >
-           <Form.Control as='select' name='cuotas'>
+           <Form.Control as='select' name='cuotas'  onChange={handleChange}>
            <option value='1'>1</option>
            <option value='2'>2</option>
 

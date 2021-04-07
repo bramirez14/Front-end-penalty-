@@ -15,6 +15,7 @@ import { Sueldo } from '../components/solicitudes/Sueldo';
 import { Vacaciones } from '../components/solicitudes/Vacaciones';
 import { PerfilCristianAdmin } from '../components/perfiles/PerfilCristianAdmin';
 import SidebarContext from '../components/context/SidebarContext';
+import { AnticipoGasto } from '../components/solicitudes/AnticipoGasto';
 
 export const DashboardRoutes = ({ history }) => {
 
@@ -26,10 +27,12 @@ export const DashboardRoutes = ({ history }) => {
         <Switch>
     
           <RouteGerente exact path="/gerencia/perfil" component={PerfilCristianAdmin}/>
-          <RouteGerente exact path="/penalty/sueldos" component={Sueldo} />
-          <RouteGerente exact path="/penalty/vacaciones" component={Vacaciones} />
-          <RouteGerente exact path='/penalty/gastos' component={RendicionGastos} />
+          <RouteGerente exact path="/sueldos" component={Sueldo} />
+          <RouteGerente exact path="/vacaciones" component={Vacaciones} />
+          <RouteGerente exact path='/gastos' component={RendicionGastos} />
           <RouteGerente exact path='/prueba' component={Sidebar} />
+          <RouteGerente exact path='/anticipo/gastos' component={AnticipoGasto} />
+
      
           <Redirect to="/login" />
       

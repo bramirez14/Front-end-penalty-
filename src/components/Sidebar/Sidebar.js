@@ -10,11 +10,12 @@ import { AiOutlineClose } from "react-icons/ai";
 import { UserContext } from "../../contexto/UserContext";
 
 export const Sidebar = () => {
-  
 
  const Sidebar=useContext(UserContext)
  const {open,setOpen}=Sidebar;
-  const showSidebar = () => setOpen(!open);
+  const showSidebar =  () =>  setOpen(!open);
+  const showSidebar2 =  () =>  setOpen(open);
+
   return (
     <>
    
@@ -32,7 +33,11 @@ export const Sidebar = () => {
       <AiOutlineClose onClick={showSidebar} className='x'/>
       <div className='sidebar-open'>
        <div className='sidebar-img'><Avatar/></div> 
-       <div className='item'> <Item2/></div> 
+       <div className='item'> <Item2
+       click={showSidebar}
+       click2={showSidebar2}
+       
+       /></div> 
       
        
        
