@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
 import { Form, Input, Button, Select, Col, Row, Divider } from "antd";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import "./css/anticipoGasto.css";
+import { UserContext } from "../../contexto/UserContext";
 export const AnticipoGasto = ({ history }) => {
+    const Text=useContext(UserContext)
+    const {open}=Text
+
   const { Option } = Select;
   function onChange(value) {
     console.log(`selected ${value}`);
@@ -26,7 +30,8 @@ export const AnticipoGasto = ({ history }) => {
  
 
   return (
-    <Form className="form" >
+    <div className={!open?'contenedor':'contenedor-active'}>
+    <Form className='form' >
       <h3 className="titulo">Anticipo de Gastos</h3>
       <Row gutter={[16, 20]}>
         <Col xs={24} sm={12} lg={12}>
@@ -125,5 +130,6 @@ export const AnticipoGasto = ({ history }) => {
         </Col>
       </Row>
     </Form>
+    </div>
   );
 };
