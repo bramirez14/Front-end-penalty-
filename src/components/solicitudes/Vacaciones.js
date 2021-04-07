@@ -46,12 +46,12 @@ export const Vacaciones = ({history}) => {
 
   /******fx solicitud de usuarios a DB con axios *******/
   const getUser = async () => {
-    let result = await axios.get("http://localhost:4000/api/users/allusers");
+    let result = await axios.get("http://intranet.penalty.com.ar:4000/api/users/allusers");
     setUsers(result.data);
     // console.log(result.data[0].departamento);
   };
   const getVacaciones = async () => {
-    let result = await axios.get("http://localhost:4000/api/users/vacaciones");
+    let result = await axios.get("http://intranet.penalty.com.ar:4000/api/users/vacaciones");
     setVaca(result.data);
     //    console.log(result.data);
   };
@@ -208,7 +208,7 @@ const  dd=(f)=>{
   };
   const guardarAnticipoDeVacaciones = async () => {
     let result = await axios.post(
-      "http://localhost:4000/api/users/vacaciones",
+      "http://intranet.penalty.com.ar:4000/api/users/vacaciones",
       vacaciones
     );
     console.log(result.data);

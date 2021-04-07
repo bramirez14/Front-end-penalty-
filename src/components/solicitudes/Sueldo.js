@@ -92,14 +92,14 @@ export const Sueldo = ({ history }) => {
   /******fx solicitud de usuarios a DB con axios *******/
   const getUser = async () => {
    
-    let result = await axios.get("http://localhost:4000/api/users/allusers");
+    let result = await axios.get("http://intranet.penalty.com.ar:4000/api/users/allusers");
     setUsers(result.data);
    // console.log(result.data[0].departamento);
   };
   /*********fx para guardar anticipo con axios en DB **********/
   const guardarAnticipo = async () => {
     let result = await axios.post(
-      "http://localhost:4000/api/users/anticipo",
+      "http://intranet.penalty.com.ar:4000/api/users/anticipo",
       anticipo
     );
     console.log(result);
@@ -167,7 +167,7 @@ export const Sueldo = ({ history }) => {
  /************fin submit para enviar el formulario ************************ */
 
   /*********************funcion para enviar un mail de alerta ********************* */
-  const enviarMensaje = () => {//SgJZ2KTta9X#SMG
+  /*const enviarMensaje = () => {//SgJZ2KTta9X#SMG
     let usuarioEncontrado = users.find((user) => user.id == anticipo.usuId);
     console.log(usuarioEncontrado);
     let datos = {
@@ -194,7 +194,7 @@ export const Sueldo = ({ history }) => {
           console.log("FAILED...", error);
         }
       );
-  };
+  };*/
  console.log(anticipo);
   /********************* fin funcion para enviar un mail de alerta ********************* */
   return (
