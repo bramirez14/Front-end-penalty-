@@ -63,7 +63,7 @@ export const CreateRendicion = ({ history }) => {
     nuevoForm.append("importe", importe);
     nuevoForm.append("userId", rendicion.userId);
     let respuesta = await axios.post(
-      "http://intranet.penalty.com.ar:4000/api/users/gastos",
+      "http://localhost:4000/api/users/gastos",
       nuevoForm
     );
     console.log(respuesta);
@@ -79,23 +79,13 @@ export const CreateRendicion = ({ history }) => {
     setOpen(false);
   };
   const getUser = async () => {
-<<<<<<< HEAD
-    let result = await axios.get('http://intranet.penalty.com.ar:4000/api/users/allusers');
-=======
     let result = await axios.get("http://localhost:4000/api/users/allusers");
->>>>>>> e4dcde9612b1224b0d5fa623ea5773c60e2c9849
     setUsers(result.data);
     console.log(result.data);
   };
   const llamarGerentes = async () => {
     let resultado = await axios.get("http://localhost:4000/api/users/allusers");
   };
-<<<<<<< HEAD
-  const llamarGerentes= async()=>{
-    let resultado=await axios.get('http://intranet.penalty.com.ar:4000/api/users/allusers');
-  }
-=======
->>>>>>> e4dcde9612b1224b0d5fa623ea5773c60e2c9849
   useEffect(() => {
     getUser();
   }, []);
