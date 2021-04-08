@@ -42,12 +42,13 @@
     left: -100%;
     transition: 850ms;
     margin-top: -1px;
+    z-index:9999;
   }
   
   .nav-menu.active {
     left: 0;
-    transition: 440ms;
-    z-index:1000;
+    transition: all 700ms linear;
+    z-index:9999;
     
   }
   
