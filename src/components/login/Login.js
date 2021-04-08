@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./login.css";
-import axios from "axios";
-
+import axiosURL from "../../config/axiosURL";
 export const Login = ({ history }) => {
   const [errores, setErrores] = useState([]);
   const [msg, setMsg] = useState();
@@ -18,8 +17,8 @@ export const Login = ({ history }) => {
 
   //Verificacion de datos
   const verifyUser = async (e) => {
-    let result = await axios.post(
-      "http://localhost:4000/api/users/login",
+    let result = await axiosURL.post(
+      "/login",
       user
     );
     setErrores(result.data);
@@ -61,14 +60,14 @@ console.log(result.data);
 
 
             <div class="form__div">
-                <input type="text" class="form__input" name="email" placeholder="Email "
+                <input type="text" class="form__input" name="email" placeholder=" "
                  onChange={handleChange}
                  required/>
                 <label forHtml="email" class="form__label">Email</label>
             </div>
 
             <div class="form__div">
-                <input type="password" class="form__input" name="password" placeholder="contraseña "
+                <input type="password" class="form__input" name="password" placeholder=" "
                  onChange={handleChange}
                  required/>
                 <label forHtml="contraseña" class="form__label">Password</label>

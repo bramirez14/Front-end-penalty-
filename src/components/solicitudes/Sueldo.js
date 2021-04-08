@@ -5,6 +5,7 @@ import "./sueldo.css";
 import { Form, Col, InputGroup, Button } from "react-bootstrap";
 import emailjs from "emailjs-com";
 import { Select } from "../inputs/Select";
+import axiosURL from "../../config/axiosURL";
 
 export const Sueldo = ({ history }) => {
   const [validated, setValidated] = useState(false);
@@ -90,14 +91,14 @@ export const Sueldo = ({ history }) => {
   /******fx solicitud de usuarios a DB con axios *******/
   const getUser = async () => {
    
-    let result = await axios.get("http://localhost:4000/api/users/allusers");
+    let result = await axiosURL.get("/allusers");
     setUsers(result.data);
    // console.log(result.data[0].departamento);
   };
   /*********fx para guardar anticipo con axios en DB **********/
   const guardarAnticipo = async () => {
-    let result = await axios.post(
-      "http://localhost:4000/api/users/anticipo",
+    let result = await axiosURL.post(
+      "/anticipo",
       anticipo
     );
     console.log(result);

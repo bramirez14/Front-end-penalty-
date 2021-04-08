@@ -3,9 +3,10 @@ import { Form, Col, Button } from "react-bootstrap";
 import emailjs from "emailjs-com";
 import { Select } from "../inputs/Select";
 import Swal from "sweetalert2";
-import axios from "axios";
 import "./sueldo.css";
 import { InputCalendario } from "../formularios/InputCalendario";
+import axiosURL from "../../config/axiosURL";
+
 export const Vacaciones = ({history}) => {
   const [validated, setValidated] = useState(false);
   const [users, setUsers] = useState([]);
@@ -46,12 +47,12 @@ export const Vacaciones = ({history}) => {
 
   /******fx solicitud de usuarios a DB con axios *******/
   const getUser = async () => {
-    let result = await axios.get("http://localhost:4000/api/users/allusers");
+    let result = await axiosURL.get("/allusers");
     setUsers(result.data);
     // console.log(result.data[0].departamento);
   };
   const getVacaciones = async () => {
-    let result = await axios.get("http://localhost:4000/api/users/vacaciones");
+    let result = await axiosURL.get("/vacaciones");
     setVaca(result.data);
     //    console.log(result.data);
   };
@@ -207,8 +208,8 @@ const  dd=(f)=>{
     }
   };
   const guardarAnticipoDeVacaciones = async () => {
-    let result = await axios.post(
-      "http://localhost:4000/api/users/vacaciones",
+    let result = await axiosURL.post(
+      "/vacaciones",
       vacaciones
     );
     console.log(result.data);

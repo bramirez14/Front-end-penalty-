@@ -6,11 +6,16 @@ import { Form, Input, Button, Select, Col, Row, Divider } from "antd";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import "./css/anticipoGasto.css";
 import { UserContext } from "../../contexto/UserContext";
+import axiosURL from "../../config/axiosURL";
+import  PeticionGET  from "../../config/PeticionGET";
 export const AnticipoGasto = ({ history }) => {
     const Text=useContext(UserContext)
     const {open}=Text
+    const { Option } = Select;
+    PeticionGET('/allusers')
 
-  const { Option } = Select;
+
+
   function onChange(value) {
     console.log(`selected ${value}`);
     console.log("changed", value);
