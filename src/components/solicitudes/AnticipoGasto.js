@@ -12,6 +12,7 @@ export const AnticipoGasto = ({ history }) => {
     const Text=useContext(UserContext)
     const {open}=Text
     const { Option } = Select;
+
     PeticionGET('/allusers')
 
 

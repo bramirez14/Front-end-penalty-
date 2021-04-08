@@ -10,7 +10,8 @@ import { AiOutlineClose } from "react-icons/ai";
 import { UserContext } from "../../contexto/UserContext";
 
 export const Sidebar = () => {
-
+  const mediaqueryList = window.matchMedia("(max-width: 576px)");
+  const q=mediaqueryList.matches
  const Sidebar=useContext(UserContext)
  const {open,setOpen}=Sidebar;
   const showSidebar =  () =>  setOpen(!open);
@@ -18,8 +19,8 @@ export const Sidebar = () => {
 
   return (
     <>
-   
-      {/*<div className={sidebar?'div-navbar active':'div-navbar'}> </div>*/}
+   {q? <div className={open?'div-navbar active':'div-navbar'}> </div>:''}
+     
 
       <div className={open?'navbar active':'navbar'}>{/*importante para los iconos y para las alertas  de arriba de todo*/}
        

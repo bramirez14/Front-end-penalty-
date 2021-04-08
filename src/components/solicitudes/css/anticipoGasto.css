@@ -7,14 +7,18 @@
 /* ---------- Select ---------- */
 .contenedor-active{
   padding-left: 170px;
- 
+  transition: 700ms;
+}
+.contenedor{
+  transition: 700ms;
+  
 }
 .form {
   width: 50%;
   border-radius: 1rem;
   box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
   height: 500px;
-  margin-top: 70px;
+  margin-top: 100px;
   margin-left: 400px;
   padding: 30px;
 }
@@ -149,11 +153,17 @@
     border-radius: 0;
     box-shadow: none;
     height: 0;
-    margin-top: 0;
+    margin-top: 50px;
     margin-left: 0;
     padding: 12px;
+    
+
   }
   .titulo {
     font-size: 28px;
   }
+ .contenedor-active{
+   padding:0
+ }
+ 
 }
