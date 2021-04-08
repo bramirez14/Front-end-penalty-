@@ -17,7 +17,7 @@
     opacity: 0;
     height: 119vh;
     background-color: rgba(0,0,0,0.2);
-    z-index: 997;
+    z-index: 9999;
     display: none;
   }
   .div-navbar.active{
