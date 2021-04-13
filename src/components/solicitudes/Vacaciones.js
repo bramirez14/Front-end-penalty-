@@ -212,10 +212,10 @@ const  dd=(f)=>{
       "/vacaciones",
       vacaciones
     );
-    console.log(result.data);
-    if (result.status === 200) {
+    console.log(result);
+   /*  if (result.status === 200) {
       history.push("/");
-    }
+    } */
   };
   /********enviamos el formulario a DB********/
 /****efecto q se produce una vez despes del rederizado*****/
