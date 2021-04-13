@@ -12,7 +12,7 @@ import axiosURL from './axiosURL';
     axiosGet()
   }, [url])
 
-  return { peticiones }
+  return peticiones 
 
 }
 
