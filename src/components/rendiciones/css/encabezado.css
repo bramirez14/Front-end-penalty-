@@ -3,7 +3,7 @@
 }
 .logo{
   width: 180px;
-  height: 148px;
+  height: 170px;
 }
 .div-logo{
 margin-left:20px;
@@ -18,4 +18,7 @@ margin-left:20px;
 }
 .ant-col-sm-8{
   height: 150px;
+}
+.texto{
+  margin-top: 20px;
 }

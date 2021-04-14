@@ -5,11 +5,14 @@ import { Form, Input, Button, Select, Col, Row } from "antd";
 import "./css/createRendicion.css";
 import { DragDrop } from "../formularios/DragDrop";
 import { TiUser } from "react-icons/ti";
+import { SelectAnt } from "../inputs/SelectAnt";
+import axiosURL from "../../config/axiosURL";
 export const CreateRendicion = ({ history }) => {
   const [data, setData] = useState([]);
   const [highlight, setHighlight] = useState(false);
   const [open, setOpen] = useState(false);
   const [users, setUsers] = useState([]);
+const [gasto, setGasto] = useState([])
   const [rendicion, setRendicion] = useState({
     departamento: "",
     responsable: "",
@@ -22,6 +25,8 @@ export const CreateRendicion = ({ history }) => {
     userId: "1",
     empleado: "Empleado",
     email: "",
+    fecha:new Date().toLocaleDateString(),
+   
   });
   const {
     departamento,
@@ -34,8 +39,9 @@ export const CreateRendicion = ({ history }) => {
     deleteId,
     empleado,
     email,
+    fecha
   } = rendicion;
-  console.log(rendicion);
+  const { Option } = Select;
 
   //use por cada table en la DB un  handle
   const handleSubmit = (e) => {
@@ -78,10 +84,10 @@ export const CreateRendicion = ({ history }) => {
     });
     setOpen(false);
   };
+
   const getUser = async () => {
-    let result = await axios.get("http://localhost:4000/api/users/allusers");
+    let result = await   axiosURL.get("/allusers");
     setUsers(result.data);
-    console.log(result.data);
   };
   const llamarGerentes = async () => {
     let resultado = await axios.get("http://localhost:4000/api/users/allusers");
@@ -90,97 +96,84 @@ export const CreateRendicion = ({ history }) => {
     getUser();
   }, []);
 
-  const { Option } = Select;
 
-  const handleChange = (value) => {
+
+  const handleChangeEmpleado = (value) => {
     let buscarUsuario = users.find((u) => u.id == value);
+    console.log(buscarUsuario);
     let email = buscarUsuario.email;
     let departamento = buscarUsuario.departamento.departamento;
-console.log(departamento)
-    let responsable ;
+    let responsable;
     switch (departamento) {
-      case ("Sistemas" || "Logistica"):
-        responsable="Esteban Ramos"
+      case "Sistema" || "Logistica":
+        responsable = "Esteban Ramos";
         break;
-        case ( "Administracion" || "Marketing"):
-          responsable="Cristian De Sousa"
-          break;
+      case "Administracion" || "Marketing":
+        responsable = "Cristian De Sousa";
+        break;
       default:
-        responsable="Cristian Rios"
+        responsable = "Cristian Rios";
         break;
     }
-     
-    console.log(responsable);
+
+
     setRendicion({
       ...rendicion,
       userId: value,
       email,
       departamento,
+      responsable,
     });
     console.log(`selected ${value}`);
   };
 
-  function onBlur() {
-    console.log("blur");
-  }
-
-  function onFocus() {
-    console.log("focus");
-  }
-
-  function onSearch(val) {
-    console.log("search:", val);
-  }
+  console.log(rendicion);
 
   return (
-    <Form style={{ padding: "20px" }}>
-      <Row gutter={30}>
-        <Col xs={24} sm={12} lg={12} style={{ border: "solid 1px" }}>
+    <Form className='form' layout="vertical" style={{width:'400px',marginLeft:'0'}}>
+      <Row>
+        <Col
+          xs={24}
+          sm={24}
+          md={24}
+          lg={24}
+          xl={24}
+          xxl={24}
+     
+        >
           <h2>Rendicion de Gastos</h2>
-          <Form.Item
-            rules={[
-              {
-                type: "name",
-                message: "The input is not valid E-mail!",
-              },
-              {
-                required: true,
-                message: "Please input your E-mail!",
-              },
-            ]}
-          >
-            <Select
-              name="empleado"
-              showSearch
-              style={{ width: 300 }}
-              placeholder="Selecione un Empleado"
-              optionFilterProp="children"
-              onChange={handleChange}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onSearch={onSearch}
-              filterOption={(input, option) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              {users.map((u) => (
-                <Option key={u.id} value={u.id}>
-                  {u.nombre}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-          <span>
+          <h4> <b>Fecha:</b>  {fecha} </h4>
+          
+         
+          <SelectAnt
+          name='userId'
+          mensaje='Debe seleccionar un empleado'
+          placeholder='Empleado'
+          array={users}
+          change={handleChangeEmpleado}
+          label='Empleado'
+          />
+         <div style={{marginBottom:'20px'}}>
+          <span  >
             <b>Email:</b> {email}
-          </span>
+          </span><br/>
           <span>
-            <b>Departamento:</b> {departamento}
-            <h1>Pendiente...</h1>
-          </span>
-        </Col>
-        <Col xs={24} sm={12} lg={12} style={{ border: "solid 1px" }}></Col>
+            <b>Departamento:</b> {departamento} <br/>
+            <b>Responsable:</b> {responsable}
+          </span >
+          </div>
+     
+        
+          <Form.Item name='descripcion'
+          label='Motivo del gasto' >
+    <Input.TextArea
+     autoSize={{ minRows: 2, maxRows: 6 }}
+      placeholder='Ingrese le motivo del gasto'
+      
+    />
+  </Form.Item>
+  </Col>
       </Row>
     </Form>
   );
 };
-

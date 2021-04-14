@@ -112,15 +112,16 @@ export const Sueldo = ({ history }) => {
   const getUser = async () => {
     let result = await axiosURL.get("/allusers");
     setUsers(result.data);
+    console.log(result.data);
     // console.log(result.data[0].departamento);
   };
   /*********fx para guardar anticipo con axios en DB **********/
   const guardarAnticipo = async () => {
     let result = await axiosURL.post("/anticipo", anticipo);
     console.log(result);
-    /* if (result.status === 200) {
+    if (result.status === 200) {
       history.push("/");
-    } */
+    }
   };
   /****efecto q se produce una vez despes del rederizado*****/
   useEffect(() => {
@@ -134,13 +135,12 @@ export const Sueldo = ({ history }) => {
   };
   const aprobacion = () => {
     let a = users.find((u) => u.id == anticipo.usuId);
-    return a?.condicion;
+    return (a?.anticipo)
   };
-
   /************submit para enviar el formulario ************************ */
   let handleSubmit;
 
-  if (aprobacion() != "aprobado") {
+  
     /*******condicion para envio de mail a cada departamento******* */
     if (departamento() === "Sistemas" || departamento() === "Logistica") {
       handleSubmit = () => {
@@ -154,11 +154,7 @@ export const Sueldo = ({ history }) => {
         guardarAnticipo();
       };
     }
-  } else {
-    handleSubmit = () => {
-      handleRechazo();
-    };
-  }
+  
   /**********fin submit para enviar el formulario ************************/
 
   /**********funcion para enviar un mail de alerta **********************/
@@ -206,15 +202,23 @@ export const Sueldo = ({ history }) => {
                 array={users}
                 placeholder="Seleccione un Empleado"
                 change={handleChangeEmpleado}
+                mensaje='selecione un empleado'
               />
          
           </Col>
 
-          {aprobacion() == "aprobado" ? (
+          {aprobacion()!=null ? (
             <h4>Ya tenes un anticipo pendiente!!!</h4>
           ) : (
-            <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-              <Form.Item>
+          <>  <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+              <Form.Item   
+              name='importe'
+    rules={[
+      {
+        required: true,
+        message: 'ingrese un importe',
+      },
+    ]}>
                 <Input
                   type="number"
                   placeholder="Importe"
@@ -223,70 +227,82 @@ export const Sueldo = ({ history }) => {
                 />
               </Form.Item>
             </Col>
+{importe < 3000 ? (
+  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+    <Form.Item 
+  name='sueldo'
+    rules={[
+      {
+        required: true,
+        message: 'seleccione una opcion',
+      },
+    ]}
+    >
+      <Select onChange={handleChangeSueldo} placeholder="Devolucion">
+        <Option value="Sueldo">Sueldo</Option>
+        <Option value="Aguinaldo">Aguinaldo</Option>
+      </Select>
+    </Form.Item>
+  </Col>
+) : (
+  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+    <Form.Item>
+      <Input disabled placeholder="Sueldo" />
+    </Form.Item>
+  </Col>
+)}
+{sueldo === "Sueldo" ? (
+  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+   
+      <SelectAnt
+        placeholder="Cuotas"
+        name="cuotas"
+        array={data}
+        change={handleChangeCuotas}
+        mensaje='seleccione una opcion'
+      />
+  
+  </Col>
+) : mes() > 0 && mes() <= 5 ? (
+  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+    <Form.Item>
+      <Input name="cuotas" placeholder="1" disabled />
+    </Form.Item>
+  </Col>
+) : (
+  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+    <Form.Item>
+      <Select name="cuotas" onChange={handleChangeCuotas}>
+        <option value="1">1</option>
+        <option value="2">2</option>
+      </Select>
+    </Form.Item>
+  </Col>
+)}
+
+<Col xs={24} sm={24} md={24} lg={24} xl={24}>
+  <Form.Item>
+    <Input.TextArea
+      name="mensaje"
+      placeholder="Mensaje"
+      onChange={handleChange}
+    />
+  </Form.Item>
+</Col>
+<Col xs={24} sm={24} md={24} lg={24} xl={24}>
+  <Form.Item>
+    <Button htmlType="submit" block>
+      Submit
+    </Button>
+  </Form.Item>
+</Col>
+
+</>
           )}
 
           {/*Separacio............................................. */}
 
-          {importe < 3000 ? (
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <Form.Item>
-                <Select onChange={handleChangeSueldo} placeholder="Devolucion">
-                  <Option value="Sueldo">Sueldo</Option>
-                  <Option value="Aguinaldo">Aguinaldo</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          ) : (
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <Form.Item>
-                <Input disabled placeholder="Sueldo" />
-              </Form.Item>
-            </Col>
-          )}
-          {sueldo === "Sueldo" ? (
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-             
-                <SelectAnt
-                  placeholder="Cuotas"
-                  name="cuotas"
-                  array={data}
-                  change={handleChangeCuotas}
-                />
-            
-            </Col>
-          ) : mes() > 0 && mes() <= 5 ? (
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <Form.Item>
-                <Input name="cuotas" placeholder="1" disabled />
-              </Form.Item>
-            </Col>
-          ) : (
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <Form.Item>
-                <Select name="cuotas" onChange={handleChangeCuotas}>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </Select>
-              </Form.Item>
-            </Col>
-          )}
-
-          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-            <Form.Item>
-              <Input.TextArea
-                name="mensaje"
-                placeholder="Mensaje"
-                onChange={handleChange}
-              />
-            </Form.Item>
-          </Col>
-          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-            <Form.Item>
-              <Button htmlType="submit" block>
-                Submit
-              </Button>
-            </Form.Item>
-          </Col>
+          
         </Row>
       </Form>
       </div>

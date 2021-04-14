@@ -1,7 +1,7 @@
 import React from "react";
 import { Form,Select } from "antd";
 import "./selectt.css";
-export const SelectAnt = ({ name,array, placeholder,change,mensaje}) => {
+export const SelectAnt = ({ name,array, placeholder,change,mensaje,label}) => {
  
   const { Option } = Select;
   function onSearch(val) {
@@ -17,6 +17,7 @@ export const SelectAnt = ({ name,array, placeholder,change,mensaje}) => {
         message: mensaje,
       },
     ]}
+    label={label}
   >
     <Select
  
