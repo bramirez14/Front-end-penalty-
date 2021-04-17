@@ -1,6 +1,16 @@
 p{
   font-size: 20px;
 }
+.rendicion{
+
+    width: 30%;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
+    height: auto;
+    margin-top: 10px;
+    padding: 30px;
+  
+}
 
 
 /**Este es el Drag Drop no tocar **/

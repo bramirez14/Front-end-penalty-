@@ -1,44 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { InputMsg } from "../formularios/InputMsg";
 import axios from "axios";
-import { Form, Input, Button, Select, Col, Row } from "antd";
+import { Form, Input, Button, Select, Col, Row, Checkbox,Modal} from "antd";
 import "./css/createRendicion.css";
 import { DragDrop } from "../formularios/DragDrop";
 import { TiUser } from "react-icons/ti";
 import { SelectAnt } from "../inputs/SelectAnt";
 import axiosURL from "../../config/axiosURL";
+import { Tabla } from "./Tabla";
+import { CheckBoxSelector } from "./CheckBoxSelector";
 export const CreateRendicion = ({ history }) => {
+  const [autocompletado, setAutocompletado] = useState({
+    email:'',
+    departamento:''
+  });
+  const {email,departamento}=autocompletado
+//const [datosTabla, setDatosTabla] = useState([])
   const [data, setData] = useState([]);
   const [highlight, setHighlight] = useState(false);
   const [open, setOpen] = useState(false);
   const [users, setUsers] = useState([]);
-const [gasto, setGasto] = useState([])
+const [gastos, setGastos] = useState([])
   const [rendicion, setRendicion] = useState({
-    departamento: "",
+    usuarioId:'',
     responsable: "",
-    item: "",
-    categoria: "",
-    descripcion: "",
-    importe: "",
-    imagen: [],
-    deleteId: [],
-    userId: "1",
-    empleado: "Empleado",
-    email: "",
     fecha:new Date().toLocaleDateString(),
-   
+    items:[{
+      categoriaId: "",
+      notas:'',
+      imagen:'',
+      descripcion: "",
+      importe: "",
+    }]
   });
   const {
-    departamento,
+    usuarioId,
+   
+    categoriaId,
+    notas,
+    imagen,
     responsable,
-    item,
-    categoria,
     descripcion,
     importe,
-    imagen,
-    deleteId,
-    empleado,
-    email,
     fecha
   } = rendicion;
   const { Option } = Select;
@@ -61,11 +64,7 @@ const [gasto, setGasto] = useState([])
     for (const img of imagen) {
       nuevoForm.append("image", img);
     }
-    nuevoForm.append("departamento", departamento);
     nuevoForm.append("responsable", responsable);
-    nuevoForm.append("item", item);
-    nuevoForm.append("categoria", categoria);
-    nuevoForm.append("descripcion", descripcion);
     nuevoForm.append("importe", importe);
     nuevoForm.append("userId", rendicion.userId);
     let respuesta = await axios.post(
@@ -75,23 +74,12 @@ const [gasto, setGasto] = useState([])
     console.log(respuesta);
     respuesta.status === 200 && history.push("/profile");
   };
-  const handleSelectClick = (e) => {
-    let buscarEmpleado = users.find((user) => e.target.value == user.id);
-    setRendicion({
-      ...rendicion,
-      empleado: buscarEmpleado.nombre,
-      userId: e.target.value,
-    });
-    setOpen(false);
-  };
-
+ 
   const getUser = async () => {
     let result = await   axiosURL.get("/allusers");
     setUsers(result.data);
   };
-  const llamarGerentes = async () => {
-    let resultado = await axios.get("http://localhost:4000/api/users/allusers");
-  };
+
   useEffect(() => {
     getUser();
   }, []);
@@ -100,7 +88,7 @@ const [gasto, setGasto] = useState([])
 
   const handleChangeEmpleado = (value) => {
     let buscarUsuario = users.find((u) => u.id == value);
-    console.log(buscarUsuario);
+//    console.log(buscarUsuario);
     let email = buscarUsuario.email;
     let departamento = buscarUsuario.departamento.departamento;
     let responsable;
@@ -119,61 +107,155 @@ const [gasto, setGasto] = useState([])
 
     setRendicion({
       ...rendicion,
-      userId: value,
-      email,
-      departamento,
+      usuarioId: value,
       responsable,
     });
-    console.log(`selected ${value}`);
+    setAutocompletado({
+      ...autocompletado,
+      email,
+      departamento,
+    })
   };
+  const handleChange  = e =>{
+    const{ name,value}=e.target;
+    setRendicion({
+      ...rendicion,
+      [name]:value
+    })
+  }
+const obteniendoLosAGastosUsuario=()=> {
+let g= users.find((u) => u.id == usuarioId)
+return g?.gasto
 
-  console.log(rendicion);
+}
+//console.log(obteniendoLosAGastosUsuario());
 
+  const onFinish=(values)=>{
+    console.log(values);
+  }
+ 
+//  console.log(rendicion);
+ /***Sector Modal */
+
+
+  console.log(open,'166');
   return (
-    <Form className='form' layout="vertical" style={{width:'400px',marginLeft:'0'}}>
-      <Row>
+    
+    <Form  layout="vertical" onChange={handleChange} onFinish={onFinish} >
+      <Row >
         <Col
           xs={24}
           sm={24}
-          md={24}
-          lg={24}
-          xl={24}
-          xxl={24}
-     
+          md={10}
+          lg={10}
+          xl={10}
+          xxl={10}
+          style={{borderBottom:'solid 1px rgba(92, 99, 105, 0.5)',borderTop:'solid 1px rgba(92, 99, 105, 0.5)'}}
         >
+          <div style={{marginTop:'10px'}} >
           <h2>Rendicion de Gastos</h2>
-          <h4> <b>Fecha:</b>  {fecha} </h4>
-          
-         
+          <Col xs={24} 
+          sm={24}
+          md={12}
+          lg={18}
+          xl={18}
+          xxl={18}>
           <SelectAnt
-          name='userId'
-          mensaje='Debe seleccionar un empleado'
-          placeholder='Empleado'
-          array={users}
-          change={handleChangeEmpleado}
-          label='Empleado'
+              name='usuarioId'
+              mensaje='Debe seleccionar un empleado'
+              placeholder='Empleado'
+              array={users}
+              change={handleChangeEmpleado}
+              label='Empleado'
           />
-         <div style={{marginBottom:'20px'}}>
-          <span  >
-            <b>Email:</b> {email}
-          </span><br/>
-          <span>
-            <b>Departamento:</b> {departamento} <br/>
-            <b>Responsable:</b> {responsable}
-          </span >
-          </div>
-     
-        
-          <Form.Item name='descripcion'
+          {/*        <Form.Item name='descripcion'
           label='Motivo del gasto' >
     <Input.TextArea
      autoSize={{ minRows: 2, maxRows: 6 }}
-      placeholder='Ingrese le motivo del gasto'
+      placeholder='Ingrese el motivo del gasto'
       
     />
-  </Form.Item>
-  </Col>
+  </Form.Item> */}
+          </Col> 
+        </div>
+         
+          
+        </Col>
+        <Col
+          xs={24}
+          sm={24}
+          md={8}
+          lg={8}
+          xl={8}
+          xxl={8}
+          style={{borderBottom:'solid 1px rgba(92, 99, 105, 0.5)',borderTop:'solid 1px rgba(92, 99, 105, 0.5)'}}
+
+        >
+       
+         <div style={{marginTop:'10px'}} >
+          <h6> <b>Fecha:</b>  {fecha} </h6>
+         
+          <h6  >
+            <b>Email:</b> {email}
+          </h6>
+          <h6>
+            <b>Departamento:</b> {departamento} 
+            
+          </h6>
+          <h6>
+          <b>Responsable:</b> {responsable}
+          </h6>
+          
+            
+         </div>
+  
+   
+        </Col>
+        <Col
+          xs={24}
+          sm={24}
+          md={6}
+          lg={6}
+          xl={6}
+          xxl={6}
+          style={{borderBottom:'solid 1px rgba(92, 99, 105, 0.5)',borderTop:'solid 1px rgba(92, 99, 105, 0.5)'}}
+        >
+         <CheckBoxSelector
+         funcion={obteniendoLosAGastosUsuario()}
+         />
+        </Col>
       </Row>
-    </Form>
+
+      <Row >
+      
+          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+
+            <Tabla 
+            categoria={categoriaId}
+            descripcion={descripcion}
+            notas={notas}
+            importe={importe}
+            array={users}
+            funcion={obteniendoLosAGastosUsuario()}
+            
+            
+            />
+ 
+</Col>
+          </Row>
+          <Col   xs={24}
+          sm={24}
+          md={12}
+          lg={12}
+          xl={12}
+          xxl={12} offset={18}>
+          <Form.Item >
+    <Button  htmlType="submit" >
+      Submit
+    </Button>
+  </Form.Item></Col>
+      </Form>
+     
+
   );
 };

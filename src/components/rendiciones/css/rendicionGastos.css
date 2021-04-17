@@ -1,0 +1,9 @@
+.contenedor-form{
+    width: 84%;
+    margin-left:100px;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
+    height: auto;
+    padding: 30px;
+ 
+}

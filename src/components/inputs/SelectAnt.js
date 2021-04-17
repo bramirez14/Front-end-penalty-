@@ -20,7 +20,7 @@ export const SelectAnt = ({ name,array, placeholder,change,mensaje,label}) => {
     label={label}
   >
     <Select
- 
+  name={name}
       className="select-empleado"
       showSearch
       placeholder={placeholder}
