@@ -21,6 +21,7 @@ export const CreateRendicion = ({ history }) => {
   const [open, setOpen] = useState(false);
   const [users, setUsers] = useState([]);
 const [gastos, setGastos] = useState([])
+const [datosCheck, setDatosCheck] = useState()
   const [rendicion, setRendicion] = useState({
     usuarioId:'',
     responsable: "",
@@ -138,7 +139,8 @@ return g?.gasto
  /***Sector Modal */
 
 
-  console.log(open,'166');
+
+
   return (
     
     <Form  layout="vertical" onChange={handleChange} onFinish={onFinish} >
@@ -222,6 +224,8 @@ return g?.gasto
         >
          <CheckBoxSelector
          funcion={obteniendoLosAGastosUsuario()}
+         datosCheck={datosCheck}
+         setDatosCheck={setDatosCheck}
          />
         </Col>
       </Row>
@@ -236,7 +240,7 @@ return g?.gasto
             notas={notas}
             importe={importe}
             array={users}
-            funcion={obteniendoLosAGastosUsuario()}
+            datos={datosCheck}
             
             
             />
@@ -250,7 +254,7 @@ return g?.gasto
           xl={12}
           xxl={12} offset={18}>
           <Form.Item >
-    <Button  htmlType="submit" >
+    <Button  >
       Submit
     </Button>
   </Form.Item></Col>

@@ -1,21 +1,44 @@
 import React, { useState } from "react";
-import { Table, Radio, Divider, Button, Col, Modal, Form, Input } from "antd";
+import { Table,  Button, Col, Modal, Form, Input, Upload, message } from "antd";
+import axiosURL from "../../config/axiosURL";
+import axios from 'axios'
+import { VscCallIncoming } from "react-icons/vsc";
 export const Tabla = ({
   categoria,
   descripcion,
   notas,
   importe,
   array,
-  funcion,
+  datos,
 }) => {
-  const [selectionType, setSelectionType] = useState("checkbox");
+  console.log(datos);
   const [visible, setVisible] = useState(false);
   const [visibleEditar, setVisibleEditar] = useState(false)
   const [loading, setLoading] = useState(false);
+  const [muestra, setMuestra] = useState({
+    importe:'',
+    notas:'',
+    categoria:'',
+    imagen:''
+  })
   const showModal = () => setVisible(true);
   const showModalEditar = () => setVisibleEditar(true);
 
-
+  const handleChange=e=>{
+    const {name, value}=e.target;
+    setMuestra({...muestra,
+    [name]: value});
+    
+  }
+  /***imagen */
+const handleImage = (e) => {
+  //console.log(e.target.files[0]);
+  setMuestra({
+    ...muestra,
+    imagen: e.target.files[0],
+  });
+};
+/**fin imagen  */
 
   const handleOk = () => {
     setLoading(true);
@@ -26,6 +49,7 @@ export const Tabla = ({
   };
   const handleOkEditar = () => {
     setLoading(true);
+    editarRendicion()
     setTimeout(() => {
       setVisibleEditar(false);
       setLoading(false);
@@ -34,7 +58,7 @@ export const Tabla = ({
   const handleCancel = () => setVisible(false);
   const handleCancelEditar = () => setVisibleEditar(false);
   const seleccionarRendicionAEditar=(fila)=>{
-   console.log(fila);
+    setMuestra(fila)
   showModalEditar();
   }
 
@@ -62,30 +86,49 @@ export const Tabla = ({
       key: "importe",
     },
     {
+      title: "Imagen",
+      dataIndex: "imagen",
+   
+  
+    },
+    {
       title: "Acciones",
       dataIndex: "acciones",
       key:'acciones',
       render: (f,fila) => (
         <>
-        <Button  onClick={()=>seleccionarRendicionAEditar(fila)}>Editar</Button> {"   "}
+        <Button  style={{width:'auto' ,borderColor:'#1890ff',borderRadius:'7px'}}  onClick={()=>seleccionarRendicionAEditar(fila)}>Agregar Datos</Button> {"   "}
         </>
       ),
     },
   ];
-  const data = funcion?.map((f, i) => {
+  const data = datos?.map((f, i) => {
     return {
       ...f,
       item: i + 1,
       key: f.id,
+      imagen: <img src={f.imagen} alt="" style={{width:'100px',height:'100px'}}/>
+      
     };
   });
-  // rowSelection object indicates the need for row selection
-  console.log(data);
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`id: ${selectedRowKeys}`, "datos de la fila: ", selectedRows);
-    },
-  };
+
+//console.log(datos[0].imagen);
+
+/** editar la rendicion  */
+const editarRendicion = async () => {
+  let f= new FormData();
+  f.append("imagen", muestra.imagen);
+  f.append("importe", muestra.importe);
+  f.append("categoria", muestra.categoria);
+  f.append("notas", muestra.notas);
+
+ let result =  await axiosURL.put(`/rendicion/gastos/${muestra.id}`,f)
+     console.log(result);
+   
+};
+/**fin de editar rendicion  */
+//console.log(datos);
+
   return (
     <Col>
       <Button
@@ -97,29 +140,24 @@ export const Tabla = ({
       </Button>
 
       <Table
-        rowSelection={{
-          type: selectionType,
-          ...rowSelection,
-        }}
+        
         columns={columns}
         dataSource={data}
       />
       {/**Modal para Ingresar una rendicion */}
       <Modal
-  
+  destroyOnClose={true}
         title='Ingresar Rendicion'
         onOk={handleOk}
         visible={visible}
         onCancel={handleCancel}
         footer={[
-          <Button  onClick={handleCancel}>
+          <Button type="primary" style={{borderRadius:'20px'}} onClick={handleCancel}>
             Cancelar
           </Button>,
           <Button  type="primary"  loading={loading} onClick={handleOk}>
             Ok
           </Button>,
-         
-        
         ]}
       >
         <Form.Item name="categoria">
@@ -155,18 +193,22 @@ export const Tabla = ({
   
   ]}
 >
-  <Form.Item name="categoria">
-    <Input placeholder="Categoria" name="categoria" />
+  <Form layout= 'vertical' 
+>
+<Form.Item label='Categoria'  >
+    <Input name="categoria"  value={muestra&& muestra.categoria} onChange={handleChange}/>
   </Form.Item>
-  <Form.Item name="descripcion">
-    <Input placeholder="Descripcion" name="descripcion" />
+
+
+  <Form.Item label='Notas' >
+    <Input name="notas"  value={muestra&& muestra.notas} onChange={handleChange} />
   </Form.Item>
-  <Form.Item name="notas">
-    <Input placeholder="Notas" name="notas" />
+  <Form.Item label='Importe'>
+    <Input name="importe"  value={muestra&& muestra.importe} onChange={handleChange}/>
   </Form.Item>
-  <Form.Item name="importe">
-    <Input placeholder="Importe" name="importe" />
-  </Form.Item>
+<input className='upload' onChange={handleImage} style={{fontSize:'15px' }} type="file" name="imagen" />
+
+  </Form>
 </Modal>
     </Col>
   );

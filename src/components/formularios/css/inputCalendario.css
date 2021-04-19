@@ -1,4 +1,4 @@
-button, input {
+/* button, input {
   
     height: 34px;
     width: 240px;
@@ -11,7 +11,7 @@ button, input {
     border-top-right-radius: 14px;
     border-bottom-right-radius: 14px;
     outline: none;
-}
+} */
 button, input:hover{
     background: #f6fffa;
 

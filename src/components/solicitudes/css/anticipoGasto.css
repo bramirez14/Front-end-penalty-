@@ -74,20 +74,20 @@
   border: solid 2.5px var(--border-color);
 }
 /*--------Button-------*/
-.ant-btn {
+.btn{
   background-color: var(--border-color);
   border-color: var(--border-color);
   color: #fff;
   border-radius: 14px;
 }
 
-.ant-btn:active {
+.btn:active {
   color: #fff;
   background: #46a461;
   border-color: #46a461;
 }
-.ant-btn:hover,
-.ant-btn:focus {
+.btn:hover,
+.btn:focus {
   color: #fff;
   background: #46a461;
   border-color: #46a461;

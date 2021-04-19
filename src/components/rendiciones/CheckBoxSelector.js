@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Table, Radio, Divider } from 'antd';
 import './css/checkBoxSelector.css'
-export const CheckBoxSelector = ({ funcion }) => {
+export const CheckBoxSelector = ({ funcion,datosCheck,setDatosCheck}) => {
     const [selectionType, setSelectionType] = useState("checkbox");
     const columns = [
         {
@@ -27,6 +27,7 @@ export const CheckBoxSelector = ({ funcion }) => {
       const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
           console.log(`id: ${selectedRowKeys}`, "datos de la fila: ", selectedRows);
+          setDatosCheck(selectedRows)
         },
       };
   return (

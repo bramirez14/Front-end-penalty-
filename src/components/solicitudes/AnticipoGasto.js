@@ -97,7 +97,7 @@ export const AnticipoGasto = ({ history }) => {
           </Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form.Item>
-              <Button htmlType="submit" block>
+              <Button className='btn'htmlType="submit" block>
                 Submit
               </Button>
             </Form.Item>
