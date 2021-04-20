@@ -1,44 +1,29 @@
 import React, { useState } from "react";
 import { Table,  Button, Col, Modal, Form, Input, Upload, message } from "antd";
 import axiosURL from "../../config/axiosURL";
-import axios from 'axios'
-import { VscCallIncoming } from "react-icons/vsc";
+import {Link} from 'react-router-dom'
 export const Tabla = ({
-  categoria,
-  descripcion,
-  notas,
-  importe,
-  array,
-  datos,
+  usuario,
+  setUsuario
 }) => {
-  console.log(datos);
+  const [highlight, setHighlight] = useState(false);
+  const [data, setData] = useState();
   const [visible, setVisible] = useState(false);
   const [visibleEditar, setVisibleEditar] = useState(false)
   const [loading, setLoading] = useState(false);
-  const [muestra, setMuestra] = useState({
-    importe:'',
-    notas:'',
-    categoria:'',
-    imagen:''
-  })
+  const [rendicionEditar, setRendicionEditar] = useState({
+    notas: '',
+    importe: '',
+    imagen: '',
+    categoria: '',
+    deleteId: [],
+})
+const { notas, importe, imagen, categoria, fecha, deleteId } = rendicionEditar
   const showModal = () => setVisible(true);
   const showModalEditar = () => setVisibleEditar(true);
 
-  const handleChange=e=>{
-    const {name, value}=e.target;
-    setMuestra({...muestra,
-    [name]: value});
-    
-  }
-  /***imagen */
-const handleImage = (e) => {
-  //console.log(e.target.files[0]);
-  setMuestra({
-    ...muestra,
-    imagen: e.target.files[0],
-  });
-};
-/**fin imagen  */
+
+
 
   const handleOk = () => {
     setLoading(true);
@@ -58,7 +43,7 @@ const handleImage = (e) => {
   const handleCancel = () => setVisible(false);
   const handleCancelEditar = () => setVisibleEditar(false);
   const seleccionarRendicionAEditar=(fila)=>{
-    setMuestra(fila)
+    setRendicionEditar(fila)
   showModalEditar();
   }
 
@@ -97,119 +82,51 @@ const handleImage = (e) => {
       key:'acciones',
       render: (f,fila) => (
         <>
-        <Button  style={{width:'auto' ,borderColor:'#1890ff',borderRadius:'7px'}}  onClick={()=>seleccionarRendicionAEditar(fila)}>Agregar Datos</Button> {"   "}
+        <Link style={{width:'auto' ,borderColor:'#1890ff',borderRadius:'7px'}}  to={`/editar/rendicion/${fila.id}`} > <Button> Agregar Dato</Button></Link> {"   "}
         </>
       ),
     },
   ];
-  const data = datos?.map((f, i) => {
+  const filas = usuario?.map((f, i) => {
     return {
       ...f,
       item: i + 1,
       key: f.id,
-      imagen: <img src={f.imagen} alt="" style={{width:'100px',height:'100px'}}/>
+      imagen: <img src={f.imagen} alt="" style={{width:'100px',height:'70px'}}/>
       
     };
   });
 
-//console.log(datos[0].imagen);
 
 /** editar la rendicion  */
 const editarRendicion = async () => {
-  let f= new FormData();
-  f.append("imagen", muestra.imagen);
-  f.append("importe", muestra.importe);
-  f.append("categoria", muestra.categoria);
-  f.append("notas", muestra.notas);
+  let f = new FormData();
+  f.append("imagen", rendicionEditar.imagen);
+  f.append("importe", rendicionEditar.importe);
+  f.append("categoria", rendicionEditar.categoria);
+  f.append("notas", rendicionEditar.notas);
+  let result = await axiosURL.put(`/rendicion/gastos/${rendicionEditar.id}`, f)
+  console.log(result);
 
- let result =  await axiosURL.put(`/rendicion/gastos/${muestra.id}`,f)
-     console.log(result);
-   
-};
-/**fin de editar rendicion  */
-//console.log(datos);
+}
 
   return (
     <Col>
+    <Link
+    to='/crear/rendicion'>
       <Button
         style={{ width: "auto", backgroundColor: "#5cdbd3", marginTop:'10px'}}
-        onClick={showModal}
       >
         {" "}
-        Ingresar
+      Ingresar
       </Button>
-
+      </Link> 
       <Table
         
         columns={columns}
-        dataSource={data}
+        dataSource={filas}
       />
-      {/**Modal para Ingresar una rendicion */}
-      <Modal
-  destroyOnClose={true}
-        title='Ingresar Rendicion'
-        onOk={handleOk}
-        visible={visible}
-        onCancel={handleCancel}
-        footer={[
-          <Button type="primary" style={{borderRadius:'20px'}} onClick={handleCancel}>
-            Cancelar
-          </Button>,
-          <Button  type="primary"  loading={loading} onClick={handleOk}>
-            Ok
-          </Button>,
-        ]}
-      >
-        <Form.Item name="categoria">
-          <Input placeholder="Categoria" name="categoria" />
-        </Form.Item>
-        <Form.Item name="descripcion">
-          <Input placeholder="Descripcion" name="descripcion" />
-        </Form.Item>
-        <Form.Item name="notas">
-          <Input placeholder="Notas" name="notas" />
-        </Form.Item>
-        <Form.Item name="importe">
-          <Input placeholder="Importe" name="importe" />
-        </Form.Item>
-      </Modal>
-
-      {/**Modal para Ediar una rendicion */}
-
-      <Modal
-  
-  title='Rendicion del Anticipo de gasto'
-  onOk={handleOkEditar}
-  visible={visibleEditar}
-  onCancel={handleCancelEditar}
-  footer={[
-    <Button  onClick={handleCancelEditar}>
-      Cancelar
-    </Button>,
-    <Button  type="primary"  loading={loading} onClick={handleOkEditar}>
-      Ok
-    </Button>,
-   
-  
-  ]}
->
-  <Form layout= 'vertical' 
->
-<Form.Item label='Categoria'  >
-    <Input name="categoria"  value={muestra&& muestra.categoria} onChange={handleChange}/>
-  </Form.Item>
-
-
-  <Form.Item label='Notas' >
-    <Input name="notas"  value={muestra&& muestra.notas} onChange={handleChange} />
-  </Form.Item>
-  <Form.Item label='Importe'>
-    <Input name="importe"  value={muestra&& muestra.importe} onChange={handleChange}/>
-  </Form.Item>
-<input className='upload' onChange={handleImage} style={{fontSize:'15px' }} type="file" name="imagen" />
-
-  </Form>
-</Modal>
+      
     </Col>
   );
 };

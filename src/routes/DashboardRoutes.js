@@ -16,6 +16,8 @@ import { Vacaciones } from '../components/solicitudes/Vacaciones';
 import { PerfilCristianAdmin } from '../components/perfiles/PerfilCristianAdmin';
 import SidebarContext from '../components/context/SidebarContext';
 import { AnticipoGasto } from '../components/solicitudes/AnticipoGasto';
+import { EditarRendicion } from '../components/rendiciones/EditarRendicion';
+import { CrearRendion } from '../components/rendiciones/CrearRendion';
 
 export const DashboardRoutes = ({ history }) => {
 
@@ -32,6 +34,10 @@ export const DashboardRoutes = ({ history }) => {
           <RouteGerente exact path='/gastos' component={RendicionGastos} />
           <RouteGerente exact path='/prueba' component={Sidebar} />
           <RouteGerente exact path='/anticipo/gastos' component={AnticipoGasto} />
+          <RouteGerente exact path='/editar/rendicion/:id' component={EditarRendicion} />
+          <RouteGerente exact path='/crear/rendicion' component={CrearRendion} />
+
+
 
      
           <Redirect to="/login" />
