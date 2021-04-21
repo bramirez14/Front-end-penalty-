@@ -40,14 +40,14 @@
     position: fixed;
     top: 0;
     left: -100%;
-    transition: 850ms;
+    transition: 1700ms;
     margin-top: -1px;
     z-index:9999;
   }
   
   .nav-menu.active {
     left: 0;
-    transition: all 700ms linear;
+    transition:  700ms ;
     z-index:9999;
     
   }

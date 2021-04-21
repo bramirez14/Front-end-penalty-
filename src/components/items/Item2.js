@@ -10,6 +10,8 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { FaEnvelope } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BsFillHouseFill } from "react-icons/bs";
+import { GiPayMoney } from "react-icons/gi";
+
 
 export const Item2 = ({click,click2}) => {
   const mediaqueryList = window.matchMedia("(max-width: 768px)");
@@ -29,7 +31,7 @@ export const Item2 = ({click,click2}) => {
             }}
           />
           <MenuItem style={{ marginLeft: "55px", fontSize: "18px",color:'white' }} onClick={q?click:click2} >
-            Dashboard
+            Home
             <Link to="/gerencia/perfil" />
           </MenuItem>
         </div>
@@ -54,7 +56,7 @@ export const Item2 = ({click,click2}) => {
         </SubMenu>
         <SubMenu
           title="Rendiciones de Gastos"
-          icon={<FaEnvelope />}
+          icon={<GiPayMoney  style={{fontSize:'20px'}}/>}
           style={{ fontSize: "18px", color: "white", marginLeft: "10px" }}
         >
           <MenuItem onClick={q?click:click2}>

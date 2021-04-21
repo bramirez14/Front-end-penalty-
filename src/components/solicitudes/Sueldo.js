@@ -6,10 +6,14 @@ import { Titulo } from "../titulos/Titulo";
 import axiosURL from "../../config/axiosURL";
 import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
-import "./sueldo.css";
-import axios from 'axios'
+import "./css/anticipoGasto.css";
+
 
 export const Sueldo = ({ history }) => {
+  let token = JSON.parse(localStorage.getItem("token"));
+  let name = JSON.parse(localStorage.getItem("name"));
+  let id = JSON.parse(localStorage.getItem("id"));
+
   const [validated, setValidated] = useState(false);
   const [users, setUsers] = useState([]);
   const [data, setData] = useState([{ id: "", nombre: "" }]);
@@ -19,37 +23,11 @@ export const Sueldo = ({ history }) => {
     importe: "",
     fecha: new Date().toLocaleDateString(),
     mensaje: "",
-    usuId: "",
-    condicion: "aprobado",
+    usuId: id,
   });
   const { Option } = Select;
-  const { sueldo, importe, mensaje, fecha, cuotas } = anticipo;
-  const handleChangeEmpleado = (v) => {
-    setAnticipo({
-      ...anticipo,
-      usuId: v,
-    });
-  };
-  const handleChangeSueldo = (v) => {
-    setAnticipo({
-      ...anticipo,
-      sueldo: v,
-    });
-  };
-  const handleChangeCuotas = (v, s) => {
-    console.log(v);
-    console.log(s);
-    setAnticipo({
-      ...anticipo,
-      cuotas: v,
-    });
-  };
-  const handleChange = (e) => {
-    setAnticipo({
-      ...anticipo,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const { sueldo, importe, mensaje, fecha, cuotas,usuId} = anticipo;
+ 
   /******useContex*******/
   const Text=useContext(UserContext)
   const {open}=Text
@@ -116,8 +94,8 @@ export const Sueldo = ({ history }) => {
     // console.log(result.data[0].departamento);
   };
   /*********fx para guardar anticipo con axios en DB **********/
-  const guardarAnticipo = async () => {
-    let result = await axiosURL.post("/anticipo", anticipo);
+  const guardarAnticipo = async (values) => {
+    let result = await axiosURL.post("/anticipo", values);
     console.log(result);
     if (result.status === 200) {
       history.push("/");
@@ -143,15 +121,17 @@ export const Sueldo = ({ history }) => {
   
     /*******condicion para envio de mail a cada departamento******* */
     if (departamento() === "Sistemas" || departamento() === "Logistica") {
-      handleSubmit = () => {
+      handleSubmit = (v) => {
+        let u={...v,usuId,fecha}
         handleAlert();
-        guardarAnticipo();
+        guardarAnticipo(u);
         //enviarMensaje()
       };
     } else {
-      handleSubmit = () => {
+      handleSubmit = (v) => {
+        let u={...v,usuId,fecha}
         handleAlert();
-        guardarAnticipo();
+        guardarAnticipo(u);
       };
     }
   
@@ -187,6 +167,12 @@ export const Sueldo = ({ history }) => {
         }
       );
   };
+  const handleChange = (e) => {
+    setAnticipo({
+      ...anticipo,
+      [e.target.name]: e.target.value,
+    });
+  };
   console.log(anticipo);
   /********************* fin funcion para enviar un mail de alerta ********************* */
   return (
@@ -197,20 +183,15 @@ export const Sueldo = ({ history }) => {
         <Row gutter={10}>
           <Col xs={24} sm={12} md={12} lg={12} xl={12}>
        
-              <SelectAnt
-                name="usuId"
-                array={users}
-                placeholder="Seleccione un Empleado"
-                change={handleChangeEmpleado}
-                mensaje='selecione un empleado'
-              />
+          <h3>{name}</h3>
+          
          
           </Col>
 
           {aprobacion()!=null ? (
             <h4>Ya tenes un anticipo pendiente!!!</h4>
           ) : (
-          <>  <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+          <>  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
               <Form.Item   
               name='importe'
     rules={[
@@ -224,6 +205,7 @@ export const Sueldo = ({ history }) => {
                   placeholder="Importe"
                   name="importe"
                   onChange={handleChange}
+                  
                 />
               </Form.Item>
             </Col>
@@ -238,7 +220,7 @@ export const Sueldo = ({ history }) => {
       },
     ]}
     >
-      <Select onChange={handleChangeSueldo} placeholder="Devolucion">
+      <Select placeholder="Devolucion">
         <Option value="Sueldo">Sueldo</Option>
         <Option value="Aguinaldo">Aguinaldo</Option>
       </Select>
@@ -246,7 +228,7 @@ export const Sueldo = ({ history }) => {
   </Col>
 ) : (
   <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-    <Form.Item>
+    <Form.Item name='sueldo'>
       <Input disabled placeholder="Sueldo" />
     </Form.Item>
   </Col>
@@ -258,21 +240,20 @@ export const Sueldo = ({ history }) => {
         placeholder="Cuotas"
         name="cuotas"
         array={data}
-        change={handleChangeCuotas}
         mensaje='seleccione una opcion'
       />
   
   </Col>
 ) : mes() > 0 && mes() <= 5 ? (
   <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-    <Form.Item>
+    <Form.Item name='cuotas'>
       <Input name="cuotas" placeholder="1" disabled />
     </Form.Item>
   </Col>
 ) : (
   <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-    <Form.Item>
-      <Select name="cuotas" onChange={handleChangeCuotas}>
+    <Form.Item name='cuotas'>
+      <Select name="cuotas" >
         <option value="1">1</option>
         <option value="2">2</option>
       </Select>
@@ -281,17 +262,17 @@ export const Sueldo = ({ history }) => {
 )}
 
 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-  <Form.Item>
+  <Form.Item name='mensaje'>
     <Input.TextArea
       name="mensaje"
       placeholder="Mensaje"
-      onChange={handleChange}
+      
     />
   </Form.Item>
 </Col>
 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
   <Form.Item>
-    <Button htmlType="submit" block>
+    <Button className='btn' htmlType="submit" block>
       Submit
     </Button>
   </Form.Item>

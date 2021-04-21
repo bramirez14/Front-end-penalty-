@@ -1,4 +1,4 @@
-.container {
+/* .container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows:auto;
@@ -32,7 +32,7 @@
     padding-left:284px
   }
   /*el setctor 1 tmb uso  css grid*/
-  .sector1{
+ /* .sector1{
     display: grid;
     grid-template-columns:  auto auto auto auto;
     grid-template-rows: auto;
@@ -66,4 +66,16 @@
     grid-area: footer;
 
       background:aqua;
+  } */
+  .contenedor-active{
+    padding-left: 170px;
+    transition: 700ms;
+  }
+  .contenedor{
+    transition: 1200ms;
+    
+  }
+  
+  .container-active{
+    margin-left:120px
   }

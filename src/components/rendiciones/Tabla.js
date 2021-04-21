@@ -2,10 +2,21 @@ import React, { useState } from "react";
 import { Table,  Button, Col, Modal, Form, Input, Upload, message } from "antd";
 import axiosURL from "../../config/axiosURL";
 import {Link} from 'react-router-dom'
+import PeticionGET from "../../config/PeticionGET";
 export const Tabla = ({
   usuario,
   setUsuario
 }) => {
+let p=PeticionGET('/gastos')
+let id = JSON.parse(localStorage.getItem("id"));
+let filtradoUsuariosConMediosDePago= p.filter(d=>d.usuarioId==id)
+console.log(filtradoUsuariosConMediosDePago);
+
+/*  let a = usuario?.map(u=> u.formapagoId)
+ console.log(a);
+ let getFpago = PeticionGET("/mpagos");
+ let af= getFpago.find(o=>a==o.id)
+ console.log(getFpago); */
   const [highlight, setHighlight] = useState(false);
   const [data, setData] = useState();
   const [visible, setVisible] = useState(false);
@@ -61,6 +72,11 @@ const { notas, importe, imagen, categoria, fecha, deleteId } = rendicionEditar
       key: "categoria",
     },
     {
+      title: "Medios de Pago",
+      dataIndex: "pago",
+      key: "pago",
+    },
+    {
       title: "Notas",
       dataIndex: "notas",
       key: "notas",
@@ -73,7 +89,6 @@ const { notas, importe, imagen, categoria, fecha, deleteId } = rendicionEditar
     {
       title: "Imagen",
       dataIndex: "imagen",
-   
   
     },
     {
@@ -87,13 +102,13 @@ const { notas, importe, imagen, categoria, fecha, deleteId } = rendicionEditar
       ),
     },
   ];
-  const filas = usuario?.map((f, i) => {
+  const filas =  filtradoUsuariosConMediosDePago?.map((f, i) => {
     return {
       ...f,
       item: i + 1,
       key: f.id,
-      imagen: <img src={f.imagen} alt="" style={{width:'100px',height:'70px'}}/>
-      
+      imagen: <img src={f.imagen} alt="" style={{width:'100px',height:'70px'}}/>,
+    pago:f.formapago.pago 
     };
   });
 

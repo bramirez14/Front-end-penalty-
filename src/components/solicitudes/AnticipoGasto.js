@@ -11,51 +11,54 @@ import PeticionGET from "../../config/PeticionGET";
 import { Titulo } from "../titulos/Titulo";
 import { SelectAnt } from "../inputs/SelectAnt";
 export const AnticipoGasto = ({ history }) => {
+  let token = JSON.parse(localStorage.getItem("token"));
+  let name = JSON.parse(localStorage.getItem("name"));
+  let id = JSON.parse(localStorage.getItem("id"));
+
   const Text = useContext(UserContext);
   const { open } = Text;
   const { Option } = Select;
-  const estadoInicial = {
-    uid: "",
-    importe: "",
-    idPago: "",
-    msj: "",
-  };
+
   /** declarando el etado inicial */
-  const [gastos, setGastos] = useState(estadoInicial);
+  const [gastos, setGastos] = useState({
+    notas:'',
+    importe: "",
+    fecha:new Date().toLocaleDateString(),
+    categoria:'',
+    usuarioId:id,
+    formapagoId:''
+  });
+  const {fecha,usuarioId}=gastos
   /**Petciones get */
-  let pg = PeticionGET("/allusers");
-  console.log(pg);
+  let pg = PeticionGET(`/${id}`);
+  let cantidadDeAntGastos=pg.gasto?.length
+  console.log(cantidadDeAntGastos);
   let pmp = PeticionGET("/mpagos");
   
 ;
 /*fx para guardar anticipo con axios en DB **********/
   const guardarAnticipo = async ( values) => {
-    let result = await  axiosURL.post("/mpago", values);
-    console.log(result.data);
-   /*  if (result.status === 200) {
+    const v={...values,fecha,usuarioId}
+    let result = await  axiosURL.post("/mpago", v);
+    if (result.status === 200) {
       history.push("/");
-    } */
+    }
   };
  
   const onSubmit=  (values) => {
  guardarAnticipo(values)
   };
-  console.log(gastos);
   return (
     <div className={!open ? "contenedor" : "contenedor-active"} >
       <Form className="form" onFinish={onSubmit}>
         <Titulo titulo="Anticipo de Gastos" />
 
         <Row gutter={10}>
-          <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-            <SelectAnt
-              name="uid"
-              placeholder="Seleccione un Empleado"
-              array={pg}
-            />
+          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+          <h3> {name}</h3>
           </Col>
 
-          <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form.Item
               hasFeedback
               rules={[
@@ -69,15 +72,19 @@ export const AnticipoGasto = ({ history }) => {
               <Input
                 type="number"
                 placeholder="Importe"
-                name="importe"
-               value={gastos.importe}
               />
             </Form.Item>
           </Col>
 
-          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-            <Form.Item name='idPago'>
-              <Select   name='idPago'  placeholder='Seleccione un medio de pago' className='op'>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+            <Form.Item  hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: "Por favor ingrese un medio de pago!",
+                },
+              ]} name='formapagoId'>
+              <Select     placeholder='Seleccione un medio de pago' className='op'>
                 {pmp.map((g) => (
                   <Option  key={g.id} value={g.id} >
                     {g.pago}
@@ -86,18 +93,28 @@ export const AnticipoGasto = ({ history }) => {
               </Select>
             </Form.Item>
           </Col>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+            <Form.Item  hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: "Por favor ingrese un categoria!",
+                },
+              ]} name='categoria'>
+              <Input placeholder='Categoria' />
+            </Form.Item>
+          </Col>
 
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-            <Form.Item name='msj'>
+            <Form.Item name='notas'>
               <Input.TextArea
-                name="msj"
-                placeholder="Mensaje"
+                placeholder="Nota"
               />
             </Form.Item>
           </Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form.Item>
-              <Button className='btn'htmlType="submit" block>
+              <Button className='btn' htmlType="submit" block>
                 Submit
               </Button>
             </Form.Item>
