@@ -113,8 +113,9 @@ export const Sueldo = ({ history }) => {
   };
   const aprobacion = () => {
     let a = users.find((u) => u.id == anticipo.usuId);
-    return (a?.anticipo)
+    return (a?.anticipoId)
   };
+  console.log(aprobacion());
   /************submit para enviar el formulario ************************ */
   let handleSubmit;
 
@@ -188,7 +189,7 @@ export const Sueldo = ({ history }) => {
          
           </Col>
 
-          {aprobacion()!=null ? (
+          {aprobacion()!=1 ? (
             <h4>Ya tenes un anticipo pendiente!!!</h4>
           ) : (
           <>  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
