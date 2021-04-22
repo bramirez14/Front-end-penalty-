@@ -18,6 +18,7 @@ import SidebarContext from '../components/context/SidebarContext';
 import { AnticipoGasto } from '../components/solicitudes/AnticipoGasto';
 import { EditarRendicion } from '../components/rendiciones/EditarRendicion';
 import { CrearRendion } from '../components/rendiciones/CrearRendion';
+import { Uploads } from '../components/rendiciones/Uploads';
 
 export const DashboardRoutes = ({ history }) => {
 
@@ -36,6 +37,8 @@ export const DashboardRoutes = ({ history }) => {
           <RouteGerente exact path='/anticipo/gastos' component={AnticipoGasto} />
           <RouteGerente exact path='/editar/rendicion/:id' component={EditarRendicion} />
           <RouteGerente exact path='/crear/rendicion' component={CrearRendion} />
+          <RouteGerente exact path='/img' component={Uploads} />
+
 
 
 

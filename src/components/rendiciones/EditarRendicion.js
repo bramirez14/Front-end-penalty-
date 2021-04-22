@@ -9,10 +9,10 @@ export const EditarRendicion = ({ match, history }) => {
     const { id } = match.params;
     const [highlight, setHighlight] = useState(false);
     const [data, setData] = useState();
+    const [img, setImg] = useState()
     const [rendicionEditar, setRendicionEditar] = useState({
         notas: '',
         importe: '',
-        imagen: '',
         categoria: '',
         deleteId: [],
     })
@@ -26,15 +26,19 @@ const { Meta } = Card;
         };
         peticionID()
     }, [id])
-   
+
+   const crearImg=async ()=>{
+    let f = new FormData();
+    f.append("imagen", img);
+    let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f)
+    if (result.data) {
+        history.push("/gastos");
+      }
+    console.log(result.data);
+   }
     const editarRendicion = async () => {
-        let f = new FormData();
-        f.append("imagen", rendicionEditar.imagen);
-        f.append("importe", rendicionEditar.importe);
-        f.append("categoria", rendicionEditar.categoria);
-        f.append("notas", rendicionEditar.notas);
-        let result = await axiosURL.put(`/rendicion/gastos/${id}`, f)
-        console.log(result);
+        let result = await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
+        console.log(result.data);
         if (result.data) {
             history.push("/gastos");
           }
@@ -67,10 +71,7 @@ const { Meta } = Card;
             };
             imageArr.push(fileObj);
             setData(imageArr);
-            setRendicionEditar({
-                ...rendicionEditar,
-                imagen: file,
-            });
+            setImg(file);//guardamos el archivo imagen
         });
 
     };
@@ -109,13 +110,13 @@ const { Meta } = Card;
     /****fin imagenn  */
     /**Submit */
     const handleSubmit = (e) => {
-     editarRendicion()
-
+     editarRendicion();
+        crearImg();
       };
     /**Fin Submit */
 
-console.log(rendicionEditar);
-;
+/* console.log(rendicionEditar);
+console.log(img); */
     return (
         <>
             <Row style={{}}>
