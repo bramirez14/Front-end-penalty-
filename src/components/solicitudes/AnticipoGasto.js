@@ -51,9 +51,11 @@ export const AnticipoGasto = ({ history }) => {
   return (
     <div className={!open ? "contenedor" : "contenedor-active"} >
       <Form className="form" onFinish={onSubmit}>
-        <Titulo titulo="Anticipo de Gastos" />
+      <Row gutter={10}>
+      <Col xs={24} sm={24} md={24} lg={24} xl={24}>
 
-        <Row gutter={10}>
+        <Titulo titulo="Anticipo de Gastos" />
+</Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <h3> {name}</h3>
           </Col>
@@ -115,7 +117,7 @@ export const AnticipoGasto = ({ history }) => {
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form.Item>
               <Button className='btn' htmlType="submit" block>
-                Submit
+                Enviar
               </Button>
             </Form.Item>
           </Col>

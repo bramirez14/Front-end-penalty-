@@ -169,7 +169,7 @@ console.log(img); */
 
                         </div>
                         <Form.Item >
-        <Button type="primary" htmlType="submit" block >
+        <Button className='btn' htmlType="submit" block >
           Guardar
         </Button>
       </Form.Item>

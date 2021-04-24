@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-//import { Form, Col, Button } from "react-bootstrap";
-import emailjs from "emailjs-com";
-import Swal from "sweetalert2";
-import "./sueldo.css";
-import { InputCalendario } from "../formularios/InputCalendario";
-import axiosURL from "../../config/axiosURL";
 import { Form, Input, Button, Col, Row, Divider, DatePicker } from "antd";
 import { UserContext } from "../../contexto/UserContext";
-import moment from "moment";
 import { Titulo } from "../titulos/Titulo";
+import axiosURL from "../../config/axiosURL";
+import Swal from "sweetalert2";
+import emailjs from "emailjs-com";
+import moment from "moment";
+import "./sueldo.css";
+import PeticionGET from "../../config/PeticionGET";
 
 export const Vacaciones = ({ history }) => {
   /**datos del localStorage */
@@ -18,31 +17,26 @@ export const Vacaciones = ({ history }) => {
   /**useContext***/
   const Text = useContext(UserContext);
   const { open } = Text;
-
-  const [validated, setValidated] = useState(false);
   const [users, setUsers] = useState([]);
-  const [periodo, setPeriodo] = useState({
-    datosPeriodo: [],
-    titulo: "",
-  });
-  const [selectedDate, setSelectedDate] = useState({
-    select2: new Date(),
-  });
-  const { datosPeriodo } = periodo;
-  const [dia, setDia] = useState("dias");
-  const [vaca, setVaca] = useState([]);
   /***iniciamos el estado******/
   const [vacaciones, setVacaciones] = useState({
     periodo: (new Date().getFullYear() - 1).toString(),
     fechaSolicitud: new Date().toLocaleDateString(),
     fechaHasta: "",
-    fechaDesde: new Date().toLocaleDateString(),
+    fechaDesde: "",
     dias: "",
-    diasFaltantes: "0",
+    diasFaltantes: "",
     obs: "",
     usuarioId: id,
   });
-  const { empleado, dias, fechaDesde } = vacaciones;
+  const {
+    empleado,
+    dias,
+    fechaDesde,
+    fechaHasta,
+    diasFaltantes,
+    maximo,
+  } = vacaciones;
   /*****Alertas******/
   const handleAlert = () => {
     Swal.fire({
@@ -57,103 +51,117 @@ export const Vacaciones = ({ history }) => {
   };
 
   /******fx solicitud de usuarios a DB con axios *******/
-  const getUser = async () => {
-    let result = await axiosURL.get("/allusers");
-    setUsers(result.data);
-    // console.log(result.data[0].departamento);
-  };
-  const getVacaciones = async () => {
-    let result = await axiosURL.get("/vacaciones");
-    setVaca(result.data);
-    //    console.log(result.data);
-  };
+
+  const usuario = PeticionGET(`/${id}`);
+  const añosTrabajados =
+    new Date().toLocaleDateString().split("/")[2] -
+    usuario?.fechaContratacion?.split("/")[2];
+  const depto = usuario.departamento?.departamento;
+  const listaDeVacaciones = usuario.vacacion;
+  const ultimaVacacionesTomada =
+    listaDeVacaciones?.[listaDeVacaciones.length - 1]?.diasFaltantes;
+  //let peridoDelUsuario=listaDeVacaciones?.[2].periodo; estableer periodo ...
+  //console.log(peridoDelUsuario);
+  let vacation =
+    añosTrabajados <= 5
+      ? 14
+      : añosTrabajados > 5 && añosTrabajados <= 10
+      ? 21
+      : añosTrabajados > 10 && añosTrabajados <= 20
+      ? 28
+      : añosTrabajados > 20
+      ? 35
+      : "";
 
   const handleChange = (e) => {
     const { value, name } = e.target;
     setVacaciones({ ...vacaciones, [name]: value });
   };
-
-  const añosTrabajados = () => {
-    let buscarUsuario = users.find((v) => v.id == vacaciones.usuarioId);
-    console.log(buscarUsuario);
-    let f =
-      new Date().toLocaleDateString().split("/")[2] -
-      buscarUsuario?.fechaContratacion.split("/")[2];
-    return f;
-  };
-
   const diasDeVacacionesPorAño = () => {
-    let vacation =
-      añosTrabajados() <= 5
-        ? 14
-        : añosTrabajados() > 5 && añosTrabajados() <= 10
-        ? 21
-        : añosTrabajados() > 10 && añosTrabajados() <= 20
-        ? 28
-        : añosTrabajados() > 20
-        ? 35
-        : "";
-    setVacaciones({ ...vacaciones, dias: vacation });
-    return vacation;
+    listaDeVacaciones?.length === 0
+      ? setVacaciones({ ...vacaciones, dias: vacation, maximo: vacation })
+      : setVacaciones({
+          ...vacaciones,
+          dias: ultimaVacacionesTomada,
+          maximo: ultimaVacacionesTomada,
+        });
+  };
+  const diasRestantes = () => {
+    let restaDias =
+      listaDeVacaciones?.length === 0
+        ? vacation - dias
+        : ultimaVacacionesTomada - dias;
+    let fcha = sumaFecha(dias, fechaDesde);
+    setVacaciones({
+      ...vacaciones,
+      diasFaltantes: restaDias,
+      fechaHasta: fcha,
+    });
+    return restaDias;
   };
 
   useEffect(() => {
-    getUser();
-    getVacaciones();
     diasDeVacacionesPorAño();
-  }, [añosTrabajados()]);
+  }, [añosTrabajados]);
+  useEffect(() => {
+    diasRestantes(); //22
+    //onChange()
+  }, [dias]);
 
+  const onChange = (date, dateString) => {
+    console.log(dateString);
+    let f = sumaFecha(dias, dateString);
+    console.log(f);
+    listaDeVacaciones?.length === 0
+      ? setVacaciones({
+          ...vacaciones,
+          fechaHasta: f,
+          fechaDesde: dateString,
+          dias: vacation,
+        })
+      : setVacaciones({
+          ...vacaciones,
+          fechaHasta: f,
+          fechaDesde: dateString,
+          dias: ultimaVacacionesTomada,
+        });
+  };
   /********enviamos el formulario a DB********/
 
   const guardarAnticipoDeVacaciones = async () => {
     let result = await axiosURL.post("/vacaciones", vacaciones);
     console.log(result);
-    /*  if (result.status === 200) {
+     if (result.status === 200) {
       history.push("/");
-    } */
-  };
-
-  const departamento = () => {
-    let usuarioDep = users.find((u) => u.id == vacaciones.usuarioId);
-    return usuarioDep?.departamento.departamento;
+    } 
   };
 
   let handleSubmit;
 
   /*******condicion para envio de mail a cada departamento******* */
-  if (departamento() === "Sistemas" || departamento() === "Logistica") {
+  if (depto === 'Sistemas' || depto === 'Logistica') {
     handleSubmit = (e) => {
-     
       handleAlert();
       guardarAnticipoDeVacaciones();
 
       //enviarMensaje()
     };
-  } else {
+  } else if(depto==='Administracion' || depto ==='Marketing'){
     handleSubmit = (e) => {
-    
+      handleAlert();
+      guardarAnticipoDeVacaciones();
+      //enviarMensaje()
+    };
+  }else{
+    handleSubmit = (e) => {
       handleAlert();
       guardarAnticipoDeVacaciones();
       //enviarMensaje()
     };
   }
-  /************falta hacer la verificacion de  si el usuario ya tiene 
-    un periodo del mismo año ************** */
-  console.log(vacaciones);
   const dateFormat = "DD/MM/YYYY";
-  const layout = {
-    layout: "vertical",
-  };
 
-
-  function onChange(date, dateString) {
-    console.log(date);
-    console.log(dateString);
-    let f = sumaFecha(vacaciones.dias, dateString);
-    setVacaciones({ ...vacaciones, fechaHasta: f, fechaDesde: dateString });
-  }
   // Función que suma días a la fecha indicada
-
   const sumaFecha = (d, fecha) => {
     var Fecha = new Date();
     var sFecha =
@@ -187,23 +195,21 @@ export const Vacaciones = ({ history }) => {
           onFinish={handleSubmit}
           onChange={handleChange}
         >
-          <Titulo titulo="Solicitud de Vacaciones" />
           <Row gutter={10}>
-            <Form.Item name="empleado">
-              <h3>{name}</h3>
-            </Form.Item>
+
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+
+          <Titulo titulo="Solicitud de Vacaciones" />
+          </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+              <Form.Item name="empleado">
+                <h3>{name}</h3>
+              </Form.Item>
+            </Col>
+
+            <Col xs={12} sm={12} md={12} lg={12} xl={12}>
               <Form.Item label="Periodo">
                 <Input disabled value={vacaciones.periodo} />
-              </Form.Item>
-              <Form.Item label="Dias">
-                <Input
-                  type="number"
-                  name="dias"
-                  value={vacaciones.dias}
-                  min="0"
-                  max="40"
-                />
               </Form.Item>
             </Col>
 
@@ -220,34 +226,50 @@ export const Vacaciones = ({ history }) => {
               >
                 <DatePicker
                   name="fechaDesde"
-                  defaultValue={moment(new Date(), dateFormat)}
                   format={dateFormat}
                   onChange={onChange}
                 />
               </Form.Item>
             </Col>
+            {dias ===0 ? (
+              <h2>Ya no tenes vacaciones pendientes!!! </h2>
+            ):(
+              <>
+                <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+                  <Form.Item label="Dias">
+                    <Input
+                      type="number"
+                      name="dias"
+                      value={vacaciones.dias}
+                      min="0"
+                      max={maximo}
+                    />
+                  </Form.Item>
+                </Col>
 
-            <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-              <Form.Item label="Hasta">
-                <DatePicker
-                  placeholder={
-                    vacaciones.fechaHasta
-                      ? vacaciones.fechaHasta
-                      : new Date().toLocaleDateString()
-                  }
-                  disabled
-                />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <Form.Item>
-                <Input.TextArea name="obs" placeholder="mensaje" />
-              </Form.Item>
-            </Col>
+                <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+                  <Form.Item label="Hasta">
+                    <DatePicker
+                      placeholder={
+                        vacaciones.fechaHasta
+                          ? vacaciones.fechaHasta
+                          : new Date().toLocaleDateString()
+                      }
+                      disabled
+                    />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                  <Form.Item>
+                    <Input.TextArea name="obs" placeholder="mensaje" />
+                  </Form.Item>
+                </Col>
+              </>
+            ) }
           </Row>
           <Form.Item>
             <Button className="btn" htmlType="submit" block>
-              Solicitar
+              Enviar
             </Button>
           </Form.Item>
         </Form>

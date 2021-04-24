@@ -97,7 +97,7 @@ const { notas, importe, imagen, categoria, fecha, deleteId } = rendicionEditar
       key:'acciones',
       render: (f,fila) => (
         <>
-        <Link style={{width:'auto' ,borderColor:'#1890ff',borderRadius:'7px'}}  to={`/editar/rendicion/${fila.id}`} > <Button> Agregar Dato</Button></Link> {"   "}
+        <Link  to={`/editar/rendicion/${fila.id}`} > <Button style={{width:'auto' ,borderColor:'#1890ff',borderRadius:'10px'}} > Agregar Datos</Button></Link> {"   "}
         </>
       ),
     },
@@ -130,10 +130,10 @@ const editarRendicion = async () => {
     <Link
     to='/crear/rendicion'>
       <Button
-        style={{ width: "auto", backgroundColor: "#5cdbd3", marginTop:'10px'}}
+        style={{ width: "auto", backgroundColor: "#69c0ff", marginTop:'10px',borderRadius:'10px'}}
       >
         {" "}
-      Ingresar
+      Ingresar Rendicion
       </Button>
       </Link> 
       <Table
