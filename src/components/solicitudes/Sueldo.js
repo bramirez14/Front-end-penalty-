@@ -180,8 +180,12 @@ export const Sueldo = ({ history }) => {
     
     <div className={!open?'contenedor':'contenedor-active'}>
       <Form className="form" onFinish={handleSubmit}>
+      <Row gutter={10}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <Titulo titulo="Anticipo de Sueldo" />
-        <Row gutter={10}>
+
+        </Col>
+      
           <Col xs={24} sm={12} md={12} lg={12} xl={12}>
        
           <h3>{name}</h3>
@@ -189,7 +193,7 @@ export const Sueldo = ({ history }) => {
          
           </Col>
 
-          {aprobacion()!=1 ? (
+          {aprobacion()!=id && aprobacion()!=undefined ? (
             <h4>Ya tenes un anticipo pendiente!!!</h4>
           ) : (
           <>  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -274,7 +278,7 @@ export const Sueldo = ({ history }) => {
 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
   <Form.Item>
     <Button className='btn' htmlType="submit" block>
-      Submit
+      Enviar
     </Button>
   </Form.Item>
 </Col>
@@ -282,7 +286,7 @@ export const Sueldo = ({ history }) => {
 </>
           )}
 
-          {/*Separacio............................................. */}
+          
 
           
         </Row>

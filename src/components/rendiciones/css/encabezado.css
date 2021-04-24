@@ -4,13 +4,16 @@
 .logo{
   width: 180px;
   height: 170px;
+  margin:'auto'
 }
 .div-logo{
 margin-left:20px;
+top:-40;
 }
 
 .parrafo{
   font-size: 20px;
+  
 }
 .parrafo2{
   margin-left: 10px;
@@ -20,5 +23,5 @@ margin-left:20px;
   height: 150px;
 }
 .texto{
-  margin-top: 20px;
+  padding: 27px;
 }
