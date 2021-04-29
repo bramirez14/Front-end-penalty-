@@ -73,7 +73,7 @@ export const AnticipoGasto = ({ history }) => {
         <Titulo titulo="Anticipo de Gastos" />
 </Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-          <h3> {nombre} , {apellido}</h3>
+          <h3> {nombre}, {apellido}</h3>
           </Col>
 
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>

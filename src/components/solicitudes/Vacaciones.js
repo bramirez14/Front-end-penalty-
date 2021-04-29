@@ -212,7 +212,7 @@ export const Vacaciones = ({ history }) => {
 
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
 
-          <Titulo titulo="Solicitud de Vacaciones" />
+          <Titulo style={{fontSize:'25px'}}titulo='Solicitud de Vacaciones'/>
           </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
               <Form.Item name="empleado">

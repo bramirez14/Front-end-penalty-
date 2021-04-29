@@ -7,3 +7,11 @@
     padding: 30px;
     margin-top:20px;
 }
+.contenedor-rendicion{
+    transition: 1200ms;
+   
+}
+.contenedor-rendicion-active{
+  padding-left: 200px;
+    transition: 700ms;
+}

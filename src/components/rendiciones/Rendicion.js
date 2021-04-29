@@ -11,29 +11,13 @@ export const Rendicion = ({ history }) => {
   const id = securedBrowserCache.getItem('uid')
 let peticionToken= PeticionJWT()
 
-/*   const [rendicion, setRendicion] = useState({
-    usuarioId: "",
-    responsable: "",
-    fecha: new Date().toLocaleDateString(),
-    responsable: "",
-  }); */
-  //const { fecha, usuarioId } = rendicion;
-
 
   return (
     <Form layout="vertical">
       <Row>
-        <Col
-          xs={24}
-          sm={24}
-          md={24}
-          lg={24}
-          xl={24}
-          xxl={24}
+        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
          
-        >
-         
-           <Titulo titulo='Rendicion de Gastos'/>
+           <h2 className='title'>Rendicion de Gastos</h2>
 
               <h3>Empleado: {peticionToken.nombre}, {peticionToken.apellido}</h3>
             

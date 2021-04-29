@@ -16,7 +16,7 @@ const Text = useContext(UserContext)
 const {open}=Text
 
     return (
-        <div className={!open?'contenedor':'contenedor-active'}>
+        <div className={!open?'contenedor-rendicion':'contenedor-rendicion-active'}>
 
         <div className ='contenedor-form' >
         <Encabezado/>
