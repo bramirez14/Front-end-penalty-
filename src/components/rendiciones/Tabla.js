@@ -3,20 +3,16 @@ import { Table,  Button, Col, Modal, Form, Input, Upload, message } from "antd";
 import axiosURL from "../../config/axiosURL";
 import {Link} from 'react-router-dom'
 import PeticionGET from "../../config/PeticionGET";
+import { securedBrowserCache } from 'secured-browser-storage';
+
 export const Tabla = ({
   usuario,
-  setUsuario
-}) => {
-let p=PeticionGET('/gastos')
-let id = JSON.parse(localStorage.getItem("id"));
-let filtradoUsuariosConMediosDePago= p.filter(d=>d.usuarioId==id)
-console.log(filtradoUsuariosConMediosDePago);
+  setUsuario,
 
-/*  let a = usuario?.map(u=> u.formapagoId)
- console.log(a);
- let getFpago = PeticionGET("/mpagos");
- let af= getFpago.find(o=>a==o.id)
- console.log(getFpago); */
+}) => {
+  const id = securedBrowserCache.getItem('uid')
+let p=PeticionGET('/gastos')
+let filtradoUsuariosConMediosDePago= p.filter(d=>d.usuarioId==id)
   const [highlight, setHighlight] = useState(false);
   const [data, setData] = useState();
   const [visible, setVisible] = useState(false);
@@ -62,15 +58,17 @@ const { notas, importe, imagen, categoria, fecha, deleteId } = rendicionEditar
 
   const columns = [
     {
-      title: "Item",
-      dataIndex: "item",
+      title:"N° de Rendicion",
+      dataIndex: "id",
       key: "item",
     },
+    
     {
-      title: "Categorias",
-      dataIndex: "categoria",
-      key: "categoria",
+      title: "Fecha",
+      dataIndex: "fecha",
+  
     },
+ 
     {
       title: "Medios de Pago",
       dataIndex: "pago",
@@ -86,18 +84,14 @@ const { notas, importe, imagen, categoria, fecha, deleteId } = rendicionEditar
       dataIndex: "importe",
       key: "importe",
     },
-    {
-      title: "Imagen",
-      dataIndex: "imagen",
-  
-    },
+   
     {
       title: "Acciones",
       dataIndex: "acciones",
       key:'acciones',
       render: (f,fila) => (
         <>
-        <Link  to={`/editar/rendicion/${fila.id}`} > <Button style={{width:'auto' ,borderColor:'#1890ff',borderRadius:'10px'}} > Agregar Datos</Button></Link> {"   "}
+        <Link  to={`/lista/rendicion/${fila.id}`} > <Button style={{width:'auto' ,borderColor:'#1890ff',borderRadius:'10px'}} > Agregar Rendiciones</Button></Link> {"   "}
         </>
       ),
     },
@@ -107,7 +101,7 @@ const { notas, importe, imagen, categoria, fecha, deleteId } = rendicionEditar
       ...f,
       item: i + 1,
       key: f.id,
-      imagen: <img src={f.imagen} alt="" style={{width:'100px',height:'70px'}}/>,
+    
     pago:f.formapago.pago 
     };
   });

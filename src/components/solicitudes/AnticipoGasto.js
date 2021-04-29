@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
@@ -10,10 +10,26 @@ import axiosURL from "../../config/axiosURL";
 import PeticionGET from "../../config/PeticionGET";
 import { Titulo } from "../titulos/Titulo";
 import { SelectAnt } from "../inputs/SelectAnt";
+import { securedBrowserCache } from 'secured-browser-storage';
+
+
 export const AnticipoGasto = ({ history }) => {
-  let token = JSON.parse(localStorage.getItem("token"));
-  let name = JSON.parse(localStorage.getItem("name"));
-  let id = JSON.parse(localStorage.getItem("id"));
+    //Peticion get para saber cuando vence el localStorage
+  const id = securedBrowserCache.getItem('uid')
+    const [tokenEstado, setTokenEstado] = useState({});
+    console.log(tokenEstado);
+    const { nombre, apellido } = tokenEstado;
+    useEffect(() => {
+      const cargarUsuario = async () => {
+        let datosJWT = await axiosURL.get("/check", {
+          headers: { token: tokenStorage },
+        });
+        setTokenEstado(datosJWT.data);
+      };
+      cargarUsuario();
+    }, []);  
+  let tokenStorage = JSON.parse(localStorage.getItem("token"));
+
 
   const Text = useContext(UserContext);
   const { open } = Text;
@@ -57,7 +73,7 @@ export const AnticipoGasto = ({ history }) => {
         <Titulo titulo="Anticipo de Gastos" />
 </Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-          <h3> {name}</h3>
+          <h3> {nombre} , {apellido}</h3>
           </Col>
 
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -78,7 +94,7 @@ export const AnticipoGasto = ({ history }) => {
             </Form.Item>
           </Col>
 
-          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form.Item  hasFeedback
               rules={[
                 {
@@ -95,18 +111,7 @@ export const AnticipoGasto = ({ history }) => {
               </Select>
             </Form.Item>
           </Col>
-          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-            <Form.Item  hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: "Por favor ingrese un categoria!",
-                },
-              ]} name='categoria'>
-              <Input placeholder='Categoria' />
-            </Form.Item>
-          </Col>
-
+          
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form.Item name='notas'>
               <Input.TextArea

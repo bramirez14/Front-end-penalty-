@@ -8,7 +8,7 @@ export const Encabezado = () => {
 
   return (
 
-    <Row>
+    <Row style={{borderBottom: "solid 1px rgba(92, 99, 105, 0.5)"}}>
     <Col xs={14} sm={4} md={8} lg={8} xl={8} >
     <div className="div-logo">
           <img src={logo} alt="logo" className="logo" />

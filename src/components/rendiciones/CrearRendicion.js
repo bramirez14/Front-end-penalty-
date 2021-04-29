@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axiosURL from "../../config/axiosURL";
-import { Form, Input, Button, Col, Row, Card, Select } from "antd";
+import { Form, Input, Button, Col, Row, Card, Select, Divider } from "antd";
 
 import "./css/editarRendicion.css";
 import TextArea from "antd/lib/input/TextArea";
 import PeticionGET from "../../config/PeticionGET";
 import { SelectAnt } from "../inputs/SelectAnt";
-export const CrearRendion = ({ match, history }) => {
-  let id = JSON.parse(localStorage.getItem("id"));
-  console.log(id);
+import { categorias } from "./categorias";
+export const CrearRendicion = ({ match, history }) => {
+  const { id } = match.params;
+
+
   const { Option } = Select;
   const [highlight, setHighlight] = useState(false);
   const [data, setData] = useState();
-  const [rendicionEditar, setRendicionEditar] = useState({
+  const [crearRendicion, setCrearRendicion] = useState({
+    fecha: new Date().toLocaleDateString(),
     notas: "",
     importe: "",
     imagen: "",
     categoria: "",
-    usuarioId: id,
+    gastoId: id,
     deleteId: [],
-    fecha: new Date().toLocaleDateString(),
-    formapagoId: "",
   });
   const {
     notas,
@@ -28,43 +29,39 @@ export const CrearRendion = ({ match, history }) => {
     imagen,
     categoria,
     fecha,
-    usuarioId,
+    gastoId,
     deleteId,
-    formapagoId,
-  } = rendicionEditar;
+  } = crearRendicion;
   const { Meta } = Card;
-  console.log(fecha);
 
-  const crearRendicion = async () => {
+  const agregar = async () => {
     let f = new FormData();
-    f.append("imagen", rendicionEditar.imagen);
+    f.append("imagen", imagen);
     f.append("importe", importe);
     f.append("categoria", categoria);
     f.append("notas", notas);
-    f.append("usuarioId", usuarioId);
     f.append("fecha", fecha);
-    f.append("formapagoId", formapagoId);
+    f.append("gastoId",gastoId);
 
-
-    let result = await axiosURL.post("/rendiciones/gastos", f);
+    let result = await axiosURL.post("/rendicion", f);
     console.log(result.data);
-    if (result.data) {
+    /* if (result.data) {
       history.push("/gastos");
-    }
+    } */
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setRendicionEditar({
-      ...rendicionEditar,
+    setCrearRendicion({
+      ...crearRendicion,
       [name]: value,
     });
   };
-  const onChange = (value) => {
-    setRendicionEditar({...rendicionEditar,formapagoId:value})
-  };
-  const onSearch = (val) => {
-    setRendicionEditar({...rendicionEditar,formapagoId:val})
-  };
+  const selectChange=(value)=>{
+    setCrearRendicion({
+      ...crearRendicion,categoria:value
+    })
+  }
+  
 
   /*******imagen */
 
@@ -87,8 +84,8 @@ export const CrearRendion = ({ match, history }) => {
       };
       imageArr.push(fileObj);
       setData(imageArr);
-      setRendicionEditar({
-        ...rendicionEditar,
+      setCrearRendicion({
+        ...crearRendicion,
         imagen: file,
       });
     });
@@ -118,8 +115,8 @@ export const CrearRendion = ({ match, history }) => {
     let targetindex = target.dataset.imgindex * 1;
     deleted.push(imagen[targetindex]?.id);
     setData([...data.slice(0, targetindex), ...data.slice(targetindex + 1)]);
-    setRendicionEditar({
-      ...rendicionEditar,
+    setCrearRendicion({
+      ...crearRendicion,
       imagen: imagen,
       deleteId: deleteId == undefined ? [deleted] : [...deleteId, deleted],
     });
@@ -128,91 +125,83 @@ export const CrearRendion = ({ match, history }) => {
   /****fin imagenn  */
   /**Submit */
   const handleSubmit = () => {
-    crearRendicion();
+    agregar();
   };
   /**Fin Submit */
   /**peticio get de forma de pago */
   let getFpago = PeticionGET("/mpagos");
-  console.log(getFpago);
   /**fin peticion get forma de pago */
-  console.log(rendicionEditar);
-
+  const estilo = {
+    xs: 24,
+    sm: 24,
+    md: 24,
+    lg: 24,
+    xl: 24,
+    xxl: 24,
+  };
+  console.log(crearRendicion);
   return (
     <>
-      <Row style={{}}>
-        <Col xs={24} sm={24} md={6} lg={8} xl={8} xxl={8}>
-          <Form
-            onFinish={handleSubmit}
-            onChange={handleChange}
-            layout="vertical"
-            className="rendicion"
-            style={{ width: "400px" }}
-          >
-            <Form.Item name="importe">
-              <Input name="importe" placeholder="Importe" />
-            </Form.Item>
-            <Form.Item>
-              <Select
-                showSearch
-                placeholder="Medio de pago"
-                onChange={onChange}
-                onSearch={onSearch}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
-              >
-                  {getFpago.map( g=>(
-                <Option key ={g.id} value={g.id}>{g.pago}</Option>
-                ))}
-               
-              </Select>
-            </Form.Item>
-            <Form.Item name="categoria">
-              <Input
-                name="categoria"
-                value={categoria}
-                placeholder="Categoria"
-              />
-            </Form.Item>
+      <Row>
+        <Form
+          onFinish={handleSubmit}
+          onChange={handleChange}
+          layout="vertical"
+          className="formulario-rendicion"
+          {...estilo}
+        >
+          <h5 style={{ textAlign: "center" }}>Agregar Rendicion</h5>
+          <Divider style={{}} />
+          <Form.Item name="categoria">
+            <Select placeholder="Categoria" onChange={selectChange} >
+              {categorias.map((c) => (
+                <Option key={c.id} value={c.categoria}>
+                  {c.categoria}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item name="importe">
+            <Input name="importe" placeholder="Importe" />
+          </Form.Item>
+          
 
-            <Form.Item name="notas">
-              <TextArea name="notas" value={notas} placeholder="Nota" />
-            </Form.Item>
-            
-            <div className="custom-form-group">
-              <div
-                className={
-                  highlight
-                    ? "custom-file-drop-area highlight"
-                    : "custom-file-drop-area"
-                }
-                onDragEnter={handleHighLight}
-                onDragOver={handleHighLight}
-                onDragLeave={handleUnhiglight}
-                onDrop={handleDrop}
-              >
-                <input
-                  type="file"
-                  name="photos"
-                  placeholder="Enter photos"
-                  multiple
-                  id="filephotos"
-                  onChange={handleFileChange}
-                />
-                <label htmlFor="filephotos">
-                  {" "}
-                  <h1> + </h1>{" "}
-                </label>
-              </div>
+          <Form.Item name="notas">
+            <TextArea name="notas" value={notas} placeholder="Nota" />
+          </Form.Item>
+
+          <div className="custom-form-group">
+            <div
+              className={
+                highlight
+                  ? "custom-file-drop-area highlight"
+                  : "custom-file-drop-area"
+              }
+              onDragEnter={handleHighLight}
+              onDragOver={handleHighLight}
+              onDragLeave={handleUnhiglight}
+              onDrop={handleDrop}
+            >
+              <input
+                type="file"
+                name="photos"
+                placeholder="Enter photos"
+                multiple
+                id="filephotos"
+                onChange={handleFileChange}
+              />
+              <label htmlFor="filephotos">
+                {" "}
+                <h1> + </h1>{" "}
+              </label>
             </div>
-            <Form.Item>
-              <Button className='btn' htmlType="submit" block>
-                Guardar
-              </Button>
-            </Form.Item>
-          </Form>
-        </Col>
+          </div>
+          <Form.Item>
+            <Button className="btn" htmlType="submit" block>
+              Guardar
+            </Button>
+          </Form.Item>
+        </Form>
 
         <Card
           hoverable
@@ -220,7 +209,7 @@ export const CrearRendion = ({ match, history }) => {
           cover={
             <div className="custom-file-preview ">
               {data === undefined ? (
-                <h2>Agregue una imagen</h2>
+                <h2 style={{marginLeft:'170px',marginTop:'170px'}}>Imagen</h2>
               ) : (
                 data.map((item, index) => (
                   <div

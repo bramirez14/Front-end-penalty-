@@ -1,3 +1,10 @@
+.formulario-rendicion{
+  width:290px;
+  box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
+  height: auto;
+  padding: 10px;
+ 
+}
 .formulario-rendicion-img{
    
 
@@ -114,10 +121,9 @@ a {
   -ms-flex-pack: center;
   justify-content: center;
   border: 2px dashed #ddd;
-  height: 160px;
+  height: 110px;
   cursor: -webkit-grab;
-  width: 300px;
-  margin-left: 12px;
+  width: 270px;
   margin-top: 15px;
   border-radius: 20px;
   cursor: grab;

@@ -11,9 +11,8 @@ import { Login } from "../components/login/Login";
 import { Profile } from "../components/login/Profile";
 import { Register } from "../components/login/Register";
 
-
-import { PrivateRoute } from './PrivateRoute';
-import { PublicRoute } from './PublicRoute';
+import { PrivateRoute } from "./PrivateRoute";
+import { PublicRoute } from "./PublicRoute";
 import { RouteAdmin } from "./RouteAdmin";
 import { RouteGerente } from "./RouteGerente";
 import { PerfilGerente } from "../components/perfiles/PerfilGerente";
@@ -23,20 +22,11 @@ import SidebarContext from "../components/context/SidebarContext";
 export const Routes = () => {
   return (
     <Router>
-    <Switch>
-     
-      <PublicRoute exact path="/login" component={ Login } />
-      <PublicRoute exact path ="/register" component={Register}/>
-    
-      <PrivateRoute path="/" component={ DashboardRoutes } />
-     
-    </Switch>
-  </Router>
-
-
-
-
-
-      
+      <Switch>
+        <PublicRoute exact path="/login" component={Login} />
+        <PublicRoute exact path="/register" component={Register} />
+        <PrivateRoute path="/" component={DashboardRoutes} />
+      </Switch>
+    </Router>
   );
 };

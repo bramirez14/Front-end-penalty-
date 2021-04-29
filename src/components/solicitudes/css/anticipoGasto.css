@@ -19,7 +19,7 @@ width: 40%;
 /*---------- Input ----------*/
 
 .ant-input{
-  border-radius: 20px;
+  border-radius: 10px;
   height: 31px
 }
 
@@ -66,20 +66,20 @@ width: 40%;
 
 .ant-input:focus,
 .ant-input-focused {
-  border: solid 2.5px var(--border-color);
+  border: solid 2px var(--border-color);
   border-right-width: 1px !important;
   outline: 0;
   box-shadow: none;
 }
 .ant-input:hover {
-  border: solid 2.5px var(--border-color);
+  border: solid 2px var(--border-color);
 }
 /*--------Button-------*/
 .btn{
   background-color: var(--border-color);
   border-color: var(--border-color);
   color: #fff;
-  border-radius: 14px;
+  border-radius: 10px;
 }
 
 .btn:active {

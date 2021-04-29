@@ -126,7 +126,7 @@ console.log(img); */
                     lg={8}
                     xl={8}
                     xxl={8} >
-                    <Form  onFinish={handleSubmit} onChange={handleChange} layout='vertical' className='rendicion' style={{ width: '400px' }}>
+                        <Form  onFinish={handleSubmit} onChange={handleChange} layout='vertical' className='formulario-rendicion'>
 
                         <Form.Item label='Categoria'>
                             <Input name='categoria' value={categoria} />

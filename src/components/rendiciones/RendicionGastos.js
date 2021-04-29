@@ -1,6 +1,6 @@
 import React from "react";
 import { Encabezado } from "./Encabezado";
-import { CreateRendicion } from "./CreateRendicion";
+import { Rendicion } from "./Rendicion";
 import "./css/rendicionGastos.css";
 import { Titulo } from "../titulos/Titulo";
 import { Form, Input, Button, Select, Col, Row } from "antd";
@@ -10,8 +10,8 @@ export const RendicionGastos = ({ history }) => {
     <>
       <div className ='contenedor-form' >
         {" "}
-        <Encabezado />
-        <CreateRendicion history={history} />
+        {/* <Encabezado /> */}
+        <Rendicion history={history} />
       </div>
     </>
   );

@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Select, Col, Row, Checkbox, Modal } from "antd";
+import { Form, Input, Button, Select, Col, Row, Checkbox, Modal,Divider } from "antd";
 import "./css/createRendicion.css";
 import axiosURL from "../../config/axiosURL";
 import { Tabla } from "./Tabla";
-export const CreateRendicion = ({ history }) => {
-  const [autocompletado, setAutocompletado] = useState({
-    email: "",
-    departamento: "",
-  });
-  const { email, departamento } = autocompletado;
-  const [rendicion, setRendicion] = useState({
+import { securedBrowserCache } from 'secured-browser-storage';
+import { PeticionJWT } from "../../auth/PeticionJWT";
+import { Titulo } from "../titulos/Titulo";
+
+export const Rendicion = ({ history }) => {
+  const id = securedBrowserCache.getItem('uid')
+let peticionToken= PeticionJWT()
+
+/*   const [rendicion, setRendicion] = useState({
     usuarioId: "",
     responsable: "",
     fecha: new Date().toLocaleDateString(),
     responsable: "",
-  });
-  const { fecha, usuarioId } = rendicion;
+  }); */
+  //const { fecha, usuarioId } = rendicion;
   const [usuario, setUsuario] = useState([]);
-  let token = JSON.parse(localStorage.getItem("token"));
-  let name = JSON.parse(localStorage.getItem("name"));
-  let id = JSON.parse(localStorage.getItem("id"));
-
   useEffect(() => {
     const getPK = async () => {
       let res = await axiosURL.get(`/${id}`);
       setUsuario(res.data);
     };
     getPK();
+
+
   }, []);
 
   const responsable = (departamento) => {
@@ -44,31 +44,29 @@ export const CreateRendicion = ({ history }) => {
     }
     return responsable;
   };
-
-  console.log(usuario);
   return (
     <Form layout="vertical">
       <Row>
         <Col
           xs={24}
           sm={24}
-          md={12}
-          lg={12}
-          xl={12}
-          xxl={12}
-          style={{
-            borderBottom: "solid 1px rgba(92, 99, 105, 0.5)",
-            borderTop: "solid 1px rgba(92, 99, 105, 0.5)",
-          }}
+          md={24}
+          lg={24}
+          xl={24}
+          xxl={24}
+         
         >
-          <div style={{ marginTop: "10px" }}>
-            <h2>Rendicion de Gastos</h2>
-            <Col xs={24} sm={24} md={12} lg={18} xl={18} xxl={18}>
-              <h2>Empleado: {name}</h2>
-            </Col>
-          </div>
+         
+           <Titulo titulo='Rendicion de Gastos'/>
+
+              <h3>Empleado: {peticionToken.nombre}, {peticionToken.apellido}</h3>
+            
+          
+          <Divider/>
         </Col>
-        <Col
+    
+
+      {/*   <Col
           xs={24}
           sm={24}
           md={12}
@@ -83,7 +81,7 @@ export const CreateRendicion = ({ history }) => {
           <div style={{ marginTop: "10px" }}>
             <h6>
               {" "}
-              <b>Fecha:</b> {fecha}{" "}
+              <b>Fecha:</b> {new Date().toLocaleDateString()}{" "}
             </h6>
 
             <h6>
@@ -97,7 +95,7 @@ export const CreateRendicion = ({ history }) => {
               {responsable(usuario.departamento?.departamento)}
             </h6>
           </div>
-        </Col>
+        </Col> */}
       </Row>
 
       <Row>

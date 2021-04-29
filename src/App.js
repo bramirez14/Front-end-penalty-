@@ -9,12 +9,14 @@ import { UserContext } from './contexto/UserContext';
 
 function App() {
   const [openn,setOpen] = useState(false);
-
+  const [storage, setStorage] = useState()
 
   return (
     <UserContext.Provider value={{
       open:openn,
       setOpen:setOpen,
+      storage:storage,
+      setStorage:setStorage
     }}>
       <Routes/>
     </UserContext.Provider>

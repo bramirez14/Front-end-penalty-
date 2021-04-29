@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Form, Input, Button, Select, Col, Row, Divider } from "antd";
+import { Form, Input, Button, Select, Col, Row } from "antd";
+import { securedBrowserCache } from 'secured-browser-storage';
 import { UserContext } from "../../contexto/UserContext";
 import { SelectAnt } from "../inputs/SelectAnt";
 import { Titulo } from "../titulos/Titulo";
@@ -8,12 +9,8 @@ import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
 import "./css/anticipoGasto.css";
 
-
 export const Sueldo = ({ history }) => {
-  let token = JSON.parse(localStorage.getItem("token"));
-  let name = JSON.parse(localStorage.getItem("name"));
-  let id = JSON.parse(localStorage.getItem("id"));
-
+  const id = securedBrowserCache.getItem('uid')
   const [validated, setValidated] = useState(false);
   const [users, setUsers] = useState([]);
   const [data, setData] = useState([{ id: "", nombre: "" }]);
@@ -44,7 +41,21 @@ export const Sueldo = ({ history }) => {
       imageAlt: "penalty",
     });
   };
-
+  //Peticion get para saber cuando vence el localStorage
+  let tokenStorage = JSON.parse(localStorage.getItem("token"));
+  const [tokenEstado, setTokenEstado] = useState({});
+  console.log(tokenEstado);
+  const { nombre, apellido } = tokenEstado;
+  useEffect(() => {
+    const cargarUsuario = async () => {
+      let datosJWT = await axiosURL.get("/check", {
+        headers: { token: tokenStorage },
+      });
+      setTokenEstado(datosJWT.data);
+ 
+    };
+    cargarUsuario();
+  }, []);  
   const handleRechazo = () => {
     Swal.fire({
       icon: "error",
@@ -188,7 +199,7 @@ export const Sueldo = ({ history }) => {
       
           <Col xs={24} sm={12} md={12} lg={12} xl={12}>
        
-          <h3>{name}</h3>
+          <h3>{nombre}, {apellido}</h3>
           
          
           </Col>
@@ -271,7 +282,7 @@ export const Sueldo = ({ history }) => {
     <Input.TextArea
       name="mensaje"
       placeholder="Mensaje"
-      
+  
     />
   </Form.Item>
 </Col>
