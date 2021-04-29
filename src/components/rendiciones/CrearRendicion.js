@@ -45,9 +45,9 @@ export const CrearRendicion = ({ match, history }) => {
 
     let result = await axiosURL.post("/rendicion", f);
     console.log(result.data);
-    /* if (result.data) {
-      history.push("/gastos");
-    } */
+    if (result.data) {
+      history.push(`/lista/rendicion/${id}`);
+    }
   };
   const handleChange = (e) => {
     const { name, value } = e.target;

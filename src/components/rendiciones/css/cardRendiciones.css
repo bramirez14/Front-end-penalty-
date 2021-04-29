@@ -1,20 +1,34 @@
-.list-container{
-    display: flex;
-    flex-wrap: nowrap;
-    border-radius: 1rem;
-    border: 1px solid rgba(0,0,0,0.2);
-    margin-top:20px;
+.list-container {
+  display: flex;
+  flex-wrap: nowrap;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  height: 140px;
 }
-.img{
-width: 400px;
-height: 200px;
+.img-div {
+  height: 140px;
 }
-.text-date{
-    padding: 20px;
-    
+.img {
+  width: 180px;
+  height: 120px;
+  border-radius: 1rem;
+  margin-top: 7px;
+  margin-left: 7px;
+}
+.text-date {
+  padding: 20px;
+  height: 140px;
+  width: 30%;
+}
+.nota {
+  padding: 20px;
+  height: 140px;
+  width: 30%;
 }
 
-.list-container:hover{
-    border-color: transparent;
-    box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%), 0 5px 12px 4px rgb(0 0 0 / 9%);
+.list-container:hover {
+  border-color: transparent;
+  box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%),
+    0 5px 12px 4px rgb(0 0 0 / 9%);
 }

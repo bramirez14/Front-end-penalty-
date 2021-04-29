@@ -32,6 +32,7 @@ export const PerfilCristianAdmin = ({ history }) => {
   const [tokenEstado, setTokenEstado] = useState({});
 
   const { nombre, apellido } = tokenEstado;
+  console.log(tokenEstado);
   useEffect(() => {
     const cargarUsuario = async () => {
       let datosJWT = await axiosURL.get("/check", {
@@ -44,17 +45,13 @@ export const PerfilCristianAdmin = ({ history }) => {
     };
     cargarUsuario();
   }, []);
- 
-    let  tipo = JSON.parse(localStorage.getItem('tipo'))// del localstorage
-    //console.log(tipo);
-    let o = tokenEstado?.tipousuario// lo q se pide  a la DB
-    //1a62eeac091d686f5008b0c6691d9017
+
   return (
     <>
       <div className={!open ? "contenedor" : "contenedor-active"}>
         <div className={!open ? "container" : "container-active"}>
           <h1>
-            Bienvenido {nombre} {apellido}  espero que te encuentres bien!!!
+            Bienvenido {nombre},{apellido}  espero que te encuentres bien!!!
           </h1>
           <Row gutter={16}>
             <Col span={6}>
