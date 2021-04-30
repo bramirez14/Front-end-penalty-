@@ -32,6 +32,7 @@ const {open}=Text
                 <CardRendiciones
                 key={t.id}
                 {...t}
+                uid={id}
                 />
             
             )

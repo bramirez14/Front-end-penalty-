@@ -1,47 +1,53 @@
 
 import React, { useState, useEffect } from 'react'
 import axiosURL from '../../config/axiosURL';
-import { Form, Input, Button, Col, Row, Card} from 'antd';
+import { Form, Input, Button, Col, Row, Card, Select } from 'antd';
 
 import './css/editarRendicion.css'
 import TextArea from 'antd/lib/input/TextArea';
+import { categorias } from "./categorias";
+
 export const EditarRendicion = ({ match, history }) => {
     const { id } = match.params;
+    console.log(id);
     const [highlight, setHighlight] = useState(false);
     const [data, setData] = useState();
     const [img, setImg] = useState()
+    const { Option } = Select;
+
     const [rendicionEditar, setRendicionEditar] = useState({
         notas: '',
         importe: '',
         categoria: '',
         deleteId: [],
     })
-    const { notas, importe, imagen, categoria, fecha, deleteId } = rendicionEditar
-const { Meta } = Card;
-
+    const { notas, importe, imagen, categoria, fecha, deleteId,gastoId } = rendicionEditar
+    const { Meta } = Card;
+    console.log(categoria);
     useEffect(() => {
         const peticionID = async () => {
-            let res = await axiosURL.get(`/editar/rendicion/${id}`);
+            let res = await axiosURL.get(`/rendiciones/${id}`);
             setRendicionEditar(res.data);
         };
         peticionID()
     }, [id])
 
-   const crearImg=async ()=>{
-    let f = new FormData();
-    f.append("imagen", img);
-    let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f)
-    if (result.data) {
-        history.push("/gastos");
-      }
-    console.log(result.data);
-   }
+    const crearImg = async () => {
+        editarRendicion();
+        let f = new FormData();
+        f.append("imagen", img);
+        let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f)
+        if (result.data) {
+            history.push(`/lista/rendicion/${gastoId}`);
+        }
+        console.log(result.data);
+    }
     const editarRendicion = async () => {
         let result = await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
         console.log(result.data);
-        if (result.data) {
-            history.push("/gastos");
-          }
+        /* if (result.data) {
+            history.push(`/lista/rendicion/${gastoId}`);
+        } */
     }
     const handleChange = e => {
         const { name, value } = e.target;
@@ -50,8 +56,13 @@ const { Meta } = Card;
             [name]: value
         });
     }
+    const onChange = values => {
+        setRendicionEditar({
+            ...rendicionEditar, categoria: values
+        })
+    }
     /*******imagen */
-    
+
     const handleFileChange = (e) => {
         let file = e.target.files[0];
         console.log(file);
@@ -110,13 +121,12 @@ const { Meta } = Card;
     /****fin imagenn  */
     /**Submit */
     const handleSubmit = (e) => {
-     editarRendicion();
+        //editarRendicion();
         crearImg();
-      };
+    };
     /**Fin Submit */
+    console.log(rendicionEditar);
 
-/* console.log(rendicionEditar);
-console.log(img); */
     return (
         <>
             <Row style={{}}>
@@ -126,12 +136,18 @@ console.log(img); */
                     lg={8}
                     xl={8}
                     xxl={8} >
-                        <Form  onFinish={handleSubmit} onChange={handleChange} layout='vertical' className='formulario-rendicion'>
-
+                    <Form onFinish={handleSubmit} onChange={handleChange} layout='vertical' className='formulario-rendicion'>
                         <Form.Item label='Categoria'>
-                            <Input name='categoria' value={categoria} />
+                            <Select value={categoria} onChange={onChange}>
+                                {categorias.map((c) => (
+                                    <Option key={c.id} name='categoria' value={c.categoria}  >
+                                        {c.categoria}
+                                    </Option>
+                                ))}
+                            </Select>
                         </Form.Item>
-                        
+
+
                         <Form.Item label='Importe'>
                             <Input name='importe' value={importe} />
                         </Form.Item >
@@ -141,6 +157,8 @@ console.log(img); */
                         <Form.Item label='Notas'>
                             <TextArea name='notas' value={notas} />
                         </Form.Item>
+
+
                         <div className="custom-form-group">
                             <div
                                 className={
@@ -169,51 +187,48 @@ console.log(img); */
 
                         </div>
                         <Form.Item >
-        <Button className='btn' htmlType="submit" block >
-          Guardar
+                            <Button className='btn' htmlType="submit" block >
+                                Guardar
         </Button>
-      </Form.Item>
+                        </Form.Item>
                     </Form>
                 </Col>
 
-               
-                    
+
+
                 <Card
-    hoverable
-    style={{ width:' 500px' , height:'auto', margin:'auto'}}
-    cover={<div className="custom-file-preview " >
-    {data === undefined ? (
-        <h2>Agregue una imagen</h2>
-    ) : (
-        data.map((item, index) => (
-            <div className="prev-img" key={index} data-imgindex={index} style={{ width:' 500px' , height:'350px'}} >
-                <span className="prev-img"  onClick={handleDelete}> &times;</span>
-                <img
-                    src={item.id ? item.image : item.src}
-                    alt={item.name}
-                />
-            </div>
-        ))
-    )}
+                    hoverable
+                    style={{ width: ' 500px', height: 'auto', margin: 'auto' }}
+                    cover={<div className="custom-file-preview " >
+                        {data === undefined ? (
+                            <h2>Agregue una imagen</h2>
+                        ) : (
+                            data.map((item, index) => (
+                                <div className="prev-img" key={index} data-imgindex={index} style={{ width: ' 500px', height: '350px' }} >
+                                    <span className="prev-img" onClick={handleDelete}> &times;</span>
+                                    <img
+                                        src={item.id ? item.image : item.src}
+                                        alt={item.name}
+                                    />
+                                </div>
+                            ))
+                        )}
 
-</div>}
-  >
-    <Meta title='Datos:' description={<div>
+                    </div>}
+                >
+                    <Meta title='Datos:' description={<div>
 
-<h6 > <b>Categoria:</b> {categoria}</h6>
-<h6 className='h6'><b>Nota: </b> {notas}</h6>
-<h6 className='h6'> <b>Importe:</b> ${importe}</h6>
-<h6 className='h6'><b>Fecha:</b> {fecha}</h6>
+                        <h6 > <b>Categoria:</b> {categoria}</h6>
+                        <h6 className='h6'><b>Nota: </b> {notas}</h6>
+                        <h6 className='h6'> <b>Importe:</b> ${importe}</h6>
+                        <h6 className='h6'><b>Fecha:</b> {fecha}</h6>
 
-</div>} />
+                    </div>} />
 
+                </Card>
 
-  </Card>
-                 
-            
-                
             </Row>
-           
+
         </>
     )
 }

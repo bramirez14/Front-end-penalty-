@@ -33,7 +33,6 @@ export const CrearRendicion = ({ match, history }) => {
     deleteId,
   } = crearRendicion;
   const { Meta } = Card;
-
   const agregar = async () => {
     let f = new FormData();
     f.append("imagen", imagen);
@@ -140,6 +139,8 @@ export const CrearRendicion = ({ match, history }) => {
     xxl: 24,
   };
   console.log(crearRendicion);
+
+
   return (
     <>
       <Row>

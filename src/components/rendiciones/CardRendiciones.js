@@ -3,7 +3,9 @@ import "./css/cardRendiciones.css";
 import image from "../../logoPenalty-remove.png";
 import { Button } from "antd";
 import { categorias } from "./categorias";
-export const CardRendiciones = ({imagen,categoria,importe,fecha,notas}) => {
+import {Link} from 'react-router-dom'
+export const CardRendiciones = ({imagen,categoria,importe,fecha,notas,id}) => {
+ 
   return (
     <div className="list-container">
       <div className="img-div">
@@ -15,7 +17,15 @@ export const CardRendiciones = ({imagen,categoria,importe,fecha,notas}) => {
        <div><span> fecha:{fecha} </span></div>
       </div>
       <div className='nota'><span>Descripcion:<br/>{notas} </span > </div>
-      <Button>Editar</Button>
+      <Link
+    to={`/editar/rendicion/${id}`}>
+      <Button
+        style={{ width: "auto",  marginTop:'10px',borderRadius:'10px'}}
+      >
+        {" "}
+      Editar
+      </Button>
+      </Link>
     </div>
   );
 };

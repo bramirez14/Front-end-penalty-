@@ -121,7 +121,15 @@ const editarRendicion = async () => {
 
   return (
     <Col>
-   
+    {/* <Link
+    to='/crear/rendicion'>
+      <Button
+        style={{ width: "auto", backgroundColor: "#69c0ff", marginTop:'10px',borderRadius:'10px'}}
+      >
+        {" "}
+      Ingresar Rendicion
+      </Button>
+      </Link>  */}
       <Table
         
         columns={columns}
