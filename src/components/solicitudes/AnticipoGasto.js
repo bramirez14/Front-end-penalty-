@@ -15,7 +15,7 @@ import { securedBrowserCache } from 'secured-browser-storage';
 
 export const AnticipoGasto = ({ history }) => {
     //Peticion get para saber cuando vence el localStorage
-  const id = securedBrowserCache.getItem('uid')
+  const id = localStorage.getItem('uid')
     const [tokenEstado, setTokenEstado] = useState({});
     console.log(tokenEstado);
     const { nombre, apellido } = tokenEstado;
@@ -28,7 +28,7 @@ export const AnticipoGasto = ({ history }) => {
       };
       cargarUsuario();
     }, []);  
-  let tokenStorage = JSON.parse(localStorage.getItem("token"));
+  let tokenStorage = localStorage.getItem("token");
 
 
   const Text = useContext(UserContext);

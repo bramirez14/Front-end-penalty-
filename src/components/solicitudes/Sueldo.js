@@ -10,7 +10,7 @@ import emailjs from "emailjs-com";
 import "./css/anticipoGasto.css";
 
 export const Sueldo = ({ history }) => {
-  const id = securedBrowserCache.getItem('uid')
+  const id = localStorage.getItem('uid')
   const [validated, setValidated] = useState(false);
   const [users, setUsers] = useState([]);
   const [data, setData] = useState([{ id: "", nombre: "" }]);
@@ -42,7 +42,7 @@ export const Sueldo = ({ history }) => {
     });
   };
   //Peticion get para saber cuando vence el localStorage
-  let tokenStorage = JSON.parse(localStorage.getItem("token"));
+  let tokenStorage = localStorage.getItem("token");
   const [tokenEstado, setTokenEstado] = useState({});
   console.log(tokenEstado);
   const { nombre, apellido } = tokenEstado;

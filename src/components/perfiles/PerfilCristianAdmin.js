@@ -14,14 +14,15 @@ import { logout } from "../../auth/localStorage";
 import axiosURL from "../../config/axiosURL";
 
 export const PerfilCristianAdmin = ({ history }) => {
+
+
+
   securedBrowserCache.setStorageType('localStorage'); 
   const Text = useContext(UserContext);
   const { open,storage,setStorage } = Text;
   
-  let tokenStorage = JSON.parse(localStorage.getItem("token"));
+  let tokenStorage = (localStorage.getItem("token"));
   const val = securedBrowserCache.getItem('type')
-  console.log(val);
-
   const handleLogout = () => {
     logout();
     console.log(logout());
@@ -32,7 +33,6 @@ export const PerfilCristianAdmin = ({ history }) => {
   const [tokenEstado, setTokenEstado] = useState({});
 
   const { nombre, apellido } = tokenEstado;
-  console.log(tokenEstado);
   useEffect(() => {
     const cargarUsuario = async () => {
       let datosJWT = await axiosURL.get("/check", {

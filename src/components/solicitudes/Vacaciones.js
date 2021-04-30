@@ -11,7 +11,7 @@ import "./sueldo.css";
 import PeticionGET from "../../config/PeticionGET";
 
 export const Vacaciones = ({ history }) => {
-  const id = securedBrowserCache.getItem('uid')
+  const id = localStorage.getItem('uid')
     //Peticion get para saber cuando vence el localStorage
     const [tokenEstado, setTokenEstado] = useState({});
     console.log(tokenEstado);
@@ -25,7 +25,7 @@ export const Vacaciones = ({ history }) => {
       };
       cargarUsuario();
     }, []);  
-  let tokenStorage = JSON.parse(localStorage.getItem("token"));
+  let tokenStorage = localStorage.getItem("token");
 
   /**useContext***/
   const Text = useContext(UserContext);

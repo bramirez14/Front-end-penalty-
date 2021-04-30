@@ -4,14 +4,13 @@ import { securedBrowserCache } from 'secured-browser-storage';
 securedBrowserCache.setStorageType('localStorage'); 
 const STORAGE_KEY = 'token'
 
-const isLogged = () => !!localStorage.getItem(STORAGE_KEY)
+const isLogged = () => !!localStorage.getItem('uid')
 const login = token => localStorage.setItem(STORAGE_KEY, token)
 const logout = () => {
-localStorage.removeItem(STORAGE_KEY)
-securedBrowserCache.removeItem('type');
+localStorage.clear();
 }
 //const gerente = () =>JSON.parse(localStorage.getItem('tipo'))
-const gerente = () => securedBrowserCache.getItem('type') 
-const administrativo = () => securedBrowserCache.getItem('type') 
+const gerente = () => localStorage.getItem('type') 
+const administrativo = () => localStorage.getItem('type}') 
 
 export { isLogged, login, logout, gerente, administrativo }

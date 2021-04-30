@@ -32,10 +32,17 @@ export const Login = ({ history }) => {
     );
     setErrores(result.data);
     if (result.data.user) {
-      securedBrowserCache.setItem('type', result.data.user.tipousuario);
-      securedBrowserCache.setItem('uid', result.data.user.id);
-     localStorage.setItem("token", JSON.stringify(result.data.token));
+     /*  securedBrowserCache.setItem('type', result.data.user.tipousuario);
+      securedBrowserCache.setItem('uid', result.data.user.id); */
+      localStorage.setItem('uid', result.data.user.id);
+     localStorage.setItem('token',(result.data.token));
+      if(result.data.user.tipousuario!='Gerente'){
+        localStorage.setItem('type', result.data.user.tipousuario);
+      }else{
+        localStorage.setItem('type', result.data.user.tipousuario);
+      }
       history.push("/gerencia/perfil");
+
     } else {
       setMsg(result.data.message);
     }

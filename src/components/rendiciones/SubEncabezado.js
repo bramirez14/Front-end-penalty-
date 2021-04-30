@@ -6,7 +6,7 @@ import PeticionGET from '../../config/PeticionGET';
 
 
 export const SubEncabezado = ({uuid}) => {
-  const id = securedBrowserCache.getItem('uid')
+  const id = localStorage.getItem('uid')
   let usuario = PeticionGET(`/${id}`)
   console.log(usuario);
 
