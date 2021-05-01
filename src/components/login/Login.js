@@ -1,8 +1,7 @@
 import React, { useState,useEffect } from "react";
 import "./login.css";
 import axiosURL from "../../config/axiosURL";
-import axios from 'axios'
-import md5 from 'md5'
+
 import { securedBrowserCache } from 'secured-browser-storage';
 
  
