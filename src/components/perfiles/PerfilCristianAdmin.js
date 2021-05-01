@@ -22,7 +22,6 @@ export const PerfilCristianAdmin = ({ history }) => {
   const { open,storage,setStorage } = Text;
   
   let tokenStorage = (localStorage.getItem("token"));
-  const val = securedBrowserCache.getItem('type')
   const handleLogout = () => {
     logout();
     console.log(logout());

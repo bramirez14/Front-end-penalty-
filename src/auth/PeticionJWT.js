@@ -7,7 +7,7 @@ export const PeticionJWT = () => {
     let tokenStorage = (localStorage.getItem("token"));
  
     let id= (localStorage.getItem("uid"));
-   console.log(id);
+   //console.log(id);
     let tipo= (localStorage.getItem("type"));
 
     const [tokenEstado, setTokenEstado] = useState({});
@@ -18,13 +18,12 @@ export const PeticionJWT = () => {
             headers: { token: tokenStorage },
           });
           let idDB=datosJWT.data.id
-          console.log(idDB?.toString());
+         //console.log(idDB?.toString());
           let tipoDB=datosJWT.data.tipousuario;
           let ok= (datosJWT.data==='Token invalido');
           let noHay=(datosJWT.data==='No hay token')
           let ID=(id===idDB?.toString())
           let TIPO=(tipo===tipoDB)
- 
           if(ID===false){logout()}
         if(ok===true || noHay===true  || TIPO===false){logout()}
           setTokenEstado(datosJWT.data);

@@ -2,13 +2,15 @@
  display: none;
 }
 .div-img{
+    display: flex;
+    flex-direction: column;
     border-radius: 50%;
     width: 100px;
     height: 100px;
     position: relative;
-    top: 30px;
-    left:85px;
-  
+    margin-left: 84px;
+    margin-top:44px;
+    
 }
 .avatar{
     border-radius: 50%;
@@ -19,6 +21,13 @@
 color:rgba(0, 0, 0, 0.7);
 background-color: rgb(223, 219, 219);
 padding: 2px;
-
-
+}
+.persona{
+    margin-left: 70px;
+    margin-top:20px;
+   
+}
+.personaje{
+    color:white;
+    font-size: 17px;
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Select, Col, Row, Checkbox, Modal, Divider } from "antd";
+import { Form,Col, Row } from "antd";
 import "./css/createRendicion.css";
 import axiosURL from "../../config/axiosURL";
 import { Tabla } from "./Tabla";
@@ -9,7 +9,7 @@ import { Titulo } from "../titulos/Titulo";
 
 export const Rendicion = ({ history }) => {
   //const id =  localStorage.getItem('uid')
-  let peticionToken = PeticionJWT()
+
 
 
   return (
@@ -17,8 +17,7 @@ export const Rendicion = ({ history }) => {
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
           <h2 className='title'>Rendicion de Gastos</h2>
-          <h3>Empleado: {peticionToken.nombre}, {peticionToken.apellido}</h3>
-          <Divider />
+         
         </Col>
       </Row>
 
