@@ -40,8 +40,6 @@ export const PerfilCristianAdmin = ({ history }) => {
       });
       setTokenEstado(datosJWT.data);
       setStorage(datosJWT.data);
-
-
     };
     cargarUsuario();
   }, []);

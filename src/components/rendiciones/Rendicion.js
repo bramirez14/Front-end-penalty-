@@ -8,7 +8,7 @@ import { PeticionJWT } from "../../auth/PeticionJWT";
 import { Titulo } from "../titulos/Titulo";
 
 export const Rendicion = ({ history }) => {
-  const id =  localStorage.getItem('uid')
+  //const id =  localStorage.getItem('uid')
   let peticionToken = PeticionJWT()
 
 

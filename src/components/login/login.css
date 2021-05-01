@@ -30,9 +30,10 @@ h1{
 
 /*===== FORM =====*/
 .imagen-penalty{
-  height: 230px;
-  width: 230px;
-  margin-left: 100px;
+  height: 170px;
+ /*  width: 230px; */
+  margin-left: 78px;
+
 }
 .l-form-login{
   display: flex;
@@ -41,10 +42,10 @@ h1{
   height: 100vh;
 }
 .form-login{
-  width: 440px;
-  padding: 4rem 2rem;
+  width: 380px;
+  padding: 0rem 2rem;
   border-radius: 1rem;
-
+height: 387px;
   box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
 }
 .form__title{

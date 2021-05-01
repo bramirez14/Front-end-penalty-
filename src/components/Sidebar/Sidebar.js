@@ -39,7 +39,6 @@ export const Sidebar = () => {
        click2={showSidebar2}
        
        /></div> 
-      
        
        
       </div>
