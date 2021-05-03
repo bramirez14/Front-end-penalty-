@@ -6,12 +6,13 @@ import { Form, Input, Button, Col, Row, Card, Select } from 'antd';
 import './css/editarRendicion.css'
 import TextArea from 'antd/lib/input/TextArea';
 import { categorias } from "./categorias";
+import { VistaImg } from './VistaImg';
 
 export const EditarRendicion = ({ match, history }) => {
     const { id } = match.params;
     console.log(id);
     const [highlight, setHighlight] = useState(false);
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
     const [img, setImg] = useState()
     const { Option } = Select;
 
@@ -19,9 +20,8 @@ export const EditarRendicion = ({ match, history }) => {
         notas: '',
         importe: '',
         categoria: '',
-        deleteId: [],
     })
-    const { notas, importe, imagen, categoria, fecha, deleteId,gastoId } = rendicionEditar
+    const { notas, importe, imagen, categoria, fecha,gastoId } = rendicionEditar
     const { Meta } = Card;
     console.log(categoria);
     useEffect(() => {
@@ -63,29 +63,29 @@ export const EditarRendicion = ({ match, history }) => {
     }
     /*******imagen */
 
-    const handleFileChange = (e) => {
-        let file = e.target.files[0];
-        console.log(file);
-        handFiles(file);
-    };
-    const handFiles = (file) => {
-        let imageArr = [];
+  const handleFileChange = (e) => {
+    let file = e.target.files[0];
+    console.log(file);
+    handFiles(file);
+  };
+  const handFiles = (file) => {
+    let imageArr = [];
 
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.addEventListener("load", () => {
-            let fileObj = {
-                name: file.name,
-                type: file.type,
-                size: file.size,
-                src: reader.result,
-            };
-            imageArr.push(fileObj);
-            setData(imageArr);
-            setImg(file);//guardamos el archivo imagen
-        });
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener("load", () => {
+      let fileObj = {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        src: reader.result,
+      };
+      imageArr.push(fileObj);
+      setData(imageArr);
+    setImg(file);//guardamos el archivo imagen
 
-    };
+    });
+  };
     const handleHighLight = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -104,19 +104,12 @@ export const EditarRendicion = ({ match, history }) => {
         setHighlight(false);
         handFiles(files);
     };
+
     /**Delte img del draw drop */
-    const handleDelete = (e) => {
-        let deleted = [];
-        let target = e.target.parentElement;
-        let targetindex = target.dataset.imgindex * 1;
-        deleted.push(imagen[targetindex]?.id);
-        setData([...data.slice(0, targetindex), ...data.slice(targetindex + 1)]);
-        setRendicionEditar({
-            ...rendicionEditar,
-            imagen: imagen,
-            deleteId: deleteId == undefined ? [deleted] : [...deleteId, deleted],
-        });
-    };
+  const handleDelete = (e) => {
+    setData([]);
+   setImg('');
+  };
 
     /****fin imagenn  */
     /**Submit */
@@ -155,7 +148,7 @@ export const EditarRendicion = ({ match, history }) => {
                             <Input name='fecha' value={fecha} />
                         </Form.Item>
                         <Form.Item label='Notas'>
-                            <TextArea name='notas' value={notas} />
+                            <TextArea name='notas' value={notas}  autoSize={{ minRows: 2, maxRows: 6 }}/>
                         </Form.Item>
 
 
@@ -196,36 +189,12 @@ export const EditarRendicion = ({ match, history }) => {
 
 
 
-                <Card
-                    hoverable
-                    style={{ width: ' 500px', height: 'auto', margin: 'auto' }}
-                    cover={<div className="custom-file-preview " >
-                        {data === undefined ? (
-                            <h2>Agregue una imagen</h2>
-                        ) : (
-                            data.map((item, index) => (
-                                <div className="prev-img" key={index} data-imgindex={index} style={{ width: ' 500px', height: '350px' }} >
-                                    <span className="prev-img" onClick={handleDelete}> &times;</span>
-                                    <img
-                                        src={item.id ? item.image : item.src}
-                                        alt={item.name}
-                                    />
-                                </div>
-                            ))
-                        )}
-
-                    </div>}
-                >
-                    <Meta title='Datos:' description={<div>
-
-                        <h6 > <b>Categoria:</b> {categoria}</h6>
-                        <h6 className='h6'><b>Nota: </b> {notas}</h6>
-                        <h6 className='h6'> <b>Importe:</b> ${importe}</h6>
-                        <h6 className='h6'><b>Fecha:</b> {fecha}</h6>
-
-                    </div>} />
-
-                </Card>
+                <VistaImg
+                  data={data}
+                  setData={setData}
+                  handleDelete={handleDelete} 
+                  {...rendicionEditar}
+                />
 
             </Row>
 

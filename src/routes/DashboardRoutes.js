@@ -21,6 +21,7 @@ import { CrearRendicion } from "../components/rendiciones/CrearRendicion";
 import { Uploads } from "../components/rendiciones/Uploads";
 import { UserContext } from "../contexto/UserContext";
 import { ListaRendiciones } from "../components/rendiciones/ListaRendiciones";
+import { RendicionSinAnticipo } from "../components/solicitudes/RendicionSinAnticipo";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -48,6 +49,8 @@ export const DashboardRoutes = ({ history }) => {
         />
         <RouteGerente exact path="/crear/rendicion/:id" component={CrearRendicion} />
         <RouteGerente exact path="/lista/rendicion/:id" component={ListaRendiciones} />
+        <RouteGerente exact path="/rendicion" component={RendicionSinAnticipo} />
+
 
         <RouteGerente exact path="/img" component={Uploads} />
 

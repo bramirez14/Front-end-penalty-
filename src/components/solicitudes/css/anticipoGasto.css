@@ -93,6 +93,9 @@ width: 37%;
   background: #46a461;
   border-color: #46a461;
 }
+.btn.focus, .btn:focus{
+  box-shadow:none
+}
 
 .simple {
   padding: 40px;

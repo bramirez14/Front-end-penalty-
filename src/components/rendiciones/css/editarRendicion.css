@@ -1,9 +1,42 @@
 .formulario-rendicion{
   width:290px;
   box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
-  height: auto;
+  /* height: auto; */
   padding: 10px;
+  overflow-y: scroll;
+  height: 470px;
+  
  
+}
+.formulario-rendicion::-webkit-scrollbar {
+  width: 7px;     /* Tamaño del scroll en vertical */
+ /* height: 8px;     Tamaño del scroll en horizontal */
+}
+.formulario-rendicion::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+  
+}
+
+.formulario-rendicion::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Cambiamos el fondo cuando esté en active */
+.formulario-rendicion::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+/* Ponemos un color de fondo y redondeamos las esquinas del track */
+.formulario-rendicion::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo cuando esté en active o hover */
+.formulario-rendicion::-webkit-scrollbar-track:hover,
+.formulario-rendicion::-webkit-scrollbar-track:active {
+background: #d4d4d4;
 }
 .formulario-rendicion-img{
    
@@ -123,7 +156,7 @@ a {
   border: 2px dashed #ddd;
   height: 110px;
   cursor: -webkit-grab;
-  width: 270px;
+  width: 254px;
   margin-top: 15px;
   border-radius: 20px;
   cursor: grab;

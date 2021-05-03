@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axiosURL from "../../config/axiosURL";
-import { Form, Input, Button, Row, Card, Select, Divider } from "antd";
-import "./css/editarRendicion.css";
+import { Form, Input, Button, Col, Row, Card, Select, Divider } from "antd";
+
 import TextArea from "antd/lib/input/TextArea";
 import PeticionGET from "../../config/PeticionGET";
-import { categorias } from "./categorias";
-import { VistaImg } from "./VistaImg";
-export const CrearRendicion = ({ match, history }) => {
-  const { id } = match.params;
-
+import axiosURL from "../../config/axiosURL";
+import { categorias } from "../rendiciones/categorias";
+import { VistaImg } from "../rendiciones/VistaImg";
+export const RendicionSinAnticipo = ({ history }) => {
+  const id = localStorage.getItem("uid");
 
   const { Option } = Select;
   const [highlight, setHighlight] = useState(false);
@@ -19,7 +18,9 @@ export const CrearRendicion = ({ match, history }) => {
     importe: "",
     imagen: "",
     categoria: "",
-    gastoId: id,
+    deleteId: [],
+    usuarioId: id,
+    formapagoId: "1",
   });
   const {
     notas,
@@ -27,7 +28,8 @@ export const CrearRendicion = ({ match, history }) => {
     imagen,
     categoria,
     fecha,
-    gastoId,
+    usuarioId,
+    formapagoId,
   } = crearRendicion;
   const { Meta } = Card;
   const agregar = async () => {
@@ -37,14 +39,15 @@ export const CrearRendicion = ({ match, history }) => {
     f.append("categoria", categoria);
     f.append("notas", notas);
     f.append("fecha", fecha);
-    f.append("gastoId",gastoId);
+    f.append("usuarioId", usuarioId);
+    f.append("formapagoId", formapagoId);
 
-    let result = await axiosURL.post("/rendicion", f);
-    console.log(result.data);
+    let result = await axiosURL.post("/gasto/rendicion", f);
     if (result.data) {
-      history.push(`/lista/rendicion/${id}`);
+      history.push("/gastos");
     }
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCrearRendicion({
@@ -52,40 +55,41 @@ export const CrearRendicion = ({ match, history }) => {
       [name]: value,
     });
   };
-  const selectChange=(value)=>{
-    setCrearRendicion({
-      ...crearRendicion,categoria:value
-    })
-  }
-  
-
- /*******imagen */
-
- const handleFileChange = (e) => {
-  let file = e.target.files[0];
-  console.log(file);
-  handFiles(file);
-};
-const handFiles = (file) => {
-  let imageArr = [];
-
-  let reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.addEventListener("load", () => {
-    let fileObj = {
-      name: file.name,
-      type: file.type,
-      size: file.size,
-      src: reader.result,
-    };
-    imageArr.push(fileObj);
-    setData(imageArr);
+  const selectChange = (value) => {
     setCrearRendicion({
       ...crearRendicion,
-      imagen: file,
+      categoria: value,
     });
-  });
-};
+  };
+  const peticionMedioDePago = PeticionGET("/mpagos");
+
+  /*******imagen */
+
+  const handleFileChange = (e) => {
+    let file = e.target.files[0];
+    console.log(file);
+    handFiles(file);
+  };
+  const handFiles = (file) => {
+    let imageArr = [];
+
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener("load", () => {
+      let fileObj = {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        src: reader.result,
+      };
+      imageArr.push(fileObj);
+      setData(imageArr);
+      setCrearRendicion({
+        ...crearRendicion,
+        imagen: file,
+      });
+    });
+  };
   const handleHighLight = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -104,19 +108,23 @@ const handFiles = (file) => {
     setHighlight(false);
     handFiles(files);
   };
-   /**Delte img del draw drop */
-   const handleDelete = (e) => {
+  /**Delte img del draw drop */
+  const handleDelete = (e) => {
     setData([]);
     setCrearRendicion({
       ...crearRendicion,
       imagen: "",
     });
   };
-  /****fin imagenn  */
-  /**Submit */
+
   const handleSubmit = () => {
-    agregar();
+    if (imagen === "") {
+      alert("Debes adjuntar una imagen");
+    } else {
+      agregar();
+    }
   };
+
   /**Fin Submit */
   /**peticio get de forma de pago */
   let getFpago = PeticionGET("/mpagos");
@@ -130,7 +138,7 @@ const handFiles = (file) => {
     xxl: 24,
   };
   console.log(crearRendicion);
-
+  console.log(data);
 
   return (
     <>
@@ -142,10 +150,18 @@ const handFiles = (file) => {
           className="formulario-rendicion"
           {...estilo}
         >
-          <h5 style={{ textAlign: "center" }}>Agregar Rendicion</h5>
-          <Divider style={{}} />
-          <Form.Item name="categoria">
-            <Select placeholder="Categoria" onChange={selectChange} >
+          <h5 style={{ textAlign: "center"}}>Agregar Rendicion</h5>
+          <Divider/>
+          <Form.Item
+            name="categoria"
+            rules={[
+              {
+                required: true,
+                message: "ingrese un categoria",
+              },
+            ]}
+          >
+            <Select placeholder="Categoria" onChange={selectChange}>
               {categorias.map((c) => (
                 <Option key={c.id} value={c.categoria}>
                   {c.categoria}
@@ -153,13 +169,23 @@ const handFiles = (file) => {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item name="importe">
+          <Form.Item name="formapagoId">
+            <Input name="formapagoId" placeholder="Efectivo" disabled />
+          </Form.Item>
+          <Form.Item
+            name="importe"
+            rules={[
+              {
+                required: true,
+                message: "ingrese un importe",
+              },
+            ]}
+          >
             <Input name="importe" placeholder="Importe" />
           </Form.Item>
-          
 
           <Form.Item name="notas">
-            <TextArea name="notas" value={notas} placeholder="Nota" autoSize={{ minRows: 2, maxRows: 6 }} />
+            <TextArea name="notas" value={notas} placeholder="Nota" autoSize={{ minRows: 2, maxRows: 6 }}/>
           </Form.Item>
 
           <div className="custom-form-group">
@@ -194,12 +220,15 @@ const handFiles = (file) => {
             </Button>
           </Form.Item>
         </Form>
-            <VistaImg 
-            data={data}
-            setData={setData}
-            handleDelete={handleDelete} 
-            {...crearRendicion}/>
-       
+             
+       <VistaImg data={data}
+       setData={setData}
+       handleDelete={handleDelete} 
+       {...crearRendicion}
+       medio='Medio de pago: '
+       pago='Efectivo'/>
+
+        
       </Row>
     </>
   );
