@@ -10,7 +10,7 @@ export const Tabla = ({
   setUsuario,
 
 }) => {
-  const id = securedBrowserCache.getItem('uid')
+  const id = localStorage.getItem('uid')
 let p=PeticionGET('/gastos')
 let filtradoUsuariosConMediosDePago= p.filter(d=>d.usuarioId==id)
   const [highlight, setHighlight] = useState(false);

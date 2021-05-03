@@ -19,7 +19,11 @@ import { PerfilGerente } from "../components/perfiles/PerfilGerente";
 import { DashboardRoutes } from "./DashboardRoutes";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import SidebarContext from "../components/context/SidebarContext";
+import { PeticionJWT } from "../auth/PeticionJWT";
+import { login, logout } from "../auth/localStorage";
 export const Routes = () => {
+const l = PeticionJWT();
+
   return (
     <Router>
       <Switch>

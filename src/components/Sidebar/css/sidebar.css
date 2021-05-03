@@ -1,13 +1,14 @@
 .navbar {
     display: flex;
-    justify-content: start;
+    flex-wrap: nowrap;
+    justify-content: space-between;
     align-items: center;
     background-color: #46a461;
     height:30px 
     
     ;
   }
- 
+
   .div-navbar{
  
     position: fixed;
@@ -43,6 +44,9 @@
     transition: 1700ms;
     margin-top: -1px;
     z-index:9999;
+  }
+  .datosPersonales{
+    margin-right: 40px;
   }
   
   .nav-menu.active {

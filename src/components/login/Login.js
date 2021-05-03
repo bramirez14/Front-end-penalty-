@@ -2,12 +2,14 @@ import React, { useState,useEffect } from "react";
 import "./login.css";
 import axiosURL from "../../config/axiosURL";
 
-import { securedBrowserCache } from 'secured-browser-storage';
+
+
+
 
  
 
 export const Login = ({ history }) => {
-  securedBrowserCache.setStorageType('localStorage'); 
+  //securedBrowserCache.setStorageType('localStorage'); 
   const [cargandoUsuario, setCargandoUsuario] = useState(true)
   const [token, setToken] = useState()
   const [errores, setErrores] = useState([]);
@@ -31,10 +33,15 @@ export const Login = ({ history }) => {
     );
     setErrores(result.data);
     if (result.data.user) {
-      securedBrowserCache.setItem('type', result.data.user.tipousuario);
-      securedBrowserCache.setItem('uid', result.data.user.id);
-     localStorage.setItem("token", JSON.stringify(result.data.token));
+      localStorage.setItem('uid', result.data.user.id);
+     localStorage.setItem('token',(result.data.token));
+      if(result.data.user.tipousuario!='Gerente'){
+        localStorage.setItem('type', result.data.user.tipousuario);
+      }else{
+        localStorage.setItem('type', result.data.user.tipousuario);
+      }
       history.push("/gerencia/perfil");
+
     } else {
       setMsg(result.data.message);
     }

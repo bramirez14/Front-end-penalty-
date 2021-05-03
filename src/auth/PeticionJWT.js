@@ -1,16 +1,31 @@
 import {useEffect,useState} from 'react'
+import { securedBrowserCache } from 'secured-browser-storage';
 import axiosURL from '../config/axiosURL';
+import { logout } from './localStorage';
 
 export const PeticionJWT = () => {
-    let tokenStorage = JSON.parse(localStorage.getItem("token"));
+    let tokenStorage = (localStorage.getItem("token"));
+ 
+    let id= (localStorage.getItem("uid"));
+   //console.log(id);
+    let tipo= (localStorage.getItem("type"));
+
     const [tokenEstado, setTokenEstado] = useState({});
-    console.log(tokenEstado);
-   
+
     useEffect(() => {
         const cargarUsuario = async () => {
           let datosJWT = await axiosURL.get("/check", {
             headers: { token: tokenStorage },
           });
+          let idDB=datosJWT.data.id
+         //console.log(idDB?.toString());
+          let tipoDB=datosJWT.data.tipousuario;
+          let ok= (datosJWT.data==='Token invalido');
+          let noHay=(datosJWT.data==='No hay token')
+          let ID=(id===idDB?.toString())
+          let TIPO=(tipo===tipoDB)
+          if(ID===false){logout()}
+        if(ok===true || noHay===true  || TIPO===false){logout()}
           setTokenEstado(datosJWT.data);
         };
         cargarUsuario();

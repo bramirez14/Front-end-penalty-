@@ -11,21 +11,9 @@ import "./sueldo.css";
 import PeticionGET from "../../config/PeticionGET";
 
 export const Vacaciones = ({ history }) => {
-  const id = securedBrowserCache.getItem('uid')
+  const id = localStorage.getItem('uid')
     //Peticion get para saber cuando vence el localStorage
-    const [tokenEstado, setTokenEstado] = useState({});
-    console.log(tokenEstado);
-    const { nombre, apellido } = tokenEstado;
-    useEffect(() => {
-      const cargarUsuario = async () => {
-        let datosJWT = await axiosURL.get("/check", {
-          headers: { token: tokenStorage },
-        });
-        setTokenEstado(datosJWT.data);
-      };
-      cargarUsuario();
-    }, []);  
-  let tokenStorage = JSON.parse(localStorage.getItem("token"));
+  
 
   /**useContext***/
   const Text = useContext(UserContext);
@@ -212,13 +200,9 @@ export const Vacaciones = ({ history }) => {
 
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
 
-          <Titulo style={{fontSize:'25px'}}titulo='Solicitud de Vacaciones'/>
+          <Titulo titulo=' Vacaciones'/>
           </Col>
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <Form.Item name="empleado">
-                <h3>{nombre}, {apellido}</h3>
-              </Form.Item>
-            </Col>
+         
 
             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
               <Form.Item label="Periodo">
