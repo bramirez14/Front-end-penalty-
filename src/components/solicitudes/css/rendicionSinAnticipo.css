@@ -1,0 +1,33 @@
+.vista-imagenes{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left:20px;
+    margin-top:40px;
+    border:solid 1px #ddd;
+    border-radius: 14px;
+}
+.vista-img{
+    width: 400px;
+    height: 400px;
+    border-right: solid 2px #ddd;
+}
+.vista-datos{
+    padding: 40px;
+}
+
+.sp{
+    color:gray;
+}
+p {
+    width: 200px;
+    color:gray;
+    padding: 2px 5px;
+  
+    /* BOTH of the following are required for text-overflow */
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .overflow-visible {
+    white-space: initial;
+  }
