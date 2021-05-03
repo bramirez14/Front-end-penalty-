@@ -5,7 +5,7 @@ import TextArea from "antd/lib/input/TextArea";
 import PeticionGET from "../../config/PeticionGET";
 import axiosURL from "../../config/axiosURL";
 import { categorias } from "../rendiciones/categorias";
-import './css/rendicionSinAnticipo.css'
+import { VistaImg } from "../rendiciones/VistaImg";
 export const RendicionSinAnticipo = ({ history }) => {
   const id = localStorage.getItem("uid");
 
@@ -28,7 +28,6 @@ export const RendicionSinAnticipo = ({ history }) => {
     imagen,
     categoria,
     fecha,
-    deleteId,
     usuarioId,
     formapagoId,
   } = crearRendicion;
@@ -117,17 +116,6 @@ export const RendicionSinAnticipo = ({ history }) => {
       imagen: "",
     });
   };
-
-  /****fin imagenn  */
-  /**Submit */
-  /* let  handleSubmit
-      if(imagen===''){
-          alert('Debes Ingresar un comprabante visual')
-          let clase=document.querySelector('custom-file-drop-area');
-          clase.style.border-color='red'
-        }else{ handleSubmit = () => {
-            agregar();
-          };} */
 
   const handleSubmit = () => {
     if (imagen === "") {
@@ -232,86 +220,15 @@ export const RendicionSinAnticipo = ({ history }) => {
             </Button>
           </Form.Item>
         </Form>
-              <div>
+             
+       <VistaImg data={data}
+       setData={setData}
+       handleDelete={handleDelete} 
+       {...crearRendicion}
+       medio='Medio de pago: '
+       pago='Efectivo'/>
 
-              </div>
-       {/*  <Card
-          hoverable
-          style={{ width: " 500px", height: "400px"}}
-          cover={
-            <div className="custom-file-preview ">
-              {data.length === 0 ? (
-                <h2 style={{ marginLeft: "170px", marginTop: "170px" }}>
-                  Imagen
-                </h2>
-              ) : (
-                <div
-                  className="prev-img"
-                  style={{ width: " 500px", height: "350px" }}
-                >
-                  <span className="prev-img" onClick={handleDelete}>
-                    &times;
-                  </span>
-                  <img src={data[0].src} />
-                </div>
-              )}
-            </div>
-          }
-        >
-
-          <Meta
-            title="Datos:"
-            description={
-              <div>
-                <h6>
-                  {" "}
-                  <b>Categoria:</b> {categoria}
-                </h6>
-                <h6 className="h6">
-                  <b>Nota: </b> {notas}
-                </h6>
-                <h6 className="h6">
-                  {" "}
-                  <b>Importe:</b> ${importe}
-                </h6>
-                <h6 className="h6">
-                  <b>Fecha:</b> {fecha}
-                </h6>
-              </div>
-            }
-          />
-        </Card> */}
-
-        <div className='vista-imagenes'   >
-            <div className='vista-img' >
-                 <div className="custom-file-preview ">
-              {data.length === 0 ? (
-                <h2 style={{ marginLeft: "170px", marginTop: "170px" }}>
-                  Imagen
-                </h2>
-              ) : (
-                <div
-                  className="prev-img"
-                  style={{ width: " 400px", height: "400px" }}
-                >
-                  <span className="prev-img" onClick={handleDelete}>
-                    &times;
-                  </span>
-                  <img src={data[0].src} />
-                </div>
-              )}
-            </div> 
-            </div>
-            <div className='vista-datos' > 
-            <h5> Fecha: <span className='sp'>{fecha}</span></h5>
-           <h5> Categoria: <span className='sp'>{categoria}</span></h5>
-           <h5> Medio de pago: <span className='sp'>Efectivo</span></h5>
-           <h5> Importe: <span className='sp'>{importe}</span></h5>
-           <h5 className='h5' >  Nota: <p class="overflow-visible">{notas}</p>   </h5>
-
-              
-              </div>
-        </div>
+        
       </Row>
     </>
   );
