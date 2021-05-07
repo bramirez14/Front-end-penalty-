@@ -1,8 +1,6 @@
 import React from "react";
 import "./css/cardRendiciones.css";
-import image from "../../logoPenalty-remove.png";
 import { Button } from "antd";
-import { categorias } from "./categorias";
 import {Link} from 'react-router-dom'
 export const CardRendiciones = ({imagen,categoria,importe,fecha,notas,id}) => {
  
@@ -14,7 +12,7 @@ export const CardRendiciones = ({imagen,categoria,importe,fecha,notas,id}) => {
       <div className="text-date">
        <h4>{categoria}</h4>
        <div><span>$ {importe}</span></div>
-       <div><span> fecha:{fecha} </span></div>
+       <div><span> fecha de ingreso: {fecha} </span></div>
       </div>
       <div className='nota'><span>Descripcion:<br/>{notas} </span > </div>
       <Link
