@@ -129,7 +129,9 @@ const handFiles = (file) => {
     xl: 24,
     xxl: 24,
   };
-  console.log(crearRendicion);
+const handleBack=()=>history.push(`/lista/rendicion/${id}`);
+
+
 
 
   return (
@@ -139,11 +141,12 @@ const handFiles = (file) => {
           onFinish={handleSubmit}
           onChange={handleChange}
           layout="vertical"
-          className="formulario-rendicion"
+          className="formulario-rendicion-crear"
           {...estilo}
+          size='large'
         >
-          <h5 style={{ textAlign: "center" }}>Agregar Rendicion</h5>
-          <Divider style={{}} />
+           <h5 style={{ textAlign: "center",marginLeft:'40px'}}> Agregar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5> 
+           <Divider/>
           <Form.Item name="categoria">
             <Select placeholder="Categoria" onChange={selectChange} >
               {categorias.map((c) => (

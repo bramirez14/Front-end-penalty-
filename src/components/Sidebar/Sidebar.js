@@ -29,7 +29,6 @@ export const Sidebar = () => {
 
       <div
         className={open ? "navbar active" : "navbar"}
-        style={{ border: "solid 1px" }}
       >
         {/*importante para los iconos y para las alertas  de arriba de todo*/}
 

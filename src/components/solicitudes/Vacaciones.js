@@ -195,6 +195,7 @@ export const Vacaciones = ({ history }) => {
           className="form"
           onFinish={handleSubmit}
           onChange={handleChange}
+          size='large'
         >
           <Row gutter={10}>
 

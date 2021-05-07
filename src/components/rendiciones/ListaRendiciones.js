@@ -11,9 +11,9 @@ import { saveAs } from 'file-saver';
 
 
 
-export const ListaRendiciones = ({match}) => {
+export const ListaRendiciones = ({match, history}) => {
     const { id } = match.params;
-    console.log(id);
+    console.log(history);
     const peticionGastoId = PeticionGET(`/gastos/${id}`)
     const todasLasRendicones = peticionGastoId?.rendicion 
     const sumaGastos=   todasLasRendicones?.map(sg=> sg.importe)
@@ -39,6 +39,7 @@ const {open}=Text
       }) */
      
  }
+
     return (
         <div className={!open?'contenedor-rendicion':'contenedor-rendicion-active'}>
 
@@ -49,7 +50,7 @@ const {open}=Text
         <Row >
             <Col  xs={24} sm={24} md={24} lg={24} xl={24}>
         <Link to={`/crear/rendicion/${id}`}>
-            <Button style={{marginTop:'10px'}}> Agregar Gasto</Button>
+            <Button style={{marginTop:'10px'}}> Agregar Gasto</Button> <Link to='/gastos'><Button className='btn-list-rendicion'>X</Button></Link>
             
             </Link>
             {todasLasRendicones?.map(t=>

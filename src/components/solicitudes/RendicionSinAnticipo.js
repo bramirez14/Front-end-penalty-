@@ -137,8 +137,9 @@ export const RendicionSinAnticipo = ({ history }) => {
     xl: 24,
     xxl: 24,
   };
-  console.log(crearRendicion);
-  console.log(data);
+const handleBack=()=> history.push("/gastos");
+
+
 
   return (
     <>
@@ -147,10 +148,12 @@ export const RendicionSinAnticipo = ({ history }) => {
           onFinish={handleSubmit}
           onChange={handleChange}
           layout="vertical"
-          className="formulario-rendicion"
+          className="formulario-rendicion-crear"
           {...estilo}
+          size='large'
         >
-          <h5 style={{ textAlign: "center"}}>Agregar Rendicion</h5>
+         <h5 style={{ textAlign: "center",marginLeft:'40px'}}> Agregar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5> 
+          
           <Divider/>
           <Form.Item
             name="categoria"
