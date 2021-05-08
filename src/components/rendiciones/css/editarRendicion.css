@@ -1,10 +1,20 @@
 .formulario-rendicion{
-  width:290px;
+  width:320px;
+ /*  box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5); */
+  /* height: auto; */
+  padding: 12px;
+  overflow-y: scroll;
+  height: 595px;
+  
+ 
+}
+.formulario-rendicion-crear{
+  width:320px;
   box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
   /* height: auto; */
-  padding: 10px;
-  overflow-y: scroll;
-  height: 590px;
+  padding: 12px;
+  /* overflow-y: scroll; */
+  height: 595px;
   
  
 }
@@ -13,7 +23,7 @@
  /* height: 8px;     Tamaño del scroll en horizontal */
 }
 .formulario-rendicion::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: #ddd;
   border-radius: 4px;
   
 }
@@ -29,7 +39,7 @@
 }
 /* Ponemos un color de fondo y redondeamos las esquinas del track */
 .formulario-rendicion::-webkit-scrollbar-track {
-  background: #e1e1e1;
+  background: #bdbdbd;
   border-radius: 4px;
 }
 
@@ -156,7 +166,7 @@ a {
   border: 2px dashed #ddd;
   height: 110px;
   cursor: -webkit-grab;
-  width: 254px;
+  width: 292px;
   margin-top: 15px;
   border-radius: 20px;
   cursor: grab;
@@ -295,7 +305,18 @@ color:white
   -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 } 
-
+.btn-rendicion{
+margin-left:25px;
+border-radius:10px;
+}
+.btn-rendicion:hover{
+border-color: red;
+color: red
+}
+.btn-list-rendicion:hover{
+  border-color: red;
+  color: red
+}
 .ant-form input[type='file'] {
     display: none; 
 }

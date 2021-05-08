@@ -22,6 +22,8 @@ import { Uploads } from "../components/rendiciones/Uploads";
 import { UserContext } from "../contexto/UserContext";
 import { ListaRendiciones } from "../components/rendiciones/ListaRendiciones";
 import { RendicionSinAnticipo } from "../components/solicitudes/RendicionSinAnticipo";
+import GeneradorPDF  from "../pdf/GeneradorPDF";
+import { PDF } from "../pdf/PDF";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -40,7 +42,10 @@ export const DashboardRoutes = ({ history }) => {
         <RouteGerente   exact path="/sueldos" component={Sueldo} />
         <RouteGerente exact path="/vacaciones" component={Vacaciones} />
         <RouteGerente exact path="/gastos" component={RendicionGastos} />
-        <RouteGerente exact path="/prueba" component={Sidebar} />
+
+        <RouteGerente exact path="/prueba" component={GeneradorPDF} />
+        <RouteGerente exact path="/pdf" component={PDF} />
+
         <RouteGerente exact path="/anticipo/gastos" component={AnticipoGasto} />
         <RouteGerente
           exact

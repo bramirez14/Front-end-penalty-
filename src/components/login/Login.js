@@ -62,7 +62,7 @@ export const Login = ({ history }) => {
           className="imagen-penalty"
           alt="img"
         />
-        {msg === undefined ? "" : <h5 className="msg">{msg}</h5>}
+        {msg === undefined ? "" : <h6 className="msg">{msg}</h6>}
 
         {errores.errors === undefined
           ? ""

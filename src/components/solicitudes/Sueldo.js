@@ -188,7 +188,7 @@ export const Sueldo = ({ history }) => {
   return (
     
     <div className={!open?'contenedor':'contenedor-active'}>
-      <Form className="form" onFinish={handleSubmit}>
+      <Form className="form" onFinish={handleSubmit} size='large' >
       <Row gutter={10}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <Titulo titulo="Anticipo de Sueldo" />

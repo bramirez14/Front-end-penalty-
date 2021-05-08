@@ -51,7 +51,7 @@ export const AnticipoGasto = ({ history }) => {
   };
   return (
     <div className={!open ? "contenedor" : "contenedor-active"} >
-      <Form className="form" onFinish={onSubmit}>
+      <Form className="form" onFinish={onSubmit} size='large'>
         <Row gutter={10}>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Titulo titulo="Anticipo de Gastos" />

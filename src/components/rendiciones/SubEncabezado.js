@@ -5,10 +5,9 @@ import { securedBrowserCache } from 'secured-browser-storage';
 import PeticionGET from '../../config/PeticionGET';
 
 
-export const SubEncabezado = ({uuid}) => {
+export const SubEncabezado = ({uuid,total}) => {
   const id = localStorage.getItem('uid')
   let usuario = PeticionGET(`/${id}`)
-  console.log(usuario);
 
   const responsable = (departamento) => {
     let responsable;
@@ -57,7 +56,9 @@ export const SubEncabezado = ({uuid}) => {
         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} style={{
             borderBottom: "solid 1px rgba(92, 99, 105, 0.5)",
           }}>
-          <h2 style={{marginLeft:'100px'}}> anticipo:#{uuid}</h2>
+          <h2 style={{marginLeft:'100px'}}> anticipo: #{uuid}</h2>
+          <h4 style={{marginLeft:'100px'}}> Total: ${total}</h4>
+
         </Col>
       </Row>
     </>

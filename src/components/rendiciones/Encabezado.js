@@ -4,7 +4,6 @@ import { Card, Row, Col, Form} from "antd";
 import "./css/encabezado.css";
 
 export const Encabezado = () => {
-  const { Meta } = Card;
 
   return (
 

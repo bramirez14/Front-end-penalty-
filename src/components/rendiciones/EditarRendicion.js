@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import axiosURL from '../../config/axiosURL';
-import { Form, Input, Button, Col, Row, Card, Select } from 'antd';
+import { Form, Input, Button, Col, Row, Card, Select,Divider } from 'antd';
 
 import './css/editarRendicion.css'
 import TextArea from 'antd/lib/input/TextArea';
@@ -118,7 +118,9 @@ export const EditarRendicion = ({ match, history }) => {
         crearImg();
     };
     /**Fin Submit */
-    console.log(rendicionEditar);
+   /** Boton para volver atras */
+const handleBack= ()=> history.push(`/lista/rendicion/${gastoId}`);
+
 
     return (
         <>
@@ -130,6 +132,8 @@ export const EditarRendicion = ({ match, history }) => {
                     xl={8}
                     xxl={8} >
                     <Form onFinish={handleSubmit} onChange={handleChange} layout='vertical' className='formulario-rendicion'>
+                    <h5 style={{ textAlign: "center",marginLeft:'40px'}}> Editar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5> 
+                             <Divider />
                         <Form.Item label='Categoria'>
                             <Select value={categoria} onChange={onChange}>
                                 {categorias.map((c) => (
