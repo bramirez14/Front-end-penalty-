@@ -7,7 +7,7 @@ export const PeticionJWT = () => {
     let tokenStorage = (localStorage.getItem("token"));
  
     let id= (localStorage.getItem("uid"));
-   //console.log(id);
+ 
     let tipo= (localStorage.getItem("type"));
 
     const [tokenEstado, setTokenEstado] = useState({});
