@@ -7,6 +7,7 @@ import './css/editarRendicion.css'
 import TextArea from 'antd/lib/input/TextArea';
 import { categorias } from "./categorias";
 import { VistaImg } from './VistaImg';
+import PeticionGET from '../../config/PeticionGET';
 
 export const EditarRendicion = ({ match, history }) => {
     const { id } = match.params;
@@ -22,11 +23,9 @@ export const EditarRendicion = ({ match, history }) => {
         categoria: '',
     })
     const { notas, importe, imagen, categoria, fecha,gastoId } = rendicionEditar
-    const { Meta } = Card;
-    console.log(categoria);
     useEffect(() => {
         const peticionID = async () => {
-            let res = await axiosURL.get(`/rendiciones/${id}`);
+            let res = await axiosURL.get(`/rendicion/${id}`);
             setRendicionEditar(res.data);
         };
         peticionID()
@@ -45,9 +44,9 @@ export const EditarRendicion = ({ match, history }) => {
     const editarRendicion = async () => {
         let result = await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
         console.log(result.data);
-        /* if (result.data) {
+        if (result.data) {
             history.push(`/lista/rendicion/${gastoId}`);
-        } */
+        }
     }
     const handleChange = e => {
         const { name, value } = e.target;
@@ -113,14 +112,35 @@ export const EditarRendicion = ({ match, history }) => {
 
     /****fin imagenn  */
     /**Submit */
-    const handleSubmit = (e) => {
-        //editarRendicion();
-        crearImg();
-    };
+    
     /**Fin Submit */
    /** Boton para volver atras */
+   console.log(gastoId);
 const handleBack= ()=> history.push(`/lista/rendicion/${gastoId}`);
+const  peticionGastoId= PeticionGET(`/gastos/${gastoId}`)
+const todasLasRendicones = peticionGastoId?.rendicion
+  const sumaGastos = todasLasRendicones?.map(sg => sg.importe)
+  const totalDeImporte = sumaGastos?.reduce((acumulador, item) => { return acumulador = parseFloat(acumulador) + parseFloat(item) })
+  const i = peticionGastoId?.importe
+const  peticionRendicion = PeticionGET(`/rendicion/${id}`)
+const resta= totalDeImporte-parseFloat(peticionRendicion.importe)//Es para verificar 
+const total = resta + parseFloat(importe)//Declarado en el estado
 
+console.log(resta);
+console.log(total);
+console.log(i);
+
+        const handleSubmit = (e) => {
+            
+    if (total>i){
+        alert('El importe no puede  superar el monto del anticipo')
+            }else{
+            //editarRendicion();
+    crearImg();
+
+    }
+        };
+  
 
     return (
         <>

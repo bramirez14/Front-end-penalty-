@@ -9,6 +9,7 @@ export const SubEncabezado = ({uuid,total}) => {
   const id = localStorage.getItem('uid')
   let usuario = PeticionGET(`/${id}`)
 
+
   const responsable = (departamento) => {
     let responsable;
     switch (departamento) {

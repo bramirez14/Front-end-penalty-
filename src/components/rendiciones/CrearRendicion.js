@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import axiosURL from "../../config/axiosURL";
 import { Form, Input, Button, Row, Card, Select, Divider } from "antd";
 import "./css/editarRendicion.css";
@@ -6,9 +6,9 @@ import TextArea from "antd/lib/input/TextArea";
 import PeticionGET from "../../config/PeticionGET";
 import { categorias } from "./categorias";
 import { VistaImg } from "./VistaImg";
+
 export const CrearRendicion = ({ match, history }) => {
   const { id } = match.params;
-
 
   const { Option } = Select;
   const [highlight, setHighlight] = useState(false);
@@ -159,7 +159,6 @@ const handleBack=()=>history.push(`/lista/rendicion/${id}`);
           <Form.Item name="importe">
             <Input name="importe" placeholder="Importe" />
           </Form.Item>
-          
 
           <Form.Item name="notas">
             <TextArea name="notas" value={notas} placeholder="Nota" autoSize={{ minRows: 2, maxRows: 6 }} />
