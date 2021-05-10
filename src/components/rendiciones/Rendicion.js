@@ -1,17 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Form,Col, Row } from "antd";
 import "./css/createRendicion.css";
-import axiosURL from "../../config/axiosURL";
 import { Tabla } from "./Tabla";
-import { securedBrowserCache } from 'secured-browser-storage';
-import { PeticionJWT } from "../../auth/PeticionJWT";
-import { Titulo } from "../titulos/Titulo";
 
 export const Rendicion = ({ history }) => {
-  //const id =  localStorage.getItem('uid')
-
-
-
   return (
     <Form layout="vertical">
       <Row>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Form, Input, Button, Select, Col, Row } from "antd";
-import { securedBrowserCache } from 'secured-browser-storage';
 import { UserContext } from "../../contexto/UserContext";
 import { SelectAnt } from "../inputs/SelectAnt";
 import { Titulo } from "../titulos/Titulo";
@@ -11,7 +10,6 @@ import "./css/anticipoGasto.css";
 
 export const Sueldo = ({ history }) => {
   const id = localStorage.getItem('uid')
-  const [validated, setValidated] = useState(false);
   const [users, setUsers] = useState([]);
   const [data, setData] = useState([{ id: "", nombre: "" }]);
   const [anticipo, setAnticipo] = useState({
@@ -42,14 +40,14 @@ export const Sueldo = ({ history }) => {
     });
   };
 
-  const handleRechazo = () => {
+ /*  const handleRechazo = () => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
       text:
         "NO PODES ENVIAR EL ANTICIPO PONGASE EN CONTACTO EL DEPARTAMENTO DE GERENCIA, GRACIAS",
     });
-  };
+  }; */
   const handleChangeDev=(values)=>{
     setAnticipo({...anticipo,sueldo:values})
   }
@@ -68,21 +66,6 @@ export const Sueldo = ({ history }) => {
     }
     setData(vacio);
   };
-  /***********tiempo restante para la devolucion************** */
-  const subtration = (fechaSolicitud) => {
-    let b = "31/12";
-    let date_a = fechaSolicitud.split("/"); // ['dd','mm','yyyy']
-    let date_b = b.split("/"); // ['dd','mm','yyyy']
-    let year = date_a[2];
-    let restaMes = date_b[1] - date_a[1];
-    let restaDia = date_b[0] - date_a[0];
-    return `
-    El pago se debera realizar dentro del año ${year}.
-    Tenes ${restaDia} dias  y  ${restaMes} meses para la devolucion del anticipo.
-    Desde ya muchas gracias por su comprension`;
-  };
-  /*********** fin tiempo restante para la devolucion************** */
-
   /***********calculamos el mes************ */
   const mes = () => {
     let day = new Date().getMonth();
@@ -124,7 +107,7 @@ export const Sueldo = ({ history }) => {
   
     /*******condicion para envio de mail a cada departamento******* */
     /***tmb agregamos un alert para evitar fraudes  */
-    if(importe>=3000 && sueldo=='Aguinaldo'){
+    if(importe>=3000 && sueldo==='Aguinaldo'){
       alert('no podes hacer eso, la opcion AGUINALDO , solo cubre un monto inferior a 3000')
     }else{if (departamento() === "Sistemas" || departamento() === "Logistica") {
       handleSubmit = (v) => {

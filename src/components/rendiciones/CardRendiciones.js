@@ -16,11 +16,10 @@ export const CardRendiciones = ({imagen,categoria,importe,fecha,notas,id}) => {
       </div>
       <div className='nota'><span>Descripcion:<br/>{notas} </span > </div>
       <Link
-    to={`/editar/rendicion/${id}`}>
+        to={`/editar/rendicion/${id}`}>
       <Button
         style={{ width: "auto",  marginTop:'10px',borderRadius:'10px'}}
       >
-        {" "}
       Editar
       </Button>
       </Link>

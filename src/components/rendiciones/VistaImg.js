@@ -48,7 +48,7 @@ export const VistaImg = ({
         </h5>
         <h5 className="h5">
           {" "}
-          Nota: <p class="overflow-visible">{notas}</p>{" "}
+          Nota: <p className="overflow-visible">{notas}</p>{" "}
         </h5>
       </div>
     </div>

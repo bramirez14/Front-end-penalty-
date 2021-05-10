@@ -1,8 +1,6 @@
-
 import React, { useState, useEffect } from 'react'
 import axiosURL from '../../config/axiosURL';
-import { Form, Input, Button, Col, Row, Card, Select,Divider } from 'antd';
-
+import { Form, Input, Button, Col, Row,  Select, Divider } from 'antd';
 import './css/editarRendicion.css'
 import TextArea from 'antd/lib/input/TextArea';
 import { categorias } from "./categorias";
@@ -11,7 +9,6 @@ import PeticionGET from '../../config/PeticionGET';
 
 export const EditarRendicion = ({ match, history }) => {
     const { id } = match.params;
-    console.log(id);
     const [highlight, setHighlight] = useState(false);
     const [data, setData] = useState([]);
     const [img, setImg] = useState()
@@ -22,7 +19,7 @@ export const EditarRendicion = ({ match, history }) => {
         importe: '',
         categoria: '',
     })
-    const { notas, importe, imagen, categoria, fecha,gastoId } = rendicionEditar
+    const { notas, importe,  categoria, fecha, gastoId } = rendicionEditar
     useEffect(() => {
         const peticionID = async () => {
             let res = await axiosURL.get(`/rendicion/${id}`);
@@ -39,11 +36,9 @@ export const EditarRendicion = ({ match, history }) => {
         if (result.data) {
             history.push(`/lista/rendicion/${gastoId}`);
         }
-        console.log(result.data);
     }
     const editarRendicion = async () => {
         let result = await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
-        console.log(result.data);
         if (result.data) {
             history.push(`/lista/rendicion/${gastoId}`);
         }
@@ -62,29 +57,28 @@ export const EditarRendicion = ({ match, history }) => {
     }
     /*******imagen */
 
-  const handleFileChange = (e) => {
-    let file = e.target.files[0];
-    console.log(file);
-    handFiles(file);
-  };
-  const handFiles = (file) => {
-    let imageArr = [];
+    const handleFileChange = (e) => {
+        let file = e.target.files[0];
+        handFiles(file);
+    };
+    const handFiles = (file) => {
+        let imageArr = [];
 
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileObj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      imageArr.push(fileObj);
-      setData(imageArr);
-    setImg(file);//guardamos el archivo imagen
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.addEventListener("load", () => {
+            let fileObj = {
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                src: reader.result,
+            };
+            imageArr.push(fileObj);
+            setData(imageArr);
+            setImg(file);//guardamos el archivo imagen
 
-    });
-  };
+        });
+    };
     const handleHighLight = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -103,57 +97,38 @@ export const EditarRendicion = ({ match, history }) => {
         setHighlight(false);
         handFiles(files);
     };
-
     /**Delte img del draw drop */
-  const handleDelete = (e) => {
-    setData([]);
-   setImg('');
-  };
-
+    const handleDelete = (e) => {
+        setData([]);
+        setImg('');
+    };
     /****fin imagenn  */
-    /**Submit */
-    
-    /**Fin Submit */
-   /** Boton para volver atras */
-   console.log(gastoId);
-const handleBack= ()=> history.push(`/lista/rendicion/${gastoId}`);
-const  peticionGastoId= PeticionGET(`/gastos/${gastoId}`)
-const todasLasRendicones = peticionGastoId?.rendicion
-  const sumaGastos = todasLasRendicones?.map(sg => sg.importe)
-  const totalDeImporte = sumaGastos?.reduce((acumulador, item) => { return acumulador = parseFloat(acumulador) + parseFloat(item) })
-  const i = peticionGastoId?.importe
-const  peticionRendicion = PeticionGET(`/rendicion/${id}`)
-const resta= totalDeImporte-parseFloat(peticionRendicion.importe)//Es para verificar 
-const total = resta + parseFloat(importe)//Declarado en el estado
-
-console.log(resta);
-console.log(total);
-console.log(i);
-
-        const handleSubmit = (e) => {
-            
-    if (total>i){
-        alert('El importe no puede  superar el monto del anticipo')
-            }else{
+    /** Boton para volver atras */
+    console.log(gastoId);
+    const handleBack = () => history.push(`/lista/rendicion/${gastoId}`);
+    const peticionGastoId = PeticionGET(`/gastos/${gastoId}`)
+    const todasLasRendicones = peticionGastoId?.rendicion
+    const sumaGastos = todasLasRendicones?.map(sg => sg.importe)
+    const totalDeImporte = sumaGastos?.reduce((acumulador, item) => { return acumulador = parseFloat(acumulador) + parseFloat(item) })
+    const i = peticionGastoId?.importe
+    const peticionRendicion = PeticionGET(`/rendicion/${id}`)
+    const resta = totalDeImporte - parseFloat(peticionRendicion.importe)//Es para verificar 
+    const total = resta + parseFloat(importe)//Declarado en el estado
+    const handleSubmit = (e) => {
+        if (total > i) {
+            alert('El importe no puede  superar el monto del anticipo')
+        } else {
             //editarRendicion();
-    crearImg();
-
-    }
-        };
-  
-
+            crearImg();
+        }
+    };
     return (
         <>
-            <Row style={{}}>
-                <Col xs={24}
-                    sm={24}
-                    md={6}
-                    lg={8}
-                    xl={8}
-                    xxl={8} >
+            <Row>
+                <Col xs={24} sm={24} md={6} lg={8} xl={8} xxl={8} >
                     <Form onFinish={handleSubmit} onChange={handleChange} layout='vertical' className='formulario-rendicion'>
-                    <h5 style={{ textAlign: "center",marginLeft:'40px'}}> Editar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5> 
-                             <Divider />
+                        <h5 style={{ textAlign: "center", marginLeft: '40px' }}> Editar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
+                        <Divider />
                         <Form.Item label='Categoria'>
                             <Select value={categoria} onChange={onChange}>
                                 {categorias.map((c) => (
@@ -163,8 +138,6 @@ console.log(i);
                                 ))}
                             </Select>
                         </Form.Item>
-
-
                         <Form.Item label='Importe'>
                             <Input name='importe' value={importe} />
                         </Form.Item >
@@ -172,10 +145,8 @@ console.log(i);
                             <Input name='fecha' value={fecha} />
                         </Form.Item>
                         <Form.Item label='Notas'>
-                            <TextArea name='notas' value={notas}  autoSize={{ minRows: 2, maxRows: 6 }}/>
+                            <TextArea name='notas' value={notas} autoSize={{ minRows: 2, maxRows: 6 }} />
                         </Form.Item>
-
-
                         <div className="custom-form-group">
                             <div
                                 className={
@@ -197,29 +168,23 @@ console.log(i);
                                     onChange={handleFileChange}
                                 />
                                 <label htmlFor="filephotos">
-                                    {" "}
-                                    <h1> + </h1>{" "}
+                                    <h1> + </h1>
                                 </label>
                             </div>
-
                         </div>
                         <Form.Item >
                             <Button className='btn' htmlType="submit" block >
                                 Guardar
-        </Button>
+                            </Button>
                         </Form.Item>
                     </Form>
                 </Col>
-
-
-
                 <VistaImg
-                  data={data}
-                  setData={setData}
-                  handleDelete={handleDelete} 
-                  {...rendicionEditar}
+                    data={data}
+                    setData={setData}
+                    handleDelete={handleDelete}
+                    {...rendicionEditar}
                 />
-
             </Row>
 
         </>
