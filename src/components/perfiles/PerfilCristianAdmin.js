@@ -1,30 +1,24 @@
-import React, { useState } from "react";
-import { useContext, useEffect } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import { UserContext } from "../../contexto/UserContext";
 import { Button, Card, Row, Col } from "antd";
 import SidebarContext from "../context/SidebarContext";
-import "./css/perefilCristianAdmin.css";
+import "./css/perfiles.css";
 import { securedBrowserCache } from 'secured-browser-storage';
 
 /* import bcryptjs from "bcryptjs";*/
-import md5 from "md5"; 
 
 import { Tarjeta } from "../helperPerfiles/Tarjeta";
 import { logout } from "../../auth/localStorage";
 import axiosURL from "../../config/axiosURL";
+import { PeticionJWT } from "../../auth/PeticionJWT";
 
 export const PerfilCristianAdmin = ({ history }) => {
-
-
-
-  securedBrowserCache.setStorageType('localStorage'); 
   const Text = useContext(UserContext);
-  const { open,storage,setStorage } = Text;
+  const { open,setStorage } = Text;
   
   let tokenStorage = (localStorage.getItem("token"));
   const handleLogout = () => {
     logout();
-    console.log(logout());
     history.push("/login");
   };
 
@@ -42,11 +36,15 @@ export const PerfilCristianAdmin = ({ history }) => {
     };
     cargarUsuario();
   }, []);
+let peticion=PeticionJWT();
+
+console.log(peticion);
+
+console.log(!open);
 
   return (
     <>
       <div className={!open ? "contenedor" : "contenedor-active"}>
-        <div className={!open ? "container" : "container-active"}>
           <h1>
             Bienvenido {nombre},{apellido}  espero que te encuentres bien!!!
           </h1>
@@ -75,7 +73,6 @@ export const PerfilCristianAdmin = ({ history }) => {
           <Button className="btn" onClick={handleLogout}>
             Salir{" "}
           </Button>
-        </div>
       </div>
     </>
   );

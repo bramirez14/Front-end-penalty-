@@ -192,10 +192,11 @@ export const Vacaciones = ({ history }) => {
       <div className={!open ? "contenedor" : "contenedor-active"}>
         <Form
           layout="vertical"
-          className="form"
+          className='form'
           onFinish={handleSubmit}
           onChange={handleChange}
           size='large'
+          
         >
           <Row gutter={10}>
 

@@ -2,12 +2,6 @@ import React, { useState,useEffect } from "react";
 import "./login.css";
 import axiosURL from "../../config/axiosURL";
 
-
-
-
-
- 
-
 export const Login = ({ history }) => {
   //securedBrowserCache.setStorageType('localStorage'); 
   const [cargandoUsuario, setCargandoUsuario] = useState(true)
@@ -31,16 +25,18 @@ export const Login = ({ history }) => {
       "/login",
       user
     );
+    let tipo= result.data.user.tipousuario
     setErrores(result.data);
-    if (result.data.user) {
+    if (!!result.data.user) {
       localStorage.setItem('uid', result.data.user.id);
-     localStorage.setItem('token',(result.data.token));
-      if(result.data.user.tipousuario!='Gerente'){
-        localStorage.setItem('type', result.data.user.tipousuario);
-      }else{
-        localStorage.setItem('type', result.data.user.tipousuario);
-      }
+     localStorage.setItem('token',result.data.token);
+     localStorage.setItem('type', tipo);
+     if(tipo==='Gerente'){
       history.push("/gerencia/perfil");
+     }else{
+      history.push("/perfil");
+     }
+      
 
     } else {
       setMsg(result.data.message);
@@ -67,9 +63,6 @@ export const Login = ({ history }) => {
         {errores.errors === undefined
           ? ""
           : errores.errors.map((err, i) => <h5 key={i}>{err.msg}</h5>)}
-
-      
-
 
             <div className="form__div">
                 <input type="text" className="form__input" name="email" placeholder=" "

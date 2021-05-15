@@ -8,8 +8,17 @@ width: 37%;
   border-radius: 1rem;
   box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
   height: auto;
-  margin-top: 10px;
-  margin-left: 370px;
+  margin-top: 70px;
+  margin-left: 440px;
+  padding: 30px;
+}
+.form-active{
+  width: 37%;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
+  height: auto;
+  margin-top: 70px;
+  margin-left: 440px;
   padding: 30px;
 }
 .ant-col-sm-8{

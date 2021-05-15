@@ -7,7 +7,8 @@ const login = token => localStorage.setItem(STORAGE_KEY, token)
 const logout = () => {
 localStorage.clear();
 }
-const gerente = () => localStorage.getItem('type') 
+const gerente = () => localStorage.getItem('type');
+const employee= () => localStorage.getItem('type') ;
 const administrativo = () => localStorage.getItem('type}') 
 
-export { isLogged, login, logout, gerente, administrativo }
+export { isLogged, login, logout, gerente, administrativo,employee }

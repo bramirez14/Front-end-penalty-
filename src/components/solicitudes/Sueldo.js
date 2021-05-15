@@ -18,10 +18,10 @@ export const Sueldo = ({ history }) => {
     importe: "",
     fecha: new Date().toLocaleDateString(),
     mensaje: "",
-    usuId: id,
+    usuarioId: id,
   });
   const { Option } = Select;
-  const { sueldo, importe, mensaje, fecha, cuotas,usuId} = anticipo;
+  const { sueldo, importe, mensaje, fecha, cuotas,usuarioId} = anticipo;
  
   /******useContex*******/
   const Text=useContext(UserContext)
@@ -93,12 +93,14 @@ export const Sueldo = ({ history }) => {
   }, []);
 
   const departamento = () => {
-    let usuarioDep = users.find((u) => u.id == anticipo.usuId);
+    let usuarioDep = users.find(u => u.id === parseInt(id));
     return usuarioDep?.departamento.departamento;
   };
+
   const aprobacion = () => {
-    let a = users.find((u) => u.id == anticipo.usuId);
-    return (a?.anticipoId)
+    let a = users.find((u) => u.id === parseInt(id));
+    console.log(a?.anticipo);
+    return (a?.anticipo)
   };
 
   /************submit para enviar el formulario ************************ */
@@ -111,7 +113,7 @@ export const Sueldo = ({ history }) => {
       alert('no podes hacer eso, la opcion AGUINALDO , solo cubre un monto inferior a 3000')
     }else{if (departamento() === "Sistemas" || departamento() === "Logistica") {
       handleSubmit = (v) => {
-        let u={...v,usuId,fecha,sueldo,cuotas}
+        let u={...v,usuarioId,fecha,sueldo,cuotas}
         handleAlert();
         guardarAnticipo(u);
         //enviarMensaje()
@@ -119,7 +121,7 @@ export const Sueldo = ({ history }) => {
       };
     } else {
       handleSubmit = (v) => {
-        let u={...v,usuId,fecha,sueldo,cuotas}
+        let u={...v,usuarioId,fecha,sueldo,cuotas}
         handleAlert();
         guardarAnticipo(u);
         console.log(u);
@@ -133,7 +135,7 @@ export const Sueldo = ({ history }) => {
   /**********funcion para enviar un mail de alerta **********************/
   const enviarMensaje = () => {
     //SgJZ2KTta9X#SMG
-    let usuarioEncontrado = users.find((user) => user.id == anticipo.usuId);
+    let usuarioEncontrado = users.find((user) => user.id === parseInt(id));
     console.log(usuarioEncontrado);
     let datos = {
       empleado: usuarioEncontrado?.nombre,
@@ -166,19 +168,19 @@ export const Sueldo = ({ history }) => {
       [e.target.name]: e.target.value,
     });
   };
-  
+  console.log(open);
   /********************* fin funcion para enviar un mail de alerta ********************* */
   return (
     
     <div className={!open?'contenedor':'contenedor-active'}>
-      <Form className="form" onFinish={handleSubmit} size='large' >
+      <Form className='form' onFinish={handleSubmit} size='large' >
       <Row gutter={10}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <Titulo titulo="Anticipo de Sueldo" />
 
       
 
-          {aprobacion()!=1 && aprobacion()!=undefined ? (
+          {aprobacion()?.length!==0  && aprobacion() !== undefined ?(
             <h4>Ya tenes un anticipo pendiente!!!</h4>
           ) : (
           <>  

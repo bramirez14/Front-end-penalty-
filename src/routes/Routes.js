@@ -11,9 +11,8 @@ import { Register } from "../components/login/Register";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { DashboardRoutes } from "./DashboardRoutes";
-import { PeticionJWT } from "../auth/PeticionJWT";
 export const Routes = () => {
-const l = PeticionJWT();
+
 
   return (
     <Router>

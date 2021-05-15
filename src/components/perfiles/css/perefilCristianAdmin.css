@@ -68,7 +68,6 @@
       background:aqua;
   } */
   .contenedor-active{
-    padding-left: 100px;
     transition: 700ms;
   }
   .contenedor{

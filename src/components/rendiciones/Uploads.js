@@ -1,90 +1,65 @@
-import React from 'react'
+import React,{Component} from 'react'
+import { Modal, Button } from 'antd';
 
-import { Upload, Modal,Form, Button} from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import axiosURL from '../../config/axiosURL';
-
-function getBase64(file) {
-  console.log(file);
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-}
-
-
- export class Uploads extends React.Component {
+export class Uploads extends Component {
   state = {
-    previewVisible: false,
-    previewImage: '',
-    previewTitle: '',
-    fileList: [
-      
-    ],
+    loading: false,
+    visible: false,
   };
 
-  handleCancel = () => this.setState({ previewVisible: false });
-
-  handlePreview = async file => {
-    console.log(file);
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-
+  showModal = () => {
     this.setState({
-      previewImage: file.url || file.preview,
-      previewVisible: true,
-      previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+      visible: true,
     });
   };
 
-  handleChange = ({ fileList }) =>  {
-    console.log(fileList);
-    this.setState({ fileList });
-  }
-  handleSubmit= async (values)=>{
-    console.log(values);
-    let f = new FormData();
-    f.append("imagen",this.state.fileList);
-   let result = await axiosURL.put(`/rendicion/gastos/${2}`, f)
-  }
+  handleOk = () => {
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.setState({ loading: false, visible: false });
+    }, 3000);
+  };
+
+  handleCancel = () => {
+    this.setState({ visible: false });
+  };
+
   render() {
-    const { previewVisible, previewImage, fileList, previewTitle } = this.state;
-    const uploadButton = (
-      <div>
-        <PlusOutlined />
-        <div style={{ marginTop: 8 }}>Upload</div>
-      </div>
-    );
+    const { visible, loading } = this.state;
     return (
       <>
-      <Form onFinish={this.handleSubmit}>
-        <Form.Item name='imagen'>
-        <Upload
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={this.handlePreview}
-          onChange={this.handleChange}
-        >
-          {fileList.length >= 8 ? null : uploadButton}
-        </Upload>
-        <Modal
-          visible={previewVisible}
-          title={previewTitle}
-          footer={null}
+        <Button type="primary" onClick={this.showModal} style={{ marginTop:'70px'}}>
+          Open Modal with customized footer
+        </Button>
+        <Modal 
+          visible={visible}
+          title="Title"
+          onOk={this.handleOk}
           onCancel={this.handleCancel}
+          footer={[
+            <Button key="back" onClick={this.handleCancel}>
+              Return
+            </Button>,
+            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
+              Submit
+            </Button>,
+            <Button
+              key="link"
+              href="https://google.com"
+              type="primary"
+              loading={loading}
+              onClick={this.handleOk}
+            >
+              Search on Google
+            </Button>,
+          ]}
         >
-          <img alt="example" style={{ width: '100%' }} src={previewImage} />
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
         </Modal>
-        
-        </Form.Item>
-        <Form.Item>
-        <Button htmlType="submit"> Enviar</Button>
-        </Form.Item>
-        </Form>
       </>
     );
   }

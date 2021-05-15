@@ -35,13 +35,11 @@ export const EditarRendicion = ({ match, history }) => {
         let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f)
         if (result.data) {
             history.push(`/lista/rendicion/${gastoId}`);
-        }
+        } 
     }
     const editarRendicion = async () => {
-        let result = await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
-        if (result.data) {
-            history.push(`/lista/rendicion/${gastoId}`);
-        }
+        await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
+  
     }
     const handleChange = e => {
         const { name, value } = e.target;
