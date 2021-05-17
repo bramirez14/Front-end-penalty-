@@ -3,7 +3,7 @@
     margin-top:30px;
 }
 .contenedor-active{
-    /* padding-left: 300px; es 170*/
+    padding-left: 280px;
     transition: 700ms;
     margin-top:30px;
 }

@@ -1,18 +1,18 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { UserContext } from "../contexto/UserContext";
 import { Table, Input, Button, Space, Modal } from "antd";
+import { UserContext } from "../contexto/UserContext";
 import { SearchOutlined } from "@ant-design/icons";
-import "./css/aprob.css";
-import PeticionGET from "../config/PeticionGET";
+import { AiOutlineDelete } from "react-icons/ai";
+import { BsCheck } from "react-icons/bs";
+
 import axiosURL from "../config/axiosURL";
+import Swal from "sweetalert2";
+import "./css/aprob.css";
 
 export const AprobacionAntcipoSueldo = () => {
-  const [data, setData] = useState([])
   const [anticipoPendiente, setAnticipoPendiente] = useState();
+  const [data, setData] = useState([]);
   const Text = useContext(UserContext);
-  const { open } = Text;
-  const { TextArea } = Input;
-  const searchInput = useRef("");
   const [mensaje, setMensaje] = useState({
     respMensaje: "",
     estado: "",
@@ -21,13 +21,16 @@ export const AprobacionAntcipoSueldo = () => {
     searchText: "",
     searchedColumn: "",
   });
+  const { open } = Text;
+  const { TextArea } = Input;
+  const searchInput = useRef("");
   const axiosGet = async () => {
-    let result = await axiosURL.get('/anticipo')
-        setData(result.data)
-  }
+    let result = await axiosURL.get("/anticipo");
+    setData(result.data);
+  };
   useEffect(() => {
-    axiosGet()
-  }, [])
+    axiosGet();
+  }, []);
 
   /**modal*/
   const [visible, setVisible] = useState(false);
@@ -50,19 +53,23 @@ export const AprobacionAntcipoSueldo = () => {
     setVisible(false);
   };
   const aprobado = async () => {
-    await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`,{...mensaje,estado:'aprobado'});
+    await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
+      ...mensaje,
+      estado: "aprobado",
+    });
     setVisible(false);
     setMensaje({ respMensaje: "" });
-    axiosGet()
-
-  
+    axiosGet();
   };
   const rechazado = async () => {
-   await axiosURL.put(`/anticipo/rechazado/${anticipoPendiente.id}`, {...mensaje,estado:'rechazado'});
+    await axiosURL.put(`/anticipo/rechazado/${anticipoPendiente.id}`, {
+      ...mensaje,
+      estado: "rechazado",
+    });
     setVisible(false);
     setMensaje({ respMensaje: "" });
-    axiosGet()
-  }; 
+    axiosGet();
+  };
   /**fin modal */
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -150,11 +157,13 @@ export const AprobacionAntcipoSueldo = () => {
     setState({ searchText: "" });
   };
   const columns = [
-  {  title: "N° de anticipo",
+    {
+      title: "N° de anticipo",
       dataIndex: "id",
       key: "anticipo",
-      ...getColumnSearchProps("anticipo"), 
-},
+
+      ...getColumnSearchProps("anticipo"),
+    },
     {
       title: "Nombre",
       dataIndex: "nombre",
@@ -177,13 +186,11 @@ export const AprobacionAntcipoSueldo = () => {
       title: "Cuotas",
       dataIndex: "cuotas",
       key: "cuotas",
-    
     },
     {
       title: "Importe",
       dataIndex: "importe",
       key: "importe",
-
     },
     {
       title: "Fecha de Solicitud",
@@ -192,9 +199,35 @@ export const AprobacionAntcipoSueldo = () => {
       ...getColumnSearchProps("fecha"),
     },
     {
+      title: "Mensaje",
+      dataIndex: "mensaje",
+      key: "mensaje",
+    },
+    {
       title: "Estado",
       dataIndex: "estado",
       key: "estado",
+      render: (estado,file) =>{
+        
+        const color =()=>{
+          console.log(file.estado);
+          switch (file.estado) {
+            case 'pendiente':
+              return(<h6 style={{color:'yellow'}}> pendiente...</h6> )
+              case 'aprobado':
+           return (<h6 style={{color:'green'}}> aprobado </h6>)
+            default: 
+            return(<h6 style={{color:'red'}}> rechazado </h6>)
+          }}
+       return(
+         <>
+         {
+           color()
+         }
+         </>
+       )
+      }
+
     },
     {
       title: "Acciones",
@@ -203,8 +236,8 @@ export const AprobacionAntcipoSueldo = () => {
       render: (f, fila) => {
         return (
           <>
-            <Button type="primary" onClick={() => showModal(fila)}>
-              solicitu
+            <Button className='btn-aprob' onClick={() => showModal(fila)}>
+                  <BsCheck/>
             </Button>
           </>
         );
@@ -216,12 +249,23 @@ export const AprobacionAntcipoSueldo = () => {
       key: "borrar",
       render: (f, fila) => {
         const handleDelete = async () => {
-           await axiosURL.delete(
-            `/borrar/anticipo/${fila.id}`
-          );
-          axiosGet();
+          console.log("me clickeaste para borrar");
+          let resultado = await Swal.fire({
+            title: "¿Estás seguro?",
+            text: "¡No podrás revertir esto!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Borrar",
+          });
+          if (resultado.isConfirmed) {
+            await axiosURL.delete(`/borrar/anticipo/${fila.id}`);
+            Swal.fire("Borrado!", "Su archivo se borró con exito.", "success");
+            axiosGet();
+          }
         };
-        return <Button onClick={handleDelete}>Delete</Button>;
+        return <Button className='btn-aprob' onClick={handleDelete}> <AiOutlineDelete/> </Button>;
       },
     },
   ];

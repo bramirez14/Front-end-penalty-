@@ -48,28 +48,7 @@ console.log(!open);
           <h1>
             Bienvenido {nombre},{apellido}  espero que te encuentres bien!!!
           </h1>
-          <Row gutter={16}>
-            <Col span={6}>
-              <Card title="Card title" bordered={false}>
-                Card content
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card title="Card title" bordered={false}>
-                Card content
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card title="Card title" bordered={false}>
-                Card content
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card title="Card title" bordered={false}>
-                Card content
-              </Card>
-            </Col>
-          </Row>
+          
           <Button className="btn" onClick={handleLogout}>
             Salir{" "}
           </Button>
