@@ -7,6 +7,7 @@ import PeticionGET from "../config/PeticionGET";
 import axiosURL from "../config/axiosURL";
 
 export const AprobacionAntcipoSueldo = () => {
+  const [data, setData] = useState([])
   const [anticipoPendiente, setAnticipoPendiente] = useState();
   const Text = useContext(UserContext);
   const { open } = Text;
@@ -20,7 +21,13 @@ export const AprobacionAntcipoSueldo = () => {
     searchText: "",
     searchedColumn: "",
   });
-  const datosTodosLosUsuarios = PeticionGET("/anticipo");
+  const axiosGet = async () => {
+    let result = await axiosURL.get('/anticipo')
+        setData(result.data)
+  }
+  useEffect(() => {
+    axiosGet()
+  }, [])
 
   /**modal*/
   const [visible, setVisible] = useState(false);
@@ -42,17 +49,21 @@ export const AprobacionAntcipoSueldo = () => {
     console.log("Clicked cancel button");
     setVisible(false);
   };
-  // const mensajeAprobacion = async () => {
-  //   await axiosURL.put(`/${fila.id}`, { ...mensaje, anticipoId: 0 });
-  //   setVisible(false);
-  //   setMensaje({ respMensaje: "" });
-  // };
-  var rechazado = async () => {
-    let res = await axiosURL.put(`/anticipo/${anticipoPendiente.id}`, mensaje);
-    console.log(res);
+  const aprobado = async () => {
+    await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`,{...mensaje,estado:'aprobado'});
     setVisible(false);
-    setMensaje({ respMensaje: "", estado: "rechazado" });
-  }; /**fin modal */
+    setMensaje({ respMensaje: "" });
+    axiosGet()
+
+  
+  };
+  const rechazado = async () => {
+   await axiosURL.put(`/anticipo/rechazado/${anticipoPendiente.id}`, {...mensaje,estado:'rechazado'});
+    setVisible(false);
+    setMensaje({ respMensaje: "" });
+    axiosGet()
+  }; 
+  /**fin modal */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setMensaje({ ...mensaje, [name]: value });
@@ -138,8 +149,12 @@ export const AprobacionAntcipoSueldo = () => {
     clearFilters();
     setState({ searchText: "" });
   };
-  console.log( datosTodosLosUsuarios[0]?.estado);
   const columns = [
+  {  title: "N° de anticipo",
+      dataIndex: "id",
+      key: "anticipo",
+      ...getColumnSearchProps("anticipo"), 
+},
     {
       title: "Nombre",
       dataIndex: "nombre",
@@ -162,13 +177,13 @@ export const AprobacionAntcipoSueldo = () => {
       title: "Cuotas",
       dataIndex: "cuotas",
       key: "cuotas",
-      ...getColumnSearchProps("cuotas"),
+    
     },
     {
       title: "Importe",
       dataIndex: "importe",
       key: "importe",
-      ...getColumnSearchProps("importe"),
+
     },
     {
       title: "Fecha de Solicitud",
@@ -201,17 +216,16 @@ export const AprobacionAntcipoSueldo = () => {
       key: "borrar",
       render: (f, fila) => {
         const handleDelete = async () => {
-          console.log(fila.anticipoId);
-          let res = await axiosURL.delete(
-            `/borrar/anticipo/${fila.anticipoId}`
+           await axiosURL.delete(
+            `/borrar/anticipo/${fila.id}`
           );
-          console.log(res);
+          axiosGet();
         };
         return <Button onClick={handleDelete}>Delete</Button>;
       },
     },
   ];
-  const datos = datosTodosLosUsuarios?.map((f, i) => {
+  const datos = data?.map((f, i) => {
     return {
       ...f,
       key: f.id,
@@ -219,7 +233,7 @@ export const AprobacionAntcipoSueldo = () => {
       apellido: f.usuario.apellido,
     };
   });
-  // useEffect(() => {}, [datos])
+
   return (
     <div className={!open ? "contenedor-aprob" : "contenedor-aprob-active"}>
       <Table columns={columns} dataSource={datos} />
@@ -233,7 +247,7 @@ export const AprobacionAntcipoSueldo = () => {
           <Button key="back" onClick={rechazado}>
             Rechazado
           </Button>,
-          <Button key="submit" type="primary">
+          <Button key="submit" type="primary" onClick={aprobado}>
             Aprobado
           </Button>,
         ]}
