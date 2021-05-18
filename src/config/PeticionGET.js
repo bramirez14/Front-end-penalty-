@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import axiosURL from './axiosURL';
 
- const PeticionGET = url => {
+ const PeticionGET = (url) => {
   const [peticiones, setPeticiones] = useState([]);
   useEffect(() => {
     const axiosGet = async () => {

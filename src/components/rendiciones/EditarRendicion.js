@@ -36,11 +36,13 @@ console.log(id);
         let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f)
         if (result.data) {
             history.push(`/lista/rendicion/${gastoId}`);
-        }
+        } 
     }
     const editarRendicion = async () => {
+
          await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
        
+
     }
     const handleChange = e => {
         const { name, value } = e.target;
@@ -124,7 +126,7 @@ console.log(id);
     return (
         <>
             <Row>
-                <Col xs={24} sm={24} md={6} lg={8} xl={8} xxl={8} >
+               
                     <Form onFinish={handleSubmit} onChange={handleChange} layout='vertical' className='formulario-rendicion'>
                         <h5 style={{ textAlign: "center", marginLeft: '40px' }}> Editar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
                         <Divider />
@@ -177,7 +179,7 @@ console.log(id);
                             </Button>
                         </Form.Item>
                     </Form>
-                </Col>
+        
                 <VistaImg
                     data={data}
                     setData={setData}

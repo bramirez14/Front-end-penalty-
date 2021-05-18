@@ -1,30 +1,21 @@
-import React, { useState } from "react";
-import { useContext, useEffect } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import { UserContext } from "../../contexto/UserContext";
-import { Button, Card, Row, Col } from "antd";
-import SidebarContext from "../context/SidebarContext";
-import "./css/perefilCristianAdmin.css";
-import { securedBrowserCache } from 'secured-browser-storage';
+import { Button } from "antd";
+import "./css/perfiles.css";
 
 /* import bcryptjs from "bcryptjs";*/
-import md5 from "md5"; 
 
-import { Tarjeta } from "../helperPerfiles/Tarjeta";
 import { logout } from "../../auth/localStorage";
 import axiosURL from "../../config/axiosURL";
+import { PeticionJWT } from "../../auth/PeticionJWT";
 
 export const PerfilCristianAdmin = ({ history }) => {
-
-
-
-  securedBrowserCache.setStorageType('localStorage'); 
   const Text = useContext(UserContext);
-  const { open,storage,setStorage } = Text;
+  const { open } = Text;
   
   let tokenStorage = (localStorage.getItem("token"));
   const handleLogout = () => {
     logout();
-    console.log(logout());
     history.push("/login");
   };
 
@@ -38,44 +29,21 @@ export const PerfilCristianAdmin = ({ history }) => {
         headers: { token: tokenStorage },
       });
       setTokenEstado(datosJWT.data);
-      setStorage(datosJWT.data);
     };
     cargarUsuario();
   }, []);
+let peticion=PeticionJWT();
 
   return (
     <>
       <div className={!open ? "contenedor" : "contenedor-active"}>
-        <div className={!open ? "container" : "container-active"}>
           <h1>
             Bienvenido {nombre},{apellido}  espero que te encuentres bien!!!
           </h1>
-          <Row gutter={16}>
-            <Col span={6}>
-              <Card title="Card title" bordered={false}>
-                Card content
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card title="Card title" bordered={false}>
-                Card content
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card title="Card title" bordered={false}>
-                Card content
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card title="Card title" bordered={false}>
-                Card content
-              </Card>
-            </Col>
-          </Row>
+          
           <Button className="btn" onClick={handleLogout}>
             Salir{" "}
           </Button>
-        </div>
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "./css/sidebar.css";
 import { Avatar } from "../img/Avatar";
-import { Item2 } from "../items/Item2";
+import { Item } from "../items/Item";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { UserContext } from "../../contexto/UserContext";
@@ -48,7 +48,7 @@ export const Sidebar = () => {
           </div>
           <div className="item">
             {" "}
-            <Item2 click={showSidebar} click2={showSidebar2} />{" "}
+            <Item click={showSidebar} click2={showSidebar2} />{" "}
           </div>
         </div>
       </nav>
