@@ -6,12 +6,10 @@ import {
 
 import { Login } from "../components/login/Login";
 import { Register } from "../components/login/Register";
-
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { DashboardRoutes } from "./DashboardRoutes";
 export const Routes = () => {
-
 
   return (
     <Router>

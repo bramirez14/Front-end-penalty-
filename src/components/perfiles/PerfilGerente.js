@@ -7,7 +7,7 @@ import {
     NavLink
   } from "react-router-dom";
 
-import './perfilGerente.css'
+import './css/perfilGerente.css'
 export const PerfilGerente = () => {
     return (
   <>

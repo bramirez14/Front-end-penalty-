@@ -11,7 +11,7 @@ import { PeticionJWT } from "../../auth/PeticionJWT";
 
 export const PerfilCristianAdmin = ({ history }) => {
   const Text = useContext(UserContext);
-  const { open,setStorage } = Text;
+  const { open } = Text;
   
   let tokenStorage = (localStorage.getItem("token"));
   const handleLogout = () => {
@@ -29,7 +29,6 @@ export const PerfilCristianAdmin = ({ history }) => {
         headers: { token: tokenStorage },
       });
       setTokenEstado(datosJWT.data);
-      setStorage(datosJWT.data);
     };
     cargarUsuario();
   }, []);

@@ -11,14 +11,12 @@ import { PeticionJWT } from './auth/PeticionJWT';
 
 function App() {
   const [openn,setOpen] = useState(false);
-  const [storage, setStorage] = useState()
   PeticionJWT()
   return (
     <UserContext.Provider value={{
       open:openn,
       setOpen:setOpen,
-      storage:storage,
-      setStorage:setStorage
+      
     }}>
       <Routes/>
     </UserContext.Provider>
