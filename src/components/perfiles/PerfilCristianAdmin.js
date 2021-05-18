@@ -1,13 +1,11 @@
 import React, { useState,useContext, useEffect } from "react";
 import { UserContext } from "../../contexto/UserContext";
 import { Button, Card, Row, Col } from "antd";
-import SidebarContext from "../context/SidebarContext";
 import "./css/perfiles.css";
 import { securedBrowserCache } from 'secured-browser-storage';
 
 /* import bcryptjs from "bcryptjs";*/
 
-import { Tarjeta } from "../helperPerfiles/Tarjeta";
 import { logout } from "../../auth/localStorage";
 import axiosURL from "../../config/axiosURL";
 import { PeticionJWT } from "../../auth/PeticionJWT";
