@@ -12,7 +12,7 @@ import { BsFillHouseFill } from "react-icons/bs";
 import { GiPayMoney } from "react-icons/gi";
 
 
-export const Item2 = ({click,click2}) => {
+export const Item = ({click,click2}) => {
   const mediaqueryList = window.matchMedia("(max-width: 768px)");
   const q = mediaqueryList.matches
   const  tipo = localStorage.getItem('type')

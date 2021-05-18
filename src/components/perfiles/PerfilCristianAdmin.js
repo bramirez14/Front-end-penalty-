@@ -1,8 +1,7 @@
 import React, { useState,useContext, useEffect } from "react";
 import { UserContext } from "../../contexto/UserContext";
-import { Button, Card, Row, Col } from "antd";
+import { Button } from "antd";
 import "./css/perfiles.css";
-import { securedBrowserCache } from 'secured-browser-storage';
 
 /* import bcryptjs from "bcryptjs";*/
 
@@ -35,10 +34,6 @@ export const PerfilCristianAdmin = ({ history }) => {
     cargarUsuario();
   }, []);
 let peticion=PeticionJWT();
-
-console.log(peticion);
-
-console.log(!open);
 
   return (
     <>
