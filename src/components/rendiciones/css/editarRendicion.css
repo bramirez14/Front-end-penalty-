@@ -320,3 +320,14 @@ color: red
 .ant-form input[type='file'] {
     display: none; 
 }
+@media (min-width: 1200px) {
+  .formulario-rendicion{
+    overflow-y: hidden;
+    height: 727px;
+    box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
+  }
+}
+
+ 
+
+

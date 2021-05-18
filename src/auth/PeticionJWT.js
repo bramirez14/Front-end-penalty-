@@ -1,5 +1,4 @@
 import {useEffect,useState} from 'react'
-import { securedBrowserCache } from 'secured-browser-storage';
 import axiosURL from '../config/axiosURL';
 import { logout } from './localStorage';
 
@@ -18,7 +17,6 @@ export const PeticionJWT = () => {
             headers: { token: tokenStorage },
           });
           let idDB=datosJWT.data.id
-         //console.log(idDB?.toString());
           let tipoDB=datosJWT.data.tipousuario;
           let ok= (datosJWT.data==='Token invalido');
           let noHay=(datosJWT.data==='No hay token')
