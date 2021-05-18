@@ -1,20 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Form, Input, Button, Col, Row, Divider, DatePicker } from "antd";
-import { securedBrowserCache } from 'secured-browser-storage';
+import { Form, Input, Button, Col, Row,  DatePicker } from "antd";
 import { UserContext } from "../../contexto/UserContext";
 import { Titulo } from "../titulos/Titulo";
 import axiosURL from "../../config/axiosURL";
 import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
 import moment from "moment";
-import "./sueldo.css";
 import PeticionGET from "../../config/PeticionGET";
 
 export const Vacaciones = ({ history }) => {
   const id = localStorage.getItem('uid')
-    //Peticion get para saber cuando vence el localStorage
-  
-
   /**useContext***/
   const Text = useContext(UserContext);
   const { open } = Text;
