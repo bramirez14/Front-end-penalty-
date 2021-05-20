@@ -9,6 +9,7 @@ import PeticionGET from '../../config/PeticionGET';
 
 export const EditarRendicion = ({ match, history }) => {
     const { id } = match.params;
+console.log(id);
     const [highlight, setHighlight] = useState(false);
     const [data, setData] = useState([]);
     const [img, setImg] = useState()
@@ -38,8 +39,10 @@ export const EditarRendicion = ({ match, history }) => {
         } 
     }
     const editarRendicion = async () => {
-        await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
-  
+
+         await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
+       
+
     }
     const handleChange = e => {
         const { name, value } = e.target;

@@ -130,7 +130,11 @@ export const CrearRendicion = ({ match, history }) => {
   const sumaGastos = todasLasRendicones?.map(sg => sg.importe)
   const totalDeImporte = sumaGastos?.reduce((acumulador, item) => { return acumulador = parseFloat(acumulador) + parseFloat(item) })
   const i = peticionGastoId?.importe
-  const total = totalDeImporte + parseFloat(importe)
+  const total = parseFloat(totalDeImporte) + parseFloat(importe)
+console.log(total);
+console.log(i);
+console.log(totalDeImporte);
+console.log();
 
   /**Submit */
   const handleSubmit = () => {
