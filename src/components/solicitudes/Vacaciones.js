@@ -8,7 +8,7 @@ import emailjs from "emailjs-com";
 import PeticionGET from "../../config/PeticionGET";
 
 export const Vacaciones = ({ history }) => {
-  const [datos, setDatos] = useState([]);
+ const [datoImportante, setDatoImportante] = useState()
   const id = localStorage.getItem("uid");
   const { Option } = Select;
   /**useContext***/
@@ -21,21 +21,23 @@ export const Vacaciones = ({ history }) => {
     fechaHasta: "",
     fechaDesde: "",
     dias: "",
-    diasFaltantes: "",
     obs: "",
     usuarioId: id,
     depto: "",
+    fechaContratacion:'',
+    diasFaltantes:''
   });
   const {
+    diasFaltantes,
     empleado,
     dias,
     fechaDesde,
     fechaHasta,
-    diasFaltantes,
     maximo,
     periodoo,
     depto,
     periodo,
+    fechaContratacion
   } = vacaciones;
   /*****Alertas******/
   const handleAlert = () => {
@@ -54,50 +56,65 @@ export const Vacaciones = ({ history }) => {
   };
 
   /******fx solicitud de usuarios a DB con axios *******/
+const añosTrabajados=(fecha)=>{
+  const añosTrabajados =
+  new Date().getFullYear() - fecha
+  const vacation =
+  añosTrabajados <= 5
+    ? 14
+    : añosTrabajados > 5 && añosTrabajados <= 10
+    ? 21
+    : añosTrabajados > 10 && añosTrabajados <= 20
+    ? 28
+    : añosTrabajados > 20
+    ? 35
+    : "";
+    return vacation
+}
 
   useEffect(() => {
     const fx = async () => {
       console.log(dias);
 
       if (periodo !== "") {
-        let { data } = await axiosURL.get(`/${id}`);
-        let { fechaContratacion, departamento } = data;
-        let depto = departamento.departamento;
-        let periodoElegido = vacaciones.periodo;
-        let listaDeVacaciones = data.vacacion.filter(
+       const { data } = await axiosURL.get(`/${id}`);
+       console.log(data);
+       const { fechaContratacion, departamento } = data;
+        const depto = departamento.departamento;
+        const periodoElegido = vacaciones.periodo;
+        const listaDeVacaciones = data.vacacion.filter(
           // filtramos por periodo
           (v) => v.periodo === parseInt(periodoElegido)
         );
-        let ultimaVacacionesTomada =
+        const ultimaVacacionesTomada =
           listaDeVacaciones[listaDeVacaciones.length - 1]?.diasFaltantes; // vacaciones restantes de la ultima vacacion
+          let fecha= fechaContratacion.split("/")[2]
+          let años = añosTrabajados( fecha)
 
-        const añosTrabajados =
-          new Date().getFullYear() - fechaContratacion.split("/")[2];
-
-        let vacation =
-          añosTrabajados <= 5
-            ? 14
-            : añosTrabajados > 5 && añosTrabajados <= 10
-            ? 21
-            : añosTrabajados > 10 && añosTrabajados <= 20
-            ? 28
-            : añosTrabajados > 20
-            ? 35
-            : "";
-
-        listaDeVacaciones.length === 0
-          ? setVacaciones({
+          listaDeVacaciones.length === 0?
+         
+          setVacaciones({
               ...vacaciones,
-              dias: vacation,
-              maximo: vacation,
+              dias: años,
+              maximo: años,
               depto,
+              fechaContratacion
+
             })
-          : setVacaciones({
+      
+
+          : 
+          setVacaciones({
               ...vacaciones,
               dias: ultimaVacacionesTomada,
               maximo: ultimaVacacionesTomada,
               depto,
+              fechaContratacion
+
             });
+          
+      
+
       }
     };
     fx();
@@ -110,7 +127,7 @@ export const Vacaciones = ({ history }) => {
 
   const onChange = (date, dateString) => {
     console.log(dateString);
-    let fcha = sumaFecha(dias, dateString);
+    const fcha = sumaFecha(dias, dateString);
     setVacaciones({ ...vacaciones, fechaDesde: dateString, fechaHasta: fcha });
   };
 
@@ -126,7 +143,7 @@ export const Vacaciones = ({ history }) => {
   let handleSubmit;
 
   /*******condicion para envio de mail a cada departamento******* */
-  if (depto === "Sistemas" || depto === "Logistica") {
+  if (depto === "Sistema" || depto === "Logistica") {
     handleSubmit = (e) => {
       handleAlert();
       guardarAnticipoDeVacaciones();
@@ -179,7 +196,19 @@ export const Vacaciones = ({ history }) => {
     setVacaciones({ ...vacaciones, periodo: dateString });
   }
   console.log(vacaciones);
-  console.log(dias);
+
+  const diasFalt=()=>{
+
+    let a= añosTrabajados(fechaContratacion.split("/")[2])
+    let d = dias
+   let resta= vacaciones.maximo-d
+    console.log(d); 
+    console.log(vacaciones.maximo);
+    setVacaciones({...vacaciones,diasFaltantes:resta})
+  }
+  useEffect(() => {
+    diasFalt();
+  }, [dias])
   return (
     <>
       <div className={!open ? "contenedor" : "contenedor-active"}>
@@ -217,13 +246,7 @@ export const Vacaciones = ({ history }) => {
                 <>
                   <Form.Item
                     label="Dias"
-                    name="dias"
-                    rules={[
-                      {
-                        required: true,
-                        message: "ingrese un día",
-                      },
-                    ]}
+                    
                   >
                     <Input
                       type="number"
