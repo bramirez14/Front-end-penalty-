@@ -32,7 +32,7 @@ export const PerfilCristianAdmin = ({ history }) => {
     };
     cargarUsuario();
   }, []);
-let peticion=PeticionJWT();
+
 
   return (
     <>

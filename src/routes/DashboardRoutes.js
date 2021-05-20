@@ -19,6 +19,7 @@ import { ListaRendiciones } from "../components/rendiciones/ListaRendiciones";
 import { RendicionSinAnticipo } from "../components/solicitudes/RendicionSinAnticipo";
 import {  AprobacionAntcipoSueldo } from "../ComponentsGerentes/AprobacionAntcipoSueldo";
 import { PerfilEmpleado } from "../components/perfiles/PerfilEmpleado";
+import { Alerta } from "../components/alertas/Alerta";
 
 export const DashboardRoutes = ({ history }) => {
 
@@ -40,6 +41,9 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path="/lista/rendicion/:id" component={ListaRendiciones} />
         <RouteEmpleado exact path="/rendicion" component={RendicionSinAnticipo} />
         <RouteEmpleado exact path="/img" component={Uploads} />
+        <RouteEmpleado exact path="/prueba" component={Alerta} />
+
+        
 
         <Redirect to="/login" />
       </Switch>

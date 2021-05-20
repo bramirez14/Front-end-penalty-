@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #46a461;
-  height: 30px;
+  height: 47px;
   position: fixed;
   top: 0;
   width: 100%;
@@ -48,6 +48,9 @@
 }
 .datosPersonales {
   margin-right: 40px;
+}
+.nombreCompleto{
+  margin-left: 27px;
 }
 
 .nav-menu.active {
@@ -116,7 +119,7 @@
 .hamburguesa {
   color: black;
   position: absolute;
-  top: 0px;
+  top: 7px;
 }
 .x {
   position: absolute;
