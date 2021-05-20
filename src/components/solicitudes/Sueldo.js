@@ -7,6 +7,7 @@ import axiosURL from "../../config/axiosURL";
 import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
 import "./css/anticipoGasto.css";
+import PeticionGET from "../../config/PeticionGET";
 
 export const Sueldo = ({ history }) => {
   const id = localStorage.getItem('uid')
@@ -97,11 +98,13 @@ export const Sueldo = ({ history }) => {
     return usuarioDep?.departamento.departamento;
   };
 
-  const aprobacion = () => {
-    let a = users.find((u) => u.id === parseInt(id));
-    console.log(a?.anticipo);
-    return (a?.anticipo)
-  };
+ 
+    const anticipos = PeticionGET('/anticipo')
+    const filtro =  anticipos.filter(a=>a.usuarioId=== parseInt(id))
+    const APROBACION= filtro[filtro.length-1]?.estado
+    console.log(APROBACION);
+    
+  
 
   /************submit para enviar el formulario ************************ */
   let handleSubmit;
@@ -180,13 +183,13 @@ export const Sueldo = ({ history }) => {
 
       
 
-          {aprobacion()?.length!==0  && aprobacion() !== undefined ?(
-            <h4>Ya tenes un anticipo pendiente!!!</h4>
-          ) : (
-          <>  
-              <Form.Item   
-              name='importe'
-    rules={[
+      {APROBACION==='pendiente'  && APROBACION !== undefined ?(
+      <h4>Ya tenes un anticipo pendiente!!!</h4>
+      ) : (
+      <>  
+      <Form.Item   
+      name='importe'
+      rules={[
       {
         required: true,
         message: 'ingrese un importe',

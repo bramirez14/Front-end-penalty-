@@ -321,19 +321,6 @@ color: red
 .ant-form input[type='file'] {
     display: none; 
 }
-<<<<<<< HEAD
-@media (min-width: 1200px) {
-  .formulario-rendicion{
-    overflow-y: hidden;
-    height: 727px;
-    box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
-  }
-}
-
- 
-
-
-=======
 
 @media (min-width: 1500px) {
   .formulario-rendicion{
@@ -348,4 +335,3 @@ color: red
   }
   
 }
->>>>>>> 821c39123b6b411e346425cee18f73e2ae697b2a

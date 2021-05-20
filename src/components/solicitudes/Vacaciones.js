@@ -16,7 +16,7 @@ export const Vacaciones = ({ history }) => {
   const { open } = Text;
   /***iniciamos el estado******/
   const [vacaciones, setVacaciones] = useState({
-    periodo: "" ,
+    periodo: "",
     fechaSolicitud: new Date().toLocaleDateString(),
     fechaHasta: "",
     fechaDesde: "",
@@ -35,11 +35,11 @@ export const Vacaciones = ({ history }) => {
     maximo,
     periodoo,
     depto,
-    periodo
+    periodo,
   } = vacaciones;
   /*****Alertas******/
   const handleAlert = () => {
-    let fcha =sumaFecha(dias, fechaDesde);
+    let fcha = sumaFecha(dias, fechaDesde);
     console.log(fcha);
     Swal.fire({
       title: `Solicitud enviada 
@@ -51,79 +51,68 @@ export const Vacaciones = ({ history }) => {
       imageHeight: 200,
       imageAlt: "penalty",
     });
-    
   };
 
   /******fx solicitud de usuarios a DB con axios *******/
 
   useEffect(() => {
-    
     const fx = async () => {
       console.log(dias);
 
-      if(periodo!==''){
-      let { data } = await axiosURL.get(`/${id}`);
-      let { fechaContratacion, departamento } = data;
-      let depto = departamento.departamento;
-      let periodoElegido = vacaciones.periodo;
-      let listaDeVacaciones = data.vacacion.filter( // filtramos por periodo
-        (v) => v.periodo === parseInt(periodoElegido)
-      );
-      let ultimaVacacionesTomada =
-      listaDeVacaciones[listaDeVacaciones.length - 1]?.diasFaltantes; // vacaciones restantes de la ultima vacacion
+      if (periodo !== "") {
+        let { data } = await axiosURL.get(`/${id}`);
+        let { fechaContratacion, departamento } = data;
+        let depto = departamento.departamento;
+        let periodoElegido = vacaciones.periodo;
+        let listaDeVacaciones = data.vacacion.filter(
+          // filtramos por periodo
+          (v) => v.periodo === parseInt(periodoElegido)
+        );
+        let ultimaVacacionesTomada =
+          listaDeVacaciones[listaDeVacaciones.length - 1]?.diasFaltantes; // vacaciones restantes de la ultima vacacion
 
-      const añosTrabajados =
-        new Date().getFullYear() - fechaContratacion.split("/")[2];
+        const añosTrabajados =
+          new Date().getFullYear() - fechaContratacion.split("/")[2];
 
-      let vacation =
-        añosTrabajados <= 5
-          ? 14
-          : añosTrabajados > 5 && añosTrabajados <= 10
-          ? 21
-          : añosTrabajados > 10 && añosTrabajados <= 20
-          ? 28
-          : añosTrabajados > 20
-          ? 35
-          : "";
-     
-      listaDeVacaciones.length === 0
-        ? setVacaciones({
-            ...vacaciones,
-            dias: vacation,
-            maximo: vacation,
-            depto,
-            
-          })
-        : setVacaciones({
-            ...vacaciones,
-            dias: ultimaVacacionesTomada,
-            maximo: ultimaVacacionesTomada,
-            depto,
-            
-          });
+        let vacation =
+          añosTrabajados <= 5
+            ? 14
+            : añosTrabajados > 5 && añosTrabajados <= 10
+            ? 21
+            : añosTrabajados > 10 && añosTrabajados <= 20
+            ? 28
+            : añosTrabajados > 20
+            ? 35
+            : "";
+
+        listaDeVacaciones.length === 0
+          ? setVacaciones({
+              ...vacaciones,
+              dias: vacation,
+              maximo: vacation,
+              depto,
+            })
+          : setVacaciones({
+              ...vacaciones,
+              dias: ultimaVacacionesTomada,
+              maximo: ultimaVacacionesTomada,
+              depto,
+            });
+      }
     };
- }
-  fx();
+    fx();
   }, [periodo]);
-
- 
-
-
-
-
 
   const handleChange = (e) => {
     const { value, name } = e.target;
     setVacaciones({ ...vacaciones, [name]: value });
   };
-  
-  const onChange = (date, dateString) => {
-    
-        console.log(dateString);
-        let fcha =sumaFecha(dias, dateString);
-        setVacaciones({...vacaciones,fechaDesde:dateString,fechaHasta:fcha})
-  };
 
+  const onChange = (date, dateString) => {
+    console.log(dateString);
+    let fcha = sumaFecha(dias, dateString);
+    setVacaciones({ ...vacaciones, fechaDesde: dateString, fechaHasta: fcha });
+  };
 
   /********enviamos el formulario a DB********/
 
@@ -182,14 +171,12 @@ export const Vacaciones = ({ history }) => {
     var fechaFinal = dia + sep + mes + sep + anno;
     return fechaFinal;
   };
-
-
   const layout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 18 },
   };
-  function handleChangeSelect(value) {
-    setVacaciones({ ...vacaciones, periodo: value });
+  function handleChangeSelect(date, dateString) {
+    setVacaciones({ ...vacaciones, periodo: dateString });
   }
   console.log(vacaciones);
   console.log(dias);
@@ -206,11 +193,21 @@ export const Vacaciones = ({ history }) => {
           <Row gutter={10}>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
               <Titulo titulo=" Vacaciones" />
-              <Form.Item label="Periodo">
-                <Select onChange={handleChangeSelect}>
-                  <Option value="2020">2020</Option>
-                  <Option value="2021">2021</Option>
-                </Select>
+              <Form.Item
+                label="Periodo"
+                name="periodo"
+                rules={[
+                  {
+                    required: true,
+                    message: "ingrese una fecha",
+                  },
+                ]}
+              >
+                <DatePicker
+                  picker="year"
+                  style={{ width: "100%" }}
+                  onChange={handleChangeSelect}
+                />
               </Form.Item>
               {/*   ************* Condicion por año ******************* */}
 
@@ -218,7 +215,16 @@ export const Vacaciones = ({ history }) => {
                 <h2>Ya no tenes vacaciones pendientes!!! </h2>
               ) : (
                 <>
-                  <Form.Item label="Dias">
+                  <Form.Item
+                    label="Dias"
+                    name="dias"
+                    rules={[
+                      {
+                        required: true,
+                        message: "ingrese un día",
+                      },
+                    ]}
+                  >
                     <Input
                       type="number"
                       name="dias"
@@ -233,9 +239,10 @@ export const Vacaciones = ({ history }) => {
                       placeholder={new Date().toLocaleDateString()}
                       format={dateFormat}
                       onChange={onChange}
+                      style={{ width: "100%" }}
                     />
                   </Form.Item>
-            
+
                   <Form.Item label="Mensaje">
                     <Input.TextArea name="obs" placeholder="mensaje" />
                   </Form.Item>
