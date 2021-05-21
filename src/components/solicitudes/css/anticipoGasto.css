@@ -34,16 +34,13 @@ width: 37%;
 /*---------- Input Icon ----------*/
 
 .ant-input-affix-wrapper {
-  border-radius: 20px;
+  border-radius:10px;
 }
-.ant-input-affix-wrapper:hover {
+/* .ant-input-affix-wrapper:hover {
   border: solid 2.5px var(--border-color);
   border-right-width: 1px !important;
 }
-.ant-input-affix-wrapper-lg {
-  padding: none;
-  height: 39px;
-}
+
 .ant-input-affix-wrapper:focus,
 .ant-input-affix-wrapper-focused {
   border: solid 2.5px var(--border-color);
@@ -60,7 +57,7 @@ width: 37%;
   border: solid 2.5px var(--border-color);
   border-right-width: 1px !important;
   z-index: 1;
-}
+} */
 /*---------- Icon ----------*/
 .ant-input-prefix {
   font-size: 30px;

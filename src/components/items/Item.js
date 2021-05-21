@@ -40,6 +40,7 @@ export const Item = ({click,click2}) => {
           </MenuItem>
         </div>
         { n==='001'?
+        <>
         <SubMenu
         title="Aprobaciones"
         icon={<FaEnvelope />}
@@ -49,13 +50,22 @@ export const Item = ({click,click2}) => {
             Aprobacion de Sueldo
             <Link to="/aprobacion/sueldo" />
           </MenuItem>
-        </SubMenu>:''
-
-
-
-        }
+        </SubMenu>
         
-
+        <SubMenu
+        title="Usuarios"
+        icon={<FaEnvelope />}
+        style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
+        >
+          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}} >
+            Registro de usuarios
+            <Link to="/register" />
+          </MenuItem>
+        </SubMenu>
+        </>
+        
+        :''
+        }
 
         <SubMenu
           title="Solicitudes y Reservas"
