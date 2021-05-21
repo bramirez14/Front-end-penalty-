@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import {
   ProSidebar,
   Menu,
@@ -9,15 +9,18 @@ import { FaEnvelope } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BsFillHouseFill } from "react-icons/bs";
 import { GiPayMoney } from "react-icons/gi";
-
-
+import { PeticionJWT } from "../../auth/PeticionJWT";
+import axiosURL from "../../config/axiosURL";
 
 export const Item = ({click,click2}) => {
+  const id= localStorage.getItem('uid')
   const mediaqueryList = window.matchMedia("(max-width: 768px)");
   const q = mediaqueryList.matches
   const  tipo = localStorage.getItem('type')
+  const n= localStorage.getItem('N')
+
   return (
-    tipo==='Gerente'?
+    tipo==='Gerente'   ?
     <ProSidebar>
       <Menu>
         <div style={{ display: "flex" }}>
@@ -36,7 +39,7 @@ export const Item = ({click,click2}) => {
             <Link to="/gerencia/perfil" />
           </MenuItem>
         </div>
-        
+        { n==='001'?
         <SubMenu
         title="Aprobaciones"
         icon={<FaEnvelope />}
@@ -46,7 +49,14 @@ export const Item = ({click,click2}) => {
             Aprobacion de Sueldo
             <Link to="/aprobacion/sueldo" />
           </MenuItem>
-        </SubMenu>
+        </SubMenu>:''
+
+
+
+        }
+        
+
+
         <SubMenu
           title="Solicitudes y Reservas"
           icon={<FaEnvelope />}

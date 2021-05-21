@@ -1,3 +1,9 @@
 .icon-campana{
     font-size: 20px;
 }
+.ant-badge-count{
+    box-shadow: none;
+}
+.ant-dropdown {
+    left: 268px;
+}

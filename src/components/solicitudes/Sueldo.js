@@ -20,6 +20,7 @@ export const Sueldo = ({ history }) => {
     fecha: new Date().toLocaleDateString(),
     mensaje: "",
     usuarioId: id,
+    estado:'pendiente'
   });
   const { Option } = Select;
   const { sueldo, importe, mensaje, fecha, cuotas,usuarioId} = anticipo;

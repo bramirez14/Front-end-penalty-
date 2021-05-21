@@ -20,6 +20,7 @@ import { RendicionSinAnticipo } from "../components/solicitudes/RendicionSinAnti
 import {  AprobacionAntcipoSueldo } from "../ComponentsGerentes/AprobacionAntcipoSueldo";
 import { PerfilEmpleado } from "../components/perfiles/PerfilEmpleado";
 import { Alerta } from "../components/alertas/Alerta";
+import { Register } from "../components/login/Register";
 
 export const DashboardRoutes = ({ history }) => {
 
@@ -30,6 +31,7 @@ export const DashboardRoutes = ({ history }) => {
       <Switch>
         <RouteGerente exact path="/gerencia/perfil" component={PerfilCristianAdmin}/>
         <RouteGerente exact path="/aprobacion/sueldo" component={AprobacionAntcipoSueldo}/>
+        
 
         <RouteEmpleado exact path="/perfil" component={PerfilEmpleado} />
         <RouteEmpleado exact path="/sueldos" component={Sueldo} />

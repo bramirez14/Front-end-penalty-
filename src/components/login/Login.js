@@ -31,6 +31,7 @@ export const Login = ({ history }) => {
       localStorage.setItem('uid', result.data.user.id);
      localStorage.setItem('token',result.data.token);
      localStorage.setItem('type', tipo);
+     localStorage.setItem('N',result.data.user.nvendedor)
      if(tipo==='Gerente'){
       history.push("/gerencia/perfil");
      }else{

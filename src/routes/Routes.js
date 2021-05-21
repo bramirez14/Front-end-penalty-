@@ -5,7 +5,6 @@ import {
 } from "react-router-dom";
 
 import { Login } from "../components/login/Login";
-import { Register } from "../components/login/Register";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { DashboardRoutes } from "./DashboardRoutes";
@@ -15,7 +14,6 @@ export const Routes = () => {
     <Router>
       <Switch>
         <PublicRoute exact path="/login" component={Login} />
-        <PublicRoute exact path="/register" component={Register} />
         <PrivateRoute path="/" component={DashboardRoutes} />
       </Switch>
     </Router>
