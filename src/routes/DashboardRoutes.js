@@ -32,7 +32,6 @@ export const DashboardRoutes = ({ history }) => {
         <RouteGerente exact path="/gerencia/perfil" component={PerfilCristianAdmin}/>
         <RouteGerente exact path="/aprobacion/sueldo" component={AprobacionAntcipoSueldo}/>
         <RouteGerente exact path="/register" component={Register}/>
-
         <RouteEmpleado exact path="/perfil" component={PerfilEmpleado} />
         <RouteEmpleado exact path="/sueldos" component={Sueldo} />
         <RouteEmpleado exact path="/vacaciones" component={Vacaciones} />

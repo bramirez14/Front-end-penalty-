@@ -1,52 +1,90 @@
-import React, { useState } from 'react';
-import { Form, Input, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import React, { useState } from "react";
+import {
+  Form,
+  Input,
+  Select,
+  Button,
+  DatePicker
+ 
+} from "antd";
+import PeticionGET from "../../config/PeticionGET";
+import axiosURL from "../../config/axiosURL";
 const { Option } = Select;
 
 const layout = {
   labelCol: { span: 8 },
-  wrapperCol: { span: 8 },
+  wrapperCol: { span: 6},
 };
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-export const Register = () => {
-  const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-  };
 
+
+export const Register = () => {
+  const [fecha, setFecha] = useState('')
+  const onFinish = async (values) => {
+    let valor = { ...values,fechaContratacion:fecha}
+    console.log("Valores  recibidos: ", valor);
+    let a= await axiosURL.post('/register',valor)
+    console.log(a);
+  };
+  const onChange = (date, dateString) => {
+    setFecha(dateString)
+  }
+  console.log(fecha);
+ 
+  const dtos = PeticionGET('/departamentos')
+  console.log(dtos);
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select
         style={{
-          width: 70
+          width: 70,
         }}
-        defaultValue='11'
-  >
-      </Select>
+        defaultValue="11"
+      ></Select>
     </Form.Item>
   );
 
   return (
     <Form
       {...layout}
-      form={form}
+      
       name="register"
       onFinish={onFinish}
       initialValues={{
-        prefix: '11',
+        prefix: "11",
       }}
-      scrollToFirstError
-      style={{marginTop:'70px'}}
+  
+      style={{ marginTop: "70px" }}
     >
+      <Form.Item
+        name="Departamento "
+        label="departamentoId"
+        rules={[
+          {
+            required: true,
+            message: "Seleccione un dto!",
+          },
+        ]}
+      >
+       <Select>
+       {dtos.map( d=>
+          <Option value={d.id} key={d.id} >
+            {d.departamento}
+          </Option>
+      )}
+        </Select>
+      </Form.Item>
+
       <Form.Item
         name="nombre"
         label="Nombre"
         rules={[
           {
             required: true,
-            message: 'Ingrese un nombre!',
+            message: "Ingrese un nombre!",
           },
         ]}
       >
@@ -59,7 +97,7 @@ export const Register = () => {
         rules={[
           {
             required: true,
-            message: 'Ingresa un Apellido!',
+            message: "Ingresa un Apellido!",
           },
         ]}
       >
@@ -71,12 +109,12 @@ export const Register = () => {
         label="E-mail"
         rules={[
           {
-            type: 'email',
-            message: 'No es un E-mail valido!',
+            type: "email",
+            message: "No es un E-mail valido!",
           },
           {
             required: true,
-            message: 'Ingrese un  E-mail!',
+            message: "Ingrese un  E-mail!",
           },
         ]}
       >
@@ -89,7 +127,7 @@ export const Register = () => {
         rules={[
           {
             required: true,
-            message: 'Ingrese una Contrasena!',
+            message: "Ingrese una Contrasena!",
           },
         ]}
         hasFeedback
@@ -100,83 +138,89 @@ export const Register = () => {
       <Form.Item
         name="password2"
         label="Confirme Contraseña"
-        dependencies={['password']}
+        dependencies={["password"]}
         hasFeedback
         rules={[
           {
             required: true,
-            message: 'Please confirm your password!',
+            message: "Please confirm your password!",
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
-              if (!value || getFieldValue('password') === value) {
+              if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }
 
-              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+              return Promise.reject(
+                new Error("The two passwords that you entered do not match!")
+              );
             },
           }),
         ]}
       >
         <Input.Password />
       </Form.Item>
-     
+
       <Form.Item
         name="cel"
         label="Celular"
         rules={[
           {
             required: true,
-            message: 'Please input your phone number!',
+            message: "Please input your phone number!",
           },
         ]}
       >
         <Input
           addonBefore={prefixSelector}
           style={{
-            width: '100%',
+            width: "100%",
           }}
         />
       </Form.Item>
 
-      <Form.Item
-        name="tipousuario"
-        label="Usuario"
-        rules={[
-          {
-            required: true,
-            message: 'Ingrese un usuario!',
-          },
-        ]}
-      >
-        <Input/>
-      </Form.Item>
-      
+          <Form.Item name='tipousuario' label='Tipo de usuario' rules={ [{required:true,message:' Seleccione una opcion!'}]}>
+          <Select>
+          <Option value='Gerente'>
+          Gerente
+          </Option>
+          <Option value='Empleada'>
+            Empleada
+          </Option>
+          <Option value='Empleado'>
+            Empleado
+          </Option>
+          <Option>
+            Visitante
+          </Option>
+          </Select>
+          </Form.Item>
+    
       <Form.Item
         name="categoria"
         label="Categoria"
         rules={[
           {
             required: true,
-            message: 'Ingrese una categoria!',
+            message: "Ingrese una categoria!",
           },
         ]}
       >
-        <Input/>
+        <Select>
+          <Option value='interno'>
+            Interno
+          </Option>
+          <Option value='externo'>Externo</Option>
+          </Select>
       </Form.Item>
 
-      <Form.Item
-        name="nvendedor"
-        label="Vendedor"
-        rules={[
-          {type:'number'},
-          {
-            required: true,
-            message: 'Ingrese un numero de vendedor!',
-          },
-        ]}
-      >
-        <Input/>
+      <Form.Item name='nvendedor' label=' Vendedor'
+      tooltip={{ title: 'Si no es un vendedor ingresar 000' }}
+      rules={[{
+          required: true,
+          message: "Ingrese numero de vendedor!",
+      }]}>
+        <Input type='number'/>
       </Form.Item>
 
       <Form.Item
@@ -185,14 +229,16 @@ export const Register = () => {
         rules={[
           {
             required: true,
-            message: 'Ingrese una fecha de contratacion!',
+            message: "Ingrese una fecha de contratacion!",
           },
         ]}
       >
-        <Input/>
+        <DatePicker
+        format='DD/MM/YYYY'
+                  style={{ width: "100%" }}
+                  onChange={onChange}
+                />
       </Form.Item>
-
-
 
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
