@@ -38,6 +38,8 @@ export const AnticipoGasto = ({ history }) => {
 
   ;
   /*fx para guardar anticipo con axios en DB **********/
+  const tipo = localStorage.getItem('type')
+
   const guardarAnticipo = async (values) => {
     const v = { ...values, fecha, usuarioId }
     let result = await axiosURL.post("/mpago", v);

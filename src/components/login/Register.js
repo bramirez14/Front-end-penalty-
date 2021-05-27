@@ -5,7 +5,6 @@ import {
   Select,
   Button,
   DatePicker
- 
 } from "antd";
 import PeticionGET from "../../config/PeticionGET";
 import axiosURL from "../../config/axiosURL";
@@ -19,23 +18,26 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-
-
-export const Register = () => {
+export const Register = ({history}) => {
   const [fecha, setFecha] = useState('')
+
   const onFinish = async (values) => {
-    let valor = { ...values,fechaContratacion:fecha}
-    console.log("Valores  recibidos: ", valor);
-    let a= await axiosURL.post('/register',valor)
-    console.log(a);
+    let cel= '11'.concat(values.cel)
+    let valor = { ...values,fechaContratacion:fecha,cel}
+    let res = await axiosURL.post('/register',valor);
+    console.log(res.data.status);
+    console.log(res.data.message);
+
+    res.data.status===500 ? alert (res.data.message ) : history.push('/')
+    
   };
+
   const onChange = (date, dateString) => {
     setFecha(dateString)
   }
-  console.log(fecha);
  
   const dtos = PeticionGET('/departamentos')
-  console.log(dtos);
+  
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select
@@ -60,8 +62,8 @@ export const Register = () => {
       style={{ marginTop: "70px" }}
     >
       <Form.Item
-        name="Departamento "
-        label="departamentoId"
+        name="departamentoId"
+        label="Departamento"
         rules={[
           {
             required: true,

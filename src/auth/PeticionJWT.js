@@ -24,7 +24,6 @@ export const PeticionJWT = () => {
           let ID=(id===idDB?.toString())
           let TIPO=(tipo===tipoDB)
           let Numvend=(datosJWT.data.nvendedor===N)
-          console.log(Numvend);
           if(ID===false){logout()}
         if(ok===true || noHay===true  || TIPO===false || Numvend===false){logout()}
           setTokenEstado(datosJWT.data);

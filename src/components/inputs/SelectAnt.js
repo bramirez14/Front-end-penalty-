@@ -26,10 +26,6 @@ export const SelectAnt = ({ name,array, placeholder,change,mensaje,label}) => {
       placeholder={placeholder}
       optionFilterProp="children"
       onSearch={onSearch}
-      filterOption={(input, option) =>
-
-        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-      }
       onChange={change}
     >
       {array?.map((a) => (

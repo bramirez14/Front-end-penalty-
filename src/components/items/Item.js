@@ -1,153 +1,176 @@
-import React,{useEffect} from "react";
-import {
-  ProSidebar,
-  Menu,
-  MenuItem,
-  SubMenu,
-} from "react-pro-sidebar";
-import { FaEnvelope } from "react-icons/fa";
+import React, { useEffect } from "react";
+import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
+import { FaEnvelope, FaCheck } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BsFillHouseFill } from "react-icons/bs";
 import { GiPayMoney } from "react-icons/gi";
-import { PeticionJWT } from "../../auth/PeticionJWT";
-import axiosURL from "../../config/axiosURL";
+import { TiUser } from "react-icons/ti";
 
-export const Item = ({click,click2}) => {
-  const id= localStorage.getItem('uid')
+export const Item = ({ click, click2 }) => {
   const mediaqueryList = window.matchMedia("(max-width: 768px)");
-  const q = mediaqueryList.matches
-  const  tipo = localStorage.getItem('type')
-  const n= localStorage.getItem('N')
+  const q = mediaqueryList.matches;
+  const tipo = localStorage.getItem("type");
+  const n = localStorage.getItem("N");
 
-  return (
-    tipo==='Gerente'   ?
+  return tipo === "Gerente" ? (
     <ProSidebar>
       <Menu>
         <div style={{ display: "flex" }}>
           {" "}
           <BsFillHouseFill
             style={{
-              fontSize: '17px',
-              position: 'absolute',
-              left: '21px',
-              top: '14px',
-              color:'white'
+              fontSize: "17px",
+              position: "absolute",
+              left: "21px",
+              top: "14px",
+              color: "white",
             }}
           />
-          <MenuItem style={{ marginLeft: "55px", fontSize: "14px",color:'white' }} onClick={q?click:click2} >
+          <MenuItem
+            style={{ marginLeft: "55px", fontSize: "14px", color: "white" }}
+            onClick={q ? click : click2}
+          >
             Home
             <Link to="/gerencia/perfil" />
           </MenuItem>
         </div>
-        { n==='001'?
-        <>
-        <SubMenu
-        title="Aprobaciones"
-        icon={<FaEnvelope />}
-        style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
-        >
-          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}} >
-            Aprobacion de Sueldo
-            <Link to="/aprobacion/sueldo" />
-          </MenuItem>
-        </SubMenu>
-        
-        <SubMenu
-        title="Usuarios"
-        icon={<FaEnvelope />}
-        style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
-        >
-          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}} >
-            Registro de usuarios
-            <Link to="/register" />
-          </MenuItem>
-        </SubMenu>
-        </>
-        
-        :''
-        }
+        {/**Sector de  Gerente 901 */}
+        {n === "901" && (
+          <>
+          <SubMenu
+            title="Usuarios"
+            icon={<TiUser style={{ fontSize: "20px" }} />}
+            style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
+          >
+            <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+              Registro de usuarios
+              <Link to="/register" />
+            </MenuItem>
+          </SubMenu>
+          
+          <SubMenu
+            title="Aprobaciones"
+            icon={<TiUser style={{ fontSize: "20px" }} />}
+            style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
+          >
+             <MenuItem
+                onClick={q ? click : click2}
+                style={{ fontSize: "14px" }}
+              >
+                Aprobacion de Sueldo
+                <Link to="/aprobacion/sueldo" />
+              </MenuItem>
+              <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+              Aprobacion de Vacaciones
+              <Link to="/aprobacion/vacaciones" />
+            </MenuItem>
+          </SubMenu>
+          </>
+        )}
+        {/**Fin Sector de  Gerente 901 */}
+
+        {/**Sector de  Gerente 902*/}
+        {n === "902" && (
+          <>
+            <SubMenu
+              title="Aprobaciones"
+              icon={<FaCheck />}
+              style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
+            >
+              <MenuItem
+                onClick={q ? click : click2}
+                style={{ fontSize: "14px" }}
+              >
+                Aprobacion de Sueldo
+                <Link to="/aprobacion/sueldo" />
+              </MenuItem>
+            </SubMenu>
+          </>
+        )}
+        {/**Fin Sector de  Gerente 902*/}
 
         <SubMenu
           title="Solicitudes y Reservas"
           icon={<FaEnvelope />}
           style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
         >
-          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}} >
+          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
             Anticipo de Sueldo
             <Link to="/sueldos" />
           </MenuItem>
-          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}} >
+          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
             Anticipo de Gastos
             <Link to="/anticipo/gastos" />
           </MenuItem>
-          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}} >
+          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
             Solicitud de Vacaciones
             <Link to="/vacaciones" />
           </MenuItem>
-         
         </SubMenu>
         <SubMenu
           title="Rendiciones de Gastos"
-          icon={<GiPayMoney  style={{fontSize:'20px'}}/>}
+          icon={<GiPayMoney style={{ fontSize: "20px" }} />}
           style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
         >
-          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}}>
-                Rendicion de Gastos
+          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+            Rendicion de Gastos
             <Link to="/gastos" />
           </MenuItem>
         </SubMenu>
       </Menu>
     </ProSidebar>
-    :
-   <ProSidebar>
-     <Menu>
-     <div style={{ display: "flex" }}>
+  ) : (
+    <ProSidebar>
+      <Menu>
+        <div style={{ display: "flex" }}>
           {" "}
           <BsFillHouseFill
             style={{
-              fontSize: '17px',
-              position: 'absolute',
-              left: '21px',
-              top: '14px',
-              color:'white'
+              fontSize: "17px",
+              position: "absolute",
+              left: "21px",
+              top: "14px",
+              color: "white",
             }}
           />
-          <MenuItem style={{ marginLeft: "55px", fontSize: "14px",color:'white' }} onClick={q?click:click2} >
+          <MenuItem
+            style={{ marginLeft: "55px", fontSize: "14px", color: "white" }}
+            onClick={q ? click : click2}
+          >
             Home
             <Link to="/perfil" />
           </MenuItem>
         </div>
-        
+
         <SubMenu
           title="Solicitudes y Reservas"
           icon={<FaEnvelope />}
           style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
         >
-          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}} >
+          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
             Anticipo de Sueldo
             <Link to="/sueldos" />
           </MenuItem>
-          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}} >
+          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
             Anticipo de Gastos
             <Link to="/anticipo/gastos" />
           </MenuItem>
-          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}} >
+          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
             Solicitud de Vacaciones
             <Link to="/vacaciones" />
           </MenuItem>
-         
         </SubMenu>
         <SubMenu
           title="Rendiciones de Gastos"
-          icon={<GiPayMoney  style={{fontSize:'20px'}}/>}
+          icon={<GiPayMoney style={{ fontSize: "20px" }} />}
           style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
         >
-          <MenuItem onClick={q?click:click2} style={{fontSize:'14px'}}>
-                Rendicion de Gastos
+          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+            Rendicion de Gastos
             <Link to="/gastos" />
           </MenuItem>
         </SubMenu>
-     </Menu>
-   </ProSidebar>
+      </Menu>
+    </ProSidebar>
   );
 };

@@ -8,6 +8,7 @@ import { BsCheck } from "react-icons/bs";
 import axiosURL from "../config/axiosURL";
 import Swal from "sweetalert2";
 import "./css/aprob.css";
+import PeticionGET from "../config/PeticionGET";
 
 export const AprobacionAntcipoSueldo = () => {
   const [anticipoPendiente, setAnticipoPendiente] = useState();
@@ -53,24 +54,19 @@ export const AprobacionAntcipoSueldo = () => {
     setVisible(false);
   };
   const aprobado = async () => {
-    await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
-      ...mensaje,
-      estado: "aprobado",
-    });
+    await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`,mensaje);
     setVisible(false);
     setMensaje({ respMensaje: "" });
     axiosGet();
   };
   const rechazado = async () => {
-    await axiosURL.put(`/anticipo/rechazado/${anticipoPendiente.id}`, {
-      ...mensaje,
-      estado: "rechazado",
-    });
+    await axiosURL.put(`/anticipo/rechazado/${anticipoPendiente.id}`,mensaje);
     setVisible(false);
     setMensaje({ respMensaje: "" });
     axiosGet();
   };
   /**fin modal */
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setMensaje({ ...mensaje, [name]: value });
@@ -177,6 +173,12 @@ export const AprobacionAntcipoSueldo = () => {
       ...getColumnSearchProps("apellido"),
     },
     {
+      title: "Departamento",
+      dataIndex: "departamento",
+      key: "departamento",
+      ...getColumnSearchProps("departamento"),
+    },
+    {
       title: "Devolucion",
       dataIndex: "sueldo",
       key: "sueldo",
@@ -210,7 +212,6 @@ export const AprobacionAntcipoSueldo = () => {
       render: (estado,file) =>{
         
         const color =()=>{
-          console.log(file.estado);
           switch (file.estado) {
             case 'pendiente':
               return(<h6 style={{color:'yellow'}}> pendiente...</h6> )
@@ -269,12 +270,42 @@ export const AprobacionAntcipoSueldo = () => {
       },
     },
   ];
-  const datos = data?.map((f, i) => {
+
+const filtroGerente902= data.filter(d=> d.usuario.departamentoI==3 || d.estadoFinal==='aprobado')
+console.log(filtroGerente902);
+/**selecion de gerente */
+const gerentes = () =>{
+const N= localStorage.getItem('N')
+
+ switch (N) {
+   case '901':
+    return data.filter(d => d.usuario.departamentoId === 1 || d.usuario.departamentoId === 2 ) // aca filtramos por gerente 901 alias Esteban Ramos
+     break;
+     case '902':
+    return data.filter(d=> d.usuario.departamentoI===3 || d.estadoFinal==='aprobado') // aca filtramos por gerente 902 Cristian Ramos
+
+   default:
+     break;
+ }
+
+}
+
+const dtos = PeticionGET('/departamentos') 
+
+console.log(dtos);
+
+
+
+  const datos = gerentes()?.map(f => {
+    console.log(dtos);
+    let buscardtoId= dtos?.find( d => d.id=== f.usuario.departamentoId)  
     return {
       ...f,
       key: f.id,
       nombre: f.usuario.nombre,
       apellido: f.usuario.apellido,
+      departamento: buscardtoId?.departamento
+      
     };
   });
 
@@ -295,7 +326,7 @@ export const AprobacionAntcipoSueldo = () => {
             Aprobado
           </Button>,
         ]}
-      >
+      > 
         <section>
           <TextArea
             name="respMensaje"

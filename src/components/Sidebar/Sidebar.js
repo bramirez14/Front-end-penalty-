@@ -1,7 +1,4 @@
 import React, { useState, useContext } from "react";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import { Link } from "react-router-dom";
 import "./css/sidebar.css";
 import { Avatar } from "../img/Avatar";
 import { Item } from "../items/Item";
@@ -20,7 +17,6 @@ export const Sidebar = () => {
   const showSidebar2 = () => setOpen(open);
   const get= PeticionJWT()
   const {nombre,apellido,nvendedor}=get
-  console.log(nvendedor);
   return (
     <>
       {q ? (

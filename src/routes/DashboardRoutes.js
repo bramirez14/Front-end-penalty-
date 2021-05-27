@@ -21,6 +21,8 @@ import {  AprobacionAntcipoSueldo } from "../ComponentsGerentes/AprobacionAntcip
 import { PerfilEmpleado } from "../components/perfiles/PerfilEmpleado";
 import { Alerta } from "../components/alertas/Alerta";
 import { Register } from "../components/login/Register";
+import { Perfil } from "../components/perfiles/Perfil";
+import { AprobacionVacaciones } from "../ComponentsGerentes/AprobacionVacaciones";
 
 export const DashboardRoutes = ({ history }) => {
 
@@ -29,10 +31,10 @@ export const DashboardRoutes = ({ history }) => {
       <Sidebar />
 
       <Switch>
-        <RouteGerente exact path="/gerencia/perfil" component={PerfilCristianAdmin}/>
+      <RouteEmpleado exact path="/perfil" component={Perfil} />
         <RouteGerente exact path="/aprobacion/sueldo" component={AprobacionAntcipoSueldo}/>
+        <RouteGerente exact path="/aprobacion/vacaciones" component={AprobacionVacaciones}/>
         <RouteGerente exact path="/register" component={Register}/>
-        <RouteEmpleado exact path="/perfil" component={PerfilEmpleado} />
         <RouteEmpleado exact path="/sueldos" component={Sueldo} />
         <RouteEmpleado exact path="/vacaciones" component={Vacaciones} />
         <RouteEmpleado exact path="/gastos" component={RendicionGastos} />

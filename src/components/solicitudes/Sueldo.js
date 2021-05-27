@@ -10,7 +10,7 @@ import "./css/anticipoGasto.css";
 import PeticionGET from "../../config/PeticionGET";
 
 export const Sueldo = ({ history }) => {
-  const id = localStorage.getItem('uid')
+  const id = localStorage.getItem("uid");
   const [users, setUsers] = useState([]);
   const [data, setData] = useState([{ id: "", nombre: "" }]);
   const [anticipo, setAnticipo] = useState({
@@ -20,15 +20,14 @@ export const Sueldo = ({ history }) => {
     fecha: new Date().toLocaleDateString(),
     mensaje: "",
     usuarioId: id,
-    estado:'pendiente'
   });
   const { Option } = Select;
-  const { sueldo, importe, mensaje, fecha, cuotas,usuarioId} = anticipo;
- 
+  const { sueldo, importe, mensaje, fecha, cuotas, usuarioId } = anticipo;
+
   /******useContex*******/
-  const Text=useContext(UserContext)
-  const {open}=Text
-  
+  const Text = useContext(UserContext);
+  const { open } = Text;
+
   /******fx de alerta para el usuario visual*******/
   const handleAlert = () => {
     Swal.fire({
@@ -42,7 +41,7 @@ export const Sueldo = ({ history }) => {
     });
   };
 
- /*  const handleRechazo = () => {
+  /*  const handleRechazo = () => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -50,13 +49,12 @@ export const Sueldo = ({ history }) => {
         "NO PODES ENVIAR EL ANTICIPO PONGASE EN CONTACTO EL DEPARTAMENTO DE GERENCIA, GRACIAS",
     });
   }; */
-  const handleChangeDev=(values)=>{
-    setAnticipo({...anticipo,sueldo:values})
-  }
-  const handleChangeCuotas=(values)=>{
-    setAnticipo({...anticipo,cuotas:values})
-    
-  }
+  const handleChangeDev = (values) => {
+    setAnticipo({ ...anticipo, sueldo: values, cuotas: "1" });
+  };
+  const handleChangeCuotas = (values) => {
+    setAnticipo({ ...anticipo, cuotas: values });
+  };
   /******fx para deteminar catidad  de cuotas *******/
   const verificarMes = () => {
     let vacio = [];
@@ -82,6 +80,7 @@ export const Sueldo = ({ history }) => {
     // console.log(result.data[0].departamento);
   };
   /*********fx para guardar anticipo con axios en DB **********/
+  const tipo = localStorage.getItem("type");
   const guardarAnticipo = async (values) => {
     let result = await axiosURL.post("/anticipo", values);
     if (result.status === 200) {
@@ -95,29 +94,28 @@ export const Sueldo = ({ history }) => {
   }, []);
 
   const departamento = () => {
-    let usuarioDep = users.find(u => u.id === parseInt(id));
+    let usuarioDep = users.find((u) => u.id === parseInt(id));
     return usuarioDep?.departamento.departamento;
   };
 
- 
-    const anticipos = PeticionGET('/anticipo')
-    const filtro =  anticipos.filter(a=>a.usuarioId=== parseInt(id))
-    const APROBACION= filtro[filtro.length-1]?.estado
-    console.log(APROBACION);
-    
-  
+  const anticipos = PeticionGET("/anticipo");
+  const filtro = anticipos.filter((a) => a.usuarioId === parseInt(id));
+  const APROBACION = filtro[filtro.length - 1]?.estado;
 
+  console.log(cuotas);
   /************submit para enviar el formulario ************************ */
   let handleSubmit;
 
-  
-    /*******condicion para envio de mail a cada departamento******* */
-    /***tmb agregamos un alert para evitar fraudes  */
-    if(importe>=3000 && sueldo==='Aguinaldo'){
-      alert('no podes hacer eso, la opcion AGUINALDO , solo cubre un monto inferior a 3000')
-    }else{if (departamento() === "Sistemas" || departamento() === "Logistica") {
+  /*******condicion para envio de mail a cada departamento******* */
+  /***tmb agregamos un alert para evitar fraudes  */
+  if (importe >= 3000 && sueldo === "Aguinaldo") {
+    alert(
+      "no podes hacer eso, la opcion AGUINALDO , solo cubre un monto inferior a 3000"
+    );
+  } else {
+    if (departamento() === "Sistemas" || departamento() === "Logistica") {
       handleSubmit = (v) => {
-        let u={...v,usuarioId,fecha,sueldo,cuotas}
+        let u = { ...v, usuarioId, fecha, sueldo, cuotas };
         handleAlert();
         guardarAnticipo(u);
         //enviarMensaje()
@@ -125,15 +123,14 @@ export const Sueldo = ({ history }) => {
       };
     } else {
       handleSubmit = (v) => {
-        let u={...v,usuarioId,fecha,sueldo,cuotas}
+        let u = { ...v, usuarioId, fecha, sueldo, cuotas };
         handleAlert();
         guardarAnticipo(u);
         console.log(u);
-
       };
-    }}
-    
-  
+    }
+  }
+
   /**********fin submit para enviar el formulario ************************/
 
   /**********funcion para enviar un mail de alerta **********************/
@@ -172,108 +169,92 @@ export const Sueldo = ({ history }) => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(open);
+  console.log(anticipo);
   /********************* fin funcion para enviar un mail de alerta ********************* */
   return (
-    
-    <div className={!open?'contenedor':'contenedor-active'}>
-      <Form className='form' onFinish={handleSubmit} size='large' >
-      <Row gutter={10}>
-        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-        <Titulo titulo="Anticipo de Sueldo" />
+    <div className={!open ? "contenedor" : "contenedor-active"}>
+      <Form className="form" onFinish={handleSubmit} size="large">
+        <Row gutter={10}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+            <Titulo titulo="Anticipo de Sueldo" />
 
-      
-
-      {APROBACION==='pendiente'  && APROBACION !== undefined ?(
-      <h4>Ya tenes un anticipo pendiente!!!</h4>
-      ) : (
-      <>  
-      <Form.Item   
-      name='importe'
-      rules={[
-      {
-        required: true,
-        message: 'ingrese un importe',
-      },
-    ]}>
-                <Input
-                  type="number"
-                  placeholder="Importe"
+            {APROBACION === "pendiente" && APROBACION !== undefined ? (
+              <h4>Ya tenes un anticipo pendiente!!!</h4>
+            ) : (
+              <>
+                <Form.Item
                   name="importe"
-                  onChange={handleChange}
-                  
-                />
-              </Form.Item>
-            
-{importe < 3000 ? (
-    <Form.Item 
-  name='sueldo'
-    rules={[
-      {
-        required: true,
-        message: 'seleccione una opcion',
-      },
-    ]}
-    >
-      <Select placeholder="Devolucion" onChange={handleChangeDev}>
-        <Option value="Sueldo">Sueldo</Option>
-        <Option value="Aguinaldo">Aguinaldo</Option>
-      </Select>
-    </Form.Item>
-) : (
-    <Form.Item name='sueldo'>
-      <Input disabled placeholder="Sueldo" />
-    </Form.Item>
-)}
+                  rules={[
+                    {
+                      required: true,
+                      message: "ingrese un importe",
+                    },
+                  ]}
+                >
+                  <Input
+                    type="number"
+                    placeholder="Importe"
+                    name="importe"
+                    onChange={handleChange}
+                  />
+                </Form.Item>
 
-{sueldo === "Sueldo" ? (
-      <SelectAnt
-        placeholder="Cuotas"
-        name="cuotas"
-        array={data}
-        mensaje='seleccione una opcion'
-        change={handleChangeCuotas}
-      />
-  
-) : mes() > 0 && mes() <= 5 ? (
-    <Form.Item name='cuotas'>
-      <Input name="cuotas" placeholder="1" disabled />
-    </Form.Item>
-) : (
-    <Form.Item name='cuotas'>
-      <Select name="cuotas" onChange={handleChangeCuotas}>
-        <option value="1">1</option>
-        <option value="2">2</option>
-      </Select>
-    </Form.Item>
-)}
+                {importe < 3000 ? (
+                  <Form.Item
+                    name="sueldo"
+                    rules={[
+                      {
+                        required: true,
+                        message: "seleccione una opcion",
+                      },
+                    ]}
+                  >
+                    <Select placeholder="Devolucion" onChange={handleChangeDev}>
+                      <Option value="Sueldo">Sueldo</Option>
+                      <Option value="Aguinaldo">Aguinaldo</Option>
+                    </Select>
+                  </Form.Item>
+                ) : (
+                  <Form.Item name="sueldo">
+                    <Input disabled placeholder="Sueldo" />
+                  </Form.Item>
+                )}
 
- 
+                {sueldo === "Sueldo" ? (
+                  <SelectAnt
+                    placeholder="Cuotas"
+                    name="cuotas"
+                    array={data}
+                    mensaje="seleccione una opcion"
+                    change={handleChangeCuotas}
+                  />
+                ) : mes() > 0 && mes() <= 5 ? (
+                  <Form.Item>
+                    <Input name="cuotas" value="1" disabled />
+                  </Form.Item>
+                ) : (
+                  <Form.Item name="cuotas">
+                    <Select name="cuotas" onChange={handleChangeCuotas}>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                    </Select>
+                  </Form.Item>
+                )}
 
-  <Form.Item name='mensaje'>
-    <Input.TextArea
-      name="mensaje"
-      placeholder="Mensaje"
-  
-    />
-  </Form.Item>
+                <Form.Item name="mensaje">
+                  <Input.TextArea name="mensaje" placeholder="Mensaje" />
+                </Form.Item>
 
-  <Form.Item>
-    <Button className='btn' htmlType="submit" block>
-      Enviar
-    </Button>
-  </Form.Item>
-
-</>
-          )}
-
-          
-
-</Col>
-          
+                <Form.Item>
+                  <Button className="btn" htmlType="submit" block>
+                    Enviar
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Col>
         </Row>
       </Form>
-      </div>
-   
+    </div>
   );
 };
