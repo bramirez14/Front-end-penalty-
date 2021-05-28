@@ -11,6 +11,7 @@ import "./css/aprob.css";
 import PeticionGET from "../config/PeticionGET";
 
 export const AprobacionAntcipoSueldo = () => {
+  const N = localStorage.getItem("N");
   const [anticipoPendiente, setAnticipoPendiente] = useState();
   const [data, setData] = useState([]);
   const Text = useContext(UserContext);
@@ -53,14 +54,30 @@ export const AprobacionAntcipoSueldo = () => {
     console.log("Clicked cancel button");
     setVisible(false);
   };
+
   const aprobado = async () => {
-    await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`,mensaje);
+    N === "902"
+      ? await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
+          ...mensaje,
+          estadoFinal: "aprobado",
+          notificacion: "inactiva",
+          estado: "aprobado",
+        })
+      : await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
+          ...mensaje,
+          estado: "aprobado",
+        });
     setVisible(false);
     setMensaje({ respMensaje: "" });
     axiosGet();
   };
   const rechazado = async () => {
-    await axiosURL.put(`/anticipo/rechazado/${anticipoPendiente.id}`,mensaje);
+    await axiosURL.put(`/anticipo/rechazado/${anticipoPendiente.id}`, {
+      ...mensaje,
+      estado: "rechazado",
+      notificacion: "inactiva",
+      estadoFinal: "rechazado",
+    });
     setVisible(false);
     setMensaje({ respMensaje: "" });
     axiosGet();
@@ -209,26 +226,40 @@ export const AprobacionAntcipoSueldo = () => {
       title: "Estado",
       dataIndex: "estado",
       key: "estado",
-      render: (estado,file) =>{
-        
-        const color =()=>{
+      render: (estado, file) => {
+        const color = () => {
           switch (file.estado) {
-            case 'pendiente':
-              return(<h6 style={{color:'yellow'}}> pendiente...</h6> )
-              case 'aprobado':
-           return (<h6 style={{color:'green'}}> aprobado </h6>)
-            default: 
-            return(<h6 style={{color:'red'}}> rechazado </h6>)
-          }}
-       return(
-         <>
-         {
-           color()
-         }
-         </>
-       )
-      }
-
+            case "pendiente":
+              return <h6 style={{ color: "yellow" }}> pendiente...</h6>;
+            case "aprobado":
+              return <h6 style={{ color: "green" }}> aprobado </h6>;
+            default:
+              return <h6 style={{ color: "red" }}> rechazado </h6>;
+          }
+        };
+        return <>{color()}</>;
+      },
+    },
+   
+    { 
+    
+      title: N==='902' && "Aprobacion Final",
+      dataIndex: "estadoFinal",
+      key: "estadoFinal",
+      render: (estado, file) => {
+       
+        const color = () => {
+          switch (file.estadoFinal) {
+            case "pendiente":
+              return <h6 style={{ color: "yellow" }}> pendiente...</h6>;
+            case "aprobado":
+              return <h6 style={{ color: "green" }}> aprobado </h6>;
+            default:
+              return <h6 style={{ color: "red" }}> rechazado </h6>;
+          }
+        };
+        return <> { N=== '902' && color()}</>;
+      },
     },
     {
       title: "Acciones",
@@ -237,8 +268,8 @@ export const AprobacionAntcipoSueldo = () => {
       render: (f, fila) => {
         return (
           <>
-            <Button className='btn-aprob' onClick={() => showModal(fila)}>
-                  <BsCheck/>
+            <Button className="btn-aprob" onClick={() => showModal(fila)}>
+              <BsCheck />
             </Button>
           </>
         );
@@ -266,51 +297,57 @@ export const AprobacionAntcipoSueldo = () => {
             axiosGet();
           }
         };
-        return <Button className='btn-aprob' onClick={handleDelete}> <AiOutlineDelete/> </Button>;
+        return (
+          <Button className="btn-aprob" onClick={handleDelete}>
+            {" "}
+            <AiOutlineDelete />{" "}
+          </Button>
+        );
       },
     },
   ];
 
-const filtroGerente902= data.filter(d=> d.usuario.departamentoI==3 || d.estadoFinal==='aprobado')
-console.log(filtroGerente902);
-/**selecion de gerente */
-const gerentes = () =>{
-const N= localStorage.getItem('N')
+  const filtroGerente902 = data.filter(
+    (d) => d.usuario.departamentoI === 3 || d.estadoFinal === "aprobado"
+  );
+  console.log(filtroGerente902);
+  /**selecion de gerente  recordamos que Cristian Rios da el ok final*/
+  const gerentes = () => {
+    switch (N) {
+      case "901":
+        return data.filter(
+          (d) =>
+            d.usuario.departamentoId === 1 || d.usuario.departamentoId === 2
+        ); // aca filtramos por gerente 901 alias Esteban Ramos
 
- switch (N) {
-   case '901':
-    return data.filter(d => d.usuario.departamentoId === 1 || d.usuario.departamentoId === 2 ) // aca filtramos por gerente 901 alias Esteban Ramos
-     break;
-     case '902':
-    return data.filter(d=> d.usuario.departamentoI===3 || d.estadoFinal==='aprobado') // aca filtramos por gerente 902 Cristian Ramos
+      case "902":
+        return data.filter(
+          (d) => d.usuario.departamentoId === 3 || d.estado === "aprobado"
+        ); // aca filtramos por gerente 902 Cristian Ramos
 
-   default:
-     break;
- }
+      default:
+        break;
+    }
+  };
+  console.log(gerentes());
+  const dtos = PeticionGET("/departamentos");
 
-}
+  console.log(dtos);
 
-const dtos = PeticionGET('/departamentos') 
-
-console.log(dtos);
-
-
-
-  const datos = gerentes()?.map(f => {
+  const datos = gerentes()?.map((f) => {
     console.log(dtos);
-    let buscardtoId= dtos?.find( d => d.id=== f.usuario.departamentoId)  
+    let buscardtoId = dtos?.find((d) => d.id === f.usuario.departamentoId);
     return {
       ...f,
       key: f.id,
       nombre: f.usuario.nombre,
       apellido: f.usuario.apellido,
-      departamento: buscardtoId?.departamento
-      
+      departamento: buscardtoId?.departamento,
     };
   });
 
   return (
-    <div className={!open ? "contenedor-aprob" : "contenedor-aprob-active"}>
+    <>
       <Table columns={columns} dataSource={datos} />
       <Modal
         title="Anticipo de Sueldo"
@@ -326,7 +363,7 @@ console.log(dtos);
             Aprobado
           </Button>,
         ]}
-      > 
+      >
         <section>
           <TextArea
             name="respMensaje"
@@ -337,6 +374,7 @@ console.log(dtos);
           />
         </section>
       </Modal>
-    </div>
+      </>
   );
 };
+// falta acomodar  y distribuir en varios estados

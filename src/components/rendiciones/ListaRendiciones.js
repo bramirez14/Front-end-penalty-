@@ -41,7 +41,6 @@ export const ListaRendiciones = ({ match, history }) => {
     }
   }
   return (
-    <div className={!open ? 'contenedor-rendicion' : 'contenedor-rendicion-active'}>
       <div className='contenedor-form' >
         <Encabezado />
         <SubEncabezado uuid={id} total={totalDeImporte} importeAnticipo={importe} />
@@ -66,7 +65,6 @@ export const ListaRendiciones = ({ match, history }) => {
           </Col>
         </Row>
       </div>
-    </div>
 
   )
 }

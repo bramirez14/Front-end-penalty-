@@ -212,7 +212,6 @@ const añosTrabajados=(fecha)=>{
   }, [dias])
   return (
     <>
-      <div className={!open ? "contenedor" : "contenedor-active"}>
         <Form
           {...layout}
           className="form"
@@ -278,7 +277,6 @@ const añosTrabajados=(fecha)=>{
             Enviar
           </Button>
         </Form>
-      </div>
     </>
   );
 };

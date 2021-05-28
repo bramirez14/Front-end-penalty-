@@ -1,0 +1,60 @@
+.todo {
+  height: 100vh;
+}
+
+#components-layout-demo-custom-trigger .trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #46a461;
+}
+
+#components-layout-demo-custom-trigger .logio {
+  height: 100px;
+  margin: 16px;
+  background: white;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+.avatar-logo {
+  height: 100px;
+}
+
+/** Sidebar **/
+.ant-layout-sider-children {
+  background-color: #46a461;
+}
+/**hover del Sidebar**/
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #fff;
+}
+/** Menu del Sidebar **/
+.ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub,
+.ant-menu.ant-menu-dark .ant-menu-sub {
+  background-color: #46a461;
+}
+/**/
+.ant-menu-item .ant-menu-item-icon + span,
+.ant-menu-submenu-title .ant-menu-item-icon + span,
+.ant-menu-item .anticon + span,
+.ant-menu-submenu-title .anticon + span{
+  color: #fff;
+}
+/*hover de item */
+
+.ant-menu-dark .ant-menu-item-selected .ant-menu-item-icon + span,
+.ant-menu-dark .ant-menu-item-selected .anticon + span{
+    color:black;
+}
+/*hover de icono */
+.ant-menu-dark .ant-menu-item-selected .ant-menu-item-icon, .ant-menu-dark .ant-menu-item-selected .anticon{
+    color:black;
+}

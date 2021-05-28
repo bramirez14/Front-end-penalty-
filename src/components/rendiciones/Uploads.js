@@ -1,66 +1,64 @@
-import React,{Component} from 'react'
-import { Modal, Button } from 'antd';
+import React,{useState,createElement} from 'react'
 
-export class Uploads extends Component {
-  state = {
-    loading: false,
-    visible: false,
+import { Layout, Menu } from 'antd';
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
+import './aaa.css'
+const { Header, Sider, Content } = Layout;
+
+export const Uploads = () => {
+ 
+const [collapsed, setCollapsed] = useState(false)
+  const toggles = () => {
+
+   setCollapsed(!collapsed);
   };
-
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  handleOk = () => {
-    this.setState({ loading: true });
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-    }, 3000);
-  };
-
-  handleCancel = () => {
-    this.setState({ visible: false });
-  };
-
-  render() {
-    const { visible, loading } = this.state;
+console.log(collapsed)
+  
     return (
-      <>
-        <Button type="primary" onClick={this.showModal} style={{ marginTop:'70px'}}>
-          Open Modal with customized footer
-        </Button>
-        <Modal 
-          visible={visible}
-          title="Title"
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          footer={[
-            <Button key="back" onClick={this.handleCancel}>
-              Return
-            </Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-              Submit
-            </Button>,
-            <Button
-              key="link"
-              href="https://google.com"
-              type="primary"
-              loading={loading}
-              onClick={this.handleOk}
-            >
-              Search on Google
-            </Button>,
-          ]}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
-      </>
+      <Layout className='todo' >
+        <Sider trigger={null}  collapsible collapsed={collapsed} >
+          <div className="avatar-logo"/>
+          <Menu theme='dark' mode="inline" defaultSelectedKeys={['1']}>
+            <Menu.Item key="1" icon={<UserOutlined />}>
+              nav 1
+            </Menu.Item>
+            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+              nav 2
+            </Menu.Item>
+            <Menu.Item key="3" icon={<UploadOutlined />}>
+              nav 3
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout className="site-layout" >
+          <Header className="site-layout-background" style={{ padding: 0 }}>
+            {createElement(collapsed? MenuUnfoldOutlined : MenuFoldOutlined, {
+              className: 'trigger',
+              onClick: toggles,
+            })}
+            <div >
+         
+            </div>
+          
+          </Header>
+          <Content
+            className="site-layout-background"
+            style={{
+              margin: '24px 16px',
+              padding: 24,
+              minHeight: 280,
+            }}
+          >
+            Contentsadasdsadasdsa
+          </Content>
+        </Layout>
+      </Layout>
     );
-  }
+  
 }

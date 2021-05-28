@@ -131,10 +131,7 @@ export const CrearRendicion = ({ match, history }) => {
   const totalDeImporte = sumaGastos?.reduce((acumulador, item) => { return acumulador = parseFloat(acumulador) + parseFloat(item) })
   const i = peticionGastoId?.importe
   const total = parseFloat(totalDeImporte) + parseFloat(importe)
-console.log(total);
-console.log(i);
-console.log(totalDeImporte);
-console.log();
+
 
   /**Submit */
   const handleSubmit = () => {
@@ -156,7 +153,7 @@ console.log();
           {...estilo}
           size='large'
         >
-          <h5 style={{ textAlign: "center", marginLeft: '40px' }}> Agregar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
+          <h5 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
           <Divider />
           <Form.Item name="categoria">
             <Select placeholder="Categoria" onChange={selectChange} >
