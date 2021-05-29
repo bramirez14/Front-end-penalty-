@@ -2,18 +2,25 @@
   display: flex;
   flex-wrap: nowrap;
   margin-top: 70px;
- margin-left: 180px;
+ margin-left: 200px;
   border: solid 1px #ddd;
   border-radius: 14px;
-  height: 437px;
+  height: 340px;
 }
-.vista-img {
-  width: 400px;
-  height: 400px;
+.vista-imagenes-active{
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 70px;
+  border: solid 1px #ddd;
+  border-radius: 14px;
+  margin-left: 100px;
+  height: 340px;
+  
 }
 .vista-datos {
-  padding: 40px;
+  padding: 20px;
   border-left: solid 2px #ddd;
+  width: auto;
 }
 
 .sp {
@@ -29,4 +36,31 @@
 
 .overflow-visible {
   white-space: initial;
+}
+@media (min-width: 1500px) {
+  .vista-imagenes {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 70px;
+   margin-left: 240px;
+    border: solid 1px #ddd;
+    border-radius: 14px;
+    height: 437px;
+  }
+  .vista-imagenes-active{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 70px;
+   margin-left: 240px;
+    border: solid 1px #ddd;
+    border-radius: 14px;
+    height: 437px;
+  }
+  .vista-datos {
+    padding: 40px;
+    border-left: solid 2px #ddd;
+    width: auto;
+  }
+
+
 }

@@ -36,9 +36,9 @@ export const DashboardRoutes = ({ history }) => {
       <RouteEmpleado exact path="/sueldos" component={Sueldo} />
       <RouteEmpleado exact path="/vacaciones" component={Vacaciones} />
       <RouteEmpleado exact path="/anticipo/gastos" component={AnticipoGasto} />
-
+      </Switch>
       <div className={!open ? "contenedor" : "contenedor-active"}>
-
+      <Switch>
       <RouteEmpleado exact path="/perfil" component={Perfil} />
         <RouteGerente exact path="/aprobacion/sueldo" component={AprobacionAntcipoSueldo}/>
         <RouteGerente exact path="/aprobacion/vacaciones" component={AprobacionVacaciones}/>
@@ -52,12 +52,12 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path="/rendicion" component={RendicionSinAnticipo} />
         <RouteEmpleado exact path="/img" component={Uploads} />
         <RouteEmpleado exact path="/prueba" component={Alerta} />
-        </div>
+        
         
 
         <Redirect to="/login" />
       </Switch>
-      
+      </div>
     </>
   );
 };

@@ -209,6 +209,7 @@ a {
   margin-top: 1rem;
   gap: 10px;
 }
+/*Tamano de la imagen  */
 .custom-file-preview .prev-img {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -224,6 +225,8 @@ a {
   position: relative;
   border-radius: 5px;
   overflow: hidden;
+  width: 300px;
+  height: 300px;
 }
 .custom-file-preview .prev-img span {
   position: absolute;
@@ -333,5 +336,24 @@ color: red
   .formulario-rendicion-crear{
     height: 93.5vh;
   }
+  /*Tamano de la imagen  */
+.custom-file-preview .prev-img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -moz-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -moz-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 400px;
+  height: 400px;
+}
   
 }

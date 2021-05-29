@@ -15,6 +15,7 @@ export const Sidebar = () => {
   const { open, setOpen } = Sidebar;
   const showSidebar = () => setOpen(!open);
   const showSidebar2 = () => setOpen(open);
+  console.log(open);
   const get= PeticionJWT()
   const {nombre,apellido,nvendedor}=get
   return (

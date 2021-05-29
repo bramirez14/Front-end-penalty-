@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState,useContext} from "react";
 import axiosURL from "../../config/axiosURL";
 import { Form, Input, Button, Row, Select, Divider } from "antd";
 import "./css/editarRendicion.css";
@@ -6,10 +6,17 @@ import TextArea from "antd/lib/input/TextArea";
 import PeticionGET from "../../config/PeticionGET";
 import { categorias } from "./categorias";
 import { VistaImg } from "./VistaImg";
+import { UserContext } from "../../contexto/UserContext";
 
 export const CrearRendicion = ({ match, history }) => {
-  const { id } = match.params;
 
+  const mediaqueryList = window.matchMedia("(max-width: 1024px)");
+  const q = mediaqueryList.matches;
+  console.log(q);
+  const { id } = match.params;
+ const Text = useContext(UserContext)
+console.log('asdasdasd');
+ const { open, setOpen } = Text;
   const { Option } = Select;
   const [highlight, setHighlight] = useState(false);
   const [data, setData] = useState([]);

@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useContext} from "react";
+import { UserContext } from "../../contexto/UserContext";
 import "./css/vistaImg.css";
 export const VistaImg = ({
   data,
@@ -10,8 +11,12 @@ export const VistaImg = ({
   pago,
   medio,
 }) => {
+const {open} = useContext(UserContext)
+
+console.log(open);
+
   return (
-    <div className="vista-imagenes">
+    <div className={!open?'vista-imagenes':'vista-imagenes-active'}>
       <div className="vista-img">
         <div className="custom-file-preview ">
           {data?.length === 0 ? (
@@ -19,7 +24,6 @@ export const VistaImg = ({
           ) : (
             <div
               className="prev-img"
-              style={{ width: " 400px", height: "400px" }}
             >
               <span className="prev-img" onClick={handleDelete}>
                 &times;
