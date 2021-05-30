@@ -1,64 +1,44 @@
-import React,{useState,createElement} from 'react'
-
-import { Layout, Menu } from 'antd';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
-import './aaa.css'
-const { Header, Sider, Content } = Layout;
-
+import React from 'react'
+import { Select } from 'antd';
 export const Uploads = () => {
- 
-const [collapsed, setCollapsed] = useState(false)
-  const toggles = () => {
+  const { Option } = Select;
 
-   setCollapsed(!collapsed);
-  };
-console.log(collapsed)
+  function onChange(value) {
+    console.log(`selected ${value}`);
+  }
   
-    return (
-      <Layout className='todo' >
-        <Sider trigger={null}  collapsible collapsed={collapsed} >
-          <div className="avatar-logo"/>
-          <Menu theme='dark' mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              nav 1
-            </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              nav 2
-            </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              nav 3
-            </Menu.Item>
-          </Menu>
-        </Sider>
-        <Layout className="site-layout" >
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            {createElement(collapsed? MenuUnfoldOutlined : MenuFoldOutlined, {
-              className: 'trigger',
-              onClick: toggles,
-            })}
-            <div >
-         
-            </div>
-          
-          </Header>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              minHeight: 280,
-            }}
-          >
-            Contentsadasdsadasdsa
-          </Content>
-        </Layout>
-      </Layout>
-    );
+  function onBlur() {
+    alert('blur');
+  }
   
+  function onFocus() {
+    console.log('focus');
+  }
+  
+  function onSearch(val) {
+    console.log('search:', val);
+  }
+  return (
+    <Select
+    showSearch
+    style={{ width: 200 }}
+    placeholder="Select a person"
+    optionFilterProp="children"
+    onChange={onChange}
+    onFocus={onFocus}
+    onBlur={onBlur}
+    onSearch={onSearch}
+    filterOption={(input, option) =>
+      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+    }
+    style={{marginLeft:'800px',marginTop:'400px'}}
+  >
+      <Option value="jack">Jack</Option>
+      <Option value="lucy">Lucy</Option>
+      <Option value="disabled" disabled>
+        Disabled
+      </Option>
+      <Option value="Yiminghe">yiminghe</Option>
+    </Select>
+  )
 }

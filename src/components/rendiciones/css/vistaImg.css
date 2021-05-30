@@ -37,6 +37,10 @@
 .overflow-visible {
   white-space: initial;
 }
+.sector{
+  margin-top:100px;
+  margin-left:80px;
+}
 @media (min-width: 1500px) {
   .vista-imagenes {
     display: flex;
@@ -60,6 +64,10 @@
     padding: 40px;
     border-left: solid 2px #ddd;
     width: auto;
+  }
+  .sector{
+    margin-top:140px;
+    margin-left:140px;
   }
 
 

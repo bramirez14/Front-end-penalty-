@@ -31,7 +31,7 @@ export const Item = ({ click, click2 }) => {
             onClick={q ? click : click2}
           >
             Home
-            <Link to="/gerencia/perfil" />
+            <Link to="/perfil" />
           </MenuItem>
         </div>
         {/**Sector de  Gerente 901 */}
@@ -84,6 +84,10 @@ export const Item = ({ click, click2 }) => {
                 Aprobacion de Sueldo
                 <Link to="/aprobacion/sueldo" />
               </MenuItem>
+              <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+              Aprobacion de Vacaciones
+              <Link to="/aprobacion/vacaciones" />
+            </MenuItem>
             </SubMenu>
           </>
         )}

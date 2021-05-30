@@ -135,7 +135,7 @@ const añosTrabajados=(fecha)=>{
   const tipo = localStorage.getItem('type')
 
   const guardarAnticipoDeVacaciones = async () => {
-    let result = await axiosURL.post("/vacaciones", vacaciones);
+    let result = await axiosURL.post("/vacaciones", {...vacaciones,estadoFinal:'pendiente',estado:'pendiente'});
     if (result.status === 200) {
       history.push("/");
     }
@@ -210,6 +210,10 @@ const añosTrabajados=(fecha)=>{
   useEffect(() => {
     diasFalt();
   }, [dias])
+  const getUsuarios = PeticionGET(`/${id}`)
+  const log=getUsuarios.vacacion?.length-'1'
+  console.log(getUsuarios?.vacacion?.[log]);
+const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
   return (
     <>
         <Form
@@ -219,6 +223,9 @@ const añosTrabajados=(fecha)=>{
           onChange={handleChange}
           size="large"
         >
+          {APROBACION === "pendiente" && APROBACION !== undefined ? 
+            <h4>Ya tenes solicitud pendiente!!!</h4>:
+            <>
           <Row gutter={10}>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
               <Titulo titulo=" Vacaciones" />
@@ -276,6 +283,7 @@ const añosTrabajados=(fecha)=>{
           <Button className="btn" htmlType="submit" block>
             Enviar
           </Button>
+          </>}
         </Form>
     </>
   );

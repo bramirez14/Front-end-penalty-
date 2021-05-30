@@ -59,7 +59,7 @@ export const Register = ({history}) => {
         prefix: "11",
       }}
   
-      style={{ marginTop: "70px" }}
+      style={{ marginTop: "10px" }}
     >
       <Form.Item
         name="departamentoId"

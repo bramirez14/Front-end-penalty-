@@ -13,14 +13,13 @@ export const VistaImg = ({
 }) => {
 const {open} = useContext(UserContext)
 
-console.log(open);
 
   return (
     <div className={!open?'vista-imagenes':'vista-imagenes-active'}>
-      <div className="vista-img">
-        <div className="custom-file-preview ">
+      <div className="vista-img" >
+        <div className="custom-file-preview " >
           {data?.length === 0 ? (
-            <h2 style={{ marginLeft: "170px", marginTop: "170px" }}>Imagen</h2>
+            <h2 className='sector'>Imagen</h2>
           ) : (
             <div
               className="prev-img"

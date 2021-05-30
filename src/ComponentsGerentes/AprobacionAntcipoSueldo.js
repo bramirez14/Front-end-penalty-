@@ -11,10 +11,10 @@ import "./css/aprob.css";
 import PeticionGET from "../config/PeticionGET";
 
 export const AprobacionAntcipoSueldo = () => {
-  const N = localStorage.getItem("N");
-  const [anticipoPendiente, setAnticipoPendiente] = useState();
+  const N = localStorage.getItem("N");// numero de registro 
+  const [anticipoPendiente, setAnticipoPendiente] = useState();//estado de a fn 
   const [data, setData] = useState([]);
-  const Text = useContext(UserContext);
+  const Text = useContext(UserContext);// useContext 
   const [mensaje, setMensaje] = useState({
     respMensaje: "",
     estado: "",
@@ -26,6 +26,7 @@ export const AprobacionAntcipoSueldo = () => {
   const { open } = Text;
   const { TextArea } = Input;
   const searchInput = useRef("");
+  /** peticion get trae todo los anticipos  */
   const axiosGet = async () => {
     let result = await axiosURL.get("/anticipo");
     setData(result.data);
@@ -34,7 +35,7 @@ export const AprobacionAntcipoSueldo = () => {
     axiosGet();
   }, []);
 
-  /**modal*/
+  /***** modal ******/
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -82,13 +83,13 @@ export const AprobacionAntcipoSueldo = () => {
     setMensaje({ respMensaje: "" });
     axiosGet();
   };
-  /**fin modal */
+  /***** fin modal *****/
 
-  const handleChange = (e) => {
+  const handleChange = (e) => { // para registrar los cambios del formulario 
     const { name, value } = e.target;
     setMensaje({ ...mensaje, [name]: value });
   };
-  /*table*/
+  /***** table *****/
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -173,9 +174,9 @@ export const AprobacionAntcipoSueldo = () => {
     {
       title: "N° de anticipo",
       dataIndex: "id",
-      key: "anticipo",
+      key: "id",
 
-      ...getColumnSearchProps("anticipo"),
+      ...getColumnSearchProps("id"),
     },
     {
       title: "Nombre",
@@ -306,6 +307,7 @@ export const AprobacionAntcipoSueldo = () => {
       },
     },
   ];
+/****** fin de table *****/
 
   const filtroGerente902 = data.filter(
     (d) => d.usuario.departamentoI === 3 || d.estadoFinal === "aprobado"
@@ -330,13 +332,12 @@ export const AprobacionAntcipoSueldo = () => {
     }
   };
   console.log(gerentes());
-  const dtos = PeticionGET("/departamentos");
+  const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
 
-  console.log(dtos);
 
   const datos = gerentes()?.map((f) => {
     console.log(dtos);
-    let buscardtoId = dtos?.find((d) => d.id === f.usuario.departamentoId);
+    let buscardtoId = dtos?.find((d) => d.id === f.usuario.departamentoId);//usuario filtrado por dto
     return {
       ...f,
       key: f.id,

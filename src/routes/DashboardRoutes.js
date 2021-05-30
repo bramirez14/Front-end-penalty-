@@ -8,7 +8,6 @@ import { Sidebar } from "../components/Sidebar/Sidebar";
 import { RouteGerente } from "./RouteGerente";
 import { RouteEmpleado } from "./RouteEmpleado";
 
-import { Sueldo } from "../components/solicitudes/Sueldo";
 import { Vacaciones } from "../components/solicitudes/Vacaciones";
 import { PerfilCristianAdmin } from "../components/perfiles/PerfilCristianAdmin";
 import { AnticipoGasto } from "../components/solicitudes/AnticipoGasto";
@@ -24,6 +23,7 @@ import { Register } from "../components/login/Register";
 import { Perfil } from "../components/perfiles/Perfil";
 import { AprobacionVacaciones } from "../ComponentsGerentes/AprobacionVacaciones";
 import { UserContext } from "../contexto/UserContext";
+import { SueldoContainer } from "../components/solicitudes/SueldoContainer";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -32,18 +32,18 @@ export const DashboardRoutes = ({ history }) => {
   return (
     <>
       <Sidebar />
-      <Switch>
-      <RouteEmpleado exact path="/sueldos" component={Sueldo} />
-      <RouteEmpleado exact path="/vacaciones" component={Vacaciones} />
-      <RouteEmpleado exact path="/anticipo/gastos" component={AnticipoGasto} />
-      </Switch>
+    
+      
       <div className={!open ? "contenedor" : "contenedor-active"}>
       <Switch>
       <RouteEmpleado exact path="/perfil" component={Perfil} />
         <RouteGerente exact path="/aprobacion/sueldo" component={AprobacionAntcipoSueldo}/>
         <RouteGerente exact path="/aprobacion/vacaciones" component={AprobacionVacaciones}/>
         <RouteGerente exact path="/register" component={Register}/>
-       
+         
+      <RouteEmpleado exact path="/sueldos" component={SueldoContainer} />
+      <RouteEmpleado exact path="/vacaciones" component={Vacaciones} />
+      <RouteEmpleado exact path="/anticipo/gastos" component={AnticipoGasto} />
        
         <RouteEmpleado exact path="/gastos" component={RendicionGastos} />
         <RouteEmpleado exact path="/editar/rendicion/:id" component={EditarRendicion}/>
@@ -56,6 +56,9 @@ export const DashboardRoutes = ({ history }) => {
         
 
         <Redirect to="/login" />
+      </Switch>
+      <Switch>
+        
       </Switch>
       </div>
     </>

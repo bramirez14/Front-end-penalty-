@@ -7,12 +7,14 @@ import { AiOutlineDelete } from "react-icons/ai";
 import axiosURL from "../config/axiosURL";
 import Swal from "sweetalert2";
 import "./css/aprob.css";
+import PeticionGET from "../config/PeticionGET";
 
 export const AprobacionVacaciones = () => {
     const Text = useContext(UserContext);
   const { open } = Text;
   const [data, setData] = useState([]);
   const { TextArea } = Input;
+  const N = localStorage.getItem("N");// numero de registro 
 
 
  const [mensaje, setMensaje] = useState({
@@ -57,13 +59,29 @@ const [state, setState] = useState({
         setVisible(false);
       };
       const aprobado = async () => {
-        await axiosURL.put(`/anticipo/aprobado/${vacacionesPendiente.id}`,mensaje);//trabajando
+        console.log(vacacionesPendiente.id);
+        N === "902"
+      ? await axiosURL.put(`/vacaciones/aprobado/${vacacionesPendiente.id}`, {
+          ...mensaje,
+          estadoFinal: "aprobado",
+          notificacion: "inactiva",
+          estado: "aprobado",
+        })
+      : await axiosURL.put(`/vacaciones/aprobado/${vacacionesPendiente.id}`, {
+          ...mensaje,
+          estado: "aprobado",
+        });
         setVisible(false);
         setMensaje({ respMensaje: "" });
         axiosGet();
       };
       const rechazado = async () => {
-        await axiosURL.put(`/anticipo/rechazado/${vacacionesPendiente.id}`,mensaje);// trabajando
+        await axiosURL.put(`/vacaciones/rechazado/${vacacionesPendiente.id}`,{
+          ...mensaje,
+          estado: "rechazado",
+          notificacion: "inactiva",
+          estadoFinal: "rechazado",
+        });// trabajando
         setVisible(false);
         setMensaje({ respMensaje: "" });
         axiosGet();
@@ -143,6 +161,12 @@ const [state, setState] = useState({
   };
 /**Columnas */
   const columns = [
+       {
+      title: "N° de solicitud",
+      dataIndex: "id",
+      key: "id",
+      ...getColumnSearchProps("id"),
+    },
 
       {
         title: "Nombre",
@@ -155,6 +179,12 @@ const [state, setState] = useState({
         dataIndex: "apellido",
         key: "apellido",
         ...getColumnSearchProps("apellido"),
+      },
+      {
+        title: "Departamento",
+        dataIndex: "departamento",
+        key: "departamento",
+        ...getColumnSearchProps("departamento"),
       },
     {
       title: 'Periodo',
@@ -224,6 +254,26 @@ const [state, setState] = useState({
         }
   
       },
+      { 
+    
+        title: N==='902' && "Aprobacion Final",
+        dataIndex: "estadoFinal",
+        key: "estadoFinal",
+        render: (estado, file) => {
+         
+          const color = () => {
+            switch (file.estadoFinal) {
+              case "pendiente":
+                return <h6 style={{ color: "yellow" }}> pendiente...</h6>;
+              case "aprobado":
+                return <h6 style={{ color: "green" }}> aprobado </h6>;
+              default:
+                return <h6 style={{ color: "red" }}> rechazado </h6>;
+            }
+          };
+          return <> { N=== '902' && color()}</>;
+        },
+      },
       {
         title: "Acciones",
         dataIndex: "acciones",
@@ -264,12 +314,36 @@ const [state, setState] = useState({
         },
       },
   ];
-  const datos = data?.map((f, i) => {
+
+   /**selecion de gerente  recordamos que Cristian Rios da el ok final*/
+   const gerentes = () => {
+    switch (N) {
+      case "901":
+        return data.filter(
+          (d) =>
+            d.usuario.departamentoId === 1 || d.usuario.departamentoId === 2
+        ); // aca filtramos por gerente 901 alias Esteban Ramos
+
+      case "902":
+        return data.filter(
+          (d) => d.usuario.departamentoId === 3 || d.estado === "aprobado"
+        ); // aca filtramos por gerente 902 Cristian Ramos
+
+      default:
+        break;
+    }
+  };
+  console.log(gerentes());
+  const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
+
+  const datos = gerentes()?.map((f) => {
+    let buscardtoId = dtos?.find((d) => d.id === f.usuario.departamentoId);//usuario filtrado por dto
     return {
       ...f,
       key: f.id,
       nombre: f.usuario.nombre,
       apellido: f.usuario.apellido,
+      departamento: buscardtoId?.departamento,
     };
   });
 
@@ -277,7 +351,7 @@ const [state, setState] = useState({
 
 
     return (
-        <div className={!open ? "contenedor-aprob" : "contenedor-aprob-active"}>
+      <>
             <Table columns={columns} dataSource={datos} />
             <Modal
         title="Anticipo de Vacaciones"
@@ -304,7 +378,6 @@ const [state, setState] = useState({
           />
         </section>
       </Modal>
-
-        </div>
+</>
     )
 }
