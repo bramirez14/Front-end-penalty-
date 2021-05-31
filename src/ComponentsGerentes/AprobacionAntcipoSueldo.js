@@ -160,9 +160,8 @@ export const AprobacionAntcipoSueldo = () => {
     {
       title: "N° de anticipo",
       dataIndex: "id",
-      key: "anticipo",
-
-      ...getColumnSearchProps("anticipo"),
+      key: "id",
+      ...getColumnSearchProps("id"),
     },
     {
       title: "Nombre",

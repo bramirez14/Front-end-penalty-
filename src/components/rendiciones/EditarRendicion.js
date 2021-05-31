@@ -39,7 +39,7 @@ console.log(id);
         } 
     }
     const editarRendicion = async () => {
-
+ 
          await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
        
 

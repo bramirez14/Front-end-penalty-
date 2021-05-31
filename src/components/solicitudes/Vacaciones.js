@@ -181,7 +181,7 @@ export const Vacaciones = ({ history }) => {
     return fechaFinal;
   };
 
-  console.log(vacaciones);
+  console.log(dias);
   return (
     <>
       <div className={!open ? "contenedor" : "contenedor-active"}>
@@ -225,7 +225,7 @@ export const Vacaciones = ({ history }) => {
                 />
               </Form.Item>
             </Col>
-            {dias ===0 ? (
+            {parseInt(dias) === 0 ? (
               <h2>Ya no tenes vacaciones pendientes!!! </h2>
             ):(
               <>

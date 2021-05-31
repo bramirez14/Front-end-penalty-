@@ -25,7 +25,7 @@ export const Login = ({ history }) => {
       "/login",
       user
     );
-    let tipo= result.data.user.tipousuario
+    let tipo= result.data.user?.tipousuario
     setErrores(result.data);
     if (!!result.data.user) {
       localStorage.setItem('uid', result.data.user.id);
