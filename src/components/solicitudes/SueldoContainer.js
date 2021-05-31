@@ -67,7 +67,7 @@ export const SueldoContainer = ({ history }) => {
   };
   /*********fx para guardar anticipo con axios en DB **********/
   const guardarAnticipo = async (values) => {
-    let result = await axiosURL.post("/anticipo", values);
+    let result = await axiosURL.post("/anticipo", {...values,estado:'pendiente',estadoFinal:'pendiente'});
     if (result.status === 200) {
       history.push("/");
     }

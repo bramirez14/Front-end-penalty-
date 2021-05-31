@@ -50,7 +50,7 @@ export const Item = ({ click, click2 }) => {
           
           <SubMenu
             title="Aprobaciones"
-            icon={<TiUser style={{ fontSize: "20px" }} />}
+            icon={<FaCheck />}
             style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
           >
              <MenuItem
@@ -63,6 +63,10 @@ export const Item = ({ click, click2 }) => {
               <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
               Aprobacion de Vacaciones
               <Link to="/aprobacion/vacaciones" />
+            </MenuItem>
+            <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+              Aprobacion de Gastos
+              <Link to="/aprobacion/gastos" />
             </MenuItem>
           </SubMenu>
           </>
@@ -87,6 +91,10 @@ export const Item = ({ click, click2 }) => {
               <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
               Aprobacion de Vacaciones
               <Link to="/aprobacion/vacaciones" />
+            </MenuItem>
+            <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+              Aprobacion de Gastos
+              <Link to="/aprobacion/gastos" />
             </MenuItem>
             </SubMenu>
           </>

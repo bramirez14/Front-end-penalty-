@@ -184,6 +184,12 @@ const [state, setState] = useState({
         title: "Departamento",
         dataIndex: "departamento",
         key: "departamento",
+        render:  (estado, file) => {
+          const Dto = dtos.find(d=> d.id===file.usuario?.departamentoId)
+          const DtoSelect= Dto?.departamento
+          return( <span style={{marginLeft:'10px'}}>{DtoSelect}</span>)
+  
+        },
         ...getColumnSearchProps("departamento"),
       },
     {
@@ -305,7 +311,7 @@ const [state, setState] = useState({
               confirmButtonText: "Borrar",
             });
             if (resultado.isConfirmed) {
-              await axiosURL.delete(`/borrar/anticipo/${fila.id}`);
+              await axiosURL.delete(`/vacaciones/borrar/${fila.id}`);
               Swal.fire("Borrado!", "Su archivo se borró con exito.", "success");
               axiosGet();
             }

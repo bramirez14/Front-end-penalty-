@@ -218,7 +218,7 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
     <>
         <Form
           {...layout}
-          className="form"
+          className={!open ? "form" : "form-active"}
           onFinish={handleSubmit}
           onChange={handleChange}
           size="large"

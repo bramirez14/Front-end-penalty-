@@ -129,7 +129,12 @@ export const CrearRendicion = ({ match, history }) => {
   const peticionGastoId = PeticionGET(`/gastos/${id}`)
   const todasLasRendicones = peticionGastoId?.rendicion
   const sumaGastos = todasLasRendicones?.map(sg => sg.importe)
-  const totalDeImporte = sumaGastos?.reduce((acumulador, item) => { return acumulador = parseFloat(acumulador) + parseFloat(item) })
+  let totalDeImporte;
+  if (sumaGastos?.length > 0) {
+    totalDeImporte = sumaGastos?.reduce((acumulador, item) => {
+      return (acumulador = parseFloat(acumulador) + parseFloat(item));
+    });
+  }
   const i = peticionGastoId?.importe
   const total = parseFloat(totalDeImporte) + parseFloat(importe)
 

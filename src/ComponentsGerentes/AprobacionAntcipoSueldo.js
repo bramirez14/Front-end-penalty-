@@ -170,6 +170,10 @@ export const AprobacionAntcipoSueldo = () => {
     clearFilters();
     setState({ searchText: "" });
   };
+
+  const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
+
+
   const columns = [
     {
       title: "N° de anticipo",
@@ -194,6 +198,13 @@ export const AprobacionAntcipoSueldo = () => {
       title: "Departamento",
       dataIndex: "departamento",
       key: "departamento",
+      render:  (estado, file) => {
+        const Dto = dtos.find(d=> d.id===file.usuario?.departamentoId)
+        const DtoSelect= Dto?.departamento
+        return( <span style={{marginLeft:'10px'}}>{DtoSelect}</span>)
+
+      },
+
       ...getColumnSearchProps("departamento"),
     },
     {
@@ -228,6 +239,7 @@ export const AprobacionAntcipoSueldo = () => {
       dataIndex: "estado",
       key: "estado",
       render: (estado, file) => {
+        console.log(file);
         const color = () => {
           switch (file.estado) {
             case "pendiente":
@@ -293,7 +305,7 @@ export const AprobacionAntcipoSueldo = () => {
             confirmButtonText: "Borrar",
           });
           if (resultado.isConfirmed) {
-            await axiosURL.delete(`/borrar/anticipo/${fila.id}`);
+            await axiosURL.delete(`/anticipo/borrar/${fila.id}`);
             Swal.fire("Borrado!", "Su archivo se borró con exito.", "success");
             axiosGet();
           }
@@ -313,6 +325,8 @@ export const AprobacionAntcipoSueldo = () => {
     (d) => d.usuario.departamentoI === 3 || d.estadoFinal === "aprobado"
   );
   console.log(filtroGerente902);
+
+
   /**selecion de gerente  recordamos que Cristian Rios da el ok final*/
   const gerentes = () => {
     switch (N) {
@@ -331,19 +345,15 @@ export const AprobacionAntcipoSueldo = () => {
         break;
     }
   };
-  console.log(gerentes());
-  const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
+
 
 
   const datos = gerentes()?.map((f) => {
-    console.log(dtos);
-    let buscardtoId = dtos?.find((d) => d.id === f.usuario.departamentoId);//usuario filtrado por dto
     return {
       ...f,
       key: f.id,
       nombre: f.usuario.nombre,
       apellido: f.usuario.apellido,
-      departamento: buscardtoId?.departamento,
     };
   });
 
