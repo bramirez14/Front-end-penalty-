@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./css/sidebar.css";
-import { Avatar } from "../img/Avatar";
+import { AvatarImg } from "../img/Avatar";
 import { Item } from "../items/Item";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
@@ -47,7 +47,7 @@ export const Sidebar = () => {
         <AiOutlineClose onClick={showSidebar} className="x" />
         <div className="sidebar-open">
           <div className="sidebar-img">
-            <Avatar />
+            <AvatarImg />
           </div>
           <div className="item">
             {" "}

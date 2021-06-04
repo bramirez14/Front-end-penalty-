@@ -10,8 +10,8 @@
 .ant-dropdown {
   left: 268px;
 }
-.contenedor-alerta {
-  width: 27%;
+ .contenedor-alerta {
+  width: 25%;
   background-color: white;
   position: absolute;
   top: 47px;
@@ -19,8 +19,9 @@
   border: solid 2px #ddd;
   height: auto;
 }
+
 .contenedor-alert-active {
-  width: 27%;
+  width: 25%;
   background-color: white;
   position: absolute;
   top: 50px;
@@ -29,7 +30,32 @@
   overflow-y: scroll;
   height: 500px;
 }
-.contenedor-item {
+.contenedor-item{
+  display: grid;
+  grid-template-columns: 10%  10% 70%;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "item item2 item3";
+    column-gap: 10px;
+  margin-bottom: 7px;
+}
+.circle{
+grid-area: item;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background-color: #46a461;
+margin: auto;
+}
+.item-icon{
+  grid-area: item2;
+margin-top: 21px;
+
+}
+.contenedor-inf{
+  grid-area: item3;
+}
+/*.contenedor-item {
   display: flex;
   flex-wrap: nowrap;
 
@@ -43,12 +69,14 @@
 }
 
 .circle {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #46a461;;
-  margin: auto;
+
 }
+.contenedor-inf{
+display: flex;
+flex-direction: column;
+width: 80%;
+
+} */
 
 /* barra scroll*/
 .contenedor-alerta::-webkit-scrollbar {

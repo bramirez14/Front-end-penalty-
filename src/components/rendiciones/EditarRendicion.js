@@ -164,7 +164,6 @@ console.log(id);
                                     type="file"
                                     name="photos"
                                     placeholder="Enter photos"
-                                    multiple
                                     id="filephotos"
                                     onChange={handleFileChange}
                                 />
