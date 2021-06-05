@@ -6,6 +6,8 @@
     height: auto;
     padding: 30px;
     margin-top: 58px;
+  background-color: #fff;
+
 }
 .contenedor-rendicion{
     transition: 1200ms;

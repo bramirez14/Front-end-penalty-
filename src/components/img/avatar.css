@@ -1,3 +1,7 @@
+body{
+    background: #f7f7f7;
+
+}
 #img{
  display: none;
 }
@@ -8,7 +12,7 @@
     width: 100px;
     height: 100px;
     position: relative;
-    margin-left: 84px;
+    margin-left: 82px;
     margin-top:44px;
     background:#fff;
 
