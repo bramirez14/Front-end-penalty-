@@ -1,5 +1,10 @@
 .icon-campana {
   font-size: 20px;
+  
+  color:#0F0F0F;
+}
+.icon-campana:hover{
+  color:#ddd;
 }
 .icon-bocina{
     font-size: 20px;
@@ -7,9 +12,7 @@
 .ant-badge-count {
   box-shadow: none;
 }
-.ant-dropdown {
-  left: 268px;
-}
+
  .contenedor-alerta {
   width: 25%;
   background-color: white;
@@ -55,28 +58,7 @@ margin-top: 21px;
 .contenedor-inf{
   grid-area: item3;
 }
-/*.contenedor-item {
-  display: flex;
-  flex-wrap: nowrap;
 
-  padding: 10px;
-}
-.item-icon {
-  width: 20%;
-}
-.item-despcription {
-  width: 70%;
-}
-
-.circle {
-
-}
-.contenedor-inf{
-display: flex;
-flex-direction: column;
-width: 80%;
-
-} */
 
 /* barra scroll*/
 .contenedor-alerta::-webkit-scrollbar {

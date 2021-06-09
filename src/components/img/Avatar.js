@@ -66,16 +66,11 @@ const verificar = PeticionGET(`/${id}`)
   return (
     <>
       <Form>
-        <div className="div-img">
-        <div ><img  className="div-img2" src={verificar.imagen} alt="" /></div>
+        <div className="div-img" >
+        <img className="div-img2"  src={verificar.imagen} alt="" />
           <TiUserAdd className="avatar" onClick={showModal} />
         </div>
-        <div className="persona">
-          {" "}
-          <span className="personaje">
-            {nombre} {apellido}
-          </span>
-        </div>
+       
 
         <Modal
           style={{ marginleft: "100px" }}

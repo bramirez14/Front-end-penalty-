@@ -1,6 +1,6 @@
 body{
-    background: #f7f7f7;
-
+    /* background: #f7f7f7; */
+   background: #f0f2f5; 
 }
 #img{
  display: none;
@@ -9,11 +9,11 @@ body{
     display: flex;
     flex-direction: column;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
     position: relative;
-    margin-left: 82px;
-    margin-top:44px;
+    margin-left: 57px;
+    margin-top:47px;
     background:#fff;
 
 }
@@ -32,17 +32,16 @@ body{
 }
 .div-img2{
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    
+    width: 140px;
+    height: 140px;
 }
 
 .avatar{
     border-radius: 50%;
-    font-size: 30px;
+    font-size: 34px;
     position: absolute;
-    top: 68px;
-    left: 64px;
+    top: 97px;
+    left: 102px;
 color:rgba(0, 0, 0, 0.7);
 background-color: rgb(223, 219, 219);
 padding: 2px;
