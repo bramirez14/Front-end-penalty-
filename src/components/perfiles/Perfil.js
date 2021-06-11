@@ -14,34 +14,12 @@ export const Perfil = ({ history }) => {
     loading:false,
     hasMore:true
   })
-  const handleLogout = async() => {
-    await axiosURL.put(`/cs/${id}`,{conectado:'NO'})
-    logout();
-    history.push("/login");
-  };
- /*  const pg= PeticionGET(`/${id}`)
-  console.log(pg.anticipo?.[0].estado==='aprobado');
-  if(pg.anticipo?.[0].estado==='aprobado'){
-
- 
-
-    notification.open({
-      message: 'Notification Title',
-      description:
-        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-      onClick: () => {
-        console.log('Notification Clicked!');
-      },
-    }); */
-  
-
     
 /* }, []) */
   return (
     <>
    
       {tipo === "Gerente" ? <PerfilCristianAdmin /> : <PerfilEmpleado />}
-      <Button onClick={handleLogout}>Salir</Button>
     </>
   );
 };

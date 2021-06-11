@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import { Badge, Button } from "antd";
 import { FaBell } from "react-icons/fa";
 import { FaBullhorn } from "react-icons/fa";
@@ -8,7 +8,34 @@ import "./alerta.css";
 import PeticionGET from "../../config/PeticionGET";
 import axiosURL from "../../config/axiosURL";
 import {  run } from "../helper/funciones";
+/**Cierra cuadno clickeas fuera del div */
+let useClickOutside = (handler) => {
+  let domNode = useRef();
+console.log(handler);
+  useEffect(() => {
+    let maybeHandler = (event) => {
+     console.log(!domNode.current.contains(event.target))
+      if (!domNode.current.contains(event.target)) {
+        handler();
+      }
+    };
+
+    document.addEventListener("mousedown", maybeHandler);
+
+    return () => {
+      document.removeEventListener("mousedown", maybeHandler);
+    };
+  });
+
+  return domNode;
+};
+
 export const Alerta = () => {
+  let [isOpen, setIsOpen] = useState(false);
+  let domNode = useClickOutside(() => {
+    setIsOpen(false);
+  });
+console.log(domNode);
   const [state, setState] = useState(false);
   const [toggle, setToggle] = useState(false);
   /* alerta de anticipo */
@@ -48,18 +75,13 @@ export const Alerta = () => {
       </div>
     </div>
   ));
-/**Cierra cuadno clickeas fuera del div */
-/* document.addEventListener('click',(e)=>{
-  console.log(e.target.d);
-  if( e.target.className != "ant-btn"){setToggle(false)}else{ 
-   setToggle(true)
-  } 
-  }) */
  
   return (
     <>
+
       <Button
-        onClick={openNotification}
+       onClick={() => setIsOpen((isOpen) => !isOpen)}
+       ref={domNode}
         style={{ backgroundColor: "transparent", border:'none'}}
       >
         <Badge count={state === true ? 0 : number} >
@@ -70,7 +92,7 @@ export const Alerta = () => {
         </Badge>
       </Button>
 
-      {toggle === true && (
+      {isOpen === true && (
         <div
           className={
             number < 5 ? "contenedor-alerta" : "contenedor-alert-active"
@@ -79,6 +101,7 @@ export const Alerta = () => {
           {content}
         </div>
       )}
+    
     </>
   );
 };

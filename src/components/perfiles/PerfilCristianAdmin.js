@@ -1,4 +1,4 @@
-import React, { useState,useContext, useEffect } from "react";
+import React, { useState,useContext, useEffect,useRef } from "react";
 import { Drawer, List, Avatar, Divider, Col,Row,Card} from "antd";
 import "./css/perfiles.css";
 
@@ -7,7 +7,14 @@ import "./css/perfiles.css";
 import axiosURL from "../../config/axiosURL";
 import PeticionGET from "../../config/PeticionGET";
 
+
+
+
+
+
 export const PerfilCristianAdmin = ({ history }) => {
+ 
+
   const [visible, setVisible] = useState(false)
   const [DatosPersonales, setDatosPersonales] = useState({})
  
