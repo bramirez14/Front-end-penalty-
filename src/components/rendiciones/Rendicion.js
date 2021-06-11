@@ -18,11 +18,7 @@ export const Rendicion = ({ history }) => {
           <Tabla />
         </Col>
       </Row>
-      {/* <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} offset={18}>
-        <Form.Item>
-          <Button>Submit</Button>
-        </Form.Item>
-      </Col> */}
+    
     </Form>
   );
 };

@@ -1,0 +1,81 @@
+.icon-campana {
+  font-size: 20px;
+}
+.icon-bocina{
+    font-size: 20px;
+}
+.ant-badge-count {
+  box-shadow: none;
+}
+.ant-dropdown {
+  left: 268px;
+}
+.contenedor-alerta {
+  width: 27%;
+  background-color: white;
+  position: absolute;
+  top: 47px;
+  right: 50px;
+  border: solid 2px #ddd;
+  height: auto;
+}
+.contenedor-alert-active {
+  width: 27%;
+  background-color: white;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  border: solid 2px #ddd;
+  overflow-y: scroll;
+  height: 500px;
+}
+.contenedor-item {
+  display: flex;
+  flex-wrap: nowrap;
+
+  padding: 10px;
+}
+.item-icon {
+  width: 20%;
+}
+.item-despcription {
+  width: 70%;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #46a461;;
+  margin: auto;
+}
+
+/* barra scroll*/
+.contenedor-alerta::-webkit-scrollbar {
+  width: 7px; /* Tamaño del scroll en vertical */
+  /* height: 8px;     Tamaño del scroll en horizontal */
+}
+.contenedor-alerta::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 4px;
+}
+
+.contenedor-alerta::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+}
+
+/* Cambiamos el fondo cuando esté en active */
+.contenedor-alerta::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+/* Ponemos un color de fondo y redondeamos las esquinas del track */
+.contenedor-alerta::-webkit-scrollbar-track {
+  background: #bdbdbd;
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo cuando esté en active o hover */
+.contenedor-alerta::-webkit-scrollbar-track:hover,
+.contenedor-alerta::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}

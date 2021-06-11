@@ -128,7 +128,7 @@ console.log(id);
             <Row>
                
                     <Form onFinish={handleSubmit} onChange={handleChange} layout='vertical' className='formulario-rendicion'>
-                        <h5 style={{ textAlign: "center", marginLeft: '40px' }}> Editar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
+                        <h5 style={{ textAlign: "center", marginLeft: '32px' }}> Editar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
                         <Divider />
                         <Form.Item label='Categoria'>
                             <Select value={categoria} onChange={onChange}>

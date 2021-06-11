@@ -8,6 +8,7 @@ export const PeticionJWT = () => {
     let id= (localStorage.getItem("uid"));
  
     let tipo= (localStorage.getItem("type"));
+    let N = localStorage.getItem('N')
 
     const [tokenEstado, setTokenEstado] = useState({});
 
@@ -22,8 +23,9 @@ export const PeticionJWT = () => {
           let noHay=(datosJWT.data==='No hay token')
           let ID=(id===idDB?.toString())
           let TIPO=(tipo===tipoDB)
+          let Numvend=(datosJWT.data.nvendedor===N)
           if(ID===false){logout()}
-        if(ok===true || noHay===true  || TIPO===false){logout()}
+        if(ok===true || noHay===true  || TIPO===false || Numvend===false){logout()}
           setTokenEstado(datosJWT.data);
         };
         cargarUsuario();

@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../logoPenalty-remove.png";
-import { Card, Row, Col, Form} from "antd";
+import { Row, Col} from "antd";
 import "./css/encabezado.css";
 
 export const Encabezado = () => {

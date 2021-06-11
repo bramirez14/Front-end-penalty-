@@ -8,11 +8,13 @@ import { BsCheck } from "react-icons/bs";
 import axiosURL from "../config/axiosURL";
 import Swal from "sweetalert2";
 import "./css/aprob.css";
+import PeticionGET from "../config/PeticionGET";
 
 export const AprobacionAntcipoSueldo = () => {
-  const [anticipoPendiente, setAnticipoPendiente] = useState();
+  const N = localStorage.getItem("N");// numero de registro 
+  const [anticipoPendiente, setAnticipoPendiente] = useState();//estado de a fn 
   const [data, setData] = useState([]);
-  const Text = useContext(UserContext);
+  const Text = useContext(UserContext);// useContext 
   const [mensaje, setMensaje] = useState({
     respMensaje: "",
     estado: "",
@@ -24,6 +26,7 @@ export const AprobacionAntcipoSueldo = () => {
   const { open } = Text;
   const { TextArea } = Input;
   const searchInput = useRef("");
+  /** peticion get trae todo los anticipos  */
   const axiosGet = async () => {
     let result = await axiosURL.get("/anticipo");
     setData(result.data);
@@ -32,7 +35,7 @@ export const AprobacionAntcipoSueldo = () => {
     axiosGet();
   }, []);
 
-  /**modal*/
+  /***** modal ******/
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -52,11 +55,19 @@ export const AprobacionAntcipoSueldo = () => {
     console.log("Clicked cancel button");
     setVisible(false);
   };
+
   const aprobado = async () => {
-    await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
-      ...mensaje,
-      estado: "aprobado",
-    });
+    N === "902"
+      ? await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
+          ...mensaje,
+          estadoFinal: "aprobado",
+          notificacion: "inactiva",
+          estado: "aprobado",
+        })
+      : await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
+          ...mensaje,
+          estado: "aprobado",
+        });
     setVisible(false);
     setMensaje({ respMensaje: "" });
     axiosGet();
@@ -65,17 +76,20 @@ export const AprobacionAntcipoSueldo = () => {
     await axiosURL.put(`/anticipo/rechazado/${anticipoPendiente.id}`, {
       ...mensaje,
       estado: "rechazado",
+      notificacion: "inactiva",
+      estadoFinal: "rechazado",
     });
     setVisible(false);
     setMensaje({ respMensaje: "" });
     axiosGet();
   };
-  /**fin modal */
-  const handleChange = (e) => {
+  /***** fin modal *****/
+
+  const handleChange = (e) => { // para registrar los cambios del formulario 
     const { name, value } = e.target;
     setMensaje({ ...mensaje, [name]: value });
   };
-  /*table*/
+  /***** table *****/
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -156,6 +170,10 @@ export const AprobacionAntcipoSueldo = () => {
     clearFilters();
     setState({ searchText: "" });
   };
+
+  const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
+
+
   const columns = [
     {
       title: "N° de anticipo",
@@ -174,6 +192,19 @@ export const AprobacionAntcipoSueldo = () => {
       dataIndex: "apellido",
       key: "apellido",
       ...getColumnSearchProps("apellido"),
+    },
+    {
+      title: "Departamento",
+      dataIndex: "departamento",
+      key: "departamento",
+      render:  (estado, file) => {
+        const Dto = dtos.find(d=> d.id===file.usuario?.departamentoId)
+        const DtoSelect= Dto?.departamento
+        return( <span style={{marginLeft:'10px'}}>{DtoSelect}</span>)
+
+      },
+
+      ...getColumnSearchProps("departamento"),
     },
     {
       title: "Devolucion",
@@ -206,27 +237,41 @@ export const AprobacionAntcipoSueldo = () => {
       title: "Estado",
       dataIndex: "estado",
       key: "estado",
-      render: (estado,file) =>{
-        
-        const color =()=>{
-          console.log(file.estado);
+      render: (estado, file) => {
+        console.log(file);
+        const color = () => {
           switch (file.estado) {
-            case 'pendiente':
-              return(<h6 style={{color:'yellow'}}> pendiente...</h6> )
-              case 'aprobado':
-           return (<h6 style={{color:'green'}}> aprobado </h6>)
-            default: 
-            return(<h6 style={{color:'red'}}> rechazado </h6>)
-          }}
-       return(
-         <>
-         {
-           color()
-         }
-         </>
-       )
-      }
-
+            case "pendiente":
+              return <h6 style={{ color: "yellow" }}> pendiente...</h6>;
+            case "aprobado":
+              return <h6 style={{ color: "green" }}> aprobado </h6>;
+            default:
+              return <h6 style={{ color: "red" }}> rechazado </h6>;
+          }
+        };
+        return <>{color()}</>;
+      },
+    },
+   
+    { 
+    
+      title: N==='902' && "Aprobacion Final",
+      dataIndex: "estadoFinal",
+      key: "estadoFinal",
+      render: (estado, file) => {
+       
+        const color = () => {
+          switch (file.estadoFinal) {
+            case "pendiente":
+              return <h6 style={{ color: "yellow" }}> pendiente...</h6>;
+            case "aprobado":
+              return <h6 style={{ color: "green" }}> aprobado </h6>;
+            default:
+              return <h6 style={{ color: "red" }}> rechazado </h6>;
+          }
+        };
+        return <> { N=== '902' && color()}</>;
+      },
     },
     {
       title: "Acciones",
@@ -235,8 +280,8 @@ export const AprobacionAntcipoSueldo = () => {
       render: (f, fila) => {
         return (
           <>
-            <Button className='btn-aprob' onClick={() => showModal(fila)}>
-                  <BsCheck/>
+            <Button className="btn-aprob" onClick={() => showModal(fila)}>
+              <BsCheck />
             </Button>
           </>
         );
@@ -259,16 +304,50 @@ export const AprobacionAntcipoSueldo = () => {
             confirmButtonText: "Borrar",
           });
           if (resultado.isConfirmed) {
-            await axiosURL.delete(`/borrar/anticipo/${fila.id}`);
+            await axiosURL.delete(`/anticipo/borrar/${fila.id}`);
             Swal.fire("Borrado!", "Su archivo se borró con exito.", "success");
             axiosGet();
           }
         };
-        return <Button className='btn-aprob' onClick={handleDelete}> <AiOutlineDelete/> </Button>;
+        return (
+          <Button className="btn-aprob" onClick={handleDelete}>
+            {" "}
+            <AiOutlineDelete />{" "}
+          </Button>
+        );
       },
     },
   ];
-  const datos = data?.map((f, i) => {
+/****** fin de table *****/
+
+  const filtroGerente902 = data.filter(
+    (d) => d.usuario.departamentoI === 3 || d.estadoFinal === "aprobado"
+  );
+  console.log(filtroGerente902);
+
+
+  /**selecion de gerente  recordamos que Cristian Rios da el ok final*/
+  const gerentes = () => {
+    switch (N) {
+      case "901":
+        return data.filter(
+          (d) =>
+            d.usuario.departamentoId === 1 || d.usuario.departamentoId === 2
+        ); // aca filtramos por gerente 901 alias Esteban Ramos
+
+      case "902":
+        return data.filter(
+          (d) => d.usuario.departamentoId === 3 || d.estado === "aprobado"
+        ); // aca filtramos por gerente 902 Cristian Ramos
+
+      default:
+        break;
+    }
+  };
+
+
+
+  const datos = gerentes()?.map((f) => {
     return {
       ...f,
       key: f.id,
@@ -278,7 +357,7 @@ export const AprobacionAntcipoSueldo = () => {
   });
 
   return (
-    <div className={!open ? "contenedor-aprob" : "contenedor-aprob-active"}>
+    <>
       <Table columns={columns} dataSource={datos} />
       <Modal
         title="Anticipo de Sueldo"
@@ -305,6 +384,7 @@ export const AprobacionAntcipoSueldo = () => {
           />
         </section>
       </Modal>
-    </div>
+      </>
   );
 };
+// falta acomodar  y distribuir en varios estados

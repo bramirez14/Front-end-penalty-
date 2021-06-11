@@ -3,7 +3,6 @@ import { Route, Redirect } from "react-router";
 import { gerente, isLogged, employee} from "../auth/localStorage";
 
 export const RouteEmpleado = (props) => {
-  console.log(gerente(), isLogged());
 
   return (
     <>

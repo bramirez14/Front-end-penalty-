@@ -1,12 +1,3 @@
-.contenedor-aprob{
-    transition: 1200ms;
-    margin-top:30px;
-}
-.contenedor-aprob-active{
-    padding-left: 270px;
-    transition: 700ms;
-    margin-top:30px;
-}
 .span{
     color:rgb(167, 163, 163);
 }

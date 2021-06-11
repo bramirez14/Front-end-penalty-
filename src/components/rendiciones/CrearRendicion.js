@@ -7,6 +7,7 @@ import PeticionGET from "../../config/PeticionGET";
 import { categorias } from "./categorias";
 import { VistaImg } from "./VistaImg";
 
+
 export const CrearRendicion = ({ match, history }) => {
   const { id } = match.params;
 
@@ -128,13 +129,15 @@ export const CrearRendicion = ({ match, history }) => {
   const peticionGastoId = PeticionGET(`/gastos/${id}`)
   const todasLasRendicones = peticionGastoId?.rendicion
   const sumaGastos = todasLasRendicones?.map(sg => sg.importe)
-  const totalDeImporte = sumaGastos?.reduce((acumulador, item) => { return acumulador = parseFloat(acumulador) + parseFloat(item) })
+  let totalDeImporte;
+  if (sumaGastos?.length > 0) {
+    totalDeImporte = sumaGastos?.reduce((acumulador, item) => {
+      return (acumulador = parseFloat(acumulador) + parseFloat(item));
+    });
+  }
   const i = peticionGastoId?.importe
   const total = parseFloat(totalDeImporte) + parseFloat(importe)
-console.log(total);
-console.log(i);
-console.log(totalDeImporte);
-console.log();
+
 
   /**Submit */
   const handleSubmit = () => {
@@ -156,7 +159,7 @@ console.log();
           {...estilo}
           size='large'
         >
-          <h5 style={{ textAlign: "center", marginLeft: '40px' }}> Agregar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
+          <h5 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
           <Divider />
           <Form.Item name="categoria">
             <Select placeholder="Categoria" onChange={selectChange} >

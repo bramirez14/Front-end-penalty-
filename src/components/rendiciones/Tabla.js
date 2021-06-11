@@ -29,9 +29,6 @@ export const Tabla = ({
   const showModal = () => setVisible(true);
   const showModalEditar = () => setVisibleEditar(true);
 
-
-
-
   const handleOk = () => {
     setLoading(true);
     setTimeout(() => {
@@ -54,8 +51,11 @@ export const Tabla = ({
     showModalEditar();
   }
 
-
-
+  const gastos= PeticionGET(`/${id}`);
+  console.log(gastos.gasto?.[gastos?.gasto?.length-1]?.estadoFinal);
+  const APROBACION = gastos.gasto?.[gastos?.gasto?.length-1]?.estadoFinal
+console.log(APROBACION);
+ 
   const columns = [
     {
       title: "N° de Rendicion",
@@ -96,7 +96,9 @@ export const Tabla = ({
       ),
     },
   ];
-  const filas = filtradoUsuariosConMediosDePago?.map((f, i) => {
+  const filasFiltradas = filtradoUsuariosConMediosDePago?.filter(f=>f.estadoFinal==='aprobado')
+
+  const filas = filasFiltradas?.map((f, i) => {
     return {
       ...f,
       item: i + 1,

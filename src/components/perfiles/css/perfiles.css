@@ -1,9 +1,12 @@
 .contenedor{
     transition: 1200ms;
-    margin-top:30px;
+    padding-top:47px;
+    height: auto;
+
 }
 .contenedor-active{
     padding-left: 280px;
     transition: 700ms;
-    margin-top:30px;
+    padding-top:47px;
+ 
 }

@@ -38,8 +38,10 @@ export const AnticipoGasto = ({ history }) => {
 
   ;
   /*fx para guardar anticipo con axios en DB **********/
+  const tipo = localStorage.getItem('type')
+
   const guardarAnticipo = async (values) => {
-    const v = { ...values, fecha, usuarioId }
+    const v = { ...values, fecha, usuarioId,estado:'pendiente',estadoFinal:'pendiente'}
     let result = await axiosURL.post("/mpago", v);
     if (result.status === 200) {
       history.push("/");
@@ -50,8 +52,8 @@ export const AnticipoGasto = ({ history }) => {
     guardarAnticipo(values)
   };
   return (
-    <div className={!open ? "contenedor" : "contenedor-active"} >
-      <Form className="form" onFinish={onSubmit} size='large'>
+      
+      <Form className={!open ? "form" : "form-active"} onFinish={onSubmit} size='large'>
         <Row gutter={10}>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Titulo titulo="Anticipo de Gastos" />
@@ -101,6 +103,5 @@ export const AnticipoGasto = ({ history }) => {
           </Col>
         </Row>
       </Form>
-    </div>
   );
 };

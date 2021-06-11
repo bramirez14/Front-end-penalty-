@@ -1,7 +1,4 @@
 import React, { useState, useContext } from "react";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import { Link } from "react-router-dom";
 import "./css/sidebar.css";
 import { Avatar } from "../img/Avatar";
 import { Item } from "../items/Item";
@@ -9,6 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { UserContext } from "../../contexto/UserContext";
 import { PeticionJWT } from "../../auth/PeticionJWT";
+import { Alerta } from "../alertas/Alerta";
 
 export const Sidebar = () => {
   const mediaqueryList = window.matchMedia("(max-width: 576px)");
@@ -17,8 +15,9 @@ export const Sidebar = () => {
   const { open, setOpen } = Sidebar;
   const showSidebar = () => setOpen(!open);
   const showSidebar2 = () => setOpen(open);
+  console.log(open);
   const get= PeticionJWT()
-  const {nombre,apellido}=get
+  const {nombre,apellido,nvendedor}=get
   return (
     <>
       {q ? (
@@ -27,16 +26,20 @@ export const Sidebar = () => {
         ""
       )}
 
-      <div
-        className={open ? "navbar active" : "navbar"}
-
-      >
+      <div className={open ? "navbar active" : "navbar"}>
         {/*importante para los iconos y para las alertas  de arriba de todo*/}
 
         <div to="#" className="menu-bars">
           <GiHamburgerMenu onClick={showSidebar} className="hamburguesa" />
         </div>
-        <div className='datosPersonales'> <span> {nombre} {apellido} </span></div>
+       
+      <div className='datosPersonales'> 
+        <Alerta/>
+      <span className='nombreCompleto'>
+           {nombre} {apellido} 
+      </span>
+           
+    </div>
           
       </div>
 

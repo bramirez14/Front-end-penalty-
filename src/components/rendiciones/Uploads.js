@@ -1,66 +1,44 @@
-import React,{Component} from 'react'
-import { Modal, Button } from 'antd';
+import React from 'react'
+import { Select } from 'antd';
+export const Uploads = () => {
+  const { Option } = Select;
 
-export class Uploads extends Component {
-  state = {
-    loading: false,
-    visible: false,
-  };
-
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  handleOk = () => {
-    this.setState({ loading: true });
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-    }, 3000);
-  };
-
-  handleCancel = () => {
-    this.setState({ visible: false });
-  };
-
-  render() {
-    const { visible, loading } = this.state;
-    return (
-      <>
-        <Button type="primary" onClick={this.showModal} style={{ marginTop:'70px'}}>
-          Open Modal with customized footer
-        </Button>
-        <Modal 
-          visible={visible}
-          title="Title"
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          footer={[
-            <Button key="back" onClick={this.handleCancel}>
-              Return
-            </Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-              Submit
-            </Button>,
-            <Button
-              key="link"
-              href="https://google.com"
-              type="primary"
-              loading={loading}
-              onClick={this.handleOk}
-            >
-              Search on Google
-            </Button>,
-          ]}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
-      </>
-    );
+  function onChange(value) {
+    console.log(`selected ${value}`);
   }
+  
+  function onBlur() {
+    alert('blur');
+  }
+  
+  function onFocus() {
+    console.log('focus');
+  }
+  
+  function onSearch(val) {
+    console.log('search:', val);
+  }
+  return (
+    <Select
+    showSearch
+    style={{ width: 200 }}
+    placeholder="Select a person"
+    optionFilterProp="children"
+    onChange={onChange}
+    onFocus={onFocus}
+    onBlur={onBlur}
+    onSearch={onSearch}
+    filterOption={(input, option) =>
+      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+    }
+    style={{marginLeft:'800px',marginTop:'400px'}}
+  >
+      <Option value="jack">Jack</Option>
+      <Option value="lucy">Lucy</Option>
+      <Option value="disabled" disabled>
+        Disabled
+      </Option>
+      <Option value="Yiminghe">yiminghe</Option>
+    </Select>
+  )
 }
