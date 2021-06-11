@@ -1,12 +1,31 @@
+.contenedore{
+    padding:14px;
+}
 .contenedor{
     transition: 1200ms;
-    padding-top:47px;
+    padding-top:57px;
     height: auto;
+    padding-right:10px;
+
 
 }
 .contenedor-active{
     padding-left: 280px;
     transition: 700ms;
-    padding-top:47px;
- 
+    padding-top:57px;
+    padding-right: 10px;
+    
+}
+/*Border de las Card*/
+.ant-card-bordered{
+    border-radius: 20px;
+}
+.conectado{
+    color:rgba(0, 0, 0, 0.45);
+    margin-left: 70px;
+}
+.lista{
+    border-radius:20px;
+    background: white;
+    border:none;
 }

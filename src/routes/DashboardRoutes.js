@@ -32,7 +32,7 @@ export const DashboardRoutes = ({ history }) => {
 
   return (
     <>
-      <Sidebar />
+      <Sidebar history={history} />
     
       
       <div className={!open ? "contenedor" : "contenedor-active"}>

@@ -63,6 +63,7 @@ export const AprobacionAntcipoSueldo = () => {
           estadoFinal: "aprobado",
           notificacion: "inactiva",
           estado: "aprobado",
+          f:new Date().toLocaleString()
         })
       : await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
           ...mensaje,

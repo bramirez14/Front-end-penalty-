@@ -6,6 +6,8 @@
   padding: 12px;
   overflow-y: scroll;
   height: 90vh;
+  background-color: #fff;
+
 
  
 }
@@ -16,6 +18,8 @@
   padding: 12px;
   /* overflow-y: scroll; */
   height: 92.5vh;
+  background-color: #fff;
+
  
 }
 .formulario-rendicion::-webkit-scrollbar {

@@ -50,13 +50,53 @@
   margin-right: 40px;
 }
 .nombreCompleto{
-  margin-left: 27px;
+ color: #0F0F0F;
+}
+.nombreCompleto:hover{
+ color : #ddd
+}
+#drop{
+  position: absolute;
+  top:58px;
+  right: 20px;
+  background:#fff;
+   box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
+   border-radius: 20px;
+   width: 14%;
+   height: auto;
+ 
 }
 
+.contenedor-drop{
+  display: grid;
+  grid-template-columns: 30%  70%;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "item item2 ";
+    column-gap: 10px;
+  margin-bottom: 7px;
+  padding:10px;
+}
+.drop-icon{
+  grid-area: item;
+  margin: auto;
+  border-radius: 50%;
+  background:rgb(209, 208, 208) ;
+  width: 27px;
+  height: 27px;
+}
+.drop-text{
+  grid-area: item2;
+}
 .nav-menu.active {
   left: 0;
   transition: 700ms;
   z-index: 9999;
+}
+.boton-drop{
+  border:none;
+  background: none;
+  
 }
 
 .nav-text {
@@ -88,6 +128,7 @@
 .nav-menu-items {
   width: 100%;
 }
+
 
 .navbar-toggle {
   background-color: #46a461;

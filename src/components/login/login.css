@@ -47,6 +47,7 @@ h1{
   border-radius: 1rem;
   height: 420px;
   box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
+  background: white;
 }
 .form__title{
   font-weight: 400;

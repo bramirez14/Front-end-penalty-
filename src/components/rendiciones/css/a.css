@@ -1,0 +1,17 @@
+
+.pro-sidebar .pro-menu{
+       height: 80vh;
+       background: #46a461;
+    
+   } 
+   .pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item > .pro-icon-wrapper .pro-icon
+{   display: flex;
+   height: 100%;
+   align-items: center;
+   justify-content: center;
+   background: #46a461;
+}
+
+.pro-sidebar > .pro-sidebar-inner > .pro-sidebar-layout .pro-sidebar-header{
+    margin-top:12px
+}

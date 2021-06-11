@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Col, Row, Card, Select, Divider } from "antd";
+import { Form, Input, Button, Col, Row, Card, Select, Divider, notification } from "antd";
 
 import TextArea from "antd/lib/input/TextArea";
 import PeticionGET from "../../config/PeticionGET";
@@ -21,6 +21,11 @@ export const RendicionSinAnticipo = ({ history }) => {
     deleteId: [],
     usuarioId: id,
     formapagoId: "1",
+    sinAnticipo:"sin",
+    estado:'aprobado',
+    estadoFinal:'aprobado',
+    notificacion:'inactiva'
+    
   });
   const {
     notas,
@@ -30,6 +35,10 @@ export const RendicionSinAnticipo = ({ history }) => {
     fecha,
     usuarioId,
     formapagoId,
+    sinAnticipo,
+    estado,
+    estadoFinal,
+    notificacion,
   } = crearRendicion;
   const { Meta } = Card;
   const agregar = async () => {
@@ -41,8 +50,12 @@ export const RendicionSinAnticipo = ({ history }) => {
     f.append("fecha", fecha);
     f.append("usuarioId", usuarioId);
     f.append("formapagoId", formapagoId);
+    f.append('sinAnticipo',sinAnticipo);
+    f.append('estado',estado);
+    f.append('estadoFinal',estadoFinal)
+    f.append('notificacion',notificacion)
 
-    let result = await axiosURL.post("/gasto/rendicion", f);
+    let result = await axiosURL.post("/gasto/rendicion", f );
     if (result.data) {
       history.push("/gastos");
     }
@@ -152,6 +165,7 @@ const handleBack=()=> history.push("/gastos");
           {...estilo}
           size='large'
         >
+       
          <h5 style={{ textAlign: "center",marginLeft:'40px'}}> Agregar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5> 
           
           <Divider/>
