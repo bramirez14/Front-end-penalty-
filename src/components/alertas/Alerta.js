@@ -48,16 +48,25 @@ export const Alerta = () => {
       </div>
     </div>
   ));
-
+/**Cierra cuadno clickeas fuera del div */
+/* document.addEventListener('click',(e)=>{
+  console.log(e.target.d);
+  if( e.target.className != "ant-btn"){setToggle(false)}else{ 
+   setToggle(true)
+  } 
+  }) */
+ 
   return (
     <>
       <Button
         onClick={openNotification}
-        style={{ backgroundColor: "transparent", border: "none" }}
+        style={{ backgroundColor: "transparent", border:'none'}}
       >
-        <Badge count={state === true ? 0 : number}>
+        <Badge count={state === true ? 0 : number} >
           <span className="head-example" />
-          <FaBell className="icon-campana" />
+          
+       <FaBell className='icon-campana'/>
+     
         </Badge>
       </Button>
 

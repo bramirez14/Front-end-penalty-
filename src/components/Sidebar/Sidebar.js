@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect,useRef } from "react";
 import "./css/sidebar.css";
 import { AvatarImg } from "../img/Avatar";
 import { Item } from "../items/Item";
@@ -8,10 +8,12 @@ import { UserContext } from "../../contexto/UserContext";
 import { PeticionJWT } from "../../auth/PeticionJWT";
 import { Alerta } from "../alertas/Alerta";
 import { Dropdown, Menu } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
 import { ImExit } from "react-icons/im";
 import axiosURL from "../../config/axiosURL";
 import { logout } from "../../auth/localStorage";
+
+
 
 export const Sidebar = ({history}) => {
   const [state, setState] = useState(false);
@@ -28,8 +30,13 @@ export const Sidebar = ({history}) => {
  
   const onBlur = () => setState(!state);
 
-  const toggle = () => setState(!state);
-
+  const toggle = (e) => setState(!state)
+/**Cierra cuadno clickeas fuera del div */
+document.addEventListener('click',(e)=>{
+    if(e.target.className!='nombreCompleto'){setState(false)}else{
+     setState(true)
+    } 
+    })
   const handleLogout = async() => {
     await axiosURL.put(`/cs/${id}`,{conectado:'NO'})
     console.log('holaaa');
@@ -54,25 +61,18 @@ export const Sidebar = ({history}) => {
         <div className="datosPersonales">
           <Alerta />
 
-          <span className="nombreCompleto">
-            {nombre} {apellido}{" "}
-            <DownOutlined
-              style={{ fontSize: 12 }}
-              onClick={toggle}
-              /* onBlur={onBlur} */
-            />
+          <span  onClick={toggle} className="nombreCompleto">
+            {nombre} {apellido} <CaretDownOutlined  />
           </span>
           {state === true && (
             <>
-          
-
-            <div className="drop">
+            <div id="drop" >
               <div className="contenedor-drop">
                 <div className="drop-icon">
                   <ImExit style={{marginLeft:7}}/>
                 </div>
                 <div className="drop-text">
-                <button className='boton-drop'  onClick={handleLogout}>Salir</button >
+                <button className='boton-drop' onClick={handleLogout}>Salir</button >
                 </div>
               </div>
               <div className="contenedor-drop">
@@ -96,7 +96,6 @@ export const Sidebar = ({history}) => {
           )}
         </div>
       </div>
-
       <nav className={open ? "nav-menu active" : "nav-menu"}>
         <AiOutlineClose onClick={showSidebar} className="x" />
         <div className="sidebar-open">

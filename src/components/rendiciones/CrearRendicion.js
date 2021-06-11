@@ -141,11 +141,12 @@ export const CrearRendicion = ({ match, history }) => {
 
   /**Submit */
   const handleSubmit = () => {
+    if(peticionGastoId?.sinAnticipo!=='sin'){
     if (total > i) {
       alert('El importe no puede  superar el monto del anticipo ')
     } else {
       agregar();
-    }
+    }}else{agregar()}
   };
   /**Fin Submit */
   return (

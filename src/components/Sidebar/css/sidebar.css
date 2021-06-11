@@ -55,7 +55,7 @@
 .nombreCompleto:hover{
  color : #ddd
 }
-.drop{
+#drop{
   position: absolute;
   top:58px;
   right: 20px;

@@ -37,12 +37,17 @@ export const ListaRendiciones = ({ match, history }) => {
        saveAs(pdfBlob, 'penaltyIntranet.pdf');
      }) */
   };
+  console.log(peticionGastoId.sinAnticipo);
   const onClick = () => {
+    if(peticionGastoId?.sinAnticipo!=='sin'){
     if (totalDeImporte >= importe) {
       alert("ya no podes seguir agregando ");
     } else {
       history.push(`/crear/rendicion/${id}`);
     }
+  }else{
+    history.push(`/crear/rendicion/${id}`);
+  }
   };
   return (
     <div className="contenedor-form">
