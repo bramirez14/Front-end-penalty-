@@ -79,10 +79,10 @@ export const Sidebar = ({history}) => {
           <GiHamburgerMenu onClick={showSidebar} className="hamburguesa" />
         </div>
 
-        <div className="datosPersonales" ref={domNode}>
+        <div className="datosPersonales" >
           <Alerta />
 
-          <span    onClick={() => setIsOpen((isOpen) => !isOpen)}className="nombreCompleto">
+          <span   ref={domNode} onClick={() => setIsOpen((isOpen) => !isOpen)}className="nombreCompleto">
             {nombre} {apellido} <CaretDownOutlined  />
           </span>
           {isOpen === true && (

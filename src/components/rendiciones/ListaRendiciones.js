@@ -49,6 +49,7 @@ export const ListaRendiciones = ({ match, history }) => {
     history.push(`/crear/rendicion/${id}`);
   }
   };
+  console.log(totalDeImporte);
   return (
     <div className="contenedor-form">
       <Encabezado />
@@ -76,9 +77,9 @@ export const ListaRendiciones = ({ match, history }) => {
           ))}
         </Col>
         <Col offset={21}>
-          <Button style={{ marginTop: "10px" }} onClick={handleClick}>
+          <Button style={{ marginTop: "10px" }} /* onClick={handleClick} */>
             {" "}
-            Generate Pdf
+           <Link to={`/pdf/${id}`}> Generate Pdf</Link> 
           </Button>
         </Col>
       </Row>

@@ -8,6 +8,11 @@ export const SubEncabezado = ({uuid,total,importeAnticipo}) => {
   let usuario = PeticionGET(`/${id}`)
 
 
+
+
+
+
+
   const responsable = (departamento) => {
     let responsable;
     switch (departamento) {
@@ -27,7 +32,7 @@ export const SubEncabezado = ({uuid,total,importeAnticipo}) => {
     <>
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-          <h3>Empleado: {usuario.nombre}, {usuario.apellido}</h3>
+          <h3>Empleado: {usuario.nombre} {usuario.apellido}</h3>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}
           style={{
@@ -56,11 +61,12 @@ export const SubEncabezado = ({uuid,total,importeAnticipo}) => {
             borderBottom: "solid 1px rgba(92, 99, 105, 0.5)",
           }}>
           <h2 style={{marginLeft:'100px'}}> anticipo: #{uuid}</h2>
-          <h4 style={{marginLeft:'100px'}}> Anticipo: ${importeAnticipo} </h4>
-          <h4 style={{marginLeft:'100px'}}> Total: ${total} </h4>
+          {importeAnticipo===undefined?'':<h4 style={{marginLeft:'100px'}}> Anticipo: ${importeAnticipo} </h4>}
+          {total===undefined?'':<h4 style={{marginLeft:'100px'}}> Total: ${total} </h4>}
 
         </Col>
       </Row>
+    
     </>
   )
 }
