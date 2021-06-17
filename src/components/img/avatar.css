@@ -2,17 +2,48 @@ body{
     /* background: #f7f7f7; */
    background: #f0f2f5; 
 }
-#img{
+body::-webkit-scrollbar {
+    width: 7px;     /* Tamaño del scroll en vertical */
+  height: 12px;     /*Tamaño del scroll en horizontal */
+  }
+  body::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 4px;
+    
+  }
+  
+  body::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Cambiamos el fondo cuando esté en active */
+  body::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+  }
+  /* Ponemos un color de fondo y redondeamos las esquinas del track */
+  body::-webkit-scrollbar-track {
+    background: #bdbdbd;
+    border-radius: 4px;
+  }
+  
+  /* Cambiamos el fondo cuando esté en active o hover */
+  body::-webkit-scrollbar-track:hover,
+  body::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+  }
+
+  #img{
  display: none;
 }
 .div-img{
     display: flex;
     flex-direction: column;
     border-radius: 50%;
-    width: 140px;
-    height: 140px;
+    width: 100px;
+    height: 100px;
     position: relative;
-    margin-left: 57px;
+    margin-left: 85px;
     margin-top:47px;
     background:#fff;
 
@@ -32,19 +63,19 @@ body{
 }
 .div-img2{
     border-radius: 50%;
-    width: 140px;
-    height: 140px;
+    width: 100px;
+    height: 100px;
 }
 
 .avatar{
     border-radius: 50%;
-    font-size: 34px;
+    font-size: 30px;
     position: absolute;
-    top: 97px;
-    left: 102px;
-color:rgba(0, 0, 0, 0.7);
-background-color: rgb(223, 219, 219);
-padding: 2px;
+    top: 70px;
+    left: 64px;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: rgb(223, 219, 219);
+    padding: 2px;
 }
 
 .persona{

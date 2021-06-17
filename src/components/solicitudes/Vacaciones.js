@@ -71,7 +71,6 @@ const añosTrabajados=(fecha)=>{
     : "";
     return vacation
 }
-
   useEffect(() => {
     const fx = async () => {
       console.log(dias);
@@ -90,19 +89,14 @@ const añosTrabajados=(fecha)=>{
           listaDeVacaciones[listaDeVacaciones.length - 1]?.diasFaltantes; // vacaciones restantes de la ultima vacacion
           let fecha= fechaContratacion.split("/")[2]
           let años = añosTrabajados( fecha)
-
           listaDeVacaciones.length === 0?
-         
           setVacaciones({
               ...vacaciones,
               dias: años,
               maximo: años,
               depto,
               fechaContratacion
-
             })
-      
-
           : 
           setVacaciones({
               ...vacaciones,
@@ -110,11 +104,7 @@ const añosTrabajados=(fecha)=>{
               maximo: ultimaVacacionesTomada,
               depto,
               fechaContratacion
-
             });
-          
-      
-
       }
     };
     fx();
@@ -224,7 +214,7 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
           size="large"
         >
           {APROBACION === "pendiente" && APROBACION !== undefined ? 
-            <h4>Ya tenes solicitud pendiente!!!</h4>:
+            <h4 >Ya tenes una solicitud pendiente!!!</h4>:
             <>
           <Row gutter={10}>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>

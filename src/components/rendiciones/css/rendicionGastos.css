@@ -17,3 +17,15 @@
   padding-left: 200px;
     transition: 700ms;
 }
+/*Tabla*/
+.ant-table-thead > tr > th {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+  text-align: left;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f0f0f0;
+  background: #fff;
+}

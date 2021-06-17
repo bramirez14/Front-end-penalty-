@@ -7,14 +7,23 @@ import axiosURL from "../../config/axiosURL";
 import { Form, Input, Button, Modal, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import PeticionGET from "../../config/PeticionGET";
+import logo from '../../logoPenalty.jpg'
 
-export const AvatarImg = ({ sidebar }) => {
+
+export const AvatarImg = ({ sidebar,history }) => {
  const id = localStorage.getItem('uid')
   const [state, setState] = useState({ loading: false, visible: false });
+const [imgDB, setImgDB] = useState()
   const { visible, loading } = state;
 /**Llamando la img del usuario si es que  hay  */
-const verificar = PeticionGET(`/${id}`)
-  console.log(verificar.imagen);
+const peticionDeUsuario=async()=>{
+let res=await axiosURL.get(`/${id}`)
+ setImgDB(res.data.imagen)
+}
+useEffect(() => {
+  peticionDeUsuario()
+}, [])
+
   const showModal = () => {
     setState({ ...state, visible: true });
   };
@@ -60,18 +69,17 @@ const verificar = PeticionGET(`/${id}`)
     let d = new FormData();
     d.append("imagen", img);
     let res = await axiosURL.put(`/${id}`, d);
-    console.log(res.data);
+    peticionDeUsuario()
+    
+    
   };
-
   return (
     <>
       <Form>
         <div className="div-img" >
-        <img className="div-img2"  src={verificar.imagen} alt="" />
+        <img className="div-img2"  src={imgDB} alt=""  />
           <TiUserAdd className="avatar" onClick={showModal} />
         </div>
-       
-
         <Modal
           style={{ marginleft: "100px" }}
           visible={visible}
@@ -95,7 +103,6 @@ const verificar = PeticionGET(`/${id}`)
           <div className="contendor-modal">
             <div class="button-wrapper">
               <span class="label">Upload File</span>
-
               <input
                 type="file"
                 name="upload"

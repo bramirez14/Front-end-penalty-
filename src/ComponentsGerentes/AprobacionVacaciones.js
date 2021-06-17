@@ -336,7 +336,10 @@ const [state, setState] = useState({
         ); // aca filtramos por gerente 902 Cristian Ramos
 
       default:
-        break;
+        return data.filter(
+          (d) => d.usuario.departamentoId === 4 || d.usuario.departamentoId === 5
+        ); // aca filtramos por gerente 903 Cristian DeSousa
+
     }
   };
   console.log(gerentes());

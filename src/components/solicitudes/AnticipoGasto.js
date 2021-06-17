@@ -27,7 +27,9 @@ export const AnticipoGasto = ({ history }) => {
     fecha: new Date().toLocaleDateString(),
     categoria: '',
     usuarioId: id,
-    formapagoId: ''
+    formapagoId: '',
+  
+    
   });
   const { fecha, usuarioId } = gastos
   /**Petciones get */

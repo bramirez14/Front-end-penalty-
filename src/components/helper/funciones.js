@@ -16,7 +16,6 @@ export const run = (date) => {
     let fecha = new Date().toLocaleDateString();//FECHA ACTUAL
      /**CALCULANDO LA DIFERENCIA DE LAS FECHAS */
     let dias = restaFechas(posicion1, fecha)
-    console.log(dias);//0
    let resultDias;
    if(dias>7){
     resultDias = dias>14? `${Math.round(dias/7)} semanas` : `${Math.round(dias/7)} semana`
@@ -69,10 +68,10 @@ export const run = (date) => {
     }else{
       Ht=H1-H2
     }
-    console.log(Ht + 'HORAS');
+ /*    console.log(Ht + 'HORAS');
     console.log(Mt + 'MINUTOS');
     console.log(St + 'SEGUNDOS');
-    console.log(resultDias);
+    console.log(resultDias); */
     if (resultDias === '0 dia'){
       console.log('vamos a lograrlo');
    if(Ht===0){

@@ -23,7 +23,7 @@ const [abrirCerrar, setAbrirCerrar] = useState(false)
     const {open} = useContext(UserContext)
     
     return (
-      <ProSidebar collapsed={open} onClick={collapsed} >
+      <ProSidebar >
       <SidebarHeader>
         {/**
          *  You can add a header for the sidebar ex: logo
@@ -68,6 +68,20 @@ const [abrirCerrar, setAbrirCerrar] = useState(false)
               Aprobacion de Gastos
               <Link to="/aprobacion/gastos" />
             </MenuItem>
+            <MenuItem
+                
+                >
+                  Aprobacion de Sueldo
+                  <Link to="/aprobacion/sueldo" />
+                </MenuItem>
+                <MenuItem  >
+                Aprobacion de Vacaciones
+                <Link to="/aprobacion/vacaciones" />
+              </MenuItem>
+              <MenuItem  >
+                Aprobacion de Gastos
+                <Link to="/aprobacion/gastos" />
+              </MenuItem>
           </SubMenu>
 
 

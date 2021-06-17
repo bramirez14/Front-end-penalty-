@@ -23,6 +23,7 @@ export const ListaRendiciones = ({ match, history }) => {
   const importe = peticionGastoId?.importe;
   const Text = useContext(UserContext);
   const { open } = Text;
+
   const handleClick = async () => {
     let res = await axiosURL.post("/generar/pdf", todasLasRendicones);
     if (res.status === 200) {
@@ -30,7 +31,7 @@ export const ListaRendiciones = ({ match, history }) => {
       const pdfBlob = await new Blob([ge.data], { type: "application/pdf" });
       saveAs(pdfBlob, "penaltyIntranet.pdf");
     }
-    /* axiosURL.post('/generar/pdf', todasLasRendicones)
+   /*  axiosURL.post('/generar/pdf', todasLasRendicones)
      .then(() => axiosURL.get('peticion/pdf', { responseType: 'blob' }))
      .then((res) => {
        const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
@@ -77,9 +78,8 @@ export const ListaRendiciones = ({ match, history }) => {
           ))}
         </Col>
         <Col offset={21}>
-          <Button style={{ marginTop: "10px" }} /* onClick={handleClick} */>
-            {" "}
-           <Link to={`/pdf/${id}`}> Generate Pdf</Link> 
+          <Button  style={{ marginTop: "10px" }} onClick={handleClick}>
+          Generar PDF
           </Button>
         </Col>
       </Row>

@@ -2,8 +2,6 @@ import React, { useState, useEffect,useRef } from "react";
 import { Badge, Button } from "antd";
 import { FaBell } from "react-icons/fa";
 import { FaBullhorn } from "react-icons/fa";
-
-
 import "./alerta.css";
 import PeticionGET from "../../config/PeticionGET";
 import axiosURL from "../../config/axiosURL";
@@ -11,7 +9,6 @@ import {  run } from "../helper/funciones";
 /**Cierra cuadno clickeas fuera del div */
 let useClickOutside = (handler) => {
   let domNode = useRef();
-console.log(handler);
   useEffect(() => {
     let maybeHandler = (event) => {
      console.log(!domNode.current.contains(event.target))
@@ -35,7 +32,6 @@ export const Alerta = () => {
   let domNode = useClickOutside(() => {
     setIsOpen(false);
   });
-console.log(domNode);
   const [state, setState] = useState(false);
   const [toggle, setToggle] = useState(false);
   /* alerta de anticipo */
