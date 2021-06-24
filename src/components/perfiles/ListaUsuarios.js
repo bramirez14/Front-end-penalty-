@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Col, Row, Drawer, List, Avatar, Divider} from "antd";
 import PeticionGET from "../../config/PeticionGET";
 import axiosURL from "../../config/axiosURL";
+import { CardTitle } from "./CardTitle";
 
 export const ListaUsuarios = () => {
   const [visible, setVisible] = useState(false);
   const [DatosPersonales, setDatosPersonales] = useState({});
-  const [gasto, setGasto] = useState()
+  const [gasto, setGasto] = useState([]);
+  const [sueldo, setSueldo] = useState([])
+  const [vacaciones, setVacaciones] = useState([])
   const {
     email,
     imagen,
@@ -21,12 +24,13 @@ export const ListaUsuarios = () => {
 
 
  console.log(gasto);
+ console.log(sueldo);
   const showDrawer = async (id) => {
     console.log(id);
     const acum =[];
+    /**Sector gastos */
     let e = TodosLosUsuarios.find((q) => q.id === id);
     const egasto=e.gasto.map(g=>g.id);
-    console.log(egasto);
     for (let i = 0; i < egasto.length; i++) {
       const P= await axiosURL(`./gastos/${egasto[i]}`)
      acum.push(P.data)
@@ -36,9 +40,18 @@ export const ListaUsuarios = () => {
     importe:a.importe
 
    }})
+setSueldo(e.anticipo);
+setVacaciones(e.vacacion);
 
     setDatosPersonales(e);
     setVisible(true);
+    /** Fin sector gastos */
+
+
+
+
+
+
   };
   // console.log(DatosPersonales);
   const onClose = () => setVisible(false);
@@ -181,21 +194,10 @@ export const ListaUsuarios = () => {
             </p>
           </Col>
         </Row>
-        <Divider orientation="left">Gastos</Divider>
+        <Divider orientation="left">Solicitudes Realizadas </Divider>
 
-        <Row>
-          
-          {gasto?.map(g=>(
-            <>
-            <Col span={6}>
-            <p> Monto: {g.importe} </p>
-            <p>  Rendicion:{g.rendicion.map(r=>( <p>{r.importe}</p> ))}</p>
-          </Col>
-
-            </>
-          ))}
-        </Row>
        
+       <CardTitle gasto={gasto} sueldo={sueldo} vacaciones={vacaciones}/>
       </Drawer>
     </>
   );

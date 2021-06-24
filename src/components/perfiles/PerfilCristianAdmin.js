@@ -7,9 +7,9 @@ import axiosURL from "../../config/axiosURL";
 import PeticionGET from "../../config/PeticionGET";
 import { Tarjetas } from "./Tarjetas";
 import { ListaUsuarios } from "./ListaUsuarios";
+import socket from "../Socket";
 
 export const PerfilCristianAdmin = ({ history }) => {
-
 
 
   
@@ -28,6 +28,10 @@ export const PerfilCristianAdmin = ({ history }) => {
     };
     cargarUsuario();
   }, []); */
+  useEffect(() => {
+    socket.emit("conectado", {conectado:'conect'});
+    console.log('conect');
+  }, []);
 
 
   return ( 

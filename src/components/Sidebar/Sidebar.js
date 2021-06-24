@@ -17,6 +17,7 @@ import { NombreCompleto } from "./NombreCompleto";
 
 
 export const Sidebar = ({history}) => {
+  const {setAuth} = useContext(UserContext)
   const [state, setState] = useState(false);
   const id = localStorage.getItem('uid');
   const mediaqueryList = window.matchMedia("(max-width: 576px)");
@@ -31,6 +32,7 @@ export const Sidebar = ({history}) => {
     await axiosURL.put(`/cs/${id}`,{conectado:'NO'})
     logout();
     history.push("/login");
+    setAuth(false)
   };
   return (
     <>
