@@ -21,7 +21,7 @@ function App() {
  // const [socket] = useState(connectSocketServer())
   const [openn, setOpen] = useState(false);
   const [auth, setAuth] = useState(false)
- // const [online, setOnline] = useState(false)
+  const [arrayUsuarios, setArrayUsuarios] = useState()
   PeticionJWT();
 
 /*   useEffect(() => {
@@ -42,6 +42,8 @@ function App() {
         setOpen: setOpen,
         auth:auth,
         setAuth:setAuth,
+        arrayUsuarios:arrayUsuarios,
+        setArrayUsuarios:setArrayUsuarios,
       }}
     >
       <SocketProvider>

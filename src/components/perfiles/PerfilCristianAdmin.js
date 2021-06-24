@@ -8,12 +8,14 @@ import PeticionGET from "../../config/PeticionGET";
 import { Tarjetas } from "./Tarjetas";
 import { ListaUsuarios } from "./ListaUsuarios";
 import socket from "../Socket";
+import { SocketContext } from "../../contexto/SocketContext";
+import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { UserContext } from "../../contexto/UserContext";
 
 export const PerfilCristianAdmin = ({ history }) => {
-
+const {arrayUsuarios} = useContext(UserContext)
 
   
-  let tokenStorage = (localStorage.getItem("token"));
   
 
   //Peticion get para saber cuando vence el localStorage
@@ -28,11 +30,8 @@ export const PerfilCristianAdmin = ({ history }) => {
     };
     cargarUsuario();
   }, []); */
-  useEffect(() => {
-    socket.emit("conectado", {conectado:'conect'});
-    console.log('conect');
-  }, []);
 
+console.log(arrayUsuarios);
 
   return ( 
     <>
@@ -41,6 +40,34 @@ export const PerfilCristianAdmin = ({ history }) => {
   
   {/**Lista */}
   <ListaUsuarios/>
+  <div style={{display:'flex', flexWrap:'wrap'}}>
+  {
+    
+  arrayUsuarios?.map( a =>
+    <Card
+    style={{ width: 300 }}
+    cover={
+      <img
+        alt="example"
+        src={a.imagen}
+      />
+    }
+    actions={[
+      <SettingOutlined key="setting" />,
+      <EditOutlined key="edit" />,
+      <EllipsisOutlined key="ellipsis" />,
+    ]}
+  >
+    <h3>User:{a.nombre}</h3>
+   <h3>Conectado:{a.conectado}</h3> 
+  </Card>
+
+  )
+  }
+</div>
+
+
+
 </div>
   
        

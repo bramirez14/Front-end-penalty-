@@ -1,4 +1,4 @@
-import React, { useContext, useEffect} from 'react';
+import React, { useContext, useEffect,useState} from 'react';
 import { createContext } from 'react';
 import { useSocket } from '../hooks/useSocket';
 import { UserContext } from './UserContext';
@@ -6,11 +6,10 @@ import { UserContext } from './UserContext';
 export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
-const { auth } = useContext(UserContext)
-    console.log(auth);
+const { auth,setArrayUsuarios} = useContext(UserContext)
      const id=localStorage.getItem('uid')
     const { socket, online, conectarSocket, desconectarSocket } = useSocket('http://localhost:4000');
-
+console.log(auth);
 useEffect(() => {
     if ( auth ) {
         conectarSocket();
@@ -23,14 +22,15 @@ useEffect(() => {
     }
 }, [desconectarSocket, auth])  
  
-/* useEffect(() => {
+useEffect(() => {
         
     socket?.on( 'lista-usuarios', (usuarios) => {
-       console.log(usuarios);
+        console.log(usuarios);
+       setArrayUsuarios(usuarios);
        
     })
 
-}, [socket]); */
+}, [socket,setArrayUsuarios]);
   
 
     // Escuchar los cambios en los usuarios conectados

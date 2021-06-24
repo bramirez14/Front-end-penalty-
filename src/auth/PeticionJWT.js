@@ -1,8 +1,12 @@
-import {useEffect,useState} from 'react'
+import {useEffect,useState,useContext} from 'react'
 import axiosURL from '../config/axiosURL';
+import { UserContext } from '../contexto/UserContext';
 import { logout } from './localStorage';
 
 export const PeticionJWT = () => {
+  const contex = useContext(UserContext)
+  console.log(contex);
+  let v
     let tokenStorage = (localStorage.getItem("token"));
  
     let id= (localStorage.getItem("uid"));
@@ -24,11 +28,13 @@ export const PeticionJWT = () => {
           let ID=(id===idDB?.toString())
           let TIPO=(tipo===tipoDB)
           let Numvend=(datosJWT.data.nvendedor===N)
-          if(ID===false){logout()}
-        if(ok===true || noHay===true  || TIPO===false || Numvend===false){logout()}
+          if(ID===false){logout(); contex?.setAuth(false)}
+        if(ok===true || noHay===true  || TIPO===false || Numvend===false){logout(); contex?.setAuth(false)}
           setTokenEstado(datosJWT.data);
+         contex?.setAuth(true)
         };
         cargarUsuario();
+        console.log('soy el  jwt de verify');
       }, []); 
       return tokenEstado
 }

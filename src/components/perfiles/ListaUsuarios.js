@@ -22,9 +22,6 @@ export const ListaUsuarios = () => {
   } = DatosPersonales;
   const TodosLosUsuarios = PeticionGET("./allusers");
 
-
- console.log(gasto);
- console.log(sueldo);
   const showDrawer = async (id) => {
     console.log(id);
     const acum =[];
