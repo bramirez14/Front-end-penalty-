@@ -48,8 +48,8 @@ console.log(domNode);
   const filtroId = filtroAprobadoeInactivo?.map((a) => a.id);
   const number = filtroAprobadoeInactivo?.length;
   const openNotification = async () => {
+    setIsOpen(!isOpen)
     setState(true);
-    setToggle(!toggle);
     await axiosURL.put("/alerta", filtroId);
   };
 
@@ -80,7 +80,7 @@ console.log(domNode);
     <>
 
       <Button
-       onClick={() => setIsOpen((isOpen) => !isOpen)}
+       onClick={openNotification}
        ref={domNode}
         style={{ backgroundColor: "transparent", border:'none'}}
       >
