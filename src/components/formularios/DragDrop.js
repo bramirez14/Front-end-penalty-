@@ -1,5 +1,4 @@
 import React from 'react'
-import { FaRegTrashAlt } from "react-icons/fa";
 import { VscNewFile} from "react-icons/vsc";
 
 

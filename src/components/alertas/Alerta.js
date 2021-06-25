@@ -2,8 +2,6 @@ import React, { useState, useEffect,useRef } from "react";
 import { Badge, Button } from "antd";
 import { FaBell } from "react-icons/fa";
 import { FaBullhorn } from "react-icons/fa";
-
-
 import "./alerta.css";
 import PeticionGET from "../../config/PeticionGET";
 import axiosURL from "../../config/axiosURL";
@@ -11,10 +9,8 @@ import {  run } from "../helper/funciones";
 /**Cierra cuadno clickeas fuera del div */
 let useClickOutside = (handler) => {
   let domNode = useRef();
-console.log(handler);
   useEffect(() => {
     let maybeHandler = (event) => {
-     console.log(!domNode.current.contains(event.target))
       if (!domNode.current.contains(event.target)) {
         handler();
       }
@@ -35,9 +31,7 @@ export const Alerta = () => {
   let domNode = useClickOutside(() => {
     setIsOpen(false);
   });
-console.log(domNode);
   const [state, setState] = useState(false);
-  const [toggle, setToggle] = useState(false);
   /* alerta de anticipo */
   const id = localStorage.getItem("uid");
   const { anticipo } = PeticionGET(`/${id}`);
@@ -85,15 +79,16 @@ console.log(domNode);
         style={{ backgroundColor: "transparent", border:'none'}}
       >
         <Badge count={state === true ? 0 : number} >
-          <span className="head-example" />
+          <span className="head-example"    />
           
-       <FaBell className='icon-campana'/>
+       <FaBell className='icon-campana' />
      
         </Badge>
       </Button>
 
       {isOpen === true && (
         <div
+      
           className={
             number < 5 ? "contenedor-alerta" : "contenedor-alert-active"
           }

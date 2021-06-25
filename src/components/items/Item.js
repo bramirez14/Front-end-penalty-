@@ -14,16 +14,17 @@ export const Item = ({ click, click2 }) => {
   const n = localStorage.getItem("N");
 const id= localStorage.getItem('uid')
 const pg= PeticionGET(`./${id}`)
-  return tipo === "Gerente" ? (
-    <ProSidebar>
+  return (
+  <>
+    <ProSidebar  >
         <SidebarHeader>
     {/**
      *  You can add a header for the sidebar ex: logo
      */}
-     <h5 style={{marginLeft:'40px',color:'#fff'}}>{pg.nombre} {pg.apellido} </h5>
+     <h5 style={{color:'#fff',textAlign:'center'}}>{pg.nombre} {pg.apellido} </h5>
   </SidebarHeader>
        <SidebarContent>
-      <Menu>
+      <Menu popperArrow='true'>
        
          
           <MenuItem
@@ -109,6 +110,34 @@ const pg= PeticionGET(`./${id}`)
         )}
         {/**Fin Sector de  Gerente 902*/}
 
+         {/**Sector de  Gerente 903*/}
+         {n === "903" && (
+          <>
+            <SubMenu
+              title="Aprobaciones"
+              icon={<FaCheck />}
+              style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
+            >
+              <MenuItem
+                onClick={q ? click : click2}
+                style={{ fontSize: "14px" }}
+              >
+                Aprobacion de Sueldo
+                <Link to="/aprobacion/sueldo" />
+              </MenuItem>
+              <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+              Aprobacion de Vacaciones
+              <Link to="/aprobacion/vacaciones" />
+            </MenuItem>
+            <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+              Aprobacion de Gastos
+              <Link to="/aprobacion/gastos" />
+            </MenuItem>
+            </SubMenu>
+          </>
+        )}
+        {/**Fin Sector de  Gerente 903*/}
+
         <SubMenu
           title="Solicitudes y Reservas"
           icon={<FaEnvelope />}
@@ -140,60 +169,5 @@ const pg= PeticionGET(`./${id}`)
       </Menu>
     </SidebarContent>
     </ProSidebar>
-  ) : (
-    <ProSidebar>
-      <SidebarContent>
-      <Menu>
-        <div style={{ display: "flex" }}>
-          {" "}
-          <BsFillHouseFill
-            style={{
-              fontSize: "17px",
-              position: "absolute",
-              left: "21px",
-              top: "14px",
-              color: "white",
-            }}
-          />
-          <MenuItem
-            style={{ marginLeft: "55px", fontSize: "14px", color: "white" }}
-            onClick={q ? click : click2}
-          >
-            Home
-            <Link to="/perfil" />
-          </MenuItem>
-        </div>
-
-        <SubMenu
-          title="Solicitudes y Reservas"
-          icon={<FaEnvelope />}
-          style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
-        >
-          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
-            Anticipo de Sueldo
-            <Link to="/sueldos" />
-          </MenuItem>
-          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
-            Anticipo de Gastos
-            <Link to="/anticipo/gastos" />
-          </MenuItem>
-          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
-            Solicitud de Vacaciones
-            <Link to="/vacaciones" />
-          </MenuItem>
-        </SubMenu>
-        <SubMenu
-          title="Rendiciones de Gastos"
-          icon={<GiPayMoney style={{ fontSize: "20px" }} />}
-          style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
-        >
-          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
-            Rendicion de Gastos
-            <Link to="/gastos" />
-          </MenuItem>
-        </SubMenu>
-      </Menu>
-      </SidebarContent>
-    </ProSidebar>
-  );
+  </>)
 };

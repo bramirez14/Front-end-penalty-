@@ -16,16 +16,3 @@
     padding-right: 10px;
     
 }
-/*Border de las Card*/
-.ant-card-bordered{
-    border-radius: 20px;
-}
-.conectado{
-    color:rgba(0, 0, 0, 0.45);
-    margin-left: 70px;
-}
-.lista{
-    border-radius:20px;
-    background: white;
-    border:none;
-}

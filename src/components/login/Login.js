@@ -1,8 +1,11 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useContext} from "react";
 import "./login.css";
 import axiosURL from "../../config/axiosURL";
+import { UserContext } from "../../contexto/UserContext";
+
 
 export const Login = ({ history }) => {
+const {setAuth} = useContext(UserContext)
   //securedBrowserCache.setStorageType('localStorage'); 
   const [cargandoUsuario, setCargandoUsuario] = useState(true)
   const [token, setToken] = useState()
@@ -19,7 +22,6 @@ export const Login = ({ history }) => {
       [e.target.name]: e.target.value,
     });
   };
-  
   //Verificacion de datos
   const verifyUser = async (e) => {
     let result = await axiosURL.post(
@@ -33,6 +35,7 @@ export const Login = ({ history }) => {
      localStorage.setItem('token',result.data.token);
      localStorage.setItem('type', tipo);
      localStorage.setItem('N',result.data.user.nvendedor)
+     setAuth(true)
      history.push('/perfil')
       
 

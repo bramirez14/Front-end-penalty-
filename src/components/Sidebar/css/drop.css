@@ -1,0 +1,24 @@
+.drop{
+    background: #46a461;
+    border:none;
+    border-radius: 20px;
+    color: black;
+}
+.drop:hover{
+    background: #46a461;
+    color:#ddd;
+    border:none;
+
+
+}
+.drop:focus{
+    background: #46a461;
+    color:#ddd;
+    border:none;
+
+
+}
+.ant-dropdown-menu{
+    margin-top:15px;
+    border-radius: 10px;
+}

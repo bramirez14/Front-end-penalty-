@@ -1,16 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useContext} from "react";
 import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
 import { Form, Input, Button, Select, Col, Row, Divider } from "antd";
-import { FaRegMoneyBillAlt } from "react-icons/fa";
 import "./css/anticipoGasto.css";
 import { UserContext } from "../../contexto/UserContext";
 import axiosURL from "../../config/axiosURL";
 import PeticionGET from "../../config/PeticionGET";
 import { Titulo } from "../titulos/Titulo";
-import { SelectAnt } from "../inputs/SelectAnt";
-import { securedBrowserCache } from 'secured-browser-storage';
 
 
 export const AnticipoGasto = ({ history }) => {
@@ -27,18 +23,18 @@ export const AnticipoGasto = ({ history }) => {
     fecha: new Date().toLocaleDateString(),
     categoria: '',
     usuarioId: id,
-    formapagoId: ''
+    formapagoId: '',
+  
+    
   });
   const { fecha, usuarioId } = gastos
   /**Petciones get */
   let pg = PeticionGET(`/${id}`);
   let cantidadDeAntGastos = pg.gasto?.length
-  console.log(cantidadDeAntGastos);
   let pmp = PeticionGET("/mpagos");
 
   ;
   /*fx para guardar anticipo con axios en DB **********/
-  const tipo = localStorage.getItem('type')
 
   const guardarAnticipo = async (values) => {
     const v = { ...values, fecha, usuarioId,estado:'pendiente',estadoFinal:'pendiente'}

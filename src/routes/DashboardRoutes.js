@@ -9,7 +9,6 @@ import { RouteGerente } from "./RouteGerente";
 import { RouteEmpleado } from "./RouteEmpleado";
 
 import { Vacaciones } from "../components/solicitudes/Vacaciones";
-import { PerfilCristianAdmin } from "../components/perfiles/PerfilCristianAdmin";
 import { AnticipoGasto } from "../components/solicitudes/AnticipoGasto";
 import { EditarRendicion } from "../components/rendiciones/EditarRendicion";
 import { CrearRendicion } from "../components/rendiciones/CrearRendicion";
@@ -17,7 +16,6 @@ import { Uploads } from "../components/rendiciones/Uploads";
 import { ListaRendiciones } from "../components/rendiciones/ListaRendiciones";
 import { RendicionSinAnticipo } from "../components/solicitudes/RendicionSinAnticipo";
 import {  AprobacionAntcipoSueldo } from "../ComponentsGerentes/AprobacionAntcipoSueldo";
-import { PerfilEmpleado } from "../components/perfiles/PerfilEmpleado";
 import { Alerta } from "../components/alertas/Alerta";
 import { Register } from "../components/login/Register";
 import { Perfil } from "../components/perfiles/Perfil";
@@ -25,6 +23,7 @@ import { AprobacionVacaciones } from "../ComponentsGerentes/AprobacionVacaciones
 import { UserContext } from "../contexto/UserContext";
 import { SueldoContainer } from "../components/solicitudes/SueldoContainer";
 import { AprobacionGastos } from "../ComponentsGerentes/AprobacionGastos";
+import { PDF } from "../components/view/PDF";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -41,6 +40,7 @@ export const DashboardRoutes = ({ history }) => {
         <RouteGerente exact path="/aprobacion/sueldo" component={AprobacionAntcipoSueldo}/>
         <RouteGerente exact path="/aprobacion/vacaciones" component={AprobacionVacaciones}/>
         <RouteGerente exact path="/aprobacion/gastos" component={AprobacionGastos}/>
+        <RouteGerente exact path="/pdf/:id" component={PDF}/>
 
         <RouteGerente exact path="/register" component={Register}/>
          

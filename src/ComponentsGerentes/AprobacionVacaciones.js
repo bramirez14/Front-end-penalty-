@@ -241,7 +241,6 @@ const [state, setState] = useState({
         render: (estado,file) =>{
           
           const color =()=>{
-            console.log(file);
             switch (file.estado) {
               case 'pendiente':
                 return(<h6 style={{color:'yellow'}}> pendiente...</h6> )
@@ -336,10 +335,12 @@ const [state, setState] = useState({
         ); // aca filtramos por gerente 902 Cristian Ramos
 
       default:
-        break;
+        return data.filter(
+          (d) => d.usuario.departamentoId === 4 || d.usuario.departamentoId === 5
+        ); // aca filtramos por gerente 903 Cristian DeSousa
+
     }
   };
-  console.log(gerentes());
   const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
 
   const datos = gerentes()?.map((f) => {

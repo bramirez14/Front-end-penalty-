@@ -71,11 +71,8 @@ const añosTrabajados=(fecha)=>{
     : "";
     return vacation
 }
-
   useEffect(() => {
     const fx = async () => {
-      console.log(dias);
-
       if (periodo !== "") {
        const { data } = await axiosURL.get(`/${id}`);
        console.log(data);
@@ -90,19 +87,14 @@ const añosTrabajados=(fecha)=>{
           listaDeVacaciones[listaDeVacaciones.length - 1]?.diasFaltantes; // vacaciones restantes de la ultima vacacion
           let fecha= fechaContratacion.split("/")[2]
           let años = añosTrabajados( fecha)
-
           listaDeVacaciones.length === 0?
-         
           setVacaciones({
               ...vacaciones,
               dias: años,
               maximo: años,
               depto,
               fechaContratacion
-
             })
-      
-
           : 
           setVacaciones({
               ...vacaciones,
@@ -110,11 +102,7 @@ const añosTrabajados=(fecha)=>{
               maximo: ultimaVacacionesTomada,
               depto,
               fechaContratacion
-
             });
-          
-      
-
       }
     };
     fx();
@@ -196,15 +184,12 @@ const añosTrabajados=(fecha)=>{
   function handleChangeSelect(date, dateString) {
     setVacaciones({ ...vacaciones, periodo: dateString });
   }
-  console.log(vacaciones);
 
   const diasFalt=()=>{
 
     let a= añosTrabajados(fechaContratacion.split("/")[2])
     let d = dias
    let resta= vacaciones.maximo-d
-    console.log(d); 
-    console.log(vacaciones.maximo);
     setVacaciones({...vacaciones,diasFaltantes:resta})
   }
   useEffect(() => {
@@ -212,7 +197,6 @@ const añosTrabajados=(fecha)=>{
   }, [dias])
   const getUsuarios = PeticionGET(`/${id}`)
   const log=getUsuarios.vacacion?.length-'1'
-  console.log(getUsuarios?.vacacion?.[log]);
 const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
   return (
     <>
@@ -224,7 +208,7 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
           size="large"
         >
           {APROBACION === "pendiente" && APROBACION !== undefined ? 
-            <h4>Ya tenes solicitud pendiente!!!</h4>:
+            <h4 >Ya tenes una solicitud pendiente!!!</h4>:
             <>
           <Row gutter={10}>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>

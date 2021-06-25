@@ -3,7 +3,6 @@ import { Table, Button, Col, Modal, Form, Input, Upload, message } from "antd";
 import axiosURL from "../../config/axiosURL";
 import { Link } from 'react-router-dom'
 import PeticionGET from "../../config/PeticionGET";
-import { securedBrowserCache } from 'secured-browser-storage';
 
 export const Tabla = ({
   usuario,
@@ -52,9 +51,7 @@ export const Tabla = ({
   }
 
   const gastos= PeticionGET(`/${id}`);
-  console.log(gastos.gasto?.[gastos?.gasto?.length-1]?.estadoFinal);
   const APROBACION = gastos.gasto?.[gastos?.gasto?.length-1]?.estadoFinal
-console.log(APROBACION);
  
   const columns = [
     {

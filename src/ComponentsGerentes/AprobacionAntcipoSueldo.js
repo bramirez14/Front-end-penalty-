@@ -12,6 +12,7 @@ import PeticionGET from "../config/PeticionGET";
 
 export const AprobacionAntcipoSueldo = () => {
   const N = localStorage.getItem("N");// numero de registro 
+  const id = localStorage.getItem('uid')
   const [anticipoPendiente, setAnticipoPendiente] = useState();//estado de a fn 
   const [data, setData] = useState([]);
   const Text = useContext(UserContext);// useContext 
@@ -26,6 +27,8 @@ export const AprobacionAntcipoSueldo = () => {
   const { open } = Text;
   const { TextArea } = Input;
   const searchInput = useRef("");
+  const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
+
   /** peticion get trae todo los anticipos  */
   const axiosGet = async () => {
     let result = await axiosURL.get("/anticipo");
@@ -172,7 +175,6 @@ export const AprobacionAntcipoSueldo = () => {
     setState({ searchText: "" });
   };
 
-  const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
 
 
   const columns = [
@@ -239,7 +241,6 @@ export const AprobacionAntcipoSueldo = () => {
       dataIndex: "estado",
       key: "estado",
       render: (estado, file) => {
-        console.log(file);
         const color = () => {
           switch (file.estado) {
             case "pendiente":
@@ -260,7 +261,6 @@ export const AprobacionAntcipoSueldo = () => {
       dataIndex: "estadoFinal",
       key: "estadoFinal",
       render: (estado, file) => {
-       
         const color = () => {
           switch (file.estadoFinal) {
             case "pendiente":
@@ -312,20 +312,13 @@ export const AprobacionAntcipoSueldo = () => {
         };
         return (
           <Button className="btn-aprob" onClick={handleDelete}>
-            {" "}
-            <AiOutlineDelete />{" "}
+            <AiOutlineDelete />
           </Button>
         );
       },
     },
   ];
 /****** fin de table *****/
-
-  const filtroGerente902 = data.filter(
-    (d) => d.usuario.departamentoI === 3 || d.estadoFinal === "aprobado"
-  );
-  console.log(filtroGerente902);
-
 
   /**selecion de gerente  recordamos que Cristian Rios da el ok final*/
   const gerentes = () => {
@@ -342,11 +335,12 @@ export const AprobacionAntcipoSueldo = () => {
         ); // aca filtramos por gerente 902 Cristian Ramos
 
       default:
-        break;
+        return data.filter(
+          (d) => d.usuario.departamentoId === 4 || d.usuario.departamentoId === 5
+        ); // aca filtramos por gerente 903 Cristian DeSousa
+
     }
   };
-
-
 
   const datos = gerentes()?.map((f) => {
     return {
