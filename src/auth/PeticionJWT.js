@@ -5,13 +5,13 @@ import { logout } from './localStorage';
 
 export const PeticionJWT = () => {
   const contex = useContext(UserContext)
-  console.log(contex);
-  let v
+  
     let tokenStorage = (localStorage.getItem("token"));
  
     let id= (localStorage.getItem("uid"));
  
     let tipo= (localStorage.getItem("type"));
+    
     let N = localStorage.getItem('N')
 
     const [tokenEstado, setTokenEstado] = useState({});
@@ -34,7 +34,6 @@ export const PeticionJWT = () => {
          contex?.setAuth(true)
         };
         cargarUsuario();
-        console.log('soy el  jwt de verify');
-      }, []); 
+      }, [N, contex, id, tipo, tokenStorage]); 
       return tokenEstado
 }

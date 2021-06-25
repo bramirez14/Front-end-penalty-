@@ -11,7 +11,6 @@ let useClickOutside = (handler) => {
   let domNode = useRef();
   useEffect(() => {
     let maybeHandler = (event) => {
-     console.log(!domNode.current.contains(event.target))
       if (!domNode.current.contains(event.target)) {
         handler();
       }
@@ -33,7 +32,6 @@ export const Alerta = () => {
     setIsOpen(false);
   });
   const [state, setState] = useState(false);
-  const [toggle, setToggle] = useState(false);
   /* alerta de anticipo */
   const id = localStorage.getItem("uid");
   const { anticipo } = PeticionGET(`/${id}`);

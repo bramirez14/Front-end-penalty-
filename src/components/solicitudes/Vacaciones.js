@@ -73,8 +73,6 @@ const añosTrabajados=(fecha)=>{
 }
   useEffect(() => {
     const fx = async () => {
-      console.log(dias);
-
       if (periodo !== "") {
        const { data } = await axiosURL.get(`/${id}`);
        console.log(data);
@@ -186,15 +184,12 @@ const añosTrabajados=(fecha)=>{
   function handleChangeSelect(date, dateString) {
     setVacaciones({ ...vacaciones, periodo: dateString });
   }
-  console.log(vacaciones);
 
   const diasFalt=()=>{
 
     let a= añosTrabajados(fechaContratacion.split("/")[2])
     let d = dias
    let resta= vacaciones.maximo-d
-    console.log(d); 
-    console.log(vacaciones.maximo);
     setVacaciones({...vacaciones,diasFaltantes:resta})
   }
   useEffect(() => {
@@ -202,7 +197,6 @@ const añosTrabajados=(fecha)=>{
   }, [dias])
   const getUsuarios = PeticionGET(`/${id}`)
   const log=getUsuarios.vacacion?.length-'1'
-  console.log(getUsuarios?.vacacion?.[log]);
 const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
   return (
     <>

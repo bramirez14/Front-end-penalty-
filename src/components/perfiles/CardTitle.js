@@ -36,7 +36,7 @@ export const CardTitle = ({gasto,sueldo,vacaciones})=> {
   ))}
 </Row>,
     tab2: <Row gutter={[10,10]}>
-    {sueldo.map(s=>(
+    {sueldo?.map(s=>(
     <Col span={12}>
 
     <Card >
@@ -52,7 +52,7 @@ export const CardTitle = ({gasto,sueldo,vacaciones})=> {
 </Row>,
     tab3: 
     <Row gutter={[10,10]}>
-    {vacaciones.map(v=>(
+    {vacaciones?.map(v=>(
     <Col span={12}>
     <Card >
     <p><b>Fecha:</b> {v.fechaSolicitud}</p>

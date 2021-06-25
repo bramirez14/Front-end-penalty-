@@ -320,13 +320,7 @@ export const AprobacionAntcipoSueldo = () => {
     },
   ];
 /****** fin de table *****/
- const usuario = PeticionGET(`./${id}`)
- const departamento=(usuario.departamentoId)//1
- console.log(departamento);
-  const filtroGerente902 = data.filter(
-    (d) => d.usuario.departamentoId === 3 || d.estadoFinal === "aprobado"
-  );
-console.log(data);
+
   /**selecion de gerente  recordamos que Cristian Rios da el ok final*/
   const gerentes = () => {
     switch (N) {
@@ -348,9 +342,6 @@ console.log(data);
 
     }
   };
-
-  console.log(gerentes());
-
 
   const datos = gerentes()?.map((f) => {
     return {

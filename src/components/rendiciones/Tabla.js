@@ -51,9 +51,7 @@ export const Tabla = ({
   }
 
   const gastos= PeticionGET(`/${id}`);
-  console.log(gastos.gasto?.[gastos?.gasto?.length-1]?.estadoFinal);
   const APROBACION = gastos.gasto?.[gastos?.gasto?.length-1]?.estadoFinal
-console.log(APROBACION);
  
   const columns = [
     {

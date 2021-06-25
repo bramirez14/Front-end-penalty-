@@ -13,7 +13,6 @@ export const AprobacionGastos = () => {
     const N = localStorage.getItem("N");// numero de registro 
     const [gastoPendiente, setGastoPendiente] = useState();//estado de a fn 
     const [data, setData] = useState([]);
-    const Text = useContext(UserContext);// useContext 
     const [mensaje, setMensaje] = useState({
       respMensaje: "",
       estado: "",
@@ -22,7 +21,6 @@ export const AprobacionGastos = () => {
       searchText: "",
       searchedColumn: "",
     });
-    const { open } = Text;
     const { TextArea } = Input;
     const searchInput = useRef("");
     /** peticion get trae todo los gastos */
@@ -33,7 +31,6 @@ export const AprobacionGastos = () => {
     useEffect(() => {
       axiosGet();
     }, []);
-  console.log(data);
     /***** modal ******/
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -172,7 +169,6 @@ export const AprobacionGastos = () => {
       setState({ searchText: "" });
     };
     const formaDepago= PeticionGET('/mpagos');
-    console.log(formaDepago);
     const columns = [
       {
         title: "N° de anticipo",

@@ -4,7 +4,7 @@ import PeticionGET from "../../config/PeticionGET";
 import axiosURL from "../../config/axiosURL";
 import { CardTitle } from "./CardTitle";
 
-export const ListaUsuarios = () => {
+export const ListaUsuarios = ({lista}) => {
   const [visible, setVisible] = useState(false);
   const [DatosPersonales, setDatosPersonales] = useState({});
   const [gasto, setGasto] = useState([]);
@@ -20,15 +20,15 @@ export const ListaUsuarios = () => {
     departamento,
     cel,
   } = DatosPersonales;
-  const TodosLosUsuarios = PeticionGET("./allusers");
+  const TodosLosUsuarios = lista
 
   const showDrawer = async (id) => {
     console.log(id);
     const acum =[];
     /**Sector gastos */
     let e = TodosLosUsuarios.find((q) => q.id === id);
-    const egasto=e.gasto.map(g=>g.id);
-    for (let i = 0; i < egasto.length; i++) {
+    const egasto=e.gasto?.map(g=>g.id);
+    for (let i = 0; i < egasto?.length; i++) {
       const P= await axiosURL(`./gastos/${egasto[i]}`)
      acum.push(P.data)
       setGasto(acum)
@@ -76,7 +76,7 @@ setVacaciones(e.vacacion);
       <Row style={{ marginTop: 20 }}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <List bordered className="lista">
-            {TodosLosUsuarios.map((q, i) => (
+            {TodosLosUsuarios?.map((q, i) => (
               <>
                 <List.Item
                   key={q.id}

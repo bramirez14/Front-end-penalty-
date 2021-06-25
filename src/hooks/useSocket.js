@@ -10,7 +10,6 @@ export const useSocket = ( serverPath ) => {
     const conectarSocket = useCallback( () => {
 
         const token = localStorage.getItem('token'); // se solicita el token de localstorage
-console.log(token);
         const socketTemp = io.connect( serverPath, { 
             transports: ['websocket'],// es necesario
             autoConnect: true,

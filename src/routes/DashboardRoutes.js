@@ -9,7 +9,6 @@ import { RouteGerente } from "./RouteGerente";
 import { RouteEmpleado } from "./RouteEmpleado";
 
 import { Vacaciones } from "../components/solicitudes/Vacaciones";
-import { PerfilCristianAdmin } from "../components/perfiles/PerfilCristianAdmin";
 import { AnticipoGasto } from "../components/solicitudes/AnticipoGasto";
 import { EditarRendicion } from "../components/rendiciones/EditarRendicion";
 import { CrearRendicion } from "../components/rendiciones/CrearRendicion";
@@ -17,7 +16,6 @@ import { Uploads } from "../components/rendiciones/Uploads";
 import { ListaRendiciones } from "../components/rendiciones/ListaRendiciones";
 import { RendicionSinAnticipo } from "../components/solicitudes/RendicionSinAnticipo";
 import {  AprobacionAntcipoSueldo } from "../ComponentsGerentes/AprobacionAntcipoSueldo";
-import { PerfilEmpleado } from "../components/perfiles/PerfilEmpleado";
 import { Alerta } from "../components/alertas/Alerta";
 import { Register } from "../components/login/Register";
 import { Perfil } from "../components/perfiles/Perfil";

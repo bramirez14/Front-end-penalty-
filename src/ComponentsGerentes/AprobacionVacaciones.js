@@ -241,7 +241,6 @@ const [state, setState] = useState({
         render: (estado,file) =>{
           
           const color =()=>{
-            console.log(file);
             switch (file.estado) {
               case 'pendiente':
                 return(<h6 style={{color:'yellow'}}> pendiente...</h6> )
@@ -342,7 +341,6 @@ const [state, setState] = useState({
 
     }
   };
-  console.log(gerentes());
   const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
 
   const datos = gerentes()?.map((f) => {
