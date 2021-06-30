@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import { BsFillHouseFill } from "react-icons/bs";
 import { GiPayMoney } from "react-icons/gi";
 import { TiUser } from "react-icons/ti";
-import PeticionGET from "../../config/PeticionGET";
+import { MdTrendingUp} from "react-icons/md";
+
+import {PeticionGET }from "../../config/PeticionGET";
 
 export const Item = ({ click, click2 }) => {
   const mediaqueryList = window.matchMedia("(max-width: 768px)");
@@ -25,8 +27,6 @@ const pg= PeticionGET(`./${id}`)
   </SidebarHeader>
        <SidebarContent>
       <Menu popperArrow='true'>
-       
-         
           <MenuItem
             onClick={q ? click : click2}
             style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}
@@ -76,6 +76,15 @@ const pg= PeticionGET(`./${id}`)
             <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
               Aprobacion de Gastos
               <Link to="/aprobacion/gastos" />
+            </MenuItem>
+          </SubMenu>
+          <SubMenu
+          title="Reportes de Gestion"
+          icon={<MdTrendingUp style={{ fontSize: "20px" }} />}
+          style={{ fontSize: "14px", color: "white", marginLeft: "10px" }}>
+          <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+              Estado de Remitos
+              <Link to="/reportes/gestion/remitos" />
             </MenuItem>
           </SubMenu>
           </>

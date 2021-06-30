@@ -38,7 +38,6 @@ export const ListaRendiciones = ({ match, history }) => {
        saveAs(pdfBlob, 'penaltyIntranet.pdf');
      }) */
   };
-  console.log(peticionGastoId.sinAnticipo);
   const onClick = () => {
     if(peticionGastoId?.sinAnticipo!=='sin'){
     if (totalDeImporte >= importe) {
@@ -58,6 +57,7 @@ export const ListaRendiciones = ({ match, history }) => {
         uuid={id}
         total={totalDeImporte}
         importeAnticipo={importe}
+        sinAnticipo={peticionGastoId.sinAnticipo}
       />
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -77,7 +77,7 @@ export const ListaRendiciones = ({ match, history }) => {
             />
           ))}
         </Col>
-        <Col offset={21}>
+        <Col offset={open?20:21}>
           <Button  style={{ marginTop: "10px" }} onClick={handleClick}>
           Generar PDF
           </Button>

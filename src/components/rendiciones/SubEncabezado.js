@@ -3,7 +3,8 @@ import {  Col, Row } from "antd";
 import PeticionGET from '../../config/PeticionGET';
 
 
-export const SubEncabezado = ({uuid,total,importeAnticipo}) => {
+export const SubEncabezado = ({uuid,total,importeAnticipo,sinAnticipo}) => {
+  console.log(sinAnticipo==='sin');
   const id = localStorage.getItem('uid')
   let usuario = PeticionGET(`/${id}`)
 
@@ -55,7 +56,7 @@ export const SubEncabezado = ({uuid,total,importeAnticipo}) => {
             borderBottom: "solid 1px rgba(92, 99, 105, 0.5)",
           }}>
           <h2 style={{marginLeft:'100px'}}> anticipo: #{uuid}</h2>
-          {importeAnticipo===undefined?'':<h4 style={{marginLeft:'100px'}}> Importe: ${importeAnticipo} </h4>}
+          {sinAnticipo==='sin'?'': importeAnticipo===undefined?'':<h4 style={{marginLeft:'100px'}}> Importe: ${importeAnticipo} </h4>}
           {total===undefined?'':<h4 style={{marginLeft:'100px'}}> Total: ${total} </h4>}
 
         </Col>

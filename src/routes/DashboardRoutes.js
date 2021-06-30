@@ -56,6 +56,8 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path="/img" component={Uploads} />
         <RouteEmpleado exact path="/prueba" component={Alerta} />
         
+        <RouteGerente exact path='/reportes/gestion/remitos' component={Remitos}/>
+
         
 
         <Redirect to="/login" />
