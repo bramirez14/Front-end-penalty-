@@ -1,0 +1,19 @@
+.contenedor-msj{
+    margin-top:20px;
+    border:solid 1px #ddd;
+    background: #fff;
+}
+.item-contenedor{
+    border-top:solid 1px #ddd;
+
+}
+.contenedor-item{
+    margin: auto;
+}
+.circle{
+
+    border-radius: 50%;
+    background-color: #46a461;
+    margin-top: 10px;
+    margin-left: 10px;
+    }

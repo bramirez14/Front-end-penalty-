@@ -25,6 +25,7 @@ import { SueldoContainer } from "../components/solicitudes/SueldoContainer";
 import { AprobacionGastos } from "../ComponentsGerentes/AprobacionGastos";
 import { PDF } from "../components/view/PDF";
 import { Remitos } from "../components/reportes/Remitos";
+import { Mensajes } from "../components/mensajes/Mensajes";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -58,6 +59,8 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path="/prueba" component={Alerta} />
 
         <RouteGerente exact path='/reportes/gestion/remitos' component={Remitos}/>
+        <RouteEmpleado exact path='/mensajes' component={Mensajes}/>
+
         
         
 
