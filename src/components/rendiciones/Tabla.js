@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Table, Button, Col, Modal, Form, Input, Upload, message } from "antd";
-import axiosURL from "../../config/axiosURL";
+import {axiosURL} from "../../config/axiosURL";
 import { Link } from 'react-router-dom'
-import PeticionGET from "../../config/PeticionGET";
+import {PeticionGET} from "../../config/PeticionGET";
 
 export const Tabla = ({
   usuario,

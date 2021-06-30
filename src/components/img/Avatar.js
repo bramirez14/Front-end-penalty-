@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./avatar.css";
 import { TiUserAdd } from "react-icons/ti";
 import { PeticionJWT } from "../../auth/PeticionJWT";
-import axiosURL from "../../config/axiosURL";
+import {axiosURL }from "../../config/axiosURL";
 
 import { Form, Input, Button, Modal, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
@@ -75,8 +75,8 @@ useEffect(() => {
   };
   return (
     <>
-      <Form>
-        <div className="div-img" >
+      <Form >
+        <div className="div-img"  >
         <img className="div-img2"  src={imgDB} alt=""  />
           <TiUserAdd className="avatar" onClick={showModal} />
         </div>

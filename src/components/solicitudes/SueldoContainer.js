@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import axiosURL from "../../config/axiosURL";
+import {axiosURL} from "../../config/axiosURL";
 import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
 import "./css/anticipoGasto.css";
-import PeticionGET from "../../config/PeticionGET";
+import {PeticionGET} from "../../config/PeticionGET";
 import { Sueldo } from "./Sueldo";
 import { UserContext } from "../../contexto/UserContext";
 

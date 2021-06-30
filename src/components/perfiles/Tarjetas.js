@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Card } from "antd";
 import { Link } from "react-router-dom";
-import axiosURL from "../../config/axiosURL";
+import {axiosURL} from "../../config/axiosURL";
 import './css/tarjeta.css'
 export const Tarjetas = () => {
   const [anticipo, setAnticipo] = useState([]);
@@ -13,8 +13,18 @@ export const Tarjetas = () => {
   useEffect(() => {
     const get = async (url) => {
       const res = await axiosURL(url);
+      const resp= res.data;
+      const op1= resp.filter(u=>u.estadoFinal === "pendiente" &&
+      (u.usuario.departamentoId === 1 || u.usuario.departamentoId === 2))
+      console.log(op1);
+      const op2 = resp.filter(d=>d.estadoFinal === "pendiente" &&
+      (d.usuario.departamentoId === 4 || d.usuario.departamentoId === 5))
+      console.log(op2);
+      const op3 = resp.filter(d=>d.estado === "pendiente" && d.usuario.departamentoId===3)
+      console.log(op3);
+      const unirOp=[...op1,...op2,...op3]
       if (N === "901") {
-        const filtro = res.data.filter(
+        const filtro = resp.filter(
           (r) =>
             r.estado === "pendiente" &&
             (r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2)
@@ -26,9 +36,7 @@ export const Tarjetas = () => {
           : setVacacion(filtro);
       }
       if (N === "902") {
-        const filtro = res.data.filter(
-          (r) => r.estadoFinal=== "pendiente" 
-        );
+        const filtro = unirOp
         url === "./anticipo"
           ? setAnticipo(filtro)
           : url === "./gastos"
@@ -36,7 +44,7 @@ export const Tarjetas = () => {
           : setVacacion(filtro);
       }
       if (N === "903") {
-        const filtro = res.data.filter(
+        const filtro = resp.filter(
           (r) =>
             r.estado === "pendiente" &&
             (r.usuario.departamentoId === 4 || r.usuario.departamentoId === 5)

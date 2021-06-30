@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Select } from "antd";
 import { UserContext } from "../../contexto/UserContext";
 import { Titulo } from "../titulos/Titulo";
-import axiosURL from "../../config/axiosURL";
+import {axiosURL} from "../../config/axiosURL";
 import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
-import PeticionGET from "../../config/PeticionGET";
+import {PeticionGET }from "../../config/PeticionGET";
 
 export const Vacaciones = ({ history }) => {
  const [datoImportante, setDatoImportante] = useState()

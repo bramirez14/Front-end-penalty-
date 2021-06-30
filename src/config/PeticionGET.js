@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import { axiosURL, axiosURLIntranet } from './axiosURL';
 
-import axiosURL from './axiosURL';
 
  const PeticionGET = (url) => {
   const [peticiones, setPeticiones] = useState([]);
@@ -11,12 +11,20 @@ import axiosURL from './axiosURL';
     }
     axiosGet()
   }, [url])
-
   return peticiones 
-
 }
 
+const PeticionGETIntranet =(url) =>{
+  const [peticionesIntranet, setPeticionesIntranet] = useState([]);
+  useEffect(() => {
+    const axiosGet = async () => {
+      let result = await axiosURLIntranet.get(url)
+          setPeticionesIntranet(result.data)
+    }
+    axiosGet()
+  }, [url])
 
+  return peticionesIntranet;
+}
 
-
-export default PeticionGET;
+export {PeticionGET,PeticionGETIntranet}

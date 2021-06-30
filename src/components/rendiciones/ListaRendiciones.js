@@ -3,8 +3,8 @@ import { Encabezado } from "./Encabezado";
 import { Button, Col, Row } from "antd";
 import { CardRendiciones } from "./CardRendiciones";
 import { Link } from "react-router-dom";
-import axiosURL from "../../config/axiosURL";
-import PeticionGET from "../../config/PeticionGET";
+import {axiosURL} from "../../config/axiosURL";
+import {PeticionGET }from "../../config/PeticionGET";
 import { SubEncabezado } from "./SubEncabezado";
 import { UserContext } from "../../contexto/UserContext";
 import { saveAs } from "file-saver";
@@ -31,14 +31,9 @@ export const ListaRendiciones = ({ match, history }) => {
       const pdfBlob = await new Blob([ge.data], { type: "application/pdf" });
       saveAs(pdfBlob, "penaltyIntranet.pdf");
     }
-   /*  axiosURL.post('/generar/pdf', todasLasRendicones)
-     .then(() => axiosURL.get('peticion/pdf', { responseType: 'blob' }))
-     .then((res) => {
-       const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-       saveAs(pdfBlob, 'penaltyIntranet.pdf');
-     }) */
+  
   };
-  console.log(peticionGastoId.sinAnticipo);
+  
   const onClick = () => {
     if(peticionGastoId?.sinAnticipo!=='sin'){
     if (totalDeImporte >= importe) {
@@ -58,6 +53,7 @@ export const ListaRendiciones = ({ match, history }) => {
         uuid={id}
         total={totalDeImporte}
         importeAnticipo={importe}
+        sinAnticipo={peticionGastoId.sinAnticipo}
       />
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -77,7 +73,7 @@ export const ListaRendiciones = ({ match, history }) => {
             />
           ))}
         </Col>
-        <Col offset={21}>
+        <Col offset={open?20:21}>
           <Button  style={{ marginTop: "10px" }} onClick={handleClick}>
           Generar PDF
           </Button>

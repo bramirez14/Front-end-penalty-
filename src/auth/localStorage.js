@@ -1,5 +1,3 @@
-import { securedBrowserCache } from 'secured-browser-storage';
-securedBrowserCache.setStorageType('localStorage'); 
 const STORAGE_KEY = 'token'
 
 const isLogged = () => !!localStorage.getItem('uid')

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import axiosURL from '../../config/axiosURL';
+import{ axiosURL }from '../../config/axiosURL';
 import { Form, Input, Button, Col, Row,  Select, Divider } from 'antd';
 import './css/editarRendicion.css'
 import TextArea from 'antd/lib/input/TextArea';
 import { categorias } from "./categorias";
 import { VistaImg } from './VistaImg';
-import PeticionGET from '../../config/PeticionGET';
+import {PeticionGET} from '../../config/PeticionGET';
 
 export const EditarRendicion = ({ match, history }) => {
     const { id } = match.params;

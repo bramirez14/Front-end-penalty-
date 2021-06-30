@@ -3,8 +3,8 @@ import { Badge, Button } from "antd";
 import { FaBell } from "react-icons/fa";
 import { FaBullhorn } from "react-icons/fa";
 import "./alerta.css";
-import PeticionGET from "../../config/PeticionGET";
-import axiosURL from "../../config/axiosURL";
+import {PeticionGET }from "../../config/PeticionGET";
+import {axiosURL} from "../../config/axiosURL";
 import {  run } from "../helper/funciones";
 /**Cierra cuadno clickeas fuera del div */
 let useClickOutside = (handler) => {

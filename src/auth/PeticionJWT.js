@@ -1,5 +1,5 @@
 import {useEffect,useState,useContext} from 'react'
-import axiosURL from '../config/axiosURL';
+import {axiosURL} from '../config/axiosURL';
 import { UserContext } from '../contexto/UserContext';
 import { logout } from './localStorage';
 
