@@ -14,9 +14,21 @@ import {axiosURL} from "../../config/axiosURL";
 import { logout } from "../../auth/localStorage";
 import { NombreCompleto } from "./NombreCompleto";
 
-
+import { Link } from 'react-router-dom';
+import * as FaIcons from 'react-icons/fa';
+import * as AiIcons from 'react-icons/ai';
+import SubMenu from './SubMenu';
+import { IconContext } from 'react-icons/lib';
+import { FaBars,FaSearch} from "react-icons/fa";
+import { SidebarItems } from "./SidebarItems";
 
 export const Sidebar = ({history}) => {
+  const [toggle, setToggle] = useState(false);
+  const abrirCerrarHamburguesa=()=> setToggle(!toggle)
+console.log(toggle);
+
+
+
   const {setAuth} = useContext(UserContext)
   const [state, setState] = useState(false);
   const id = localStorage.getItem('uid');
@@ -36,16 +48,60 @@ export const Sidebar = ({history}) => {
   };
   return (
     <>
-      {q ? (
+<div className='navbar'>
+          <Link to='#' className='menu-bars'>
+          <FaBars onClick={abrirCerrarHamburguesa}/>
+          </Link>
+
+        </div>
+        <nav className={toggle ? 'nav-menu active' : 'nav-menu'}>
+          <ul className='nav-menu-items'>
+            <li className='navbar-toggle'>
+              <Link to='#' className='menu-bars'>
+                <AiIcons.AiOutlineClose />
+              </Link>
+            </li>
+            {SidebarItems.map((item, index) => {
+              return <SubMenu item={item} key={index} />;
+            })}
+          </ul>
+        </nav>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     {/*  {q ? (
         <div className={open ? "div-navbar active" : "div-navbar"}> </div>
       ) : (
         ""
-      )}
+      )} */}
 
-      <div className={open ? "navbar active" : "navbar"}>
+     {/*  <div className={open ? "navbar active" : "navbar"}> */}
         {/*importante para los iconos y para las alertas  de arriba de todo*/}
 
-        <div to="#" className="menu-bars">
+        {/* <div to="#" className="menu-bars">
           <GiHamburgerMenu onClick={showSidebar} className="hamburguesa" />
         </div>
 
@@ -57,8 +113,8 @@ export const Sidebar = ({history}) => {
           </span>
        
         </div>
-      </div>
-      <nav className={open ? "nav-menu active" : "nav-menu"}>
+      </div> */}
+     {/*  <nav className={open ? "nav-menu active" : "nav-menu"}>
         <AiOutlineClose onClick={showSidebar} className="x" />
         <div className="sidebar-open">
             <AvatarImg history={history} />
@@ -67,7 +123,7 @@ export const Sidebar = ({history}) => {
             <Item click={showSidebar} click2={showSidebar2} />{" "}
           </div>
         </div>
-      </nav>
+      </nav> */}
       
     </>
   );

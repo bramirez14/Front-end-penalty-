@@ -227,6 +227,7 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
                   picker="year"
                   style={{ width: "100%" }}
                   onChange={handleChangeSelect}
+                  placeholder='Ingrese un año'
                 />
               </Form.Item>
               {/*   ************* Condicion por año ******************* */}
@@ -247,10 +248,15 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
                       max={maximo}
                     />
                   </Form.Item>
-                  <Form.Item name="fechaDesde" label=" Desde">
+                  <Form.Item name="fechaDesde" label=" Desde" rules={[
+                  {
+                    required: true,
+                    message: "ingrese una fecha",
+                  },
+                ]}>
                     <DatePicker
                       name="fechaDesde"
-                      placeholder={new Date().toLocaleDateString()}
+                      placeholder={'Ingrese una fecha'}
                       format={dateFormat}
                       onChange={onChange}
                       style={{ width: "100%" }}

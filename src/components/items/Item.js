@@ -86,6 +86,10 @@ const pg= PeticionGET(`./${id}`)
               Estado de Remitos
               <Link to="/reportes/gestion/remitos" />
             </MenuItem>
+            <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
+              Facturacion Por Vendedor
+              <Link to="/reportes/facturacion/ventas" />
+            </MenuItem>
           </SubMenu>
           </>
         )}

@@ -5,7 +5,8 @@
 }
 .item-contenedor{
     border-top:solid 1px #ddd;
-
+    height: 80px;
+    padding: 20px;
 }
 .contenedor-item{
     margin: auto;

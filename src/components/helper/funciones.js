@@ -1,3 +1,6 @@
+import React,{useState,useRef} from 'react'
+
+
 export const restaFechas = (f1,f2)=>
 {
 var aFecha1 = f1.split('/');
@@ -80,3 +83,4 @@ export const run = (date) => {
       return Ht>1? `${Ht} horas`:`${Ht} hora`
       }else{ return resultDias}
   };
+  

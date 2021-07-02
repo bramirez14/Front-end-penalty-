@@ -1,30 +1,9 @@
 .navbar {
+  background-color: #060b26;
+  height: 80px;
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
-  background-color: #46a461;
-  height: 47px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 9999;
-}
-
-.div-navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  opacity: 0;
-  height: 119vh;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 9999;
-  display: none;
-}
-.div-navbar.active {
-  display: block;
-  opacity: 1;
 }
 
 .menu-bars {
@@ -34,69 +13,21 @@
 }
 
 .nav-menu {
-  background-color: #46a461;
-  width: 271px;
-  height: 102vh;
+  background-color: #060b26;
+  width: 250px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   position: fixed;
   top: 0;
   left: -100%;
-  transition: 1700ms;
-  margin-top: -1px;
-  z-index: 9999;
-}
-.datosPersonales {
-  margin-right: 40px;
-}
-.nombreCompleto{
- color: #0F0F0F;
-}
-.nombreCompleto:hover{
- color : #ddd
-}
-#drop{
-  position: absolute;
-  top:58px;
-  right: 20px;
-  background:#fff;
-   box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
-   border-radius: 20px;
-   width: 14%;
-   height: auto;
- 
+  transition: 2s;
+  z-index: 99;
 }
 
-.contenedor-drop{
-  display: grid;
-  grid-template-columns: 30%  70%;
-  grid-template-rows: auto;
-  grid-template-areas: 
-    "item item2 ";
-    column-gap: 10px;
-  margin-bottom: 7px;
-  padding:10px;
-}
-.drop-icon{
-  grid-area: item;
-  margin: auto;
-  border-radius: 50%;
-  background:rgb(209, 208, 208) ;
-  width: 27px;
-  height: 27px;
-}
-.drop-text{
-  grid-area: item2;
-}
 .nav-menu.active {
   left: 0;
-  transition: 700ms;
-  z-index: 9999;
-}
-.boton-drop{
-  border:none;
-  background: none;
-  
+  transition: 2s;
 }
 
 .nav-text {
@@ -121,17 +52,15 @@
 }
 
 .nav-text a:hover {
-  color: black;
-  font-size: 22px;
+  background-color: #1a83ff;
 }
 
 .nav-menu-items {
   width: 100%;
 }
 
-
 .navbar-toggle {
-  background-color: #46a461;
+  background-color: #060b26;
   width: 100%;
   height: 80px;
   display: flex;
@@ -139,74 +68,46 @@
   align-items: center;
 }
 
-.sidebar-open {
-  display: grid;
-  grid-template-columns: minmax(100px, 300px);
-  grid-template-rows: 150px;
-  row-gap: 15px;
-}
-/* .sidebar-img {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
-} */
-/* .item {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 2;
-  grid-row-end: auto;
-} */
-.sidebar-img{
-height: 20px;
+span {
+  margin-left: 16px;
 }
 
-.hamburguesa {
-  color: black;
-  position: absolute;
-  top: 7px;
+/*SubMenu*/
+
+.link{
+  display: flex;
+  color: #e1e9fc;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  list-style: none;
+  height: 60px;
+  text-decoration: none;
+  font-size: 18px;
+
 }
-.x {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 27px;
-  color: white;
+.link:hover{
+  background: #252831;
+  border-left: 4px solid #632ce4;
+  cursor: pointer;
 }
-/*Sector de sidebar react pro*/
-.pro-sidebar > .pro-sidebar-inner {
-  background: transparent;
+
+.label
+  {margin-left: 16px;}
+
+
+ .dropdownLink {
+  background: #414757;
+  height: 60px;
+  padding-left: 3rem;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #f5f5f5;
+  font-size: 18px;
 }
-.pro-sidebar
-  .pro-menu.shaped
-  .pro-menu-item
-  > .pro-inner-item
-  > .pro-icon-wrapper {
-  background: transparent;
+.dropdownLink:hover{
+  background: #632ce4;
+    cursor: pointer;
 }
-.pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item {
-  background: #46a461;
-}
-.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item {
-  padding: 0px;
-}
-.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item > .pro-item-content {
-  margin-left: -3px;
-}
-.pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item > div > ul {
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-.pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item .pro-inner-item:before {
-  content: '';
-  display: inline-block;
-  width: 4px;
-  min-width: 4px;
-  height: 4px;
-  border: none;
-  border-radius: 50%;
-  margin-right: 15px;
-  position: relative;
-  background-color: white;
-  
-}
+ 

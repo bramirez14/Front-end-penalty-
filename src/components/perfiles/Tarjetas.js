@@ -16,12 +16,9 @@ export const Tarjetas = () => {
       const resp= res.data;
       const op1= resp.filter(u=>u.estadoFinal === "pendiente" &&
       (u.usuario.departamentoId === 1 || u.usuario.departamentoId === 2))
-      console.log(op1);
       const op2 = resp.filter(d=>d.estadoFinal === "pendiente" &&
       (d.usuario.departamentoId === 4 || d.usuario.departamentoId === 5))
-      console.log(op2);
       const op3 = resp.filter(d=>d.estado === "pendiente" && d.usuario.departamentoId===3)
-      console.log(op3);
       const unirOp=[...op1,...op2,...op3]
       if (N === "901") {
         const filtro = resp.filter(

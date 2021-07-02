@@ -36,7 +36,7 @@ export const Alerta = () => {
     setState(result.data);
   };
  
-console.log(state);
+
   return (
     <>
       <Button

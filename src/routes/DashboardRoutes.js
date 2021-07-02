@@ -26,6 +26,8 @@ import { AprobacionGastos } from "../ComponentsGerentes/AprobacionGastos";
 import { PDF } from "../components/view/PDF";
 import { Remitos } from "../components/reportes/Remitos";
 import { Mensajes } from "../components/mensajes/Mensajes";
+import { EstadoUsuario } from "../components/estado/EstadoUsuario";
+import { FacturaVendedor } from "../components/reportes/FacturaVendedor";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -60,6 +62,10 @@ export const DashboardRoutes = ({ history }) => {
 
         <RouteGerente exact path='/reportes/gestion/remitos' component={Remitos}/>
         <RouteEmpleado exact path='/mensajes' component={Mensajes}/>
+        <RouteEmpleado exact path='/estado/usuario' component={EstadoUsuario}/>
+        <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
+
+
 
         
         

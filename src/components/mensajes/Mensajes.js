@@ -35,10 +35,10 @@ export const Mensajes = () => {
               <Col  xs={12} sm={12} md={12} lg={12} xl={12} >
                 <div className="contenedor-inf">
                   <div className="item-despcription">
-                    <span>Estado:{a.estadoFinal}  </span>
+                    <span>Estado: {a.estadoFinal}  </span>
                   </div>
                   <div className="item-despcription">
-                    <span> mensaje:{a.respMensaje}  </span>
+                    <span> mensaje: {a.respMensaje}  </span>
                   </div>
                  
                 </div>
