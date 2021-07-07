@@ -1,46 +1,20 @@
-.icon-campana {
+.boton-campana,.boton-campana:hover{
+  background-color: transparent;
+  border: none;
+  margin-bottom:20px;
+}
+.icon-campana{
   font-size: 20px;
-  
   color:#0F0F0F;
 }
 .icon-campana:hover{
-  color:#ddd;
+color:#ddd;
 }
 .icon-bocina{
     font-size: 20px;
 }
 .ant-badge-count {
   box-shadow: none;
-}
-
- .contenedor-alerta {
-  width: 25%;
-  background-color: white;
-  position: absolute;
-  top: 47px;
-  right: 50px;
-  border: solid 2px #ddd;
-  height: auto;
-}
-
-.contenedor-alert-active {
-  width: 25%;
-  background-color: white;
-  position: absolute;
-  top: 50px;
-  right: 50px;
-  border: solid 2px #ddd;
-  overflow-y: scroll;
-  height: 500px;
-}
-.contenedor-item{
-  display: grid;
-  grid-template-columns: 10%  10% 70%;
-  grid-template-rows: auto;
-  grid-template-areas: 
-    "item item2 item3";
-    column-gap: 10px;
-  margin-bottom: 7px;
 }
 .circle{
 grid-area: item;
@@ -50,42 +24,6 @@ border-radius: 50%;
 background-color: #46a461;
 margin: auto;
 }
-.item-icon{
-  grid-area: item2;
-margin-top: 21px;
-
-}
-.contenedor-inf{
-  grid-area: item3;
-}
 
 
-/* barra scroll*/
-.contenedor-alerta::-webkit-scrollbar {
-  width: 7px; /* Tamaño del scroll en vertical */
-  /* height: 8px;     Tamaño del scroll en horizontal */
-}
-.contenedor-alerta::-webkit-scrollbar-thumb {
-  background: #ddd;
-  border-radius: 4px;
-}
 
-.contenedor-alerta::-webkit-scrollbar-thumb:hover {
-  background: #b3b3b3;
-}
-
-/* Cambiamos el fondo cuando esté en active */
-.contenedor-alerta::-webkit-scrollbar-thumb:active {
-  background-color: #999999;
-}
-/* Ponemos un color de fondo y redondeamos las esquinas del track */
-.contenedor-alerta::-webkit-scrollbar-track {
-  background: #bdbdbd;
-  border-radius: 4px;
-}
-
-/* Cambiamos el fondo cuando esté en active o hover */
-.contenedor-alerta::-webkit-scrollbar-track:hover,
-.contenedor-alerta::-webkit-scrollbar-track:active {
-  background: #d4d4d4;
-}

@@ -1,130 +1,90 @@
-import React, { useState, useContext,useEffect,useRef } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import "./css/sidebar.css";
 import { AvatarImg } from "../img/Avatar";
-import { Item } from "../items/Item";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { AiOutlineClose } from "react-icons/ai";
 import { UserContext } from "../../contexto/UserContext";
 import { PeticionJWT } from "../../auth/PeticionJWT";
 import { Alerta } from "../alertas/Alerta";
-import { Dropdown, Menu } from "antd";
+import { Row, Col, } from "antd";
 import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
-import { ImExit } from "react-icons/im";
-import {axiosURL} from "../../config/axiosURL";
+import { axiosURL } from "../../config/axiosURL";
 import { logout } from "../../auth/localStorage";
+
+import { Link } from "react-router-dom";
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+import SubMenu from "./SubMenu";
+import { IconContext } from "react-icons/lib";
+import { FaBars, FaSearch } from "react-icons/fa";
+import { SidebarItems } from "./SidebarItems";
+import { SidebarItems2 } from "./SidebarItems2";
+import { SidebarItemsEmpleado } from "./SidebarItemsEmpleado";
+import { BotomHamburguesa } from "../botones/BotomHamburguesa";
 import { NombreCompleto } from "./NombreCompleto";
 
-import { Link } from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import SubMenu from './SubMenu';
-import { IconContext } from 'react-icons/lib';
-import { FaBars,FaSearch} from "react-icons/fa";
-import { SidebarItems } from "./SidebarItems";
 
-export const Sidebar = ({history}) => {
-  const [toggle, setToggle] = useState(false);
-  const abrirCerrarHamburguesa=()=> setToggle(!toggle)
-console.log(toggle);
-
-
-
-  const {setAuth} = useContext(UserContext)
-  const [state, setState] = useState(false);
-  const id = localStorage.getItem('uid');
+export const Sidebar = ({ history }) => {
+  const abrirCerrarHamburguesa = () => setOpen(!open);
+  const { setAuth } = useContext(UserContext);
+  const id = localStorage.getItem("uid");
   const mediaqueryList = window.matchMedia("(max-width: 576px)");
   const q = mediaqueryList.matches;
+  const n = localStorage.getItem("N");
   const Sidebar = useContext(UserContext);
   const { open, setOpen } = Sidebar;
-  const showSidebar = () => setOpen(!open);
-  const showSidebar2 = () => setOpen(open);
   const get = PeticionJWT();
   const { nombre, apellido } = get;
-  const handleLogout = async() => {
-    await axiosURL.put(`/cs/${id}`,{conectado:'NO'})
+
+  const handleLogout = async () => {
+    await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
     logout();
     history.push("/login");
-    setAuth(false)
+    setAuth(false);
   };
+  let reconocerUsuario =
+    n === "901"
+      ? SidebarItems
+      : n === "902"
+      ? SidebarItems2
+      : n === "903"
+      ? SidebarItems2
+      : SidebarItemsEmpleado;
   return (
     <>
-<div className='navbar'>
-          <Link to='#' className='menu-bars'>
-          <FaBars onClick={abrirCerrarHamburguesa}/>
-          </Link>
+      <Row>
+        <Col>
+          <div className="navbar">
+            <div className='hamburguesa'> <BotomHamburguesa abrirCerrarHamburguesa={abrirCerrarHamburguesa}/></div>
+            <div className='nomaler'style={{display:'flex'}}> 
+            <div className='alerta' ><Alerta/></div> 
+            <div className='nombreCompleto'><NombreCompleto nombre={nombre} apellido={apellido} handleLogout={handleLogout}/></div>
+            
+            </div>
+          </div>
+        </Col>
+      </Row>
 
-        </div>
-        <nav className={toggle ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items'>
-            <li className='navbar-toggle'>
-              <Link to='#' className='menu-bars'>
-                <AiIcons.AiOutlineClose />
-              </Link>
-            </li>
-            {SidebarItems.map((item, index) => {
+      <nav className={open ? "nav-menu active" : "nav-menu"}>
+        <div className="nav-menu-items">
+          <AiIcons.AiOutlineClose
+            onClick={abrirCerrarHamburguesa}
+            className="x"
+          />
+          <AvatarImg history={history} />
+          <div style={{ marginTop: "20px" }}>
+            <h4
+              className="title-sidebar"
+              style={{ color: "#fff", marginLeft: "34px" }}
+            >
+              {nombre} {apellido}
+            </h4>
+          </div>
+          <div style={{ marginTop: 20 }}>
+            {reconocerUsuario.map((item, index) => {
               return <SubMenu item={item} key={index} />;
             })}
-          </ul>
-        </nav>
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     {/*  {q ? (
-        <div className={open ? "div-navbar active" : "div-navbar"}> </div>
-      ) : (
-        ""
-      )} */}
-
-     {/*  <div className={open ? "navbar active" : "navbar"}> */}
-        {/*importante para los iconos y para las alertas  de arriba de todo*/}
-
-        {/* <div to="#" className="menu-bars">
-          <GiHamburgerMenu onClick={showSidebar} className="hamburguesa" />
-        </div>
-
-        <div className="datosPersonales" >
-          <Alerta />
-
-          <span   className="nombreCompleto">
-           <NombreCompleto nombre={nombre} apellido={apellido}handleLogout={handleLogout}/>
-          </span>
-       
-        </div>
-      </div> */}
-     {/*  <nav className={open ? "nav-menu active" : "nav-menu"}>
-        <AiOutlineClose onClick={showSidebar} className="x" />
-        <div className="sidebar-open">
-            <AvatarImg history={history} />
-          <div className="item">
-            {" "}
-            <Item click={showSidebar} click2={showSidebar2} />{" "}
           </div>
         </div>
-      </nav> */}
-      
+      </nav>
     </>
   );
 };

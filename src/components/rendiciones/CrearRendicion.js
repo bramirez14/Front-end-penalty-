@@ -147,11 +147,8 @@ export const CrearRendicion = ({ match, history }) => {
   /**Submit */
   const handleSubmit = () => {
     if(peticionGastoId?.sinAnticipo!=='sin'){
-    if (total > i) {
-      alert('El importe no puede  superar el monto del anticipo ')
-    } else {
-      agregar();
-    }}else{agregar()}
+      agregar(); 
+    }else{agregar()}
   };
   /**Fin Submit */
   return (
@@ -165,7 +162,7 @@ export const CrearRendicion = ({ match, history }) => {
           {...estilo}
           size='large'
         >
-          <h5 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
+          <h5 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendicion<Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
           <Divider />
           <Form.Item name="categoria">
             <Select placeholder="Categoria" onChange={selectChange} >

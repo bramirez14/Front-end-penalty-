@@ -11,7 +11,6 @@ export const PerfilEmpleado = ({history}) => {
     return (
         <>
                {genero()}
-               <h2>pdfh2</h2>
          </>   
             
 

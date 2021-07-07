@@ -31,6 +31,7 @@ export const AprobacionGastos = () => {
     useEffect(() => {
       axiosGet();
     }, []);
+    console.log(data);
     /***** modal ******/
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -48,7 +49,7 @@ export const AprobacionGastos = () => {
     };
   
     const handleCancel = () => {
-      console.log("Clicked cancel button");
+   
       setVisible(false);
     };
   

@@ -10,7 +10,7 @@ import { GiPayMoney } from "react-icons/gi";
 import { TiUser } from "react-icons/ti";
 import { MdTrendingUp } from "react-icons/md";
 
-export const SidebarItems = [
+export const SidebarItems2 = [
   {
     title: "Home",
     path: "/perfil",
@@ -18,20 +18,7 @@ export const SidebarItems = [
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
-  {
-    title: "Usuario",
-    icon: <TiUser />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-    subNav: [
-      {
-        title: "Registro",
-        path: "/register",
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-    ],
-  },
+
   {
     title: "Aprobaciones",
     icon: <FaCheck />,

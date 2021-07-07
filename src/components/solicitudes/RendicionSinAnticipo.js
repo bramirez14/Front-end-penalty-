@@ -22,8 +22,8 @@ export const RendicionSinAnticipo = ({ history }) => {
     usuarioId: id,
     formapagoId: "1",
     sinAnticipo:"sin",
-    estado:'aprobado',
-    estadoFinal:'aprobado',
+    estado:'pendiente',
+    estadoFinal:'pendiente',
     notificacion:'inactiva'
     
   });

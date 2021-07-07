@@ -21,13 +21,13 @@ export const NombreCompleto = ({handleLogout,nombre,apellido,history}) => {
         </Menu>
       );
     return (
-        <Space wrap>
+        <Space wrap >
     
    
     <Dropdown overlay={menu} className='drop'>
-      <a>
+      <div >
       {nombre} {apellido} <CaretDownOutlined /> 
-      </a>
+      </div>
     </Dropdown>
   </Space>
     )

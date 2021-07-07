@@ -93,8 +93,8 @@ export const Tabla = ({
       ),
     },
   ];
-  const filasFiltradas = filtradoUsuariosConMediosDePago?.filter(f=>f.estadoFinal==='aprobado')
-
+  const filasFiltradas = filtradoUsuariosConMediosDePago?.filter(f=>f.estadoFinal==='aprobado'|| f.sinAnticipo==='sin')
+console.log(filasFiltradas);
   const filas = filasFiltradas?.map((f, i) => {
     return {
       ...f,

@@ -5,6 +5,7 @@ import { UserContext } from "../../contexto/UserContext";
 
 
 export const Login = ({ history }) => {
+  
 const {setAuth} = useContext(UserContext)
   //securedBrowserCache.setStorageType('localStorage'); 
   const [cargandoUsuario, setCargandoUsuario] = useState(true)
@@ -24,6 +25,7 @@ const {setAuth} = useContext(UserContext)
   };
   //Verificacion de datos
   const verifyUser = async (e) => {
+    
     let result = await axiosURL.post(
       "/login",
       user

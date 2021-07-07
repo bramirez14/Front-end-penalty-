@@ -29,7 +29,8 @@ export const PeticionJWT = () => {
           let TIPO=(tipo===tipoDB)
           let Numvend=(datosJWT.data.nvendedor===N)
           if(ID===false){logout(); contex?.setAuth(false)}
-        if(ok===true || noHay===true  || TIPO===false || Numvend===false){logout(); contex?.setAuth(false)}
+        if(ok===true || noHay===true  || TIPO===false || Numvend===false){logout(); 
+          contex?.setAuth(false)}
           setTokenEstado(datosJWT.data);
          contex?.setAuth(true)
         };

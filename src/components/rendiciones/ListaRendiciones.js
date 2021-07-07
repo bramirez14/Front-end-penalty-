@@ -36,16 +36,17 @@ export const ListaRendiciones = ({ match, history }) => {
   
   const onClick = () => {
     if(peticionGastoId?.sinAnticipo!=='sin'){
-    if (totalDeImporte >= importe) {
-      alert("ya no podes seguir agregando ");
-    } else {
+    
       history.push(`/crear/rendicion/${id}`);
-    }
   }else{
     history.push(`/crear/rendicion/${id}`);
   }
   };
-  console.log(totalDeImporte);
+
+  const listo = async ()=>{
+      let res=await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si'});
+      console.log(res);
+  };
   return (
     <div className="contenedor-form">
       <Encabezado />
@@ -73,12 +74,19 @@ export const ListaRendiciones = ({ match, history }) => {
             />
           ))}
         </Col>
-        <Col offset={open?20:21}>
+        </Row>
+        <Row>
+        <Col >
+          
           <Button  style={{ marginTop: "10px" }} onClick={handleClick}>
           Generar PDF
           </Button>
+        
+          <Button  style={{ marginTop: "10px",marginLeft:'10px'}} onClick={listo}>
+          Listo
+          </Button>
         </Col>
-      </Row>
+        </Row>
     </div>
   );
 };

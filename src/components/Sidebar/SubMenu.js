@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './css/sidebar.css'
+import './css/subMenu.css'
 
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
@@ -9,10 +9,11 @@ const SubMenu = ({ item }) => {
 
   return (
     <>
-      <div className='link' /* to={item.path}  */onClick={item.subNav && showSubnav}>
+    <Link to={item.path}>
+      <div className='link' onClick={item.subNav && showSubnav}>
         <div>
           {item.icon}
-          <label className='label'>{item.title}</label>
+          <span className='label'>{item.title}</span>
         </div>
         <div>
           {item.subNav && subnav
@@ -22,13 +23,16 @@ const SubMenu = ({ item }) => {
             : null}
         </div>
       </div>
+      </Link>
       {subnav &&
         item.subNav.map((item, index) => {
           return (
-            <div className='dropdownLink' /* to={item.path} */ key={index}>
+            <Link to={item.path} >
+            <div className='dropdownLink'  key={index}>
               {item.icon}
-              <label className='label'>{item.title}</label>
+              <label className='label' onClick={showSubnav}>{item.title}</label>
             </div>
+            </Link>
           );
         })}
     </>
