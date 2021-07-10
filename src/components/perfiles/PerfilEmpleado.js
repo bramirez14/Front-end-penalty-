@@ -1,6 +1,6 @@
 import { PeticionJWT } from '../../auth/PeticionJWT'
 import './css/perfiles.css'
-
+import {TarjetaEmpleado} from './TarjetaEmpleado'
 export const PerfilEmpleado = ({history}) => {
     const tipo = localStorage.getItem('type')
     let { nombre, apellido } = PeticionJWT();
@@ -10,9 +10,9 @@ export const PerfilEmpleado = ({history}) => {
   
     return (
         <>
-               {genero()}
+      <div className='contenedore'>
+               <TarjetaEmpleado/>
+               </div>
          </>   
-            
-
     )
 }

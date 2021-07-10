@@ -1,4 +1,5 @@
 import React,{useContext} from "react";
+
 import {
   Switch,
   Redirect,
@@ -28,10 +29,17 @@ import { Remitos } from "../components/reportes/Remitos";
 import { Mensajes } from "../components/mensajes/Mensajes";
 import { EstadoUsuario } from "../components/estado/EstadoUsuario";
 import { FacturaVendedor } from "../components/reportes/FacturaVendedor";
+import { PeticionGET } from "../config/PeticionGET";
+import { Demo } from "../components/Demo";
+import { RendicionGastosVista } from "../view/RendicionGastosVista";
+import { AntPagos } from "../view/AntPagos";
+
+
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
   const { open } = Text;
+ 
 
   return (
     <>
@@ -59,11 +67,17 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path="/rendicion" component={RendicionSinAnticipo} />
         <RouteEmpleado exact path="/img" component={Uploads} />
         <RouteEmpleado exact path="/prueba" component={Alerta} />
-
-        <RouteGerente exact path='/reportes/gestion/remitos' component={Remitos}/>
+        <RouteEmpleado exact path='/reportes/gestion/remitos' component={Remitos}/>
         <RouteEmpleado exact path='/mensajes' component={Mensajes}/>
         <RouteEmpleado exact path='/estado/usuario' component={EstadoUsuario}/>
         <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
+        <RouteEmpleado exact path='/demo' component={Demo}/>
+
+        {/**Vistas */}
+        <RouteEmpleado exact path='/comprobante/rendicion' component={RendicionGastosVista}/>
+        <RouteEmpleado exact path='/pagos/anticipo' component={AntPagos}/>
+
+        
 
 
 

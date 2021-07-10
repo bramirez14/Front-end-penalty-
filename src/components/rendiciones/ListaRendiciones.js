@@ -12,6 +12,9 @@ import { saveAs } from "file-saver";
 export const ListaRendiciones = ({ match, history }) => {
   const { id } = match.params;
   const peticionGastoId = PeticionGET(`/gastos/${id}`);
+  // avita ingreso por medio de la ruta
+  peticionGastoId?.listo==='Si'&& history.push('/perfil')
+
   const todasLasRendicones = peticionGastoId?.rendicion;
   const sumaGastos = todasLasRendicones?.map((sg) => sg.importe);
   let totalDeImporte;
@@ -45,7 +48,7 @@ export const ListaRendiciones = ({ match, history }) => {
 
   const listo = async ()=>{
       let res=await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si'});
-      console.log(res);
+      res.status===200&& history.push('/gastos')
   };
   return (
     <div className="contenedor-form">
@@ -59,9 +62,8 @@ export const ListaRendiciones = ({ match, history }) => {
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Button style={{ marginTop: "10px" }} onClick={onClick}>
-            {" "}
             Agregar Gasto
-          </Button>{" "}
+          </Button>
           <Link to="/gastos">
             <Button className="btn-list-rendicion">X</Button>
           </Link>
@@ -83,7 +85,7 @@ export const ListaRendiciones = ({ match, history }) => {
           </Button>
         
           <Button  style={{ marginTop: "10px",marginLeft:'10px'}} onClick={listo}>
-          Listo
+          Finalizar
           </Button>
         </Col>
         </Row>

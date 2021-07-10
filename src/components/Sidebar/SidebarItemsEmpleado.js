@@ -57,4 +57,17 @@ export const SidebarItemsEmpleado = [
       },
     ],
   },
+  {
+    title: "R. Gestion",
+    icon: <MdTrendingUp />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+      {
+        title: "Remitos",
+        path: "/reportes/gestion/remitos",
+        icon: <IoIcons.IoIosPaper />,
+      },
+    ],
+  },
 ];

@@ -73,7 +73,7 @@ export const Sidebar = ({ history }) => {
           <div style={{ marginTop: "20px" }}>
             <h4
               className="title-sidebar"
-              style={{ color: "#fff", marginLeft: "34px" }}
+              style={{ color: "#fff", marginLeft: "50px" }}
             >
               {nombre} {apellido}
             </h4>
