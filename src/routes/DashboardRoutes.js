@@ -29,10 +29,10 @@ import { Remitos } from "../components/reportes/Remitos";
 import { Mensajes } from "../components/mensajes/Mensajes";
 import { EstadoUsuario } from "../components/estado/EstadoUsuario";
 import { FacturaVendedor } from "../components/reportes/FacturaVendedor";
-import { PeticionGET } from "../config/PeticionGET";
 import { Demo } from "../components/Demo";
 import { RendicionGastosVista } from "../view/RendicionGastosVista";
-import { AntPagos } from "../view/AntPagos";
+import { PagosAntSueldo } from "../view/PagosAntSueldo";
+import { PagosAntGasto } from "../view/PagosAntGasto";
 
 
 
@@ -75,7 +75,9 @@ export const DashboardRoutes = ({ history }) => {
 
         {/**Vistas */}
         <RouteEmpleado exact path='/comprobante/rendicion' component={RendicionGastosVista}/>
-        <RouteEmpleado exact path='/pagos/anticipo' component={AntPagos}/>
+        <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
+        <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
+
 
         
 

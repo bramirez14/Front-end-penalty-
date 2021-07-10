@@ -47,16 +47,16 @@ export const TarjetasItems905 = [
 
 export const TarjetasItems906 =[
   {
-    title: "Pagos de Anticipos",
+    title: "Pagos de Ant.Sueldo",
     extra: <Link to="/pagos/anticipo">More</Link>,
     children: <Funtion />,
     
   },
 
   {
-    title: "En contruccion",
-    extra: <Link to="/comprobante/rendicion">More</Link>,
-    children: <Construccion />,
+    title: "Pagos de Ant.Gasto",
+    extra: <Link to="/pagos/gasto">More</Link>,
+    children: <Funtion  />,
   },
   {
     title: "En contruccion",
