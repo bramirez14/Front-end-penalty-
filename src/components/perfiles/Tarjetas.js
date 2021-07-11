@@ -14,15 +14,18 @@ export const Tarjetas = () => {
     const get = async (url) => {
       const res = await axiosURL(url);
       const resp= res.data;
-      const op1= resp.filter(u=>u.estadoFinal === "pendiente" &&
+      console.log(resp);
+      /**opcion para el estado de Critian Rios */
+      const op1= resp.filter(u=> u.estadoFinal === "pendiente" && u.estado==='aprobado' &&
       (u.usuario.departamentoId === 1 || u.usuario.departamentoId === 2))
-      console.log(op1);
-      const op2 = resp.filter(d=>d.estadoFinal === "pendiente" &&
+      
+      const op2 = resp.filter(d=>d.estadoFinal=== "pendiente" && d.estado==='aprobado' &&
       (d.usuario.departamentoId === 4 || d.usuario.departamentoId === 5))
-      console.log(op2);
+    
       const op3 = resp.filter(d=>d.estado === "pendiente" && d.usuario.departamentoId===3)
-      console.log(op3);
+
       const unirOp=[...op1,...op2,...op3]
+      console.log(unirOp);
       if (N === "901") {
         const filtro = resp.filter(
           (r) =>
@@ -61,56 +64,53 @@ export const Tarjetas = () => {
       get(i);
     }
   }, []);
-
+console.log(gasto);
   return (
     <Row gutter={[30,30]}>
-      <Col xs={24} sm={24} md={12} lg={6} xl={6}>
+      <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
           title="Anticipo de sueldo"
           extra={<Link to="/aprobacion/sueldo">More</Link>}
         >
           {anticipo.length > 0 ? (
             <h4>
-              {" "}
               Pendiente: <b>{anticipo.length}</b>
             </h4>
           ) : (
-            <h4 >No hay!!!</h4>
+            <h4 >No hay notificaciones!!!</h4>
           )}
         </Card>
       </Col>
 
-      <Col xs={24} sm={24} md={12} lg={6} xl={6}>
+      <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
           title="Anticipo de gasto"
           extra={<Link to="/aprobacion/gastos">More</Link>}
         >
           {gasto.length > 0 ? (
             <h4>
-              {" "}
               Pendiente: <b>{gasto.length}</b>
             </h4>
           ) : (
-            <h4>No hay!!!</h4>
+            <h4>No hay notificaciones!!!</h4>
           )}
         </Card>
       </Col>
-      <Col xs={24} sm={24} md={12} lg={6} xl={6}>
+      <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
           title="Vacaciones"
           extra={<Link to="/aprobacion/vacaciones">More</Link>}
         >
           {vacacion.length > 0 ? (
             <h4>
-              {" "}
               Pendiente: <b>{vacacion.length}</b>
             </h4>
           ) : (
-            <h4>No hay!!!</h4>
+            <h4>No hay notificaciones!!!</h4>
           )}
         </Card>
       </Col>
-      <Col xs={24} sm={24} md={12} lg={6} xl={6}>
+      <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
           title="Default size card"
           extra={<a href="/aprobacion/sueldo">More</a>}

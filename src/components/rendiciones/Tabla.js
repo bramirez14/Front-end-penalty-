@@ -11,6 +11,7 @@ export const Tabla = ({
 }) => {
   const id = localStorage.getItem('uid')
   let p = PeticionGET('/gastos')
+  console.log(p);
   let filtradoUsuariosConMediosDePago = p.filter(d => d.usuarioId == id)
   const [highlight, setHighlight] = useState(false);
   const [data, setData] = useState();
@@ -58,6 +59,7 @@ export const Tabla = ({
       title: "N° de Rendicion",
       dataIndex: "id",
       key: "item",
+      width:'50px'
     },
 
     {
@@ -86,15 +88,21 @@ export const Tabla = ({
       title: "Acciones",
       dataIndex: "acciones",
       key: 'acciones',
-      render: (f, fila) => (
+      render: (f, fila) => {
+      console.log(fila.listo)
+
+      return(
         <>
-          <Link to={`/lista/rendicion/${fila.id}`} > <Button style={{ width: 'auto', borderRadius: '10px' }} > Agregar Rendiciones</Button></Link> {"   "}
+         
+        {fila.listo==='Si'?'Completado':
+         <Link to={`/lista/rendicion/${fila.id}`} > <Button style={{ width: 'auto', borderRadius: '10px' }} > Agregar Rendiciones</Button></Link> 
+        }
         </>
-      ),
+      )}
     },
   ];
-  const filasFiltradas = filtradoUsuariosConMediosDePago?.filter(f=>f.estadoFinal==='aprobado')
-
+  const filasFiltradas = filtradoUsuariosConMediosDePago?.filter(f=>f.estadoFinal==='aprobado'|| f.sinAnticipo==='sin')
+console.log(filasFiltradas);
   const filas = filasFiltradas?.map((f, i) => {
     return {
       ...f,

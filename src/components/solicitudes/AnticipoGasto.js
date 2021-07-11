@@ -8,7 +8,6 @@ import {axiosURL} from "../../config/axiosURL";
 import {PeticionGET} from "../../config/PeticionGET";
 import { Titulo } from "../titulos/Titulo";
 
-
 export const AnticipoGasto = ({ history }) => {
   //Peticion get para saber cuando vence el localStorage
   const id = localStorage.getItem('uid')
@@ -24,12 +23,8 @@ export const AnticipoGasto = ({ history }) => {
     categoria: '',
     usuarioId: id,
     formapagoId: '',
-  
-    
   });
   const { fecha, usuarioId } = gastos
-
-  
   /**Petciones get */
   let pg = PeticionGET(`/${id}`);
   let cantidadDeAntGastos = pg.gasto?.length

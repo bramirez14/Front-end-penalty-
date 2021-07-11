@@ -1,102 +1,61 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState} from "react";
+import { PeticionGET } from "../../config/PeticionGET";
+import { axiosURL } from "../../config/axiosURL";
+import { Link } from "react-router-dom";
 import { Badge, Button } from "antd";
 import { FaBell } from "react-icons/fa";
-import { FaBullhorn } from "react-icons/fa";
 import "./alerta.css";
-import {PeticionGET }from "../../config/PeticionGET";
-import {axiosURL} from "../../config/axiosURL";
-import {  run } from "../helper/funciones";
-/**Cierra cuadno clickeas fuera del div */
-let useClickOutside = (handler) => {
-  let domNode = useRef();
-  useEffect(() => {
-    let maybeHandler = (event) => {
-      if (!domNode.current.contains(event.target)) {
-        handler();
-      }
-    };
-
-    document.addEventListener("mousedown", maybeHandler);
-
-    return () => {
-      document.removeEventListener("mousedown", maybeHandler);
-    };
-  });
-
-  return domNode;
-};
 
 export const Alerta = () => {
-  let [isOpen, setIsOpen] = useState(false);
-  let domNode = useClickOutside(() => {
-    setIsOpen(false);
-  });
-  const [state, setState] = useState(false);
+  const [state, setState] = useState();
   /* alerta de anticipo */
   const id = localStorage.getItem("uid");
-  const { anticipo } = PeticionGET(`/${id}`);
-  const filtroAprobado = anticipo?.filter((a) => a.estado === "aprobado");
-  const filtroAprobadoeInactivo = anticipo?.filter(
+  const { anticipo, vacacion, gasto } = PeticionGET(`/${id}`);
+
+  /**Alerta de anticipo de sueldo */
+  const notificacionSueldo = anticipo?.filter(
     (a) => a.notificacion === "inactiva"
   );
-  const filtroId = filtroAprobadoeInactivo?.map((a) => a.id);
-  const number = filtroAprobadoeInactivo?.length;
+  /**Alerta de anticipo de vacaciones */
+  const notificacionVacaciones = vacacion?.filter(
+    (b) => b.notificacion === "inactiva"
+  );
+  /**Alerta de anticipo de gastos */
+  const notificacionGastos = gasto?.filter(
+    (c) => c.notificacion === "inactiva"
+  );
+/**condicional para saber si hay un alerta y si hay se concatena con las otras alertas */
+  const estadoId = (notificacionSueldo,
+  notificacionVacaciones,
+  notificacionGastos === undefined)
+    ? ""
+    : [...notificacionGastos, ...notificacionSueldo, ...notificacionVacaciones];
+  const estadoPorSector = (notificacionSueldo,
+  notificacionVacaciones,
+  notificacionGastos === undefined)
+    ? ""
+    : [
+        [...notificacionSueldo],
+        [...notificacionVacaciones],
+        [...notificacionGastos],
+      ];
+  /** Longuitud tota de las alertas  */
+  const numberTotal = estadoId?.length;
+  /**Envio a la DB */
   const openNotification = async () => {
-    setIsOpen(!isOpen)
-    setState(true);
-    await axiosURL.put("/alerta", filtroId);
+    let result = await axiosURL.put("/alerta", estadoPorSector);
+    setState(result.data);
   };
-
-  const content = filtroAprobado?.map((a) => (
-    <div className="contenedor-item" key={a.id}>
-      <div className="circle"></div>
-      <div className="item-icon">
-        <FaBullhorn className="icon-bocina" />
-      </div>
-      <div className="contenedor-inf">
-        <div className="item-despcription">
-          {" "}
-          <span>Estado: {a.estadoFinal} </span>
-        </div>
-        <div className="item-despcription">
-          {" "}
-          <span> mensaje: {a.respMensaje} </span>
-        </div>
-        <div className="item-despcription">
-          {" "}
-          <span style={{color:'#46a461'}}>hace { run(a.f)}</span>
-        </div>
-      </div>
-    </div>
-  ));
- 
   return (
     <>
-
-      <Button
-       onClick={openNotification}
-       ref={domNode}
-        style={{ backgroundColor: "transparent", border:'none'}}
-      >
-        <Badge count={state === true ? 0 : number} >
-          <span className="head-example"    />
-          
-       <FaBell className='icon-campana' />
-     
-        </Badge>
-      </Button>
-
-      {isOpen === true && (
-        <div
-      
-          className={
-            number < 5 ? "contenedor-alerta" : "contenedor-alert-active"
-          }
-        >
-          {content}
-        </div>
-      )}
-    
+      <Link to="/mensajes">
+        <Button onClick={openNotification} className="boton-campana">
+          <Badge count={state === "ok" ? 0 : numberTotal}>
+            <span className="head-example" />
+            <FaBell className="icon-campana" />
+          </Badge>
+        </Button>
+      </Link>
     </>
   );
 };

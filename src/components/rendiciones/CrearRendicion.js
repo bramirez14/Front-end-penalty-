@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import{ axiosURL} from "../../config/axiosURL";
 import { Form, Input, Button, Row, Select, Divider } from "antd";
 import "./css/editarRendicion.css";
@@ -6,11 +6,10 @@ import TextArea from "antd/lib/input/TextArea";
 import {PeticionGET} from "../../config/PeticionGET";
 import { categorias } from "./categorias";
 import { VistaImg } from "./VistaImg";
-
+import { Imagen } from "../img/Imagen";
 
 export const CrearRendicion = ({ match, history }) => {
   const { id } = match.params;
-
   const { Option } = Select;
   const [highlight, setHighlight] = useState(false);
   const [data, setData] = useState([]);
@@ -36,16 +35,18 @@ export const CrearRendicion = ({ match, history }) => {
   const agregar = async () => {
   
       let f = new FormData();
+     
       f.append("imagen", imagen);
       f.append("importe", importe);
       f.append("categoria", categoria);
       f.append("notas", notas);
       f.append("fecha", fecha);
       f.append("gastoId", gastoId);
-  
+      f.append("total",total);
+
       let result = await axiosURL.post("/rendicion", f);
       console.log(result.data);
-      if (result.data) {
+      if (result.status===200) {
         history.push(`/lista/rendicion/${id}`);
       }
    
@@ -91,24 +92,7 @@ export const CrearRendicion = ({ match, history }) => {
       });
     });
   };
-  const handleHighLight = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setHighlight(true);
-  };
-  const handleUnhiglight = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setHighlight(false);
-  };
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    let dt = e.dataTransfer;
-    let files = dt.files;
-    setHighlight(false);
-    handFiles(files);
-  };
+ 
   /**Delte img del draw drop */
   const handleDelete = (e) => {
     setData([]);
@@ -142,16 +126,15 @@ export const CrearRendicion = ({ match, history }) => {
   }
   const i = peticionGastoId?.importe
   const total = parseFloat(totalDeImporte) + parseFloat(importe)
+ 
 
 
+console.log(crearRendicion);
   /**Submit */
   const handleSubmit = () => {
     if(peticionGastoId?.sinAnticipo!=='sin'){
-    if (total > i) {
-      alert('El importe no puede  superar el monto del anticipo ')
-    } else {
-      agregar();
-    }}else{agregar()}
+      agregar(); 
+    }else{agregar()}
   };
   /**Fin Submit */
   return (
@@ -165,7 +148,7 @@ export const CrearRendicion = ({ match, history }) => {
           {...estilo}
           size='large'
         >
-          <h5 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendicion <Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
+          <h5 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendicion<Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
           <Divider />
           <Form.Item name="categoria">
             <Select placeholder="Categoria" onChange={selectChange} >
@@ -183,33 +166,9 @@ export const CrearRendicion = ({ match, history }) => {
           <Form.Item name="notas">
             <TextArea name="notas" value={notas} placeholder="Nota" autoSize={{ minRows: 2, maxRows: 6 }} />
           </Form.Item>
+        <Imagen handleFileChange={handleFileChange}/>
 
-          <div className="custom-form-group">
-            <div
-              className={
-                highlight
-                  ? "custom-file-drop-area highlight"
-                  : "custom-file-drop-area"
-              }
-              onDragEnter={handleHighLight}
-              onDragOver={handleHighLight}
-              onDragLeave={handleUnhiglight}
-              onDrop={handleDrop}
-            >
-              <input
-                type="file"
-                name="photos"
-                placeholder="Enter photos"
-                multiple
-                id="filephotos"
-                onChange={handleFileChange}
-              />
-              <label htmlFor="filephotos">
-                {" "}
-                <h1> + </h1>{" "}
-              </label>
-            </div>
-          </div>
+          
           <Form.Item>
             <Button className="btn" htmlType="submit" block>
               Guardar

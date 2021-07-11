@@ -38,27 +38,15 @@ body::-webkit-scrollbar-track:active {
   display: none;
 }
 .div-img {
-  display: flex;
-  flex-direction: column;
   border-radius: 50%;
   width: 100px;
   height: 100px;
   position: relative;
-  margin-left: 85px;
-  margin-top: 47px;
+  left: 70px;
   background: #fff;
+  margin-top: 40px;
 }
-.div-img-active {
-  border: none;
 
-  display: flex;
-  flex-direction: column;
-
-  position: relative;
-  margin-left: 84px;
-  margin-top: 44px;
-  background: transparent;
-}
 .div-img2 {
   border-radius:150px;
   width: 100px;
@@ -99,12 +87,14 @@ body::-webkit-scrollbar-track:active {
   z-index: 0;
   display: inline-block;
   width: 100%;
-  background: #00bfff;
+  background: transparent;
   cursor: pointer;
-  color: #fff;
+  color: rgba(148, 139, 139, 0.719);
   padding: 10px 0;
   text-transform: uppercase;
   font-size: 12px;
+  border:solid 1px #ddd;
+  margin:auto;
 }
 
 #upload {

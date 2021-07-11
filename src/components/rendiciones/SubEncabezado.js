@@ -36,7 +36,6 @@ export const SubEncabezado = ({uuid,total,importeAnticipo,sinAnticipo}) => {
         >
           <div style={{ marginTop: "10px" }}>
             <h6>
-              {" "}
               <b>Fecha:</b> {new Date().toLocaleDateString()}{" "}
             </h6>
 
@@ -47,7 +46,7 @@ export const SubEncabezado = ({uuid,total,importeAnticipo,sinAnticipo}) => {
               <b>Departamento:</b> {usuario.departamento?.departamento}
             </h6>
             <h6>
-              <b>Responsable:</b>{" "}
+              <b>Responsable:</b>
               {responsable(usuario.departamento?.departamento)}
             </h6>
           </div>

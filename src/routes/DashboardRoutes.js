@@ -1,4 +1,5 @@
 import React,{useContext} from "react";
+
 import {
   Switch,
   Redirect,
@@ -25,10 +26,21 @@ import { SueldoContainer } from "../components/solicitudes/SueldoContainer";
 import { AprobacionGastos } from "../ComponentsGerentes/AprobacionGastos";
 import { PDF } from "../components/view/PDF";
 import { Remitos } from "../components/reportes/Remitos";
+import { Mensajes } from "../components/mensajes/Mensajes";
+import { EstadoUsuario } from "../components/estado/EstadoUsuario";
+import { FacturaVendedor } from "../components/reportes/FacturaVendedor";
+import { Demo } from "../components/Demo";
+import { RendicionGastosVista } from "../view/RendicionGastosVista";
+import { PagosAntSueldo } from "../view/PagosAntSueldo";
+import { PagosAntGasto } from "../view/PagosAntGasto";
+import { CambiarContraseña } from "../components/configuraciones/CambiarContraseña";
+
+
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
   const { open } = Text;
+ 
 
   return (
     <>
@@ -44,7 +56,7 @@ export const DashboardRoutes = ({ history }) => {
         <RouteGerente exact path="/pdf/:id" component={PDF}/>
 
         <RouteGerente exact path="/register" component={Register}/>
-         
+        
       <RouteEmpleado exact path="/sueldos" component={SueldoContainer} />
       <RouteEmpleado exact path="/vacaciones" component={Vacaciones} />
       <RouteEmpleado exact path="/anticipo/gastos" component={AnticipoGasto} />
@@ -56,8 +68,23 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path="/rendicion" component={RendicionSinAnticipo} />
         <RouteEmpleado exact path="/img" component={Uploads} />
         <RouteEmpleado exact path="/prueba" component={Alerta} />
+        <RouteEmpleado exact path='/reportes/gestion/remitos' component={Remitos}/>
+        <RouteEmpleado exact path='/mensajes' component={Mensajes}/>
+        <RouteEmpleado exact path='/estado/usuario' component={EstadoUsuario}/>
+        <RouteEmpleado exact path='/configuraciones/cambiar/contraseña' component={CambiarContraseña}/>
+        <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
+        <RouteEmpleado exact path='/demo' component={Demo}/>
 
-        <RouteGerente exact path='/reportes/gestion/remitos' component={Remitos}/>
+        {/**Vistas */}
+        <RouteEmpleado exact path='/comprobante/rendicion' component={RendicionGastosVista}/>
+        <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
+        <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
+
+
+        
+
+
+
         
         <RouteGerente exact path='/reportes/gestion/remitos' component={Remitos}/>
 

@@ -6,9 +6,9 @@ import {PeticionGET} from "../../config/PeticionGET";
 import {axiosURL }from "../../config/axiosURL";
 import { categorias } from "../rendiciones/categorias";
 import { VistaImg } from "../rendiciones/VistaImg";
+import { Imagen } from "../img/Imagen";
 export const RendicionSinAnticipo = ({ history }) => {
   const id = localStorage.getItem("uid");
-
   const { Option } = Select;
   const [highlight, setHighlight] = useState(false);
   const [data, setData] = useState([]);
@@ -22,10 +22,9 @@ export const RendicionSinAnticipo = ({ history }) => {
     usuarioId: id,
     formapagoId: "1",
     sinAnticipo:"sin",
-    estado:'aprobado',
-    estadoFinal:'aprobado',
+    estado:'pendiente',
+    estadoFinal:'pendiente',
     notificacion:'inactiva'
-    
   });
   const {
     notas,
@@ -40,11 +39,11 @@ export const RendicionSinAnticipo = ({ history }) => {
     estadoFinal,
     notificacion,
   } = crearRendicion;
-  const { Meta } = Card;
   const agregar = async () => {
     let f = new FormData();
     f.append("imagen", imagen);
     f.append("importe", importe);
+    f.append('importerendido',importe);
     f.append("categoria", categoria);
     f.append("notas", notas);
     f.append("fecha", fecha);
@@ -74,7 +73,7 @@ export const RendicionSinAnticipo = ({ history }) => {
       categoria: value,
     });
   };
-  const peticionMedioDePago = PeticionGET("/mpagos");
+ // const peticionMedioDePago = PeticionGET("/mpagos");
 
   /*******imagen */
 
@@ -103,24 +102,7 @@ export const RendicionSinAnticipo = ({ history }) => {
       });
     });
   };
-  const handleHighLight = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setHighlight(true);
-  };
-  const handleUnhiglight = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setHighlight(false);
-  };
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    let dt = e.dataTransfer;
-    let files = dt.files;
-    setHighlight(false);
-    handFiles(files);
-  };
+  
   /**Delte img del draw drop */
   const handleDelete = (e) => {
     setData([]);
@@ -151,8 +133,6 @@ export const RendicionSinAnticipo = ({ history }) => {
     xxl: 24,
   };
 const handleBack=()=> history.push("/gastos");
-
-
 
   return (
     <>
@@ -205,32 +185,7 @@ const handleBack=()=> history.push("/gastos");
             <TextArea name="notas" value={notas} placeholder="Nota" autoSize={{ minRows: 2, maxRows: 6 }}/>
           </Form.Item>
 
-          <div className="custom-form-group">
-            <div
-              className={
-                highlight
-                  ? "custom-file-drop-area highlight"
-                  : "custom-file-drop-area"
-              }
-              onDragEnter={handleHighLight}
-              onDragOver={handleHighLight}
-              onDragLeave={handleUnhiglight}
-              onDrop={handleDrop}
-            >
-              <input
-                type="file"
-                name="photos"
-                placeholder="Enter photos"
-                multiple
-                id="filephotos"
-                onChange={handleFileChange}
-              />
-              <label htmlFor="filephotos">
-                {" "}
-                <h1> + </h1>{" "}
-              </label>
-            </div>
-          </div>
+          <Imagen handleFileChange={handleFileChange}/>
           <Form.Item>
             <Button className="btn" htmlType="submit" block>
               Guardar
@@ -244,8 +199,6 @@ const handleBack=()=> history.push("/gastos");
        {...crearRendicion}
        medio='Medio de pago: '
        pago='Efectivo'/>
-
-        
       </Row>
     </>
   );

@@ -75,7 +75,7 @@ useEffect(() => {
   };
   return (
     <>
-      <Form >
+      <Form  >
         <div className="div-img"  >
         <img className="div-img2"  src={imgDB} alt=""  />
           <TiUserAdd className="avatar" onClick={showModal} />

@@ -3,14 +3,14 @@ import io from 'socket.io-client';
 
 
 export const useSocket = ( serverPath ) => {
-    
+
     const [ socket, setSocket ] = useState(null);
     const [ online, setOnline ] = useState(false);
 
     const conectarSocket = useCallback( () => {
 
         const token = localStorage.getItem('token'); // se solicita el token de localstorage
-        const socketTemp = io.connect( serverPath, { 
+        const socketTemp =  io.connect( serverPath, { 
             transports: ['websocket'],// es necesario
             autoConnect: true,
             forceNew: true,
@@ -18,8 +18,12 @@ export const useSocket = ( serverPath ) => {
                 'x-token': token
             }
         });
-        setSocket( socketTemp );
+        
+        
+        setSocket(socketTemp);
     },[ serverPath ]);
+        console.log(socket);
+
 
     const desconectarSocket = useCallback( () => {
         socket?.disconnect();
@@ -30,13 +34,13 @@ export const useSocket = ( serverPath ) => {
         setOnline( socket?.connected );
     }, [socket])
 
-    useEffect(() => {
+   /*  useEffect(() => {
         socket?.on('connect', () => setOnline( true ));
     }, [ socket ])
 
     useEffect(() => {
         socket?.on('disconnect', () => setOnline( false ));
-    }, [ socket ])
+    }, [ socket ]) */
 
     return {
         socket,

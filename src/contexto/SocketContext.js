@@ -10,24 +10,28 @@ export const SocketProvider = ({ children }) => {
   const { socket, online, conectarSocket, desconectarSocket } = useSocket(
     "//intranet.penalty.com.ar:4000"
   );
+  console.log(auth);
   useEffect(() => {
     if (auth) {
-      conectarSocket();
+      console.log('estoy autenticado');
+     conectarSocket();
+     
     }
-  }, [conectarSocket, auth]);
+  }, [ auth,conectarSocket]);
 
   useEffect(() => {
     if (!auth) {
+      console.log('estoy deconcectado');
       desconectarSocket();
     }
-  }, [desconectarSocket, auth]);
+  }, [ auth,desconectarSocket]);
 
   useEffect(() => {
     socket?.on("lista-usuarios", (usuarios) => {
+      console.log('enviando');
       setArrayUsuarios(usuarios);
     });
   }, [socket, setArrayUsuarios]);
-
   return (
     <SocketContext.Provider value={{ socket, online }}>
       {children}

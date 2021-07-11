@@ -6,8 +6,20 @@ import { PeticionGETIntranet } from '../../config/PeticionGET';
 import { axiosURLIntranet } from '../../config/axiosURL';
 import { saveAs } from "file-saver";
 export const Remitos = ()=> {
+    const N = localStorage.getItem('N')
     const todosRemitos = PeticionGETIntranet('/remitos')
-    console.log(todosRemitos);
+
+    const filtroVendedor= todosRemitos.filter(t=>t.vendedor===N);
+
+    let filtrado;
+    if(N==='0000'){
+      filtrado = todosRemitos
+    }else{
+      filtrado = filtroVendedor
+    }
+  
+  
+    console.log(filtrado);
     const [state, setState] = useState( {
         searchText: '',
         searchedColumn: '',
@@ -97,6 +109,20 @@ export const Remitos = ()=> {
             key: 'cliente',
             ...getColumnSearchProps('cliente'),
           },
+          {
+            title: 'Nombre del Cliente',
+            dataIndex: 'razonsoc',
+            key: 'razonsoc',
+            width: '200px',
+            ...getColumnSearchProps('razonsoc'),
+    
+          },
+          {
+            title: 'N° de vendedor',
+            dataIndex: 'vendedor',
+            key: 'vendedor',
+            ...getColumnSearchProps('vendedor'),
+          },
       {
         title: 'Nombre y Apellido',
         dataIndex: 'apeynom',
@@ -104,13 +130,7 @@ export const Remitos = ()=> {
         width: '30%',
         ...getColumnSearchProps('apeynom'),
       },
-      {
-        title: 'N° de vendedor',
-        dataIndex: 'vendedor',
-        key: 'vendedor',
-        width: '30%',
-        ...getColumnSearchProps('vendedor'),
-      },
+      
       {
         title: 'N° de Pedido',
         dataIndex: 'PEDIDO',
@@ -128,7 +148,7 @@ export const Remitos = ()=> {
         title: 'Fecha de Emision',
         dataIndex: 'fecemision',
         key: 'fecemision',
-        width: '200px',
+        width: '100px',
         ...getColumnSearchProps('fecemision'),
         render: (estado, file) => {
             let reducir=file.fecemision.split('T');
@@ -139,18 +159,12 @@ export const Remitos = ()=> {
         title: 'N° de Remito',
         dataIndex: 'REMITO',
         key: 'REMITO',
-        width: '30%',
         ...getColumnSearchProps('REMITO'),
-
+render:(state,file)=>(
+  <>{file.REMITO===null?<p>No hay remito</p>:<p>{file.REMITO}</p>}</>
+)
       },
-      {
-        title: 'Razon Social',
-        dataIndex: 'razonsoc',
-        key: 'razonsoc',
-        width: '200px',
-        ...getColumnSearchProps('razonsoc'),
-
-      },
+      
       {
         title: 'Estado',
         dataIndex: 'ESTADO',
@@ -194,6 +208,6 @@ export const Remitos = ()=> {
 
       
     ];
-    return <Table columns={columns} dataSource={todosRemitos} />;
+    return <Table columns={columns} dataSource={filtrado} />;
   
 }
