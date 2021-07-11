@@ -33,6 +33,7 @@ import { Demo } from "../components/Demo";
 import { RendicionGastosVista } from "../view/RendicionGastosVista";
 import { PagosAntSueldo } from "../view/PagosAntSueldo";
 import { PagosAntGasto } from "../view/PagosAntGasto";
+import { CambiarContraseña } from "../components/configuraciones/CambiarContraseña";
 
 
 
@@ -55,7 +56,7 @@ export const DashboardRoutes = ({ history }) => {
         <RouteGerente exact path="/pdf/:id" component={PDF}/>
 
         <RouteGerente exact path="/register" component={Register}/>
-         
+        
       <RouteEmpleado exact path="/sueldos" component={SueldoContainer} />
       <RouteEmpleado exact path="/vacaciones" component={Vacaciones} />
       <RouteEmpleado exact path="/anticipo/gastos" component={AnticipoGasto} />
@@ -70,6 +71,7 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path='/reportes/gestion/remitos' component={Remitos}/>
         <RouteEmpleado exact path='/mensajes' component={Mensajes}/>
         <RouteEmpleado exact path='/estado/usuario' component={EstadoUsuario}/>
+        <RouteEmpleado exact path='/configuraciones/cambiar/contraseña' component={CambiarContraseña}/>
         <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
         <RouteEmpleado exact path='/demo' component={Demo}/>
 

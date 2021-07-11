@@ -25,9 +25,6 @@ export const Register = ({history}) => {
     let cel= '11'.concat(values.cel)
     let valor = { ...values,fechaContratacion:fecha,cel}
     let res = await axiosURL.post('/register',valor);
-    console.log(res.data.status);
-    console.log(res.data.message);
-
     res.data.status===500 ? alert (res.data.message ) : history.push('/')
     
   };
@@ -217,7 +214,7 @@ export const Register = ({history}) => {
       </Form.Item>
 
       <Form.Item name='nvendedor' label=' Vendedor'
-      tooltip={{ title: 'Si no es un vendedor ingresar 000' }}
+      tooltip={{ title: 'Si no es un vendedor ingresar 0000' }}
       rules={[{
           required: true,
           message: "Ingrese numero de vendedor!",

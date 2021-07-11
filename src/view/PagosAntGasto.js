@@ -1,10 +1,14 @@
 import React from 'react'
 import { Table, Space,Button } from 'antd';
 import { PeticionGET } from '../config/PeticionGET';
+import { axiosURL } from '../config/axiosURL';
 
-export const PagosAntGasto = () => {
+export const PagosAntGasto = ({history}) => {
     const  antGasto = PeticionGET('/gastos');
-    
+    const pagoRealizado= async (id)=>{
+      const {status} =await axiosURL.put(`/pago/gasto/${id}`,{pagoRealizado:'Si'});
+      status===200 && history.push('/perfil');
+    }
     const columns = [
         {
           title: 'N de Ant Gasto',
@@ -32,10 +36,16 @@ export const PagosAntGasto = () => {
         {
           title: 'Acciones',
           key: 'acciones',
-          render: (text, record) => (
-            <Space size="middle">
-              <Button>Pago Realizado</Button>
-            </Space>
+          render: (state, file) => (
+            <>
+           {
+              file.pagoRealizado==='Si'?
+              <p>Realizado</p>
+              :
+              <Button onClick={()=>pagoRealizado(file.id)}>Pago Realizado</Button>
+
+            }
+            </>
           ),
         },
       ];
