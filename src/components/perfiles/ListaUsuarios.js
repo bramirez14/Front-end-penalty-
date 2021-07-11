@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Row, Drawer, List, Avatar, Divider} from "antd";
-import PeticionGET from "../../config/PeticionGET";
-import axiosURL from "../../config/axiosURL";
+import {PeticionGET} from "../../config/PeticionGET";
+import {axiosURL} from "../../config/axiosURL";
 import { CardTitle } from "./CardTitle";
 
 export const ListaUsuarios = ({lista}) => {

@@ -10,7 +10,7 @@ import { Alerta } from "../alertas/Alerta";
 import { Dropdown, Menu } from "antd";
 import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
 import { ImExit } from "react-icons/im";
-import axiosURL from "../../config/axiosURL";
+import {axiosURL} from "../../config/axiosURL";
 import { logout } from "../../auth/localStorage";
 import { NombreCompleto } from "./NombreCompleto";
 

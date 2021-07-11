@@ -6,8 +6,8 @@ import {
   Button,
   DatePicker
 } from "antd";
-import PeticionGET from "../../config/PeticionGET";
-import axiosURL from "../../config/axiosURL";
+import {PeticionGET} from "../../config/PeticionGET";
+import {axiosURL} from "../../config/axiosURL";
 const { Option } = Select;
 
 const layout = {

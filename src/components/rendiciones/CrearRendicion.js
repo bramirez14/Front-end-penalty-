@@ -1,9 +1,9 @@
 import React, { useState} from "react";
-import axiosURL from "../../config/axiosURL";
+import{ axiosURL} from "../../config/axiosURL";
 import { Form, Input, Button, Row, Select, Divider } from "antd";
 import "./css/editarRendicion.css";
 import TextArea from "antd/lib/input/TextArea";
-import PeticionGET from "../../config/PeticionGET";
+import {PeticionGET} from "../../config/PeticionGET";
 import { categorias } from "./categorias";
 import { VistaImg } from "./VistaImg";
 
@@ -18,10 +18,11 @@ export const CrearRendicion = ({ match, history }) => {
     fecha: new Date().toLocaleDateString(),
     notas: "",
     importe: "",
-    imagen: "",
+    imagen:"",
     categoria: "",
     gastoId: id,
   });
+  
   const {
     notas,
     importe,
@@ -30,20 +31,24 @@ export const CrearRendicion = ({ match, history }) => {
     fecha,
     gastoId,
   } = crearRendicion;
-  const agregar = async () => {
-    let f = new FormData();
-    f.append("imagen", imagen);
-    f.append("importe", importe);
-    f.append("categoria", categoria);
-    f.append("notas", notas);
-    f.append("fecha", fecha);
-    f.append("gastoId", gastoId);
 
-    let result = await axiosURL.post("/rendicion", f);
-    console.log(result.data);
-    if (result.data) {
-      history.push(`/lista/rendicion/${id}`);
-    }
+  
+  const agregar = async () => {
+  
+      let f = new FormData();
+      f.append("imagen", imagen);
+      f.append("importe", importe);
+      f.append("categoria", categoria);
+      f.append("notas", notas);
+      f.append("fecha", fecha);
+      f.append("gastoId", gastoId);
+  
+      let result = await axiosURL.post("/rendicion", f);
+      console.log(result.data);
+      if (result.data) {
+        history.push(`/lista/rendicion/${id}`);
+      }
+   
   };
   const handleChange = (e) => {
     const { name, value } = e.target;

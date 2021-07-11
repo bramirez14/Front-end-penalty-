@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Col, Row, Card, Select, Divider, notification } from "antd";
 
 import TextArea from "antd/lib/input/TextArea";
-import PeticionGET from "../../config/PeticionGET";
-import axiosURL from "../../config/axiosURL";
+import {PeticionGET} from "../../config/PeticionGET";
+import {axiosURL }from "../../config/axiosURL";
 import { categorias } from "../rendiciones/categorias";
 import { VistaImg } from "../rendiciones/VistaImg";
 export const RendicionSinAnticipo = ({ history }) => {

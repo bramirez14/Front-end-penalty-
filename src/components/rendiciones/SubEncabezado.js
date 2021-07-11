@@ -1,6 +1,6 @@
 import React from 'react'
 import {  Col, Row } from "antd";
-import PeticionGET from '../../config/PeticionGET';
+import {PeticionGET} from '../../config/PeticionGET';
 
 
 export const SubEncabezado = ({uuid,total,importeAnticipo,sinAnticipo}) => {

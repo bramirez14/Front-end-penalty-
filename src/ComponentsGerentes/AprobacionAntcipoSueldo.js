@@ -5,10 +5,10 @@ import { SearchOutlined } from "@ant-design/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsCheck } from "react-icons/bs";
 
-import axiosURL from "../config/axiosURL";
+import {axiosURL} from "../config/axiosURL";
 import Swal from "sweetalert2";
 import "./css/aprob.css";
-import PeticionGET from "../config/PeticionGET";
+import {PeticionGET} from "../config/PeticionGET";
 
 export const AprobacionAntcipoSueldo = () => {
   const N = localStorage.getItem("N");// numero de registro 

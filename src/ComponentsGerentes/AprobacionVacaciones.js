@@ -4,10 +4,10 @@ import { Table, Input, Button, Space, Modal} from 'antd';
 import { SearchOutlined } from "@ant-design/icons";
 import { BsCheck } from "react-icons/bs";
 import { AiOutlineDelete } from "react-icons/ai";
-import axiosURL from "../config/axiosURL";
+import {axiosURL} from "../config/axiosURL";
 import Swal from "sweetalert2";
 import "./css/aprob.css";
-import PeticionGET from "../config/PeticionGET";
+import {PeticionGET} from "../config/PeticionGET";
 
 export const AprobacionVacaciones = () => {
     const Text = useContext(UserContext);

@@ -4,8 +4,8 @@ import emailjs from "emailjs-com";
 import { Form, Input, Button, Select, Col, Row, Divider } from "antd";
 import "./css/anticipoGasto.css";
 import { UserContext } from "../../contexto/UserContext";
-import axiosURL from "../../config/axiosURL";
-import PeticionGET from "../../config/PeticionGET";
+import {axiosURL} from "../../config/axiosURL";
+import {PeticionGET} from "../../config/PeticionGET";
 import { Titulo } from "../titulos/Titulo";
 
 
@@ -28,12 +28,14 @@ export const AnticipoGasto = ({ history }) => {
     
   });
   const { fecha, usuarioId } = gastos
+
+  
   /**Petciones get */
   let pg = PeticionGET(`/${id}`);
   let cantidadDeAntGastos = pg.gasto?.length
   let pmp = PeticionGET("/mpagos");
 
-  
+  ;
   const handleAlert = () => {
     Swal.fire({
       title: 'Solicitud enviada',
@@ -56,7 +58,7 @@ export const AnticipoGasto = ({ history }) => {
   };
 
   const onSubmit = (values) => {
-    handleAlert();
+    handleAlert()
     guardarAnticipo(values)
   };
   return (

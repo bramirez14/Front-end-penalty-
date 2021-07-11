@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import PeticionGET from '../../config/PeticionGET';
+import {PeticionGET} from '../../config/PeticionGET';
 import { Encabezado } from '../rendiciones/Encabezado'
 import { SubEncabezado } from '../rendiciones/SubEncabezado'
 import { Col, Row, Table, Tag, Space, Modal, Button  } from "antd";

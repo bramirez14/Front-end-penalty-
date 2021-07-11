@@ -3,8 +3,8 @@ import { Encabezado } from "./Encabezado";
 import { Button, Col, Row } from "antd";
 import { CardRendiciones } from "./CardRendiciones";
 import { Link } from "react-router-dom";
-import axiosURL from "../../config/axiosURL";
-import PeticionGET from "../../config/PeticionGET";
+import {axiosURL} from "../../config/axiosURL";
+import {PeticionGET }from "../../config/PeticionGET";
 import { SubEncabezado } from "./SubEncabezado";
 import { UserContext } from "../../contexto/UserContext";
 import { saveAs } from "file-saver";
@@ -31,13 +31,9 @@ export const ListaRendiciones = ({ match, history }) => {
       const pdfBlob = await new Blob([ge.data], { type: "application/pdf" });
       saveAs(pdfBlob, "penaltyIntranet.pdf");
     }
-   /*  axiosURL.post('/generar/pdf', todasLasRendicones)
-     .then(() => axiosURL.get('peticion/pdf', { responseType: 'blob' }))
-     .then((res) => {
-       const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-       saveAs(pdfBlob, 'penaltyIntranet.pdf');
-     }) */
+  
   };
+  
   const onClick = () => {
     if(peticionGastoId?.sinAnticipo!=='sin'){
     if (totalDeImporte >= importe) {

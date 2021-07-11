@@ -1,6 +1,6 @@
 import React, { useState,useContext} from "react";
 import "./login.css";
-import axiosURL from "../../config/axiosURL";
+import {axiosURL} from "../../config/axiosURL";
 import { UserContext } from "../../contexto/UserContext";
 
 
