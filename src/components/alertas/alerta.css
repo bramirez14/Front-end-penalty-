@@ -1,5 +1,5 @@
-.boton-campana,.boton-campana:hover{
-  background-color: transparent;
+.boton-campana,.boton-campana:hover,.boton-campana:focus{
+  background-color: #46a461;
   border: none;
   margin-bottom:20px;
 }

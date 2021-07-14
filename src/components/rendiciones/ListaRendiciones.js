@@ -51,7 +51,8 @@ export const ListaRendiciones = ({ match, history }) => {
       res.status===200&& history.push('/gastos')
   };
   return (
-    <div className="contenedor-form">
+    <div className='container'>
+
       <Encabezado />
       <SubEncabezado
         uuid={id}

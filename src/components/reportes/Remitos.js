@@ -1,6 +1,6 @@
 import React,{useState,useRef} from 'react';
 import { Table, Input, Button, Space } from 'antd';
-import Highlighter from 'react-highlight-words';
+//import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import { PeticionGETIntranet } from '../../config/PeticionGET';
 import { axiosURLIntranet } from '../../config/axiosURL';
@@ -12,14 +12,12 @@ export const Remitos = ()=> {
     const filtroVendedor= todosRemitos.filter(t=>t.vendedor===N);
 
     let filtrado;
-    if(N==='0000'){
+    if(N==='0000'||'905'||'906'||'903'||'902'||'901'){
       filtrado = todosRemitos
     }else{
       filtrado = filtroVendedor
     }
   
-  
-    console.log(filtrado);
     const [state, setState] = useState( {
         searchText: '',
         searchedColumn: '',

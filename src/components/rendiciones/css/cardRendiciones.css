@@ -6,7 +6,8 @@
   margin-top: 20px;
   height: 140px;
   justify-content: space-around;
-
+  padding-left: 20px;
+  padding-right:20px;
 }
 .img-div {
   height: 140px;

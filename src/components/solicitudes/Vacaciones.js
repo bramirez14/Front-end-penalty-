@@ -202,7 +202,7 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
     <>
         <Form
           {...layout}
-          className={!open ? "form" : "form-active"}
+          className='container agregado'
           onFinish={handleSubmit}
           onChange={handleChange}
           size="large"

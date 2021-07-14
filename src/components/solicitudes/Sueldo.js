@@ -19,7 +19,7 @@ export const Sueldo = ({
 
   return (
     <Form
-      className={!open ? "form" : "form-active"}
+      className='container agregado'
       onFinish={handleSubmit}
       size="large"
     >

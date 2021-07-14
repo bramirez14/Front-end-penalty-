@@ -1,254 +1,247 @@
-import React,{useState,useRef} from 'react';
-import { Table, Switch, Radio, Form, Space,Button,Input } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-import { SearchOutlined } from "@ant-design/icons";
+import {
+  Form,
+  Select,
+  InputNumber,
+  Switch,
+  Radio,
+  Slider,
+  Button,
+  Upload,
+  Rate,
+  Checkbox,
+  Row,
+  Col,
+} from 'antd';
+import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
+const { Option } = Select;
+const formItemLayout = {
+  labelCol: {
+    span: 6,
+  },
+  wrapperCol: {
+    span: 14,
+  },
+};
 
+const normFile = (e) => {
+  console.log('Upload event:', e);
 
-const data = [];
-for (let i = 1; i <= 10; i++) {
-  data.push({
-    key: i,
-    name: 'John Brown',
-    age: `${i}2`,
-    address: `New York No. ${i} Lake Park`,
-    description: <h1>hola mundo</h1>
-  });
-}
+  if (Array.isArray(e)) {
+    return e;
+  }
 
-const expandable = { expandedRowRender: record => <p>{record.description}</p> };
+  return e && e.fileList;
+};
 
-export const Demo =()=> {
-  const [state2, setState2] = useState({
-    searchText: "",
-    searchedColumn: "",
-  });
-  const [state, setState] = useState({
-    bordered: false,
-    expandable,
-    rowSelection: {},
-    hasData: true,
+export const Demo = () => {
+  const onFinish = (values) => {
+    console.log('Received values of form: ', values);
+  };
 
-  })
-  const searchInput = useRef("");
-  const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-    }) => (
-      <div style={{ padding: 8 }}>
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{ marginBottom: 8, display: "block" }}
+  return (
+    <Form
+      name="validate_other"
+      {...formItemLayout}
+      onFinish={onFinish}
+      initialValues={{
+        'input-number': 3,
+        'checkbox-group': ['A', 'B'],
+        rate: 3.5,
+      }}
+    >
+      <Form.Item label="Plain Text">
+        <span className="ant-form-text">China</span>
+      </Form.Item>
+      <Form.Item
+        name="select"
+        label="Select"
+        hasFeedback
+        rules={[
+          {
+            required: true,
+            message: 'Please select your country!',
+          },
+        ]}
+      >
+        <Select placeholder="Please select a country">
+          <Option value="china">China</Option>
+          <Option value="usa">U.S.A</Option>
+        </Select>
+      </Form.Item>
+
+      <Form.Item
+        name="select-multiple"
+        label="Select[multiple]"
+        rules={[
+          {
+            required: true,
+            message: 'Please select your favourite colors!',
+            type: 'array',
+          },
+        ]}
+      >
+        <Select mode="multiple" placeholder="Please select favourite colors">
+          <Option value="red">Red</Option>
+          <Option value="green">Green</Option>
+          <Option value="blue">Blue</Option>
+        </Select>
+      </Form.Item>
+
+      <Form.Item label="InputNumber">
+        <Form.Item name="input-number" noStyle>
+          <InputNumber min={1} max={10} />
+        </Form.Item>
+        <span className="ant-form-text"> machines</span>
+      </Form.Item>
+
+      <Form.Item name="switch" label="Switch" valuePropName="checked">
+        <Switch />
+      </Form.Item>
+
+      <Form.Item name="slider" label="Slider">
+        <Slider
+          marks={{
+            0: 'A',
+            20: 'B',
+            40: 'C',
+            60: 'D',
+            80: 'E',
+            100: 'F',
+          }}
         />
-        <Space>
-          <Button
-            type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Search
-          </Button>
-          <Button
-            onClick={() => handleReset(clearFilters)}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Reset
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({ closeDropdown: false });
-              setState2({
-                searchText: selectedKeys[0],
-                searchedColumn: dataIndex,
-              });
-            }}
-          >
-            Filter
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex]
-        ? record[dataIndex]
-            .toString()
-            .toLowerCase()
-            .includes(value.toLowerCase())
-        : "",
-    onFilterDropdownVisibleChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput, 100);
-      }
-    },
-  });
+      </Form.Item>
 
-  const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    setState2({
-      searchText: selectedKeys[0],
-      searchedColumn: dataIndex,
-    });
-  };
+      <Form.Item name="radio-group" label="Radio.Group">
+        <Radio.Group>
+          <Radio value="a">item 1</Radio>
+          <Radio value="b">item 2</Radio>
+          <Radio value="c">item 3</Radio>
+        </Radio.Group>
+      </Form.Item>
 
-  const handleReset = (clearFilters) => {
-    clearFilters();
-    setState2({ searchText: "" });
-  };
+      <Form.Item
+        name="radio-button"
+        label="Radio.Button"
+        rules={[
+          {
+            required: true,
+            message: 'Please pick an item!',
+          },
+        ]}
+      >
+        <Radio.Group>
+          <Radio.Button value="a">item 1</Radio.Button>
+          <Radio.Button value="b">item 2</Radio.Button>
+          <Radio.Button value="c">item 3</Radio.Button>
+        </Radio.Group>
+      </Form.Item>
 
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      ...getColumnSearchProps("name"),
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      ...getColumnSearchProps("age"),
-     
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      ...getColumnSearchProps("apellido"),
-      filters: [
-        {
-          text: 'London',
-          value: 'London',
-        },
-        {
-          text: 'New York',
-          value: 'New York',
-        },
-      ],
-      onFilter: (value, record) => record.address.indexOf(value) === 0,
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      sorter: true,
-      render: () => (
-        <Space size="middle">
-          <a>Delete</a>
-          <a className="ant-dropdown-link">
-            More actions <DownOutlined />
-          </a>
-        </Space>
-      ),
-    },
-  ];
+      <Form.Item name="checkbox-group" label="Checkbox.Group">
+        <Checkbox.Group>
+          <Row>
+            <Col span={8}>
+              <Checkbox
+                value="A"
+                style={{
+                  lineHeight: '32px',
+                }}
+              >
+                A
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox
+                value="B"
+                style={{
+                  lineHeight: '32px',
+                }}
+                disabled
+              >
+                B
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox
+                value="C"
+                style={{
+                  lineHeight: '32px',
+                }}
+              >
+                C
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox
+                value="D"
+                style={{
+                  lineHeight: '32px',
+                }}
+              >
+                D
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox
+                value="E"
+                style={{
+                  lineHeight: '32px',
+                }}
+              >
+                E
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox
+                value="F"
+                style={{
+                  lineHeight: '32px',
+                }}
+              >
+                F
+              </Checkbox>
+            </Col>
+          </Row>
+        </Checkbox.Group>
+      </Form.Item>
 
-  const handleToggle = prop => enable => {
-    setState({ ...state,[prop]: enable });
-  };
+      <Form.Item name="rate" label="Rate">
+        <Rate />
+      </Form.Item>
 
-  const handleExpandChange = enable => {
-    setState({ ...state,expandable: enable ? expandable : undefined });
-  };
+      <Form.Item
+        name="upload"
+        label="Upload"
+        valuePropName="fileList"
+        getValueFromEvent={normFile}
+        extra="longgggggggggggggggggggggggggggggggggg"
+      >
+        <Upload name="logo" action="/upload.do" listType="picture">
+          <Button icon={<UploadOutlined />}>Click to upload</Button>
+        </Upload>
+      </Form.Item>
 
+      <Form.Item label="Dragger">
+        <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile} noStyle>
+          <Upload.Dragger name="files" action="/upload.do">
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+            <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+          </Upload.Dragger>
+        </Form.Item>
+      </Form.Item>
 
-  const handleRowSelectionChange = enable => {
-    setState({...state, rowSelection: enable ? {} : undefined });
-  };
-
-  const handleYScrollChange = enable => {
-    setState({ ...state,yScroll: enable });
-  };
-  const handleXScrollChange = e => {
-    setState({ ...state,xScroll: e.target.value });
-  };
- 
-    const { xScroll, yScroll,  } = state;
-
-    const scroll = {};
-    if (yScroll) {
-      scroll.y = 240;
-    }
-    if (xScroll) {
-      scroll.x = '100vw';
-    }
-
-    const tableColumns = columns.map(item => ({ ...item, ellipsis: state.ellipsis }));
-    if (xScroll === 'fixed') {
-      tableColumns[0].fixed = true;
-      tableColumns[tableColumns.length - 1].fixed = 'right';
-    }
-
-    return (
-      <>
-        <Form
-          layout="inline"
-          className="components-table-demo-control-bar"
-          style={{ marginBottom: 16 }}
-        >
-          <Form.Item label="Bordered">
-            <Switch checked={state.bordered} onChange={handleToggle('bordered')} />
-          </Form.Item>
-          <Form.Item label="Expandable">
-            <Switch checked={!!state.expandable} onChange={handleExpandChange} />
-          </Form.Item>
-          <Form.Item label="Checkbox">
-            <Switch checked={!!state.rowSelection} onChange={handleRowSelectionChange} />
-          </Form.Item>
-          <Form.Item label="Fixed Header">
-            <Switch checked={!!yScroll} onChange={handleYScrollChange} />
-          </Form.Item>
-          <Form.Item label="Table Scroll">
-            <Radio.Group value={xScroll} onChange={handleXScrollChange}>
-              <Radio.Button value={undefined}>Unset</Radio.Button>
-              <Radio.Button value="scroll">Scroll</Radio.Button>
-              <Radio.Button value="fixed">Fixed Columns</Radio.Button>
-            </Radio.Group>
-          </Form.Item>
-       </Form>
-        <Table
-          {...state}
-          columns={tableColumns}
-          dataSource={state.hasData ? data : null}
-          scroll={scroll}
-        />
-      </>
-    );
-  
-}
-
+      <Form.Item
+        wrapperCol={{
+          span: 12,
+          offset: 6,
+        }}
+      >
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+};

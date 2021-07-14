@@ -9,14 +9,15 @@ export const NombreCompleto = ({handleLogout,nombre,apellido,history}) => {
       
       const menu = (
         <Menu >
-          <Menu.Item key="1" icon={<ImExit/>} style={{fontSize:'20px'}}onClick={handleLogout}>
-           <span style={{marginLeft:'10px'}}> Salir</span>
-          </Menu.Item>
-          <Menu.Item key="2" icon={<UserOutlined style={{fontSize:17}}/>} style={{fontSize:'20px'}}>
+          
+          <Menu.Item key="1" icon={<UserOutlined style={{fontSize:17}}/>} style={{fontSize:'20px'}}>
           <Link to='/estado/usuario'> <span style={{marginLeft:'5px'}}>Estado del Usuario</span> </Link> 
           </Menu.Item>
-          <Menu.Item key="3" icon = {<SettingOutlined  style={{fontSize:'20px'}}/>} style={{fontSize:'20px'}} >
+          <Menu.Item key="2" icon = {<SettingOutlined  style={{fontSize:'20px'}}/>} style={{fontSize:'20px'}} >
           <Link to='/configuraciones/cambiar/contraseña'>   <span style={{marginLeft:'10px'}}> Configuracion </span> </Link> 
+          </Menu.Item>
+          <Menu.Item key="3" icon={<ImExit/>} style={{fontSize:'20px'}}onClick={handleLogout}>
+           <span style={{marginLeft:'10px'}}> Salir</span>
           </Menu.Item>
         </Menu>
       );

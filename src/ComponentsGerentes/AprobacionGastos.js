@@ -48,7 +48,6 @@ export const AprobacionGastos = () => {
     hasData: true,
   });
   const { TextArea } = Input;
-  const { Meta } = Card;
   const searchInput = useRef("");
   /** peticion get trae todo los gastos */
   const axiosGet = async () => {
@@ -81,12 +80,7 @@ const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
   },
- /*  onSelect: (record, selected, selectedRows) => {
-    console.log(record, selected, selectedRows);
-  },
-  onSelectAll: (selected, selectedRows, changeRows) => {
-    console.log(selected, selectedRows, changeRows);
-  }, */
+
 };
 /**fin seleccion de check */
   const aprobado = async () => {
@@ -96,7 +90,8 @@ const rowSelection = {
           estadoFinal: "aprobado",
           notificacion: "inactiva",
           estado: "aprobado",
-        })
+          f:new Date().toLocaleString()
+      })
       : await axiosURL.put(`/gasto/aprobado/${gastoPendiente.id}`, {
           ...mensaje,
           estado: "aprobado",
@@ -281,6 +276,12 @@ const rowSelection = {
       key: "mensaje",
     },
     {
+      title: "Sin Anticipo",
+      dataIndex: "sinAnticipo",
+      key: "sinAnticipo",
+    },
+
+    {
       title: "Estado",
       dataIndex: "estado",
       key: "estado",
@@ -430,6 +431,7 @@ const rowSelection = {
   };
 
   const handleExpandChange = (enable) => {
+    console.log(enable);
     setSte({ ...ste, expandable: enable ? expandable : undefined });
   };
 

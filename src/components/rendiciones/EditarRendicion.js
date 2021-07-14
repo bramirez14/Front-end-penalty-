@@ -12,7 +12,7 @@ export const EditarRendicion = ({ match, history }) => {
   const { id } = match.params;
   console.log(id);
   const [data, setData] = useState([]);
-  const [img, setImg] = useState();
+  const [img, setImg] = useState({image:''});
   const { Option } = Select;
 
   const [rendicionEditar, setRendicionEditar] = useState({
@@ -32,7 +32,7 @@ export const EditarRendicion = ({ match, history }) => {
   const crearImg = async () => {
     editarRendicion();
     let f = new FormData();
-    f.append("imagen", img);
+    f.append("imagen", img.imagen);
     let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f);
     if (result.data) {
       history.push(`/lista/rendicion/${gastoId}`);
@@ -57,34 +57,11 @@ export const EditarRendicion = ({ match, history }) => {
       categoria: values,
     });
   };
-  /*******imagen */
-
-  const handleFileChange = (e) => {
-    let file = e.target.files[0];
-    handFiles(file);
-  };
-  const handFiles = (file) => {
-    let imageArr = [];
-
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileObj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      imageArr.push(fileObj);
-      setData(imageArr);
-      setImg(file); //guardamos el archivo imagen
-    });
-  };
 
   /**Delte img del draw drop */
   const handleDelete = (e) => {
     setData([]);
-    setImg("");
+    setImg({imagen:''});
   };
   /****fin imagenn  */
   /** Boton para volver atras */
@@ -143,7 +120,14 @@ export const EditarRendicion = ({ match, history }) => {
               autoSize={{ minRows: 2, maxRows: 6 }}
             />
           </Form.Item>
-          <Imagen handleFileChange={handleFileChange} />
+          
+          <Imagen
+            setData={setData}
+            setState={setImg}
+            state={img}
+          />
+
+
           <Form.Item>
             <Button className="btn" htmlType="submit" block>
               Guardar

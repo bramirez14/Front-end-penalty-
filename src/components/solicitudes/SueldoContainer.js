@@ -101,7 +101,6 @@ export const SueldoContainer = ({ history }) => {
         let u = { ...v, usuarioId, fecha, sueldo, cuotas };
         handleAlert();
         guardarAnticipo(u);
-        //enviarMensaje()
       };
     } else {
       handleSubmit = (v) => {
@@ -115,35 +114,8 @@ export const SueldoContainer = ({ history }) => {
   /**********fin submit para enviar el formulario ************************/
 
   /**********funcion para enviar un mail de alerta **********************/
-  const enviarMensaje = () => {
-    //SgJZ2KTta9X#SMG
-    let usuarioEncontrado = users.find((user) => user.id === parseInt(id));
-    console.log(usuarioEncontrado);
-    let datos = {
-      empleado: usuarioEncontrado?.nombre,
-      fecha: fecha,
-      //fechaDevolucion:subtration(fecha), falta ria  la sustraccion de  aguinaldo
-      mensaje: mensaje,
-      importe: importe,
-      sueldo: sueldo,
-      cuotas: cuotas,
-    };
-    emailjs
-      .send(
-        "service_jow24ha",
-        "template_qgz07f5",
-        datos,
-        "user_LA9p7MEAHHJWsAMu6m90s"
-      )
-      .then(
-        function (response) {
-          console.log("SUCCESS!", response.status, response.text);
-        },
-        function (error) {
-          console.log("FAILED...", error);
-        }
-      );
-  };
+
+
   const handleChange = (e) => {
     setAnticipo({
       ...anticipo,

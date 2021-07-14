@@ -11,19 +11,22 @@ export const Mensajes = () => {
   const [state, setState] = useState(false);
   /* alerta de anticipo */
   const id = localStorage.getItem("uid");
-  const { anticipo } = PeticionGET(`/${id}`);
-  const filtroAprobado = anticipo?.filter((a) => a.estadoFinal === "aprobado");
-  const filtroAprobadoeInactivo = anticipo?.filter(
-    (a) => a.notificacion === "inactiva"
-  );
-  const filtroId = filtroAprobadoeInactivo?.map((a) => a.id);
-    
+  const { anticipo,gasto,vacacion } = PeticionGET(`/${id}`);
+  const filtroAprobadoAnt = anticipo?.filter((a) => a.estadoFinal === "aprobado" || a.estado==='rechazado');
+const filtroAprobadoGasto = gasto?.filter((a) => a.estadoFinal === "aprobado" || a.estado==='rechazado');
+const filtroAprobadoVacacion = vacacion?.filter((a) => a.estadoFinal === "aprobado" || a.estado==='rechazado');
+console.log(filtroAprobadoAnt);
+console.log(filtroAprobadoGasto);
+console.log(filtroAprobadoVacacion);
+const todosFiltros = (filtroAprobadoAnt,filtroAprobadoGasto,filtroAprobadoVacacion===undefined )?undefined:[...filtroAprobadoAnt,...filtroAprobadoGasto,...filtroAprobadoVacacion]
+console.log(todosFiltros);
   return (
     <>
-      <Row >
+    
+      <Row  >
         <Col xs={2} sm={4} md={6} lg={8} xl={10} offset={8}>
         <div className='contenedor-msj'>
-        {filtroAprobado?.map((a) => (
+        {todosFiltros?.map((a) => (
           <div className='item-contenedor'>
             <Row gutter="30">
               <Col  xs={2} sm={2} md={2} lg={2} xl={2}>
@@ -45,7 +48,7 @@ export const Mensajes = () => {
               </Col>
               <Col xs={6} sm={6} md={6} lg={6} xl={6} >
               <div className="item-despcription">
-                    <span style={{ color: "#46a461" }}> hace {run(a.f)}</span>
+                    <span style={{ color: "#46a461" }}> hace {/* run(a.f) */}</span>
                   </div>
               </Col>
             </Row>
