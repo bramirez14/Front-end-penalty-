@@ -35,23 +35,24 @@ result.status===200 && history.push('/perfil')
             xl={24}
             style={{ borderBottom: "solid 1px #ddd" }}
           >
-            <h2 style={{ textAlign: "center" }}>
-              Fecha:{f.fecha}
+            <h4 style={{ textAlign: "center" }}>
+<span style={{ marginLeft: 30 }}>#{f.id }</span>
+<span style={{ marginLeft: 30 }}> <b>Nombre Completado: </b>{f.usuario.nombre} {f.usuario?.apellido}</span> 
+            <span style={{ marginLeft: 30 }}> <b>Fecha: </b> {f.fecha}</span>  
               <span style={{ marginLeft: 30 }}>
-                Importe solicitado: ${f.importe}
+                <b>Importe solicitado: </b> ${f.importe}
               </span>
               <span style={{ marginLeft: 30 }}>
-                Importe rendido: ${f.importerendido}
+                <b>Importe rendido: </b>  ${f.importerendido}
               </span>
-            </h2>
+            </h4>
           </Col>
            { f.rendicion.map(ff=>
            <>
           <Col xs={2} sm={4} md={8} lg={8} xl={8}>
             <Card
-              style={{ width: 300 }}
-              cover={<img alt="No hay foto!!!" src={ff.imagen} />}
-           
+              style={{ width: 250 }}
+              cover={<img style={{ width:250, height: 150, borderRadius:10}} alt="No hay foto!!!" src={ff.imagen} />}
             >
               <Meta
                 avatar={

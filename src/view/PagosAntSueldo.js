@@ -27,6 +27,11 @@ export const PagosAntSueldo = ({history}) => {
           dataIndex: 'sueldo',
           key: 'sueldo',
         },
+        {
+          title: 'Cuotas',
+          dataIndex: 'cuotas',
+          key: 'cuotas',
+        },
       
         {
           title: 'Importe',

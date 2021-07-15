@@ -18,6 +18,7 @@ const Funtion = () => {
 const PagoAntSueldo=()=>{
   const get = PeticionGET("/anticipo");
   const filtroAntAprobado= get.filter(q=> q.estadoFinal==='aprobado' && q.pagoRealizado!=='Si');
+
   return(
     <>
      {filtroAntAprobado.length > 0 ? (
@@ -30,7 +31,8 @@ const PagoAntSueldo=()=>{
 }
 const PagoAntGasto=()=>{
   const get = PeticionGET("/gastos");
-  const filtroGastoAprobado= get.filter(g=> g.estadoFinal==='aprobado' && g.pagoRealizado!=='Si');
+  const filtroGastoAprobado= get.filter(g=> g.aprobacion==='Si' && g.pagoRealizado!=='Si');
+  console.log(filtroGastoAprobado);
   return(
     <>
      {filtroGastoAprobado.length > 0 ? (
