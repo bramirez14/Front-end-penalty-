@@ -163,12 +163,12 @@ export const Register = ({history}) => {
       <Form.Item
         name="cel"
         label="Celular"
-        rules={[
+        /* rules={[
           {
             required: true,
             message: "Please input your phone number!",
           },
-        ]}
+        ]} */
       >
         <Input
           addonBefore={prefixSelector}
@@ -225,12 +225,12 @@ export const Register = ({history}) => {
       <Form.Item
         name="fechaContratacion"
         label="Fecha de Contratacion"
-        rules={[
+      /*   rules={[
           {
             required: true,
             message: "Ingrese una fecha de contratacion!",
           },
-        ]}
+        ]} */
       >
         <DatePicker
         format='DD/MM/YYYY'

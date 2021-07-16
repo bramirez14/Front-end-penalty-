@@ -37,12 +37,7 @@ export const EditarRendicion = ({ match, history }) => {
     if (result.data) {
       history.push(`/lista/rendicion/${gastoId}`);
     }
-<<<<<<< HEAD
-    const editarRendicion = async () => {
- 
-         await axiosURL.put(`/rendicion/gastos/${id}`, rendicionEditar)
-       
-=======
+
   };
   const editarRendicion = async () => {
     await axiosURL.put(`/rendicion/gastos/${id}`, {
@@ -64,7 +59,7 @@ export const EditarRendicion = ({ match, history }) => {
     });
   };
   /*******imagen */
->>>>>>> 28d280c8c05ea14e6d6899b53bf85cf0589c6845
+
 
   const handleFileChange = (e) => {
     let file = e.target.files[0];

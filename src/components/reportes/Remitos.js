@@ -8,11 +8,11 @@ import { saveAs } from "file-saver";
 export const Remitos = ()=> {
     const N = localStorage.getItem('N')
     const todosRemitos = PeticionGETIntranet('/remitos')
-
+console.log(todosRemitos);
     const filtroVendedor= todosRemitos.filter(t=>t.vendedor===N);
 
     let filtrado;
-    if(N==='0000'){
+    if(N==='0000'|| N==='905' || N==='906'){
       filtrado = todosRemitos
     }else{
       filtrado = filtroVendedor
@@ -107,6 +107,7 @@ export const Remitos = ()=> {
             title: 'N° de Cliente',
             dataIndex: 'cliente',
             key: 'cliente',
+            width:'auto',
             ...getColumnSearchProps('cliente'),
           },
           {
@@ -121,13 +122,15 @@ export const Remitos = ()=> {
             title: 'N° de vendedor',
             dataIndex: 'vendedor',
             key: 'vendedor',
+            width:'auto',
+
             ...getColumnSearchProps('vendedor'),
           },
       {
-        title: 'Nombre y Apellido',
+        title: 'Nombre del vendedor',
         dataIndex: 'apeynom',
         key: 'apeynom',
-        width: '30%',
+        width:'auto',
         ...getColumnSearchProps('apeynom'),
       },
       
@@ -135,24 +138,25 @@ export const Remitos = ()=> {
         title: 'N° de Pedido',
         dataIndex: 'PEDIDO',
         key: 'PEDIDO',
-        width: '30%',
+        width:'auto',
         ...getColumnSearchProps('PEDIDO'),
       },
       {
         title: 'Unidades',
         dataIndex: 'UNIDADES',
         key: 'UNIDADES',
+        width:'auto',
         ...getColumnSearchProps('UNIDADES'),
       },
       {
         title: 'Fecha de Emision',
         dataIndex: 'fecemision',
         key: 'fecemision',
-        width: '100px',
+        width:'200px',  
         ...getColumnSearchProps('fecemision'),
         render: (estado, file) => {
-            let reducir=file.fecemision.split('T');
-            return( <p>{reducir[0]}</p>)
+            let reducir=file.fecemision?.split('T');
+            return( <p>{reducir?.[0]}</p>)
         }
       },
       {

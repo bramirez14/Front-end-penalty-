@@ -177,9 +177,10 @@ const añosTrabajados=(fecha)=>{
     var fechaFinal = dia + sep + mes + sep + anno;
     return fechaFinal;
   };
-  const layout = {
-    labelCol: { span: 4 },
+  const formLayout = {
+    labelCol: { span: 5},
     wrapperCol: { span: 18 },
+    
   };
   function handleChangeSelect(date, dateString) {
     setVacaciones({ ...vacaciones, periodo: dateString });
@@ -201,7 +202,8 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
   return (
     <>
         <Form
-          {...layout}
+          {...formLayout}
+         
           className={!open ? "form" : "form-active"}
           onFinish={handleSubmit}
           onChange={handleChange}
