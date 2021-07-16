@@ -5,7 +5,7 @@ import { Tabla } from "./Tabla";
 
 export const Rendicion = ({ history }) => {
   return (
-    <Form layout="vertical">
+  <>
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
           <h2 className='title'>Rendicion de Gastos</h2>
@@ -18,7 +18,7 @@ export const Rendicion = ({ history }) => {
           <Tabla />
         </Col>
       </Row>
+    </>
     
-    </Form>
   );
 };

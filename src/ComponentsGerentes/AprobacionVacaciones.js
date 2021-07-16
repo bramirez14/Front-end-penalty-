@@ -66,6 +66,7 @@ const [state, setState] = useState({
           estadoFinal: "aprobado",
           notificacion: "inactiva",
           estado: "aprobado",
+          f:new Date().toLocaleString()
         })
       : await axiosURL.put(`/vacaciones/aprobado/${vacacionesPendiente.id}`, {
           ...mensaje,

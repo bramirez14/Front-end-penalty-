@@ -1,22 +1,22 @@
-.contenedor-form{
-    width: 77%;
-    margin-left:170px;
-    border-radius: 1rem;
-    box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
+.container{
+margin-top:20px !important;
+
+    margin:auto;
+
     height: auto;
-    padding: 30px;
-    margin-top: 28px;
+    padding: 10px;
   background-color: #fff;
 
 }
-.contenedor-rendicion{
+
+/* .contenedor-rendicion{
     transition: 1200ms;
    
 }
 .contenedor-rendicion-active{
   padding-left: 200px;
     transition: 700ms;
-}
+} */
 /*Tabla*/
 .ant-table-thead > tr > th {
   color: rgba(0, 0, 0, 0.85);

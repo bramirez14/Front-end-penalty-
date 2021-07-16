@@ -1,31 +1,28 @@
 import React, { useState } from "react";
 import { Table, Button, Col, Modal, Form, Input, Upload, message } from "antd";
-import {axiosURL} from "../../config/axiosURL";
-import { Link } from 'react-router-dom'
-import {PeticionGET} from "../../config/PeticionGET";
+import { axiosURL } from "../../config/axiosURL";
+import { Link } from "react-router-dom";
+import { PeticionGET } from "../../config/PeticionGET";
 
-export const Tabla = ({
-  usuario,
-  setUsuario,
-
-}) => {
-  const id = localStorage.getItem('uid')
-  let p = PeticionGET('/gastos')
+export const Tabla = ({ usuario, setUsuario }) => {
+  const id = localStorage.getItem("uid");
+  let p = PeticionGET("/gastos");
   console.log(p);
-  let filtradoUsuariosConMediosDePago = p.filter(d => d.usuarioId == id)
+  let filtradoUsuariosConMediosDePago = p.filter((d) => d.usuarioId == id);
   const [highlight, setHighlight] = useState(false);
   const [data, setData] = useState();
   const [visible, setVisible] = useState(false);
-  const [visibleEditar, setVisibleEditar] = useState(false)
+  const [visibleEditar, setVisibleEditar] = useState(false);
   const [loading, setLoading] = useState(false);
   const [rendicionEditar, setRendicionEditar] = useState({
-    notas: '',
-    importe: '',
-    imagen: '',
-    categoria: '',
+    notas: "",
+    importe: "",
+    imagen: "",
+    categoria: "",
     deleteId: [],
-  })
-  const { notas, importe, imagen, categoria, fecha, deleteId } = rendicionEditar
+  });
+  const { notas, importe, imagen, categoria, fecha, deleteId } =
+    rendicionEditar;
   const showModal = () => setVisible(true);
   const showModalEditar = () => setVisibleEditar(true);
 
@@ -38,7 +35,7 @@ export const Tabla = ({
   };
   const handleOkEditar = () => {
     setLoading(true);
-    editarRendicion()
+    editarRendicion();
     setTimeout(() => {
       setVisibleEditar(false);
       setLoading(false);
@@ -47,25 +44,24 @@ export const Tabla = ({
   const handleCancel = () => setVisible(false);
   const handleCancelEditar = () => setVisibleEditar(false);
   const seleccionarRendicionAEditar = (fila) => {
-    setRendicionEditar(fila)
+    setRendicionEditar(fila);
     showModalEditar();
-  }
+  };
 
-  const gastos= PeticionGET(`/${id}`);
-  const APROBACION = gastos.gasto?.[gastos?.gasto?.length-1]?.estadoFinal
- 
+  const gastos = PeticionGET(`/${id}`);
+  const APROBACION = gastos.gasto?.[gastos?.gasto?.length - 1]?.estadoFinal;
+
   const columns = [
     {
       title: "N° de Rendicion",
       dataIndex: "id",
       key: "item",
-      width:'50px'
+      width: "50px",
     },
 
     {
       title: "Fecha",
       dataIndex: "fecha",
-
     },
 
     {
@@ -87,28 +83,41 @@ export const Tabla = ({
     {
       title: "Acciones",
       dataIndex: "acciones",
-      key: 'acciones',
+      key: "acciones",
       render: (f, fila) => {
-      console.log(fila.listo)
+        console.log(fila.estado);
 
-      return(
-        <>
-         
-        {fila.listo==='Si'?'Completado':
-         <Link to={`/lista/rendicion/${fila.id}`} > <Button style={{ width: 'auto', borderRadius: '10px' }} > Agregar Rendiciones</Button></Link> 
-        }
-        </>
-      )}
+        return (
+          <>
+            {fila.estado==='rechazado'?'rechazado':
+            
+            
+            fila.listo === "Si" ? (
+              "Completado"
+            ) : (
+              
+              <Link to={`/lista/rendicion/${fila.id}`}>
+                
+                <Button>
+                  Agregar Rendicion
+                </Button>
+              </Link>
+            )}
+          </>
+        );
+      },
     },
   ];
-  const filasFiltradas = filtradoUsuariosConMediosDePago?.filter(f=>f.estadoFinal==='aprobado'|| f.sinAnticipo==='sin')
-console.log(filasFiltradas);
+  const filasFiltradas = filtradoUsuariosConMediosDePago?.filter(
+    (f) => f.estadoFinal === "aprobado" || f.sinAnticipo === "sin"
+  );
+  console.log(filasFiltradas);
   const filas = filasFiltradas?.map((f, i) => {
     return {
       ...f,
       item: i + 1,
       key: f.id,
-      pago: f.formapago.pago
+      pago: f.formapago.pago,
     };
   });
 
@@ -119,21 +128,15 @@ console.log(filasFiltradas);
     f.append("importe", rendicionEditar.importe);
     f.append("categoria", rendicionEditar.categoria);
     f.append("notas", rendicionEditar.notas);
-    await axiosURL.put(`/rendicion/gastos/${rendicionEditar.id}`, f)
-  }
+    await axiosURL.put(`/rendicion/gastos/${rendicionEditar.id}`, f);
+  };
 
   return (
     <Col>
-      <Link
-        to='/rendicion'>
-        <Button>
-      Ingresar Rendicion
-      </Button>
+      <Link to="/rendicion">
+        <Button>Ingresar Rendicion</Button>
       </Link>
-      <Table
-        columns={columns}
-        dataSource={filas}
-      />
+      <Table columns={columns} dataSource={filas} />
     </Col>
   );
 };

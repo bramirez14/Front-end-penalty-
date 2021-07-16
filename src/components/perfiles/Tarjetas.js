@@ -112,8 +112,8 @@ console.log(gasto);
       </Col>
       <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
-          title="Default size card"
-          extra={<a href="/aprobacion/sueldo">More</a>}
+          title="Verificaciones"
+          extra={<Link to="/verificaciones">More</Link>}
         >
           <h4>Card content</h4>
         </Card>

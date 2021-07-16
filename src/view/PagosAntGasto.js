@@ -1,10 +1,11 @@
 import React from 'react'
-import { Table, Space,Button } from 'antd';
+import { Table, Button } from 'antd';
 import { PeticionGET } from '../config/PeticionGET';
 import { axiosURL } from '../config/axiosURL';
 
 export const PagosAntGasto = ({history}) => {
     const  antGasto = PeticionGET('/gastos');
+    const filtroAprobacion= antGasto.filter(a=> a.aprobacion==='Si');
     const pagoRealizado= async (id)=>{
       const {status} =await axiosURL.put(`/pago/gasto/${id}`,{pagoRealizado:'Si'});
       status===200 && history.push('/perfil');
@@ -50,6 +51,6 @@ export const PagosAntGasto = ({history}) => {
         },
       ];
     return (
-        <Table columns={columns} dataSource={antGasto} pagination={false} bordered={true}/>
+        <Table columns={columns} dataSource={filtroAprobacion} pagination={false} bordered={true}/>
     )
 }

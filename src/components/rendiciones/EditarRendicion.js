@@ -12,7 +12,7 @@ export const EditarRendicion = ({ match, history }) => {
   const { id } = match.params;
   console.log(id);
   const [data, setData] = useState([]);
-  const [img, setImg] = useState();
+  const [img, setImg] = useState({image:''});
   const { Option } = Select;
 
   const [rendicionEditar, setRendicionEditar] = useState({
@@ -32,7 +32,7 @@ export const EditarRendicion = ({ match, history }) => {
   const crearImg = async () => {
     editarRendicion();
     let f = new FormData();
-    f.append("imagen", img);
+    f.append("imagen", img.imagen);
     let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f);
     if (result.data) {
       history.push(`/lista/rendicion/${gastoId}`);
@@ -58,6 +58,7 @@ export const EditarRendicion = ({ match, history }) => {
       categoria: values,
     });
   };
+<<<<<<< HEAD
   /*******imagen */
 
 
@@ -82,11 +83,13 @@ export const EditarRendicion = ({ match, history }) => {
       setImg(file); //guardamos el archivo imagen
     });
   };
+=======
+>>>>>>> d2b8467a0939b59cefc6d73231cec5c3aa658ed4
 
   /**Delte img del draw drop */
   const handleDelete = (e) => {
     setData([]);
-    setImg("");
+    setImg({imagen:''});
   };
   /****fin imagenn  */
   /** Boton para volver atras */
@@ -145,7 +148,14 @@ export const EditarRendicion = ({ match, history }) => {
               autoSize={{ minRows: 2, maxRows: 6 }}
             />
           </Form.Item>
-          <Imagen handleFileChange={handleFileChange} />
+          
+          <Imagen
+            setData={setData}
+            setState={setImg}
+            state={img}
+          />
+
+
           <Form.Item>
             <Button className="btn" htmlType="submit" block>
               Guardar

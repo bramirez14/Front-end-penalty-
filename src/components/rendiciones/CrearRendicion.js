@@ -65,33 +65,9 @@ export const CrearRendicion = ({ match, history }) => {
   }
 
 
-  /*******imagen */
 
-  const handleFileChange = (e) => {
-    let file = e.target.files[0];
-    console.log(file);
-    handFiles(file);
-  };
-  const handFiles = (file) => {
-    let imageArr = [];
 
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileObj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      imageArr.push(fileObj);
-      setData(imageArr);
-      setCrearRendicion({
-        ...crearRendicion,
-        imagen: file,
-      });
-    });
-  };
+  
  
   /**Delte img del draw drop */
   const handleDelete = (e) => {
@@ -166,7 +142,12 @@ console.log(crearRendicion);
           <Form.Item name="notas">
             <TextArea name="notas" value={notas} placeholder="Nota" autoSize={{ minRows: 2, maxRows: 6 }} />
           </Form.Item>
-        <Imagen handleFileChange={handleFileChange}/>
+        <Imagen 
+          
+            setData={setData}
+            setState={setCrearRendicion}
+            state={crearRendicion}
+          />
 
           
           <Form.Item>
