@@ -1,15 +1,33 @@
-import React from 'react'
-import { Table, Button } from 'antd';
-import { PeticionGET } from '../config/PeticionGET';
+import React,{useState,useEffect} from 'react'
+import { Button, Table, } from 'antd';
 import { axiosURL } from '../config/axiosURL';
+import { Modalgasto } from './helpers/Modalgasto';
+import { saveAs } from "file-saver";
 
 export const PagosAntGasto = ({history}) => {
-    const  antGasto = PeticionGET('/gastos');
-    const filtroAprobacion= antGasto.filter(a=> a.aprobacion==='Si');
-    const pagoRealizado= async (id)=>{
-      const {status} =await axiosURL.put(`/pago/gasto/${id}`,{pagoRealizado:'Si'});
-      status===200 && history.push('/perfil');
-    }
+  const [dataGasto, setDataGasto] = useState([])
+  const [stateFile, setStateFile] = useState({
+file:''
+  })
+const getGastos = async ()=>{
+  const {data} = await axiosURL.get('/gastos')
+  setDataGasto(data)
+}
+useEffect(() => {
+  getGastos();
+}, [])
+const descargarPDF= async ( pdf)=>{
+  let res=await axiosURL.get('/pdf/gastos/rendicion',{
+    headers: {archivo:pdf},
+    responseType: "blob"
+  });
+  const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
+  saveAs(pdfBlob, `${pdf}`);
+}
+    const  antGasto = dataGasto
+    const filtroAprobacion= antGasto.filter(q=> q.estadoFinal==='aprobado' && (q.norden!==''|| q.norden===null));
+ 
+    
     const columns = [
       {
         title: 'N de Ant Gasto',
@@ -38,8 +56,21 @@ export const PagosAntGasto = ({history}) => {
           title: 'Importe',
           key: 'importe',
           dataIndex: 'importe',
-          render:(state,file)=>(<p>${file.importe}</p>)
+          render:(state,file)=>(<span > ${file.importe}</span>)
         },
+        {
+          title: 'Modalidad',
+          key: 'sinAnticipo',
+          dataIndex: 'sinAnticipo',
+          render:(state,file)=>(
+            <>
+            {
+              file.sinAnticipo==='sin'?<span >Sin Anticipo </span>:<span  >Con Anticipo</span>
+            }
+            </>
+          )
+        },
+
         {
           title: 'Estado',
           dataIndex: 'estadoFinal',
@@ -54,6 +85,9 @@ export const PagosAntGasto = ({history}) => {
           title: 'PDF',
           dataIndex: 'pdf',
           key: 'pdf',
+          render:(state,file)=>(
+            <Button type='link' onClick={()=>descargarPDF(file.pdf)} >{file.pdf}</Button>
+          )
         },
         {
           title: 'Acciones',
@@ -64,7 +98,16 @@ export const PagosAntGasto = ({history}) => {
               file.pagoRealizado==='Si'?
               <p>Realizado</p>
               :
-              <Button onClick={()=>pagoRealizado(file.id)}>Pago Realizado</Button>
+              <Modalgasto
+               boton='Completar' importe={file.importe} importeRendido={file.importerendido} 
+              title='Rendicion con Anticipo'  id={file.id}
+              orden={file.norden}
+              file={file}
+              stateFile={stateFile}
+              setStateFile={setStateFile}
+              get={getGastos}
+              sinocon={file.sinAnticipo}
+              />
 
             }
             </>
@@ -80,6 +123,7 @@ export const PagosAntGasto = ({history}) => {
         };
       });
 
+      
     return (
         <Table columns={columns} dataSource={datos} pagination={false} bordered={true}/>
     )

@@ -107,7 +107,8 @@ console.log(filtroListo);
                 ))}
                   
                  <Col xs={24} sm={24} md={24} lg={24} xl={24} >
-                 <Modale id={m.id} orden={m.norden} />
+                   {m.norden!==null|| ''?<span style={{float:'right'}}>Completado</span>:<Modale id={m.id} orden={m.norden} />}
+                 
                 </Col>
 
          

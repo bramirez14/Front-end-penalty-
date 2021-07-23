@@ -1,10 +1,11 @@
-import React, { Children } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { PeticionGET } from "../../config/PeticionGET";
 
 const Funtion = () => {
   const get = PeticionGET("/gastos");
   const filtroRendicionTerminada = get.filter((g) => g.estadoFinal==='aprobado' && (g.norden===null|| g.norden==='') );
+  
   return (
     <>
       {filtroRendicionTerminada.length > 0 ? (
@@ -18,7 +19,6 @@ const Funtion = () => {
 const PagoAntSueldo=()=>{
   const get = PeticionGET("/anticipo");
   const filtroAntAprobado= get.filter(q=> q.estadoFinal==='aprobado' && q.pagoRealizado!=='Si');
-
   return(
     <>
      {filtroAntAprobado.length > 0 ? (
@@ -31,8 +31,8 @@ const PagoAntSueldo=()=>{
 }
 const PagoAntGasto=()=>{
   const get = PeticionGET("/gastos");
-  const filtroGastoAprobado= get.filter(g=> g.estadoFinal==='aprobado' && g.pagoRealizado!=='Si');
-  console.log(filtroGastoAprobado);
+  const filtroGastoAprobado = get.filter(g=>( g.estadoFinal==='aprobado' && (g.pdf!==null ||''))  && g.pagoRealizado!=='Si');
+  
   return(
     <>
      {filtroGastoAprobado.length > 0 ? (
@@ -56,17 +56,17 @@ export const TarjetasItems905 = [
 
   {
     title: "En contruccion",
-    extra: <Link to="/comprobante/rendicion">More</Link>,
+    extra: <Link to="#">More</Link>,
     children: <Construccion />,
   },
   {
     title: "En contruccion",
-    extra: <Link to="/comprobante/rendicion">More</Link>,
+    extra: <Link to="#">More</Link>,
     children: <Construccion />,
   },
   {
     title: "En contruccion",
-    extra: <Link to="/comprobante/rendicion">More</Link>,
+    extra: <Link to="#">More</Link>,
     children: <Construccion />,
   },
 ];

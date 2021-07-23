@@ -99,7 +99,7 @@ console.log(stateForm);
         <Form.Item>
            <Archivo change={handleChangeFile}/>
           </Form.Item>
-          <Form.Item label={file.name}/>
+          <Form.Item label={file?.name}/>
         </Form>
         </div>
       </Modal>

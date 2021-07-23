@@ -134,12 +134,13 @@ export const Get =  (url) => {
     return state
   }
   export const muestraPendiente = (array ) =>{
+    console.log(array);
 if(N==='901'|| N ==='903'){
     const estadoFinalPendiente= array.filter(d=>d.estadoFinal==='pendiente');
 return(estadoFinalPendiente)
 }
 if(N==='902'){
-  const estadoPendiente= array.filter(d=>d.estado==='pendiente');
+  const estadoPendiente= array.filter(d=>d.estado==='pendiente'|| d.estadoFinal==='pendiente');
 return(estadoPendiente)
 
 }

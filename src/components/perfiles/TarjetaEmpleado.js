@@ -4,11 +4,12 @@ import { TarjetasItems905,TarjetasItems906,TarjetasItems0000 } from './TarjetasI
 
 export const TarjetaEmpleado = () => {
 const N=localStorage.getItem('N');
-
+//console.log(TarjetasItems905);
   return (
     <Row gutter={20}>
       
-    {N==='905'?
+    {
+    N==='905'?
     
     TarjetasItems905.map(t=>
     

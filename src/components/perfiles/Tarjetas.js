@@ -9,8 +9,10 @@ const vacacion = Get('/vacaciones');
 const gastosConAnt= GetGastosConAnt('/gastos');
 const  gastosSinAnt= GetGastosSinAnt('/gastos')
 const gastoTotal= [...gastosConAnt,...gastosSinAnt];
+console.log(gastoTotal);
 //capas falte verificar con ant y vaca
 const gastoMuestra= muestraPendiente(gastoTotal);
+console.log(gastoMuestra);
   return (
     <Row gutter={[30,30]}>
       <Col xs={24} sm={12} md={12} lg={6} xl={6}>
@@ -33,9 +35,9 @@ const gastoMuestra= muestraPendiente(gastoTotal);
           title="Anticipo de gasto"
           extra={<Link to="/aprobacion/gastos">More</Link>}
         >
-          {gastoMuestra.length > 0 ? (
+          {gastoMuestra?.length > 0 ? (
             <h4>
-              Pendiente: <b>{gastoTotal.length}</b>
+              Pendiente: <b>{gastoMuestra.length}</b>
             </h4>
           ) : (
             <h4>No hay notificaciones!!!</h4>

@@ -256,9 +256,9 @@ export const AprobacionGastos = () => {
       render: (state, file) => (
         <>
           {file.importe < file.importerendido ? (
-            <p style={{ color: "red" }}> {file.importerendido} </p>
+            <span style={{ color: "red" }}> {file.importerendido} </span>
           ) : (
-            <p style={{ color: "green" }}>{file.importerendido} </p>
+            <span style={{ color: "green" }}>{file.importerendido} </span>
           )}
         </>
       ),
@@ -275,9 +275,18 @@ export const AprobacionGastos = () => {
       key: "mensaje",
     },
     {
-      title: "Sin Anticipo",
+      title: "Rendicion",
       dataIndex: "sinAnticipo",
       key: "sinAnticipo",
+      render:(state, file)=>(
+        <>
+        {file.sinAnticipo==='sin'?
+        <span> Sin Anticipo  </span>
+        :
+        <span> Con Anticipo  </span>
+        }
+        </>
+      )
     },
 
     {
@@ -288,11 +297,11 @@ export const AprobacionGastos = () => {
         const color = () => {
           switch (file.estado) {
             case "pendiente":
-              return <p style={{ color: "yellow" }}> pendiente...</p>;
+              return <span style={{ color: "yellow" }}> pendiente...</span>;
             case "aprobado":
-              return <p style={{ color: "green" }}> aprobado </p>;
+              return <span style={{ color: "green" }}> aprobado </span>;
             default:
-              return <p style={{ color: "red" }}> rechazado </p>;
+              return <span style={{ color: "red" }}> rechazado </span>;
           }
         };
         return <>{color()}</>;
@@ -307,11 +316,11 @@ export const AprobacionGastos = () => {
         const color = () => {
           switch (file.estadoFinal) {
             case "pendiente":
-              return <p style={{ color: "yellow" }}> pendiente...</p>;
+              return <span style={{ color: "yellow" }}> pendiente...</span>;
             case "aprobado":
-              return <p style={{ color: "green" }}> aprobado </p>;
+              return <span style={{ color: "green" }}> aprobado </span>;
             default:
-              return <p style={{ color: "red" }}> rechazado </p>;
+              return <span style={{ color: "red" }}> rechazado </span>;
           }
         };
         return <> {N === "902" && color()}</>;

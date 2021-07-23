@@ -18,7 +18,13 @@ export const useForm = ( initialState = {} ) => {
         });
 
     }
+    const handleFileChange=({ target})=> {
+        setValues({
+            ...values,
+            file: target.files[0]
+        });
+    }
 
-    return [ values, handleInputChange, reset ];
+    return [ values, handleInputChange,handleFileChange,reset ];
 
 }
