@@ -12,7 +12,7 @@ import { saveAs } from "file-saver";
 export const ListaRendiciones = ({ match, history }) => {
   const { id } = match.params;
   const peticionGastoId = PeticionGET(`/gastos/${id}`);
-  // avita ingreso por medio de la ruta
+  // prohibe ingreso por medio de la ruta
   peticionGastoId?.listo==='Si'&& history.push('/perfil')
 
   const todasLasRendicones = peticionGastoId?.rendicion;
@@ -85,9 +85,12 @@ export const ListaRendiciones = ({ match, history }) => {
           Generar PDF
           </Button>
         
+      
           <Button  style={{ marginTop: "10px",marginLeft:'10px'}} onClick={listo}>
           Finalizar
           </Button>
+        
+        
         </Col>
         </Row>
     </div>

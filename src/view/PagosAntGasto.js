@@ -11,12 +11,23 @@ export const PagosAntGasto = ({history}) => {
       status===200 && history.push('/perfil');
     }
     const columns = [
-        {
-          title: 'N de Ant Gasto',
-          dataIndex: 'id',
-          key: 'id',
-          width:'80px',
-        },
+      {
+        title: 'N de Ant Gasto',
+        dataIndex: 'id',
+        key: 'id',
+        width:'80px',
+      },
+      {
+        title: 'Nombre',
+        dataIndex: 'nombre',
+        key: 'nombre',
+      },
+      {
+        title: 'Apellido',
+        dataIndex: 'apellido',
+        key: 'apellido',
+      },
+        
         {
           title: 'Fecha',
           dataIndex: 'fecha',
@@ -35,6 +46,16 @@ export const PagosAntGasto = ({history}) => {
           key: 'estadoFinal',
         },
         {
+          title: 'N orden',
+          dataIndex: 'norden',
+          key: 'norden',
+        },
+        {
+          title: 'PDF',
+          dataIndex: 'pdf',
+          key: 'pdf',
+        },
+        {
           title: 'Acciones',
           key: 'acciones',
           render: (state, file) => (
@@ -50,7 +71,16 @@ export const PagosAntGasto = ({history}) => {
           ),
         },
       ];
+      const datos = filtroAprobacion?.map((f) => {
+        return {
+          ...f,
+          key: f.id,
+          nombre: f.usuario.nombre,
+          apellido: f.usuario.apellido,
+        };
+      });
+
     return (
-        <Table columns={columns} dataSource={filtroAprobacion} pagination={false} bordered={true}/>
+        <Table columns={columns} dataSource={datos} pagination={false} bordered={true}/>
     )
 }

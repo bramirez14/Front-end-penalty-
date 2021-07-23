@@ -4,11 +4,11 @@ import { PeticionGET } from "../../config/PeticionGET";
 
 const Funtion = () => {
   const get = PeticionGET("/gastos");
-  const filtroRendicionTerminada = get.filter((g) => g.listo==='Si' && g.procesoFinalizado!=='Si');
+  const filtroRendicionTerminada = get.filter((g) => g.estadoFinal==='aprobado' && (g.norden===null|| g.norden==='') );
   return (
     <>
       {filtroRendicionTerminada.length > 0 ? (
-        <h2>Pendiente: {filtroRendicionTerminada.length}</h2>
+        <p>Pendiente: {filtroRendicionTerminada.length}</p>
       ) : (
         <p>No hay notificaciones!!!</p>
       )}
@@ -22,7 +22,7 @@ const PagoAntSueldo=()=>{
   return(
     <>
      {filtroAntAprobado.length > 0 ? (
-        <h2>Pendiente: {filtroAntAprobado.length}</h2>
+        <p>Pendiente: {filtroAntAprobado.length}</p>
       ) : (
         <p>No hay notificaciones!!!</p>
       )}
@@ -31,12 +31,12 @@ const PagoAntSueldo=()=>{
 }
 const PagoAntGasto=()=>{
   const get = PeticionGET("/gastos");
-  const filtroGastoAprobado= get.filter(g=> g.aprobacion==='Si' && g.pagoRealizado!=='Si');
+  const filtroGastoAprobado= get.filter(g=> g.estadoFinal==='aprobado' && g.pagoRealizado!=='Si');
   console.log(filtroGastoAprobado);
   return(
     <>
      {filtroGastoAprobado.length > 0 ? (
-        <h2>Pendiente: {filtroGastoAprobado.length}</h2>
+        <p>Pendiente: {filtroGastoAprobado.length}</p>
       ) : (
         <p>No hay notificaciones!!!</p>
       )}
@@ -45,8 +45,8 @@ const PagoAntGasto=()=>{
 }
 
 const Construccion=()=><p>Construccion!!!</p>
+
 export const TarjetasItems905 = [
-  
   {
     title: "Rendicion de Gasto",
     extra: <Link to="/comprobante/rendicion">More</Link>,

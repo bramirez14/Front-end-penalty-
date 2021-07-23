@@ -282,9 +282,13 @@ export const AprobacionAntcipoSueldo = () => {
       render: (f, fila) => {
         return (
           <>
+          {fila.estadoFinal==='aprobado'|| fila.estadoFinal==='rechazado'? '':
             <Button className="btn-aprob" onClick={() => showModal(fila)}>
-              <BsCheck />
-            </Button>
+            <BsCheck />
+          </Button>
+          
+          }
+          
           </>
         );
       },

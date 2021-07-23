@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Card, Collapse, Button, Avatar, Row, Col } from "antd";
 import { axiosURL } from "../../config/axiosURL";
@@ -17,7 +17,8 @@ const tabList = [
 const { Panel } = Collapse;
 const { Meta } = Card;
 export const Verificacion = () => {
-  const [rendicion, setRendicion] = useState([]);
+  const N = localStorage.getItem('N')
+const [gasto, setGasto] = useState([]);
   const [state, setState] = useState({
     key: "Gasto",
     noTitleKey: "app",
@@ -27,15 +28,22 @@ export const Verificacion = () => {
     setState({ [type]: key });
   };
 
-  const getGastos = PeticionGET("/gastos");
-  const filtroListo = getGastos.filter((f) => f.listo === "Si");
+  
+  const get= async()=>{
+const { data}=await axiosURL.get('/gastos')  
+setGasto(data)
+}
+useEffect(() => {
+  get()
+}, [])
+  const filtroListo = gasto.filter((f) => f.listo === "Si");
 
   const gastoVerificado = async (id) => {
     console.log(id);
-    let resp = await axiosURL.put(`/verficacion/gasto/${id}`, {
+     await axiosURL.put(`/verficacion/gasto/${id}`, {
       aprobacion: "Si",
     });
-    console.log(resp.data);
+    get();
   };
 
   const style = {
@@ -109,7 +117,9 @@ export const Verificacion = () => {
                   </>
                 ))}
               </Row>
-              {m.aprobacion === "Si" ? (
+
+              {N==='902'?
+              m.aprobacion === "Si" ? (
                 "Completado"
               ) : (
                 <Button
@@ -118,7 +128,7 @@ export const Verificacion = () => {
                 >
                   Ok
                 </Button>
-              )}
+              ):''}
             </Panel>
           </>
         ))}

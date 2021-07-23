@@ -63,11 +63,6 @@ export const CrearRendicion = ({ match, history }) => {
       ...crearRendicion, categoria: value
     })
   }
-
-
-
-
-  
  
   /**Delte img del draw drop */
   const handleDelete = (e) => {

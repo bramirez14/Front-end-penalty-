@@ -287,9 +287,12 @@ const [state, setState] = useState({
         render: (f, fila) => {
           return (
             <>
-              <Button className='btn-aprob' onClick={() => showModal(fila)}>
-                    <BsCheck/>
-              </Button>
+           {fila.estadoFinal==='aprobado'|| fila.estadoFinal==='rechazado'? '':
+            <Button className="btn-aprob" onClick={() => showModal(fila)}>
+            <BsCheck />
+          </Button>
+          
+          }
             </>
           );
         },

@@ -20,7 +20,7 @@ import { SidebarItems2 } from "./SidebarItems2";
 import { SidebarItemsEmpleado } from "./SidebarItemsEmpleado";
 import { BotomHamburguesa } from "../botones/BotomHamburguesa";
 import { NombreCompleto } from "./NombreCompleto";
-
+import io from "socket.io-client";
 
 export const Sidebar = ({ history }) => {
   const abrirCerrarHamburguesa = () => setOpen(!open);
@@ -34,12 +34,22 @@ export const Sidebar = ({ history }) => {
   const get = PeticionJWT();
   const { nombre, apellido } = get;
 
+
+
   const handleLogout = async () => {
     await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
     logout();
     history.push("/login");
     setAuth(false);
+    const socket =  io.connect( "http://localhost:4000",{ 
+      transports: ['websocket'],
+      autoConnect: true,
+      forceNew: true,})
+     console.log(socket);
+      socket?.disconnect();
   };
+
+
   let reconocerUsuario =
     n === "901"
       ? SidebarItems

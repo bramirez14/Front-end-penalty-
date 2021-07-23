@@ -14,7 +14,6 @@ function App() {
   const [openn, setOpen] = useState(false);
   const [auth, setAuth] = useState(false)
   const [arrayUsuarios, setArrayUsuarios] = useState()
-console.log(arrayUsuarios);
   return (
     <UserContext.Provider
       value={{
@@ -26,10 +25,10 @@ console.log(arrayUsuarios);
         setArrayUsuarios:setArrayUsuarios,
       }}
     >
-      <SocketProvider>
-
+{/*       <SocketProvider>
+ */}
           <Routes />
-      </SocketProvider>
+      {/* </SocketProvider> */}
 
     </UserContext.Provider>
   );

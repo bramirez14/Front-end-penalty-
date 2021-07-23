@@ -4,7 +4,9 @@ import {
   Input,
   Select,
   Button,
-  DatePicker
+  DatePicker,
+  Row,
+  Col
 } from "antd";
 import {PeticionGET} from "../../config/PeticionGET";
 import {axiosURL} from "../../config/axiosURL";
@@ -25,7 +27,7 @@ export const Register = ({history}) => {
     let cel= '11'.concat(values.cel)
     let valor = { ...values,fechaContratacion:fecha,cel}
     let res = await axiosURL.post('/register',valor);
-    res.data.status===500 ? alert (res.data.message ) : history.push('/')
+    res.data.status===500 ? alert (res.data.message ) : history.push('/perfil')
     
   };
 
@@ -48,19 +50,21 @@ export const Register = ({history}) => {
 
   return (
     <Form
-      {...layout}
-      
+      className='container'
       name="register"
       onFinish={onFinish}
       initialValues={{
         prefix: "11",
       }}
-  
-      style={{ marginTop: "10px" }}
+     style={{width:400,borderRadius:10,padding:20}}
+     
     >
+     
+      <Row gutter={10} style={{width:300,margin:'auto'}}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
       <Form.Item
         name="departamentoId"
-        label="Departamento"
+        hasFeedback
         rules={[
           {
             required: true,
@@ -68,7 +72,7 @@ export const Register = ({history}) => {
           },
         ]}
       >
-       <Select>
+       <Select placeholder='Departamento'>
        {dtos.map( d=>
           <Option value={d.id} key={d.id} >
             {d.departamento}
@@ -79,7 +83,6 @@ export const Register = ({history}) => {
 
       <Form.Item
         name="nombre"
-        label="Nombre"
         rules={[
           {
             required: true,
@@ -87,12 +90,13 @@ export const Register = ({history}) => {
           },
         ]}
       >
-        <Input />
+       
+        <Input  placeholder="Nombre" />
       </Form.Item>
 
       <Form.Item
         name="apellido"
-        label="Apellido"
+        hasFeedback
         rules={[
           {
             required: true,
@@ -100,12 +104,12 @@ export const Register = ({history}) => {
           },
         ]}
       >
-        <Input />
+        <Input placeholder="Apellido" />
       </Form.Item>
 
       <Form.Item
         name="email"
-        label="E-mail"
+        hasFeedback
         rules={[
           {
             type: "email",
@@ -117,12 +121,12 @@ export const Register = ({history}) => {
           },
         ]}
       >
-        <Input />
+        <Input  placeholder="E-mail"/>
       </Form.Item>
 
       <Form.Item
         name="password"
-        label="Contraseña"
+       placeholder="Contraseña"
         rules={[
           {
             required: true,
@@ -131,12 +135,11 @@ export const Register = ({history}) => {
         ]}
         hasFeedback
       >
-        <Input.Password />
+        <Input.Password  placeholder="Contraseña"/>
       </Form.Item>
 
       <Form.Item
         name="password2"
-        label="Confirme Contraseña"
         dependencies={["password"]}
         hasFeedback
         rules={[
@@ -157,20 +160,21 @@ export const Register = ({history}) => {
           }),
         ]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Confirme Contraseña"/>
       </Form.Item>
 
       <Form.Item
         name="cel"
-        label="Celular"
         rules={[
           {
             required: true,
             message: "Please input your phone number!",
           },
         ]}
+        hasFeedback
       >
         <Input
+        placeholder="Celular"
           addonBefore={prefixSelector}
           style={{
             width: "100%",
@@ -178,8 +182,8 @@ export const Register = ({history}) => {
         />
       </Form.Item>
 
-          <Form.Item name='tipousuario' label='Tipo de usuario' rules={ [{required:true,message:' Seleccione una opcion!'}]}>
-          <Select>
+          <Form.Item name='tipousuario'  rules={ [{required:true,message:' Seleccione una opcion!'}]}  hasFeedback>
+          <Select placeholder='Tipo de usuario'>
           <Option value='Gerente'>
           Gerente
           </Option>
@@ -197,15 +201,15 @@ export const Register = ({history}) => {
     
       <Form.Item
         name="categoria"
-        label="Categoria"
         rules={[
           {
             required: true,
             message: "Ingrese una categoria!",
           },
         ]}
+        hasFeedback
       >
-        <Select>
+        <Select placeholder="Categoria">
           <Option value='interno'>
             Interno
           </Option>
@@ -213,26 +217,28 @@ export const Register = ({history}) => {
           </Select>
       </Form.Item>
 
-      <Form.Item name='nvendedor' label=' Vendedor'
+      <Form.Item name='nvendedor' 
       tooltip={{ title: 'Si no es un vendedor ingresar 0000' }}
       rules={[{
           required: true,
           message: "Ingrese numero de vendedor!",
-      }]}>
-        <Input type='number'/>
+      }]}
+      hasFeedback>
+        <Input type='number' placeholder=' Vendedor'/>
       </Form.Item>
 
       <Form.Item
         name="fechaContratacion"
-        label="Fecha de Contratacion"
         rules={[
           {
             required: true,
             message: "Ingrese una fecha de contratacion!",
           },
         ]}
+        hasFeedback
       >
         <DatePicker
+        placeholder="Fecha de Contratacion"
         format='DD/MM/YYYY'
                   style={{ width: "100%" }}
                   onChange={onChange}
@@ -244,6 +250,8 @@ export const Register = ({history}) => {
           Register
         </Button>
       </Form.Item>
+      </Col>
+    </Row>
     </Form>
   );
 };
