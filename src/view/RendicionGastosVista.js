@@ -1,19 +1,29 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import { Row, Col, Card, Avatar} from "antd";
-
-import { PeticionGET } from "../config/PeticionGET";
 import { Button } from "antd/lib/radio";
 import { axiosURL } from "../config/axiosURL";
+
 export const RendicionGastosVista = ({history}) => {
+  const [gastos, setGastos] = useState([]);
 const N=localStorage.getItem('N');
 /**evitar que usuari 905 ingresen a la ruta */
   N!=='905'&& history.push('/perfil')
-  const getRendiconesLista = PeticionGET("/gastos");
-  const filtro = getRendiconesLista.filter((g) => g.listo === "Si" && g.procesoFinalizaado!=='SI');
-const finalizar= async (id)=>{
-let result = await axiosURL.post(`/finalizar/gasto/${id}`,{procesoFinalizado:'Si'})
-result.status===200 && history.push('/perfil')
+
+  const get=async()=>{
+let res=await axiosURL.get('/gastos')
+setGastos(res.data);
 }
+useEffect(() => {
+  get()
+  
+}, [])
+  
+  const filtro = gastos.filter((g) =>( g.listo === "Si" && g.aprobacion==='Si') && g.procesoFinalizaado!=='Si');
+const finalizar= async (id)=>{
+ await axiosURL.post(`/finalizar/gasto/${id}`,{procesoFinalizado:'Si'});
+get();
+}
+
   const { Meta } = Card; 
   return (
     <div style={{ padding: 20 }}>
@@ -36,8 +46,8 @@ result.status===200 && history.push('/perfil')
             style={{ borderBottom: "solid 1px #ddd" }}
           >
             <h4 style={{ textAlign: "center" }}>
-<span style={{ marginLeft: 30 }}>#{f.id }</span>
-<span style={{ marginLeft: 30 }}> <b>Nombre Completado: </b>{f.usuario.nombre} {f.usuario?.apellido}</span> 
+            <span style={{ marginLeft: 30 }}>#{f.id }</span>
+            <span style={{ marginLeft: 30 }}> <b>Nombre Completado: </b>{f.usuario.nombre} {f.usuario?.apellido}</span> 
             <span style={{ marginLeft: 30 }}> <b>Fecha: </b> {f.fecha}</span>  
               <span style={{ marginLeft: 30 }}>
                 <b>Importe solicitado: </b> ${f.importe}
@@ -78,7 +88,12 @@ result.status===200 && history.push('/perfil')
           md={24}
           lg={24}
           xl={24} offset={21} >
-        <Button onClick={()=>finalizar(f.id)}  > Completado </Button>
+            { 
+              f.procesoFinalizado==='Si'?'':
+              <Button onClick={()=>finalizar(f.id)}  > Completado </Button>
+
+            }
+        
         </Col> 
         </Row>
       ))}

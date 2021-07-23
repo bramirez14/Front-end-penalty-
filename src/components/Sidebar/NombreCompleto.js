@@ -9,11 +9,7 @@ export const NombreCompleto = ({handleLogout,nombre,apellido,history}) => {
       
       const menu = (
         <Menu >
-<<<<<<< HEAD
-         
-=======
-          
->>>>>>> d2b8467a0939b59cefc6d73231cec5c3aa658ed4
+
           <Menu.Item key="1" icon={<UserOutlined style={{fontSize:17}}/>} style={{fontSize:'20px'}}>
           <Link to='/estado/usuario'> <span style={{marginLeft:'5px'}}>Estado del Usuario</span> </Link> 
           </Menu.Item>

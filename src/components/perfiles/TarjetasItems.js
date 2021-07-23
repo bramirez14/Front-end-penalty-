@@ -4,7 +4,7 @@ import { PeticionGET } from "../../config/PeticionGET";
 
 const Funtion = () => {
   const get = PeticionGET("/gastos");
-  const filtroRendicionTerminada = get.filter((g) => g.listo==='Si' && g.procesoFinalizado!=='Si');
+  const filtroRendicionTerminada = get.filter((g) => ( g.listo==='Si' && g.aprobacion==='Si')  && g.procesoFinalizado!=='Si');
   return (
     <>
       {filtroRendicionTerminada.length > 0 ? (

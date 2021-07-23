@@ -84,10 +84,13 @@ export const ListaRendiciones = ({ match, history }) => {
           <Button  style={{ marginTop: "10px" }} onClick={handleClick}>
           Generar PDF
           </Button>
+        {peticionGastoId.estadoFinal==='aprobado'?
+        <Button  style={{ marginTop: "10px",marginLeft:'10px'}} onClick={listo}>
+        Finalizar
+        </Button>:''
+      
+      }
         
-          <Button  style={{ marginTop: "10px",marginLeft:'10px'}} onClick={listo}>
-          Finalizar
-          </Button>
         </Col>
         </Row>
     </div>

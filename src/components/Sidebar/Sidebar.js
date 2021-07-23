@@ -20,9 +20,11 @@ import { SidebarItems2 } from "./SidebarItems2";
 import { SidebarItemsEmpleado } from "./SidebarItemsEmpleado";
 import { BotomHamburguesa } from "../botones/BotomHamburguesa";
 import { NombreCompleto } from "./NombreCompleto";
-
+import io from "socket.io-client";
+import { SocketContenido } from "../../contexto/SocketContenido";
 
 export const Sidebar = ({ history }) => {
+  const {datosSocket,setDatosSocket} = useContext(SocketContenido)
   const abrirCerrarHamburguesa = () => setOpen(!open);
   const { setAuth } = useContext(UserContext);
   const id = localStorage.getItem("uid");
@@ -39,6 +41,17 @@ export const Sidebar = ({ history }) => {
     logout();
     history.push("/login");
     setAuth(false);
+    const socket =  io.connect( "http://intranet.penalty.com.ar:4000",{ 
+      transports: ['websocket'],
+      autoConnect: true,
+      forceNew: true,})
+     console.log(socket);
+     socket.on('lista-usuarios', (data)=> {
+      console.log(data); 
+      setDatosSocket(data)
+      socket?.disconnect();
+    
+    })
   };
   let reconocerUsuario =
     n === "901"

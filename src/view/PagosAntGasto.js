@@ -18,6 +18,16 @@ export const PagosAntGasto = ({history}) => {
           width:'80px',
         },
         {
+          title: 'Nombre',
+          dataIndex: 'nombre',
+          key: 'nombre',
+        },
+        {
+          title: 'Apellido',
+          dataIndex: 'apellido',
+          key: 'apellido',
+        },
+        {
           title: 'Fecha',
           dataIndex: 'fecha',
           key: 'fecha',
@@ -50,7 +60,14 @@ export const PagosAntGasto = ({history}) => {
           ),
         },
       ];
+      const datos =filtroAprobacion?.map((f) => {
+        return {
+          ...f,
+          key: f.id,
+          nombre: f.usuario.nombre,
+          apellido: f.usuario.apellido,}})
+
     return (
-        <Table columns={columns} dataSource={filtroAprobacion} pagination={false} bordered={true}/>
+        <Table columns={columns} dataSource={datos} pagination={false} bordered={true}/>
     )
 }

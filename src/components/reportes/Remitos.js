@@ -12,11 +12,9 @@ console.log(todosRemitos);
     const filtroVendedor= todosRemitos.filter(t=>t.vendedor===N);
 
     let filtrado;
-<<<<<<< HEAD
-    if(N==='0000'|| N==='905' || N==='906'){
-=======
+
     if(N==='0000'||'905'||'906'||'903'||'902'||'901'){
->>>>>>> d2b8467a0939b59cefc6d73231cec5c3aa658ed4
+
       filtrado = todosRemitos
     }else{
       filtrado = filtroVendedor

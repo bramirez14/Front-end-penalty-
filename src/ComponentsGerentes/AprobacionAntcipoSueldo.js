@@ -281,9 +281,12 @@ export const AprobacionAntcipoSueldo = () => {
       render: (f, fila) => {
         return (
           <>
+             {fila.estadoFinal==='aprobado'|| fila.estadoFinal==='rechazado'? '':
             <Button className="btn-aprob" onClick={() => showModal(fila)}>
-              <BsCheck />
-            </Button>
+            <BsCheck />
+          </Button>
+          
+          }
           </>
         );
       },
@@ -331,12 +334,12 @@ export const AprobacionAntcipoSueldo = () => {
 
       case "902":
         return data.filter(
-          (d) => d.usuario.departamentoId === 3 || d.estado === "aprobado"
+          (d) => d.usuario.departamentoId === 5 || d.estado === "aprobado"
         ); // aca filtramos por gerente 902 Cristian Ramos
 
       default:
         return data.filter(
-          (d) => d.usuario.departamentoId === 4 || d.usuario.departamentoId === 5
+          (d) => d.usuario.departamentoId === 3 || d.usuario.departamentoId === 4
         ); // aca filtramos por gerente 903 Cristian DeSousa
 
     }

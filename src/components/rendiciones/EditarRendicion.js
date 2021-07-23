@@ -37,7 +37,6 @@ export const EditarRendicion = ({ match, history }) => {
     if (result.data) {
       history.push(`/lista/rendicion/${gastoId}`);
     }
-
   };
   const editarRendicion = async () => {
     await axiosURL.put(`/rendicion/gastos/${id}`, {
@@ -58,33 +57,6 @@ export const EditarRendicion = ({ match, history }) => {
       categoria: values,
     });
   };
-<<<<<<< HEAD
-  /*******imagen */
-
-
-  const handleFileChange = (e) => {
-    let file = e.target.files[0];
-    handFiles(file);
-  };
-  const handFiles = (file) => {
-    let imageArr = [];
-
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileObj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      imageArr.push(fileObj);
-      setData(imageArr);
-      setImg(file); //guardamos el archivo imagen
-    });
-  };
-=======
->>>>>>> d2b8467a0939b59cefc6d73231cec5c3aa658ed4
 
   /**Delte img del draw drop */
   const handleDelete = (e) => {

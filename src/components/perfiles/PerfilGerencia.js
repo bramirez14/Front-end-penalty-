@@ -4,7 +4,7 @@ import "./css/perfiles.css";
 import { Tarjetas } from "./Tarjetas";
 import { ListaUsuarios } from "./ListaUsuarios";
 import { UserContext } from "../../contexto/UserContext";
-export const PerfilGerencia = ({ history }) => {
+export const PerfilGerencia = ({ history,datos }) => {
   const { arrayUsuarios } = useContext(UserContext)
 
 return (
@@ -13,7 +13,7 @@ return (
         <Tarjetas />
         {/**Lista */}
         <ListaUsuarios
-          lista={arrayUsuarios}
+          lista={datos}
         />
       </div>
     </>

@@ -81,21 +81,10 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path='/comprobante/rendicion' component={RendicionGastosVista}/>
         <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
         <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
-<<<<<<< HEAD
 
-
-        
-
-
-
-        
         <RouteGerente exact path='/reportes/gestion/remitos' component={Remitos}/>
 
-        
-
-=======
         </div>
->>>>>>> d2b8467a0939b59cefc6d73231cec5c3aa658ed4
         <Redirect to="/login" />
       </Switch>
     
