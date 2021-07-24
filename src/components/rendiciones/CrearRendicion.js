@@ -97,7 +97,7 @@ export const CrearRendicion = ({ match, history }) => {
   }
   const i = peticionGastoId?.importe
   const total = parseFloat(totalDeImporte) + parseFloat(importe)
- 
+ console.log(totalDeImporte);
 
 
 console.log(crearRendicion);

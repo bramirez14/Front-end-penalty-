@@ -4,7 +4,8 @@ import { FormularioConAnt } from './FormularioConAnt';
 import { axiosURL } from '../../config/axiosURL';
 import { FormularioSinAnt } from './FormularioSinAnt';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-    export const Modalgasto = ({boton,title,importeRendido,importe,id,orden,file,stateFile,setStateFile,get,sinocon}) => {
+import { FormularioConAnt1 } from './FormularioConAnt1';
+    export const Modalgasto = ({boton,title,importeRendido,importe,id,orden,file,stateFile,setStateFile,get,sinocon,listo,pagoRealizado}) => {
     const [state, setState] = useState({
         loading: false,
         visible: false,
@@ -26,9 +27,12 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
       const handleCancel = () => {
         setState({ visible: false });
       };
-      const pagoRealizado= async (id)=>{
+      
+      
+  
+      const finalizar= async (id)=>{
+      console.log(id);
         if(stateFile.file===''){
-          
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -36,7 +40,6 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
             
           })
         }
-
         const obj={
           pagoRealizado:'Si'
         }
@@ -50,7 +53,18 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
         });
         get()
       }
+       const enCurso= async (id)=>{
+        setState({
+          visible: false,
+        });
+          await axiosURL.put(`/pago/encurso/${id}`,{pagoRealizado:'En curso'});
+          
+          get()
+        }
+
+ 
 /**Fin secto modal */
+console.log(listo);
 const { visible, loading } = state;
     return (
         <>
@@ -66,20 +80,36 @@ const { visible, loading } = state;
           <Button key="back" danger onClick={handleCancel}>
             Salir
           </Button>,
+          <>
+          {/**funcion doble asi dividimos anticipo  */}
+          {sinocon==='sin'|| pagoRealizado==='En curso' ?
           <Button key="submit"  loading={loading} onClick={handleOk} 
           style={{background:'#46a461',border:'none',boxShadow:'none',color:'#ffff'}}
-          onClick={()=>pagoRealizado(id)}>
-            Pago Realizado
-          </Button>,
+          onClick={()=>finalizar(id)}>
+            Finalizar
+          </Button>:
+          <Button key="submit"  loading={loading} onClick={handleOk} 
+          style={{background:'#46a461',border:'none',boxShadow:'none',color:'#ffff'}}
+          onClick={()=>enCurso(id)}>
+            Finalizar
+          </Button>
+          
+          }
+          </>,
             
-        
+            
         ]}
       >
         {
-        sinocon==='sin'?<FormularioSinAnt importeRendido={importeRendido} importe={importe} orden={orden} id={id} file={file}
+        sinocon==='sin'?
+        <FormularioSinAnt importeRendido={importeRendido} importe={importe} orden={orden} id={id} file={file}
         stateFile={stateFile}
-        setStateFile={setStateFile} />: 
+        setStateFile={setStateFile} />: listo==='Si'?
         <FormularioConAnt importeRendido={importeRendido} importe={importe} orden={orden} id={id} file={file}
+       stateFile={stateFile}
+       setStateFile={setStateFile}
+  />:
+        <FormularioConAnt1 importeRendido={importeRendido} importe={importe} orden={orden} id={id} file={file}
        stateFile={stateFile}
        setStateFile={setStateFile}
   />}
