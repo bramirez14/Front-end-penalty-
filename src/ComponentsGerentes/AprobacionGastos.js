@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Table,
   Input,
@@ -11,21 +11,15 @@ import {
   Row,
   Col,
 } from "antd";
-import { UserContext } from "../contexto/UserContext";
 import { SearchOutlined } from "@ant-design/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsCheck } from "react-icons/bs";
 import { Card, Avatar } from "antd";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-
 import { axiosURL } from "../config/axiosURL";
 import Swal from "sweetalert2";
 import "./css/aprob.css";
 import { PeticionGET } from "../config/PeticionGET";
+import { TodosGastos } from "./helpers/funciones";
 const expandable = {
   expandedRowRender: (record) => <p>{record.description}</p>,
 };
@@ -64,6 +58,7 @@ export const AprobacionGastos = () => {
   const showModal = (datos) => {
     setVisible(true);
     setGastoPendiente(datos);
+
   };
   const handleOk = () => {
     setConfirmLoading(true);
@@ -75,27 +70,30 @@ export const AprobacionGastos = () => {
   const handleCancel = () => {
     setVisible(false);
   };
-/**seleccion de check */
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
-
-};
-/**fin seleccion de check */
+  /**seleccion de check */
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    },
+  };
+  /**fin seleccion de check */
   const aprobado = async () => {
     N === "902"
       ? await axiosURL.put(`/gasto/aprobado/${gastoPendiente.id}`, {
-          ...mensaje,
-          estadoFinal: "aprobado",
-          notificacion: "inactiva",
-          estado: "aprobado",
-          f:new Date().toLocaleString()
+        ...mensaje,
+        estadoFinal: "aprobado",
+        notificacion: "inactiva",
+        estado: "aprobado",
+        f: new Date().toLocaleString(),
       })
       : await axiosURL.put(`/gasto/aprobado/${gastoPendiente.id}`, {
-          ...mensaje,
-          estado: "aprobado",
-        });
+        ...mensaje,
+        estado: "aprobado",
+      });
     setVisible(false);
     setMensaje({ respMensaje: "" });
     axiosGet();
@@ -178,9 +176,9 @@ const rowSelection = {
     onFilter: (value, record) =>
       record[dataIndex]
         ? record[dataIndex]
-            .toString()
-            .toLowerCase()
-            .includes(value.toLowerCase())
+          .toString()
+          .toLowerCase()
+          .includes(value.toLowerCase())
         : "",
     onFilterDropdownVisibleChange: (visible) => {
       if (visible) {
@@ -214,7 +212,6 @@ const rowSelection = {
       title: "Nombre",
       dataIndex: "nombre",
       key: "nombre",
-      description: <h1>hola mundo</h1>,
       ...getColumnSearchProps("nombre"),
     },
     {
@@ -256,13 +253,15 @@ const rowSelection = {
       title: "Devolucion",
       dataIndex: "importerendido",
       key: "importerendido",
-      render:(state,file)=> (<>{file.importe<file.importerendido? 
-          <p style={{color:'red'}}> {file.importerendido} </p>
-          :
-          <p style={{color:'green'}}>{file.importerendido} </p>}</>)
-        
-        
-      
+      render: (state, file) => (
+        <>
+          {file.importe < file.importerendido ? (
+            <span style={{ color: "red" }}> {file.importerendido} </span>
+          ) : (
+            <span style={{ color: "green" }}>{file.importerendido} </span>
+          )}
+        </>
+      ),
     },
     {
       title: "Fecha de Solicitud",
@@ -276,9 +275,18 @@ const rowSelection = {
       key: "mensaje",
     },
     {
-      title: "Sin Anticipo",
+      title: "Rendicion",
       dataIndex: "sinAnticipo",
       key: "sinAnticipo",
+      render:(state, file)=>(
+        <>
+        {file.sinAnticipo==='sin'?
+        <span> Sin Anticipo  </span>
+        :
+        <span> Con Anticipo  </span>
+        }
+        </>
+      )
     },
 
     {
@@ -289,11 +297,11 @@ const rowSelection = {
         const color = () => {
           switch (file.estado) {
             case "pendiente":
-              return <p style={{ color: "yellow" }}> pendiente...</p>;
+              return <span style={{ color: "yellow" }}> pendiente...</span>;
             case "aprobado":
-              return <p style={{ color: "green" }}> aprobado </p>;
+              return <span style={{ color: "green" }}> aprobado </span>;
             default:
-              return <p style={{ color: "red" }}> rechazado </p>;
+              return <span style={{ color: "red" }}> rechazado </span>;
           }
         };
         return <>{color()}</>;
@@ -308,11 +316,11 @@ const rowSelection = {
         const color = () => {
           switch (file.estadoFinal) {
             case "pendiente":
-              return <p style={{ color: "yellow" }}> pendiente...</p>;
+              return <span style={{ color: "yellow" }}> pendiente...</span>;
             case "aprobado":
-              return <p style={{ color: "green" }}> aprobado </p>;
+              return <span style={{ color: "green" }}> aprobado </span>;
             default:
-              return <p style={{ color: "red" }}> rechazado </p>;
+              return <span style={{ color: "red" }}> rechazado </span>;
           }
         };
         return <> {N === "902" && color()}</>;
@@ -325,12 +333,13 @@ const rowSelection = {
       render: (f, fila) => {
         return (
           <>
-            {fila.estadoFinal==='aprobado'|| fila.estadoFinal==='rechazado'? '':
             <Button className="btn-aprob" onClick={() => showModal(fila)}>
-            <BsCheck />
-          </Button>
-          
-          }
+              
+              {
+                fila.estadoFinal==='aprobado'?'':<BsCheck />
+              }
+              
+            </Button>
           </>
         );
       },
@@ -367,40 +376,26 @@ const rowSelection = {
   ];
   /****** fin de table *****/
 
-  /**selecion de gerente  recordamos que Cristian Rios da el ok final*/
-  const gerentes = () => {
-    switch (N) {
-      case "901":
-        return data.filter(
-          (d) =>
-            d.usuario.departamentoId === 1 || d.usuario.departamentoId === 2
-        ); // aca filtramos por gerente 901 alias Esteban Ramos
 
-      case "902":
-        return data.filter(
-          (d) => d.usuario.departamentoId === 5 || d.estado === "aprobado"
-        ); // aca filtramos por gerente 902 Cristian Ramos
-
-      default:
-        return data.filter(
-          (d) =>
-            d.usuario.departamentoId === 3|| d.usuario.departamentoId === 4
-        ); // aca filtramos por gerente 903 Cristian DeSousa
-    }
-  };
-
-  const datos = gerentes()?.map((f) => {
+// TodosGastos viene de helpers
+  const datos = TodosGastos(data)?.map((f) => {
     return {
       ...f,
       key: f.id,
       nombre: f.usuario.nombre,
       apellido: f.usuario.apellido,
       description: (
-        <Row gutter={[10,10]}>
+        <Row gutter={[10, 10]}>
           {f.rendicion.map((r) => (
             <>
               <Col xs={6} sm={4} md={4} lg={4} xl={4}>
-                <Card style={{ width: 200,border:'solid 2px #ddd',height:'auto' }}>
+                <Card
+                  style={{
+                    width: 200,
+                    border: "solid 2px #ddd",
+                    height: "auto",
+                  }}
+                >
                   <img
                     style={{ width: 100, height: 100 }}
                     alt="example"
@@ -440,8 +435,20 @@ const rowSelection = {
 
   const handleRowSelectionChange = (enable) => {
     console.log(enable);
-    setSte({ ...ste, rowSelection: enable ? {onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)}} : undefined });
+    setSte({
+      ...ste,
+      rowSelection: enable
+        ? {
+          onChange: (selectedRowKeys, selectedRows) => {
+            console.log(
+              `selectedRowKeys: ${selectedRowKeys}`,
+              "selectedRows: ",
+              selectedRows
+            );
+          },
+        }
+        : undefined,
+    });
   };
 
   const handleYScrollChange = (enable) => {
@@ -450,7 +457,6 @@ const rowSelection = {
   const handleXScrollChange = (e) => {
     setSte({ ...ste, xScroll: e.target.value });
   };
-
 
   const { xScroll, yScroll } = ste;
 
@@ -471,7 +477,6 @@ const rowSelection = {
     tableColumns[tableColumns.length - 1].fixed = "right";
   }
   /**fin de agregado  */
-console.log(ste);
   return (
     <>
       <Form
@@ -507,7 +512,7 @@ console.log(ste);
         columns={tableColumns}
         dataSource={ste.hasData ? datos : null}
         scroll={scroll}
-        //rowSelection={{ ...rowSelection}}
+      //rowSelection={{ ...rowSelection}}
       />
       <Modal
         title="Anticipo de Sueldo"

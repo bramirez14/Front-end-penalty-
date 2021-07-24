@@ -4,7 +4,7 @@ export const categorias = [
   { id: "3", categoria: "Nafta" },
   { id: "4", categoria: "Peajes" },
   { id: "5", categoria: "Comida" },
-  { id: "6", categoria: "Transporte"},
+  { id: "6", categoria: "Transporte" },
   { id: "7", categoria: "Otros" },
 ];
 

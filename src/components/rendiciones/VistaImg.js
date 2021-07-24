@@ -4,7 +4,6 @@ import "./css/vistaImg.css";
 export const VistaImg = ({
   data,
   handleDelete,
-  fecha,
   categoria,
   importe,
   notas,
@@ -33,7 +32,7 @@ const {open} = useContext(UserContext)
         </div>
       </div>
       <div className="vista-datos">
-        
+       
         <h5>
           {" "}
           Categoria: <span className="sp">{categoria}</span>

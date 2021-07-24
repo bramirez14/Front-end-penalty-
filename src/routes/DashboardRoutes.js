@@ -43,10 +43,10 @@ export const DashboardRoutes = ({ history }) => {
     <>
       <Sidebar history={history} />
     
+      <div className={!open ? "contenedor" : "contenedor-active"}>
       
       <Switch>
       
-      <div className={!open ? "contenedor" : "contenedor-active"}>
       <RouteEmpleado exact path="/anticipo/gastos" component={AnticipoGasto} />
       <RouteEmpleado exact path="/sueldos" component={SueldoContainer} />
       <RouteEmpleado exact path="/vacaciones" component={Vacaciones} />
@@ -82,11 +82,10 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
         <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
 
-        <RouteGerente exact path='/reportes/gestion/remitos' component={Remitos}/>
-
-        </div>
         <Redirect to="/login" />
+
       </Switch>
+      </div>
     
       
     </>

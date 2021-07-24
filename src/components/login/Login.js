@@ -1,11 +1,11 @@
-import React, { useState,useContext} from "react";
+import React, { useState,useContext,useRef,useEffect} from "react";
 import "./login.css";
 import {axiosURL} from "../../config/axiosURL";
 import { UserContext } from "../../contexto/UserContext";
 
 
 export const Login = ({ history }) => {
-  
+
 const {setAuth} = useContext(UserContext)
   //securedBrowserCache.setStorageType('localStorage'); 
   const [cargandoUsuario, setCargandoUsuario] = useState(true)
@@ -46,11 +46,15 @@ const {setAuth} = useContext(UserContext)
     }
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     verifyUser();
   };
+  
+
+
+
+
 
   return (
     <>

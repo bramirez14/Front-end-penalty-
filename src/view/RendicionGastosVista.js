@@ -1,103 +1,141 @@
-import React, {useState,useEffect} from "react";
-import { Row, Col, Card, Avatar} from "antd";
-import { Button } from "antd/lib/radio";
+import React, { useState,useEffect } from "react";
 import { axiosURL } from "../config/axiosURL";
+import { Card, Collapse, Button, Avatar, Row, Col,Modal} from "antd";
+import { Modale } from "./helpers/Modale";
+
+const N=localStorage.getItem('N');
+const { Panel } = Collapse;
+const { Meta } = Card;
 
 export const RendicionGastosVista = ({history}) => {
-  const [gastos, setGastos] = useState([]);
-const N=localStorage.getItem('N');
+  
+  const [gasto, setGasto] = useState([]);
+  const [state, setState] = useState({
+    key: "Gasto",
+    noTitleKey: "app",
+  });
+
 /**evitar que usuari 905 ingresen a la ruta */
   N!=='905'&& history.push('/perfil')
 
-  const get=async()=>{
-let res=await axiosURL.get('/gastos')
-setGastos(res.data);
+/* const finalizar= async (id)=>{
+let result = await axiosURL.post(`/finalizar/gasto/${id}`,{procesoFinalizado:'Si'})
+result.status===200 && history.push('/perfil')
+} */
+  const onTabChange = (key, type) => {
+    console.log(key, type);
+    setState({ [type]: key });
+  };
+  const get= async()=>{
+const { data}=await axiosURL.get('/gastos')  
+setGasto(data)
 }
 useEffect(() => {
   get()
-  
 }, [])
-  
-  const filtro = gastos.filter((g) =>( g.listo === "Si" && g.aprobacion==='Si') && g.procesoFinalizaado!=='Si');
-const finalizar= async (id)=>{
- await axiosURL.post(`/finalizar/gasto/${id}`,{procesoFinalizado:'Si'});
-get();
-}
+  const filtroListo = gasto.filter((f) => f.listo === "Si");
 
-  const { Meta } = Card; 
-  return (
-    <div style={{ padding: 20 }}>
-      {filtro.map((f) => (
-        <Row
-          gutter={[0,10]}
-          style={{
-            border: "solid 2px #ddd",
-            padding: "10px",
-            borderRadius: "20px",
-            marginTop: 40,
-          }}
-        >
-          <Col
-            xs={24}
-            sm={24}
-            md={24}
-            lg={24}
-            xl={24}
-            style={{ borderBottom: "solid 1px #ddd" }}
-          >
-            <h4 style={{ textAlign: "center" }}>
-            <span style={{ marginLeft: 30 }}>#{f.id }</span>
-            <span style={{ marginLeft: 30 }}> <b>Nombre Completado: </b>{f.usuario.nombre} {f.usuario?.apellido}</span> 
-            <span style={{ marginLeft: 30 }}> <b>Fecha: </b> {f.fecha}</span>  
-              <span style={{ marginLeft: 30 }}>
-                <b>Importe solicitado: </b> ${f.importe}
-              </span>
-              <span style={{ marginLeft: 30 }}>
-                <b>Importe rendido: </b>  ${f.importerendido}
-              </span>
-            </h4>
-          </Col>
-           { f.rendicion.map(ff=>
-           <>
-          <Col xs={2} sm={4} md={8} lg={8} xl={8}>
-            <Card
-              style={{ width: 250 }}
-              cover={<img style={{ width:250, height: 150, borderRadius:10}} alt="No hay foto!!!" src={ff.imagen} />}
+console.log(filtroListo);
+
+  const style = {
+    marginLeft: "10px",
+  };
+
+  const contentList = {
+    Gasto: (
+      <Collapse>
+        {filtroListo.map((m) => (
+          <>
+            <Panel
+              header={
+                <>
+                  <span style={style}>
+                    {<Avatar src={m.usuario.imagen} />}
+                  </span>
+                  <span style={style}># {m.id},</span>
+                  <span style={style}>
+                    <b>Nombre: </b>
+                    {m.usuario.nombre}
+                  </span>
+                  <span>{m.usuario.apellido},</span>
+                  <span style={style}>
+                    <b>Fecha de solicitud:</b> {m.fecha},
+                  </span>
+                  <span style={style}>
+                    <b>Importe:</b> ${m.importe}
+                  </span>
+                 
+                </>
+              }
+              key={m.id}
             >
-              <Meta
-                avatar={
-                  <Avatar src={f.usuario.imagen}/>
-                }
-                title={ff.categoria}
-                description={
+              <Row gutter={20}>
+                {m.rendicion.map((mm) => (
                   <>
-                    <p>fecha: {ff.fecha}</p>
-                    <p>Importe: ${ff.importe}</p>
-                    <p>mensaje: {ff.notas}</p>
+                    <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+                      <Card
+                        style={{
+                          width: 200,
+                          height: 320,
+                          border: "solid 2px #ddd",
+                        }}
+                        cover={
+                          <img
+                            alt="example"
+                            src={mm.imagen}
+                            alt="No hay imagen"
+                            style={{
+                              borderRadius: "10px",
+                              width: 200,
+                              height: 150,
+                            }}
+                          />
+                        }
+                      >
+                        <Meta
+                          title={mm.categoria}
+                          description={
+                            <>
+                              <p>fecha: {mm.fecha}</p>
+                              <p>importe: ${mm.importe}</p>
+                            </>
+                          }
+                        />
+                      </Card>
+                    </Col>
                   </>
-                }
-              />
-            </Card>
-           
-          </Col>
-          
-        </>
-          )}
-          <Col xs={24}
-          sm={24}
-          md={24}
-          lg={24}
-          xl={24} offset={21} >
-            { 
-              f.procesoFinalizado==='Si'?'':
-              <Button onClick={()=>finalizar(f.id)}  > Completado </Button>
+                ))}
+                  
+                 <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                   {m.norden!==null|| ''?<span style={{float:'right'}}>Completado</span>:<Modale id={m.id} orden={m.norden} />}
+                 
+                </Col>
 
-            }
-        
-        </Col> 
-        </Row>
-      ))}
-     
-    </div>
-  );
-};
+         
+              </Row>
+
+           
+          
+            </Panel>
+          </>
+        ))}
+      </Collapse>
+    ),
+    Vacaciones: <p>En Contruccion!!!</p>,
+  };
+
+  return (
+    <>
+      <Card
+        style={{ width: "100%" }}
+        title="Verificaciones"
+        activeTabKey={state.key}
+        onTabChange={(key) => {
+          onTabChange(key, "key");
+        }}
+      >
+        {contentList[state.key]}
+      </Card>
+    </>
+  
+)}
