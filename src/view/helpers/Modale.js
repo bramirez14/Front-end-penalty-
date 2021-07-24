@@ -45,7 +45,9 @@ setStateForm({...stateForm,[name]:value})
     })
       };
 const handleSubmit= async()=> {
-
+const obj={
+  procesoFinalizado:'Si'
+}
 if(norden===''){
   Swal.fire({
     icon: 'error',
@@ -63,6 +65,7 @@ if(norden===''){
   let f = new FormData();
   f.append("norden",norden);
   f.append("file",file);
+  f.append('procesoFinalizado',obj.procesoFinalizado)
   const {data} = await axiosURL.post(`/archivo/pdf/${id}`,f);
   if(data==='ok')
   setStateForm({norden:'',file:''})

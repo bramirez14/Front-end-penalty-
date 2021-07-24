@@ -8,6 +8,7 @@ import {axiosURL} from "../config/axiosURL";
 import Swal from "sweetalert2";
 import "./css/aprob.css";
 import {PeticionGET} from "../config/PeticionGET";
+import { GetFiltroGerencia } from "./helpers/funciones";
 
 export const AprobacionVacaciones = () => {
     const Text = useContext(UserContext);
@@ -325,29 +326,10 @@ const [state, setState] = useState({
   ];
 
    /**selecion de gerente  recordamos que Cristian Rios da el ok final*/
-   const gerentes = () => {
-    switch (N) {
-      case "901":
-        return data.filter(
-          (d) =>
-            d.usuario.departamentoId === 1 || d.usuario.departamentoId === 2
-        ); // aca filtramos por gerente 901 alias Esteban Ramos
-
-      case "902":
-        return data.filter(
-          (d) => d.usuario.departamentoId === 3 || d.estado === "aprobado"
-        ); // aca filtramos por gerente 902 Cristian Ramos
-
-      default:
-        return data.filter(
-          (d) => d.usuario.departamentoId === 4 || d.usuario.departamentoId === 5
-        ); // aca filtramos por gerente 903 Cristian DeSousa
-
-    }
-  };
+   
   const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
-
-  const datos = gerentes()?.map((f) => {
+//filtro generencia viene de los helpers
+  const datos = GetFiltroGerencia(data)?.map((f) => {
     let buscardtoId = dtos?.find((d) => d.id === f.usuario.departamentoId);//usuario filtrado por dto
     return {
       ...f,

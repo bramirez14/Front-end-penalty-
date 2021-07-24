@@ -3,6 +3,7 @@ import { Button, Table, } from 'antd';
 import { axiosURL } from '../config/axiosURL';
 import { Modalgasto } from './helpers/Modalgasto';
 import { saveAs } from "file-saver";
+import { conAnticipo906, sinAnticipo906 } from './helpers/funciones';
 
 export const PagosAntGasto = ({history}) => {
   const [dataGasto, setDataGasto] = useState([])
@@ -25,9 +26,11 @@ const descargarPDF= async ( pdf)=>{
   saveAs(pdfBlob, `${pdf}`);
 }
     const  antGasto = dataGasto
-    const filtroAprobacion= antGasto.filter(q=> q.estadoFinal==='aprobado' && (q.norden!==''|| q.norden===null));
- 
-    
+    const filtroAprobacion= antGasto.filter(q=> q.estadoFinal==='aprobado' && q.procesoFinalizado==='Si');
+    const sinAnticipo=sinAnticipo906(dataGasto);
+    const conAnticipo=conAnticipo906(dataGasto)
+    const anticipoTotal=[...sinAnticipo,...conAnticipo]
+    console.log(anticipoTotal);
     const columns = [
       {
         title: 'N de Ant Gasto',
@@ -54,9 +57,9 @@ const descargarPDF= async ( pdf)=>{
       
         {
           title: 'Importe',
-          key: 'importe',
-          dataIndex: 'importe',
-          render:(state,file)=>(<span > ${file.importe}</span>)
+          key: 'importerendido',
+          dataIndex: 'importerendido',
+          render:(state,file)=>(<span > ${file.importerendido}</span>)
         },
         {
           title: 'Modalidad',
@@ -99,7 +102,8 @@ const descargarPDF= async ( pdf)=>{
               <p>Realizado</p>
               :
               <Modalgasto
-               boton='Completar' importe={file.importe} importeRendido={file.importerendido} 
+               boton='Completar' 
+               importe={file.importe} importeRendido={file.importerendido} 
               title='Rendicion con Anticipo'  id={file.id}
               orden={file.norden}
               file={file}
@@ -107,6 +111,8 @@ const descargarPDF= async ( pdf)=>{
               setStateFile={setStateFile}
               get={getGastos}
               sinocon={file.sinAnticipo}
+              listo={file.listo}
+              pagoRealizado={file.pagoRealizado}
               />
 
             }
@@ -114,7 +120,7 @@ const descargarPDF= async ( pdf)=>{
           ),
         },
       ];
-      const datos = filtroAprobacion?.map((f) => {
+      const datos = anticipoTotal?.map((f) => {
         return {
           ...f,
           key: f.id,

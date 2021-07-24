@@ -5,89 +5,58 @@ import { axiosURL } from '../../../config/axiosURL';
 const N = localStorage.getItem("N"); // numero de registro local storage
 
 export const Get =  (url) => {
-    //declaramos los estados
+    //declaramo el estado
    const [state, setState] = useState([])
     useEffect(() => {
     const axiosGet = async () => {
-        let {data} = await axiosURL.get(url);
-        const op1= data.filter(u=> u.estadoFinal === "pendiente" && u.estado==='aprobado' &&
-    (u.usuario.departamentoId === 1 || u.usuario.departamentoId === 2))
-    
-    const op2 = data.filter(d=>d.estadoFinal=== "pendiente" && d.estado==='aprobado' &&
-    (d.usuario.departamentoId === 3|| d.usuario.departamentoId === 4))
-  
-    const op3 = data.filter(d=>d.estado === "pendiente" && d.usuario.departamentoId===5)
-
-    const unirOp=[...op1,...op2,...op3]
+        let {data} = await axiosURL.get(url);// data de DB 
+        const dataPendiente= data.filter(d=>d.estado==='pendiente')//filtro por estado pendiente
+      /**usuario901 */
     if (N === "901") {
-      const filtro = data.filter(
-        (r) =>
-         ( r.estado === "pendiente" ) &&
-          (r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2)
-      );
+      const filtro = dataPendiente.filter(r=>(r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2));
       setState(filtro);
     }
+    /**usuario902 */
     if (N === "902") {
-      const filtro = unirOp
+      const filtro = data.filter(r=>(r.usuario.departamentoId === 5 || r.estado=== 'aprobado'));
       setState(filtro);
-     
     }
+    /**usuario903*/
     if (N === "903") {
-      const filtro = data.filter(
-        (r) =>
-        ( r.estado === "pendiente" ) &&
-          (r.usuario.departamentoId === 4 || r.usuario.departamentoId === 5)
-      );
+      const filtro = data.filter((r) =>(r.usuario.departamentoId === 3 || r.usuario.departamentoId === 4) );
       setState(filtro);
     }
-    
     }
     axiosGet()
-}, [ url])
-  return (state)
-    
-  };
+    }, [ url])
+      return (state)
+};
+
   export const GetGastosConAnt=(url)=>{
     const [state, setState] = useState([]);
       useEffect(() => {
         const axiosGet = async () => {
             let {data} = await axiosURL.get(url);
-            const dataConAnt= data.filter(d=>d.sinAnticipo!=='sin')
-
-            const op1= dataConAnt.filter(u=> (u.listo!=='Si'&& u.estado==='aprobado') &&
-        (u.usuario.departamentoId === 1 || u.usuario.departamentoId === 2))
-        
-        const op2 = dataConAnt.filter(d=>( d.listo!=='Si'&& d.estado==='aprobado') &&
-        (d.usuario.departamentoId === 3|| d.usuario.departamentoId === 4))
-      
-        const op3 = dataConAnt.filter(d=>(d.estado === "pendiente" && d.listo!=='Si') && d.usuario.departamentoId===5)
-    
-        const unirOp=[...op1,...op2,...op3]
+            const dataConAnt= data.filter(d=>d.sinAnticipo!=='sin')//filtro gasto con anticipo
+        /**usuario901 */
         if (N === "901") {
-          const filtro = dataConAnt.filter(
-            (r) =>
-              r.listo!=='Si' &&
-              (r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2)
-          );
+          const filtro = dataConAnt.filter( (r) => (r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2));
           setState(filtro);
         }
+        /**usuario902 */
         if (N === "902") {
-          const filtro = unirOp
+          const filtro = dataConAnt.filter( (r) => (r.usuario.departamentoId === 5 || r.estado==='aprobado'));
           setState(filtro);
         }
+        /**usuario903 */
         if (N === "903") {
           const filtro = dataConAnt.filter(
-            (r) =>
-            r.listo!=='Si' &&
-              (r.usuario.departamentoId === 4 || r.usuario.departamentoId === 5)
-          );
+            (r) =>(r.usuario.departamentoId === 3|| r.usuario.departamentoId === 4));
           setState(filtro);
         }
-        
         }
         axiosGet()
     }, [url])
-    console.log(state);
     return state
   }
 /**opcion para rendicion sin anticipo */
@@ -95,53 +64,28 @@ export const Get =  (url) => {
       const [state, setState] = useState([]);
       useEffect(() => {
         const axiosGet = async () => {
-            let {data} = await axiosURL.get(url);
-            const dataSinAnt= data.filter(d=>d.sinAnticipo==='sin')
-            const op1= dataSinAnt.filter(u=> (u.listo==='Si'&& u.estado==='aprobado') &&
-        (u.usuario.departamentoId === 1 || u.usuario.departamentoId === 2))
-        
-        const op2 = dataSinAnt.filter(d=>( d.listo==='Si'&& d.estado==='aprobado') &&
-        (d.usuario.departamentoId === 3|| d.usuario.departamentoId === 4))
-      
-        const op3 = dataSinAnt.filter(d=>(d.estado === "pendiente" && d.listo==='Si') && d.usuario.departamentoId===5)
-    
-        const unirOp=[...op1,...op2,...op3]
+            let {data} = await axiosURL.get(url);//data de la DB
+            const dataSinAnt= data.filter(d=>d.sinAnticipo==='sin');//filtro sin ant
+            const dataListo= dataSinAnt.filter(d=>(d.listo==='Si'));//filtro con ant 
+          /**usuario901 */
         if (N === "901") {
-          const filtro = dataSinAnt.filter(
-            (r) =>
-              r.listo==='Si' &&
-              (r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2)
-          );
+          const filtro = dataListo.filter((r) =>(r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2));
           setState(filtro);
         }
+          /**usuario902 */
         if (N === "902") {
-          const filtro = unirOp
+          const filtro = dataListo.filter((r) =>(r.usuario.departamentoId === 5 || r.estado==='aprobado'));
           setState(filtro);
         }
+          /**usuario903*/
         if (N === "903") {
-          const filtro = dataSinAnt.filter(
-            (r) =>
-            r.listo==='Si'  &&
-              (r.usuario.departamentoId === 4 || r.usuario.departamentoId === 5)
-          );
+          const filtro = dataListo.filter((r) =>(r.usuario.departamentoId === 3 || r.usuario.departamentoId === 4));
           setState(filtro);
         }
-        
         }
-        axiosGet()
+        axiosGet()//llamamos la funcion
     }, [ url])
-    console.log(state);
     return state
   }
-  export const muestraPendiente = (array ) =>{
-    console.log(array);
-if(N==='901'|| N ==='903'){
-    const estadoFinalPendiente= array.filter(d=>d.estadoFinal==='pendiente');
-return(estadoFinalPendiente)
-}
-if(N==='902'){
-  const estadoPendiente= array.filter(d=>d.estado==='pendiente'|| d.estadoFinal==='pendiente');
-return(estadoPendiente)
 
-}
-  }
+  export const muestraPendiente = (array ) => array.filter(d=>d.estadoFinal==='pendiente')//filtramos los ant gasto que son solo estado final = pendiente
