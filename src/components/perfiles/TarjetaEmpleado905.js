@@ -11,7 +11,7 @@ export const TarjetaEmpleado905 = () => { //Sandra y Bely
     <Col xs={24} sm={12} md={12} lg={6} xl={6}>
       <Card
         title="Rendicion de gasto"
-        extra={<Link to="/comprobante/rendicion">More</Link>}
+        extra={<Link to="/comprobante">More</Link>}
       >
        <Listo/>
       </Card>

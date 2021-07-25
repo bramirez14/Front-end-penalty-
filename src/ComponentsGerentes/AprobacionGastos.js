@@ -248,6 +248,12 @@ export const AprobacionGastos = () => {
       title: "Importe",
       dataIndex: "importe",
       key: "importe",
+      render:(state,file)=>(
+        <>
+{ file.sinAnticipo==='sin'?<span>${file.importerendido}</span>:<span>${file.importe}</span>}
+</>
+        )
+      
     },
     {
       title: "Devolucion",
@@ -255,10 +261,12 @@ export const AprobacionGastos = () => {
       key: "importerendido",
       render: (state, file) => (
         <>
-          {file.importe < file.importerendido ? (
-            <span style={{ color: "red" }}> {file.importerendido} </span>
+          {
+          file.sinAnticipo==='sin'?'':
+          file.importe < file.importerendido ? (
+            <span style={{ color: "red" }}> ${file.importerendido} </span>
           ) : (
-            <span style={{ color: "green" }}>{file.importerendido} </span>
+            <span style={{ color: "green" }}>${file.importerendido} </span>
           )}
         </>
       ),

@@ -85,11 +85,19 @@ const descargarPDF= async ( pdf)=>{
           key: 'norden',
         },
         {
-          title: 'PDF',
+          title: 'PDFSB',
           dataIndex: 'pdf',
           key: 'pdf',
           render:(state,file)=>(
-            <Button type='link' onClick={()=>descargarPDF(file.pdf)} >{file.pdf}</Button>
+            <Button type='link' onClick={()=>descargarPDF(file.pdf)} >pdf</Button>
+          )
+        },
+        {
+          title: 'PDFNaty',
+          dataIndex: 'pdfinal',
+          key: 'pdfinal',
+          render:(state,file)=>(
+            <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} >pdf</Button>
           )
         },
         {

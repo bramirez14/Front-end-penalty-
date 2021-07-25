@@ -78,7 +78,7 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path='/demo' component={Demo}/>
 
         {/**Vistas */}
-        <RouteEmpleado exact path='/comprobante/rendicion' component={RendicionGastosVista}/>
+        <RouteEmpleado exact path='/comprobante' component={RendicionGastosVista}/>
         <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
         <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
 
