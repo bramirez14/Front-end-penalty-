@@ -46,19 +46,7 @@ console.log(filtroListo);
 
     { title: 'Importe', dataIndex: 'importe', key: 'importe',width:'100px'},
     { title: 'Nota', dataIndex: 'notas', key: 'notas',width:'100px' },
-    { title: 'Estado ', dataIndex: 'estadoFinal', key: 'estadoFinal',width:'150px',render:(state,file)=>  {
-      const color = () => {
-        switch (file.estadoFinal) {
-          case "pendiente":
-            return <span style={{ color: "yellow" }}> pendiente...</span>;
-          case "aprobado":
-            return <span style={{ color: "green" }}> aprobado </span>;
-          default:
-            return <span style={{ color: "red" }}> rechazado </span>;
-        }
-      };
-      return <> {color()}</>;
-    }, },
+   
     { title: 'N° orden', dataIndex: 'norden', key: 'norden',width:'100px' },
     { title: 'PDFSB', dataIndex: 'pdf', key: 'pdf',width:'100px',render:(state,file)=> <Button type='link' onClick={()=>descargarPDF(file.pdf)}> pdf </Button> },//cambiar nombre de titulo
     { title: 'Acciones', dataIndex: 'acciones', key: 'acciones',width:'100px', render:(state,file)=>(
