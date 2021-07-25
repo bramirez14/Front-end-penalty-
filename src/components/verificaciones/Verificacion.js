@@ -66,7 +66,7 @@ useEffect(() => {
                     <b>Nombre: </b>
                     {m.usuario.nombre}
                   </span>
-                  <span>{m.usuario.apellido},</span>
+                  <span>{m.usuario.apellidos},</span>
                   <span style={style}>
                     <b>Fecha de solicitud:</b> {m.fecha},
                   </span>
