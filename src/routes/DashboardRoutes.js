@@ -46,6 +46,9 @@ export const DashboardRoutes = ({ history }) => {
       <div className={!open ? "contenedor" : "contenedor-active"}>
       
       <Switch>
+      <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
+        <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
+        <RouteEmpleado  exact path='/pagos/rendiciongasto' component={RendicionGastosVista}/>
       
       <RouteEmpleado exact path="/anticipo/gastos" component={AnticipoGasto} />
       <RouteEmpleado exact path="/sueldos" component={SueldoContainer} />
@@ -76,13 +79,11 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path='/configuraciones/cambiar/contraseña' component={CambiarContraseña}/>
         <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
         <RouteEmpleado exact path='/demo' component={Demo}/>
-
         {/**Vistas */}
-        <RouteEmpleado exact path='/comprobante' component={RendicionGastosVista}/>
-        <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
-        <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
-
         <Redirect to="/login" />
+
+        
+        
 
       </Switch>
       </div>

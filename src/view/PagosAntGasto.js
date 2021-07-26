@@ -85,20 +85,32 @@ const descargarPDF= async ( pdf)=>{
           key: 'norden',
         },
         {
-          title: 'PDFSB',
+          title: 'PDF Proveedores',
           dataIndex: 'pdf',
           key: 'pdf',
-          render:(state,file)=>(
+        render:(state,file)=>{return(
+          <>  
+          { file.pdf===null || ''?<span>No hay pdf</span>:
             <Button type='link' onClick={()=>descargarPDF(file.pdf)} >pdf</Button>
-          )
+            }
+          </>
+          )}
         },
         {
-          title: 'PDFNaty',
+          title: 'PDF Pagos',
           dataIndex: 'pdfinal',
           key: 'pdfinal',
-          render:(state,file)=>(
+          render:(state,file)=>{
+         
+            return(
+              <>
+              {file.pdf===null || ''?<span>No hay pdf</span>: 
+              
             <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} >pdf</Button>
-          )
+              
+              }
+              </>
+          )}
         },
         {
           title: 'Acciones',

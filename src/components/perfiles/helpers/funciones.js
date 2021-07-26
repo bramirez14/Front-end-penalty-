@@ -2,9 +2,9 @@ import {useState,useEffect} from 'react'
 import { axiosURL } from '../../../config/axiosURL';
 
 /** funcion de alerta  para anticipo y vacaciones  */
-const N = localStorage.getItem("N"); // numero de registro local storage
 
 export const Get =  (url) => {
+const N = localStorage.getItem("N"); // numero de registro local storage
     //declaramo el estado
    const [state, setState] = useState([])
     useEffect(() => {
@@ -28,11 +28,13 @@ export const Get =  (url) => {
     }
     }
     axiosGet()
-    }, [ url])
+    }, [ url,N])
       return (state)
 };
 
   export const GetGastosConAnt=(url)=>{
+const N = localStorage.getItem("N"); // numero de registro local storage
+
     const [state, setState] = useState([]);
       useEffect(() => {
         const axiosGet = async () => {
@@ -56,11 +58,13 @@ export const Get =  (url) => {
         }
         }
         axiosGet()
-    }, [url])
+    }, [url,N])
     return state
   }
 /**opcion para rendicion sin anticipo */
   export const GetGastosSinAnt =(url) =>{
+const N = localStorage.getItem("N"); // numero de registro local storage
+
       const [state, setState] = useState([]);
       useEffect(() => {
         const axiosGet = async () => {
@@ -84,7 +88,7 @@ export const Get =  (url) => {
         }
         }
         axiosGet()//llamamos la funcion
-    }, [ url])
+    }, [ url,N])
     return state
   }
 

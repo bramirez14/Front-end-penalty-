@@ -1,18 +1,17 @@
-import React,{useEffect,useRef} from "react";
+import React,{useState,useEffect} from "react";
 import { PerfilEmpleado } from "./PerfilEmpleado";
 import { PerfilGerencia } from "./PerfilGerencia";
 import io from "socket.io-client";
 export const Perfil = ({ history }) => {
- 
+ const [stateusuarios, setStateusuarios] = useState([])
   useEffect(() => {
-    const socket =  io.connect( "http://intranet.penalty.com.ar/:4000",{ 
+    const socket =  io.connect( "//intranet.penalty.com.ar:4000",{ 
     transports: ['websocket'],
     autoConnect: true,
     forceNew: true,})
-    console.log(socket);
-
+    //console.log(socket);
     socket.on('lista-usuarios', (data)=> { 
-      console.log(data);
+      setStateusuarios(data)
     });
     
    
@@ -22,7 +21,7 @@ export const Perfil = ({ history }) => {
   const tipo = localStorage.getItem("type");
   return (
     <>
-      {tipo === "Gerente" ? <PerfilGerencia /> : <PerfilEmpleado />}
+      {tipo === "Gerente" ? <PerfilGerencia usuarios={stateusuarios}/> : <PerfilEmpleado />}
     </>
   );
 };

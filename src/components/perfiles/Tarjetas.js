@@ -12,6 +12,8 @@ const gastoTotal= [...gastosConAnt,...gastosSinAnt];
 const gastoMuestra= muestraPendiente(gastoTotal);
 const anticipoMuestra= muestraPendiente(anticipo);
 const vacacionMuestra= muestraPendiente(vacacion);
+console.log(gastoTotal);
+console.log(gastoMuestra);
   return (
     <Row gutter={[30,30]}>
       <Col xs={24} sm={12} md={12} lg={6} xl={6}>
