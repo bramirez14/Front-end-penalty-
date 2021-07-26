@@ -13,7 +13,8 @@ export const PerfilEmpleado = ({history}) => {
       <div className='contenedore'>
           {N==='905'&& <TarjetaEmpleado905/>}
           { N==='906'&& <TarjetaEmpleado906/>}
-            { N==='0000'&& <TarjetaEmpleado0000/>}   
+            { N==='0000'&& <TarjetaEmpleado0000/>}  
+            {N!==('905'||'906'||'0000') && <h1>Bienvenido/a</h1>}
                </div>
          </>   
     )
