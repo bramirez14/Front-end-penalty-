@@ -1,25 +1,13 @@
 import React,{useState,useRef} from 'react';
 import { Table, Input, Button, Space } from 'antd';
-//import Highlighter from 'react-highlight-words';
+import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import { PeticionGETIntranet } from '../../config/PeticionGET';
 import { axiosURLIntranet } from '../../config/axiosURL';
 import { saveAs } from "file-saver";
 export const Remitos = ()=> {
-    const N = localStorage.getItem('N')
     const todosRemitos = PeticionGETIntranet('/remitos')
-console.log(todosRemitos);
-    const filtroVendedor= todosRemitos.filter(t=>t.vendedor===N);
-
-    let filtrado;
-
-    if(N==='0000'||'905'||'906'||'903'||'902'||'901'){
-
-      filtrado = todosRemitos
-    }else{
-      filtrado = filtroVendedor
-    }
-  
+    console.log(todosRemitos);
     const [state, setState] = useState( {
         searchText: '',
         searchedColumn: '',
@@ -76,7 +64,7 @@ console.log(todosRemitos);
         setTimeout(() => searchInput, 100);
       }
     },
- /*    render: text =>
+    render: text =>
       state.searchedColumn === dataIndex ? (
         <Highlighter
           highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
@@ -86,7 +74,7 @@ console.log(todosRemitos);
         />
       ) : (
         text
-      ), */
+      ),
   });
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -107,68 +95,62 @@ console.log(todosRemitos);
             title: 'N° de Cliente',
             dataIndex: 'cliente',
             key: 'cliente',
-            width:'auto',
             ...getColumnSearchProps('cliente'),
           },
-          {
-            title: 'Nombre del Cliente',
-            dataIndex: 'razonsoc',
-            key: 'razonsoc',
-            width: '200px',
-            ...getColumnSearchProps('razonsoc'),
-    
-          },
-          {
-            title: 'N° de vendedor',
-            dataIndex: 'vendedor',
-            key: 'vendedor',
-            width:'auto',
-
-            ...getColumnSearchProps('vendedor'),
-          },
       {
-        title: 'Nombre del vendedor',
+        title: 'Nombre y Apellido',
         dataIndex: 'apeynom',
         key: 'apeynom',
-        width:'auto',
+        width: '30%',
         ...getColumnSearchProps('apeynom'),
       },
-      
+      {
+        title: 'N° de vendedor',
+        dataIndex: 'vendedor',
+        key: 'vendedor',
+        width: '30%',
+        ...getColumnSearchProps('vendedor'),
+      },
       {
         title: 'N° de Pedido',
         dataIndex: 'PEDIDO',
         key: 'PEDIDO',
-        width:'auto',
+        width: '30%',
         ...getColumnSearchProps('PEDIDO'),
       },
       {
         title: 'Unidades',
         dataIndex: 'UNIDADES',
         key: 'UNIDADES',
-        width:'auto',
         ...getColumnSearchProps('UNIDADES'),
       },
       {
         title: 'Fecha de Emision',
         dataIndex: 'fecemision',
         key: 'fecemision',
-        width:'200px',  
+        width: '200px',
         ...getColumnSearchProps('fecemision'),
         render: (estado, file) => {
-            let reducir=file.fecemision?.split('T');
-            return( <p>{reducir?.[0]}</p>)
+            let reducir=file.fecemision.split('T');
+            return( <p>{reducir[0]}</p>)
         }
       },
       {
         title: 'N° de Remito',
         dataIndex: 'REMITO',
         key: 'REMITO',
+        width: '30%',
         ...getColumnSearchProps('REMITO'),
-render:(state,file)=>(
-  <>{file.REMITO===null?<p>No hay remito</p>:<p>{file.REMITO}</p>}</>
-)
+
       },
-      
+      {
+        title: 'Razon Social',
+        dataIndex: 'razonsoc',
+        key: 'razonsoc',
+        width: '200px',
+        ...getColumnSearchProps('razonsoc'),
+
+      },
       {
         title: 'Estado',
         dataIndex: 'ESTADO',
@@ -196,11 +178,13 @@ render:(state,file)=>(
         key: 'pdf',
         ...getColumnSearchProps('pdf'),
         render:(a,file)=>{
-          const descargarPDF= async (pdf)=>{
+          const descargarPDF= async ( pdf)=>{
+            console.log(pdf);
             let res=await axiosURLIntranet.get('/remitos/pdf',{
               headers: {archivo:pdf},
               responseType: "blob"
             });
+            console.log(res);
             const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
             saveAs(pdfBlob, `${file.pdf}`);
           }
@@ -210,6 +194,6 @@ render:(state,file)=>(
 
       
     ];
-    return <Table columns={columns} dataSource={filtrado} />;
+    return <Table columns={columns} dataSource={todosRemitos} />;
   
 }

@@ -5,14 +5,12 @@ import io from "socket.io-client";
 export const Perfil = ({ history }) => {
  const [stateusuarios, setStateusuarios] = useState([])
   useEffect(() => {
-    const socket =  io.connect( "http://localhost:4000",{ 
+    const socket =  io.connect( "//intranet.penalty.com.ar:4000",{ 
     transports: ['websocket'],
     autoConnect: true,
     forceNew: true,})
-    console.log(socket);
-
+    //console.log(socket);
     socket.on('lista-usuarios', (data)=> { 
-      console.log(data);
       setStateusuarios(data)
     });
     

@@ -35,6 +35,7 @@ import { PagosAntGasto } from "../view/PagosAntGasto";
 import { CambiarContraseña } from "../components/configuraciones/CambiarContraseña";
 import { RendicionSinAnticipoContainer } from "../components/solicitudes/RendicionSinAnticipoContainer";
 import { Verificacion } from "../components/verificaciones/Verificacion";
+import { Kilometros } from "../components/solicitudes/Kilometros";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -46,6 +47,7 @@ export const DashboardRoutes = ({ history }) => {
       <div className={!open ? "contenedor" : "contenedor-active"}>
       
       <Switch>
+     
       
       <RouteEmpleado exact path="/anticipo/gastos" component={AnticipoGasto} />
       <RouteEmpleado exact path="/sueldos" component={SueldoContainer} />
@@ -54,6 +56,7 @@ export const DashboardRoutes = ({ history }) => {
         <RouteGerente exact path="/aprobacion/sueldo" component={AprobacionAntcipoSueldo}/>
         <RouteGerente exact path="/aprobacion/vacaciones" component={AprobacionVacaciones}/>
         <RouteGerente exact path="/aprobacion/gastos" component={AprobacionGastos}/>
+
         <RouteGerente exact path="/verificaciones" component={Verificacion}/>
 
         <RouteGerente exact path="/pdf/:id" component={PDF}/>
@@ -76,13 +79,17 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path='/configuraciones/cambiar/contraseña' component={CambiarContraseña}/>
         <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
         <RouteEmpleado exact path='/demo' component={Demo}/>
+        <RouteEmpleado exact path='/kilometros' component={Kilometros}/>
+
 
         {/**Vistas */}
-        <RouteEmpleado exact path='/comprobante' component={RendicionGastosVista}/>
         <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
         <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
-
+        <RouteEmpleado  exact path='/pagos/rendiciongasto' component={RendicionGastosVista}/>
         <Redirect to="/login" />
+
+        
+        
 
       </Switch>
       </div>

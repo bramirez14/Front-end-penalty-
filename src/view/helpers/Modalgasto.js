@@ -54,11 +54,15 @@ import { FormularioConAnt1 } from './FormularioConAnt1';
         get()
       }
        const enCurso= async (id)=>{
+
        
           await axiosURL.put(`/pago/encurso/${id}`,{pagoRealizado:'En curso'});
            setState({
           visible: false,
         });
+
+        
+  
           get()
         }
 

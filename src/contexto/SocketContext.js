@@ -8,7 +8,7 @@ export const SocketContext = createContext();
 export const SocketProvider = ({ children }) => {
   const { auth, setArrayUsuarios } = useContext(UserContext);
   const { socket, online, conectarSocket, desconectarSocket } = useSocket(
-    "http://localhost:4000"
+    "//intranet.penalty.com.ar:4000"
   );
   console.log(auth);
   useEffect(() => {

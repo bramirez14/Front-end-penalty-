@@ -11,7 +11,6 @@ export const useForm = ( initialState = {} ) => {
 
 
     const handleInputChange = ({ target }) => {
-
         setValues({
             ...values,
             [ target.name ]: target.value
@@ -19,12 +18,18 @@ export const useForm = ( initialState = {} ) => {
 
     }
     const handleFileChange=({ target})=> {
+        
         setValues({
             ...values,
             file: target.files[0]
         });
     }
+    const handleChangePicker = (date, dateString)=>{
+        setValues({
+            ...values,fecha:dateString
+        })
+    }
 
-    return [ values, handleInputChange,handleFileChange,reset ];
+    return [ values, handleInputChange,handleFileChange,handleChangePicker,reset ];
 
 }
