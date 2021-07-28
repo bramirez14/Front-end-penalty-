@@ -35,7 +35,8 @@ import { PagosAntGasto } from "../view/PagosAntGasto";
 import { CambiarContraseña } from "../components/configuraciones/CambiarContraseña";
 import { RendicionSinAnticipoContainer } from "../components/solicitudes/RendicionSinAnticipoContainer";
 import { Verificacion } from "../components/verificaciones/Verificacion";
-import { Kilometros } from "../components/solicitudes/Kilometros";
+import { Kilometros } from "../components/rendicionesKm/Kilometros";
+import { ListaKm } from "../components/rendicionesKm/ListaKm";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -79,8 +80,9 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path='/configuraciones/cambiar/contraseña' component={CambiarContraseña}/>
         <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
         <RouteEmpleado exact path='/demo' component={Demo}/>
+        {/** Km */}
         <RouteEmpleado exact path='/kilometros' component={Kilometros}/>
-
+        <RouteEmpleado exact path='/lista/kilometros' component={ListaKm}/>
 
         {/**Vistas */}
         <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>

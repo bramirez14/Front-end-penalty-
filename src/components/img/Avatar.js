@@ -4,13 +4,11 @@ import { TiUserAdd } from "react-icons/ti";
 import { PeticionJWT } from "../../auth/PeticionJWT";
 import {axiosURL }from "../../config/axiosURL";
 
-import { Form, Input, Button, Modal, Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import PeticionGET from "../../config/PeticionGET";
-import logo from '../../logoPenalty.jpg'
+import { Form,  Button, Modal, } from "antd";
 
 
-export const AvatarImg = ({ sidebar,history }) => {
+
+export const AvatarImg = () => {
  const id = localStorage.getItem('uid')
   const [state, setState] = useState({ loading: false, visible: false });
 const [imgDB, setImgDB] = useState()
@@ -101,8 +99,8 @@ useEffect(() => {
           ]}
         >
           <div className="contendor-modal">
-            <div class="button-wrapper">
-              <span class="label">Upload File</span>
+            <div className="button-wrapper-modal">
+              <span className="label">Upload File</span>
               <input
                 type="file"
                 name="upload"

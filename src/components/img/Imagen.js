@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Imagen = ({setData,setState,state}) => {
+export const Imagen = ({setData,setState,state,ancho}) => {
   const handleFileChange = (e) => {
     let file = e.target.files[0];
     console.log(file);
@@ -34,7 +34,7 @@ export const Imagen = ({setData,setState,state}) => {
   }
   };
     return (
-        <div class="button-wrapper">
+        <div class="button-wrapper" style={{width:ancho}}>
               <span class="label">Upload File</span>
               <input
                 type="file"

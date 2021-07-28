@@ -4,6 +4,7 @@ import { UserContext } from '../contexto/UserContext';
 import { logout } from './localStorage';
 
 export const PeticionJWT = () => {
+  console.log('hola amigos');
   const contex = useContext(UserContext)
   
     let tokenStorage = (localStorage.getItem("token"));
@@ -15,7 +16,7 @@ export const PeticionJWT = () => {
     let N = localStorage.getItem('N')
 
     const [tokenEstado, setTokenEstado] = useState({});
-
+   
     useEffect(() => {
         const cargarUsuario = async () => {
           let datosJWT = await axiosURL.get("/check", {
