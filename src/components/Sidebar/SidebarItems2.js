@@ -93,6 +93,11 @@ export const SidebarItems2 = [
         path: "/gastos",
         icon: <IoIcons.IoIosPaper />,
       },
+      {
+        title: "Km",
+        path: "/lista/kilometros",
+        icon: <IoIcons.IoIosPaper />,
+      }
     ],
   },
 ];

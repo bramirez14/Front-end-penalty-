@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Modal, Button } from 'antd';
-import { Imagen } from "../img/Imagen";
 
-export const ModalKm = ({state,setState,click}) => {
-const [data, setData] = useState([]);
+export const ModalKm = ({state,setState,click,children,boton,block,style,title}) => {
+
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const handleOk = () =>{ setVisible(false);
@@ -13,12 +12,12 @@ const [data, setData] = useState([]);
  
   return(
       <>
-    <Button   block style={{borderRadius:10,background:'#46a461',border:'none',boxShadow:'none',color:'#ffff'}} type="primary" onClick={showModal}>
-   Confirmar
+    <Button block={block}  style={style} onClick={showModal}>
+   {boton}
   </Button>
     <Modal
     visible={visible}
-    title="Finalizar"
+    title={title}
     onOk={handleOk}
     onCancel={handleCancel}
     footer={[
@@ -30,30 +29,8 @@ const [data, setData] = useState([]);
       </Button>,
     ]}
   >
-      <div style={{display:'flex',flexWrap:'nowrap'}}>
-      <Imagen ancho={'200px'}
-       setData={setData} state={state} setState={setState}
-      />
-      <div
-              style={{
-                border: "solid 1px #ddd",
-                width: "200px",
-                height: "200px",
-                margin: "auto",
-              }}
-            >
-              <img
-                style={{
-                  width: "200px",
-                  height: "200px",
-                  margin: "auto",
-                  padding: "20px",
-                }}
-                src={data[0]?.src}
-                alt=""
-              />
-            </div>
-            </div>
+    {children}
+    
   </Modal>
   </>
   )

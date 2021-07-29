@@ -106,6 +106,11 @@ export const SidebarItems = [
         path: "/gastos",
         icon: <IoIcons.IoIosPaper />,
       },
+      {
+        title: "Km",
+        path: "/lista/kilometros",
+        icon: <IoIcons.IoIosPaper />,
+      }
     ],
   },
 ];

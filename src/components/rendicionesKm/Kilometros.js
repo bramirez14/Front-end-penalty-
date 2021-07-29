@@ -5,6 +5,7 @@ import { axiosURL } from "../../config/axiosURL";
 import { Link } from "react-router-dom";
 import { TablaKm } from "./TablaKm";
 import { ModalKm } from "./ModalKm";
+import { ImagenKm } from "./ImagenKm";
 
 export const Kilometros = (history) => {
   const [stateKm, setStateKm] = useState([]);
@@ -15,8 +16,6 @@ export const Kilometros = (history) => {
     KmF:'',
     fechaSelect:'',
     usuarioId: id,
-    fecha: new Date().toLocaleDateString(),
-   
   });
   const[km,setKm] = useState({
     imagen:''
@@ -33,27 +32,34 @@ export const Kilometros = (history) => {
   },[])
 
 const filtroUsuario= stateKm.filter(s=>s.usuarioId===parseInt(id))
-const filtroSinKmId=filtroUsuario.filter(d=>d.KilometroId===null)
-const idDB= filtroSinKmId.map(i=>i.id)
+console.log(filtroUsuario);
+const filtroSinKmId=filtroUsuario.filter(d=>d.kilometroId===null)
+const idDB= filtroSinKmId?.map(i=>i.id)
+console.log(idDB);
 const importeDB=filtroSinKmId.map(i=>i.importe)
+console.log(filtroSinKmId);
 const kmRecorridos=filtroSinKmId.map(i=>i.KmRecorrido)
-const totalKmDB = kmRecorridos?.reduce((acumulador, item) => {
+console.log(kmRecorridos);
+const totalKmDB = kmRecorridos.reduce((acumulador, item) => {
 return  (acumulador =(acumulador) + (item));
-});
-const importeTotalDB= importeDB?.reduce((acumulador, item) => {
+},0);
+const importeTotalDB= importeDB.reduce((acumulador, item) => {
   return  (acumulador =(acumulador) + (item));
-  });
+  },0);
+  
    const handleClick= async() => {
      const f= new FormData();
      f.append('imagen',km.imagen)
-     f.append('id',idDB)
-     f.append('KmTotal',totalKmDB)
+      for (const d of idDB) {
+        f.append('id',d)
+      }
+     f.append('kmTotal',totalKmDB)
      f.append('importeTotal',importeTotalDB)
+     f.append('usuarioId',id)
      await axiosURL.post('/km',f);
 
      // history.push('/lista/kilometros')
    }
-
    const handleSubmit= async() =>{
     await axiosURL.post('/kilometros',{...values,KmRecorrido:restaKm,importe:totalImporte})
     peticionGet();
@@ -63,7 +69,9 @@ const importeTotalDB= importeDB?.reduce((acumulador, item) => {
   await axiosURL.delete(`/borrar/rendicionKm/${id}`);
   peticionGet();
 }
- console.log(stateKm);
+const style={
+  borderRadius:10,background:'#46a461',border:'none',boxShadow:'none',color:'#ffff'
+}
   return (
     <div style={{display:'flex',flexWrap:'nowrap'}}>
 <Form
@@ -107,7 +115,9 @@ const importeTotalDB= importeDB?.reduce((acumulador, item) => {
         <Button block style={{borderRadius:10}} htmlType="submit" >Agregar</Button>
       </Form.Item> 
       <Form.Item >
-        <ModalKm state={km} setState={setKm} click={handleClick}/>
+        <ModalKm title={'Finalizar'} state={km} setState={setKm} click={handleClick} boton={'Confirmar'} style={style} block={true}>
+          <ImagenKm state={km} setState={setKm}/>
+          </ModalKm>
       {/* <Button  > <Link to='/lista/kilometros'>Confirmar </Link>  </Button> */}
       </Form.Item>
     </Form>
