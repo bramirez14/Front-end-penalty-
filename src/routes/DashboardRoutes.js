@@ -37,6 +37,7 @@ import { RendicionSinAnticipoContainer } from "../components/solicitudes/Rendici
 import { Verificacion } from "../components/verificaciones/Verificacion";
 import { Kilometros } from "../components/rendicionesKm/Kilometros";
 import { ListaKm } from "../components/rendicionesKm/ListaKm";
+import { AprobacionKm } from "../ComponentsGerentes/AprobacionKm";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -57,6 +58,7 @@ export const DashboardRoutes = ({ history }) => {
         <RouteGerente exact path="/aprobacion/sueldo" component={AprobacionAntcipoSueldo}/>
         <RouteGerente exact path="/aprobacion/vacaciones" component={AprobacionVacaciones}/>
         <RouteGerente exact path="/aprobacion/gastos" component={AprobacionGastos}/>
+        <RouteGerente  exact path='/aprobacion/km' component={AprobacionKm}/>
 
         <RouteGerente exact path="/verificaciones" component={Verificacion}/>
 
@@ -88,6 +90,7 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
         <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
         <RouteEmpleado  exact path='/pagos/rendiciongasto' component={RendicionGastosVista}/>
+
         <Redirect to="/login" />
 
         

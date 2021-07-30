@@ -9,6 +9,7 @@ import { ImagenKm } from "./ImagenKm";
 import moment from 'moment';
 import { Spin, Space } from 'antd';
 import './css/spiner.css'
+import Swal from 'sweetalert2'
 
 export const Kilometros = ({history}) => {
   const dateFormat = 'DD/MM/YYYY';
@@ -72,9 +73,17 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
      
    }
    const handleSubmit= async() =>{
-    await axiosURL.post('/kilometros',{...values,KmRecorrido:restaKm,importe:totalImporte,fechaSelect:datePicker})
-    peticionGet();
-      reset()
+    if(KmF< KmI){
+      Swal.fire(
+        ' Km final debe ser mayor a  Km inicial',
+        
+      )
+    }else{
+      await axiosURL.post('/kilometros',{...values,KmRecorrido:restaKm,importe:totalImporte,fechaSelect:datePicker})
+      peticionGet();
+        reset()
+    }
+ 
 
  }
  const borrar = async (id) => {
