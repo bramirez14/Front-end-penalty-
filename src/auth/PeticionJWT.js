@@ -4,7 +4,6 @@ import { UserContext } from '../contexto/UserContext';
 import { logout } from './localStorage';
 
 export const PeticionJWT = () => {
-  console.log('hola amigos');
   const contex = useContext(UserContext)
   
     let tokenStorage = (localStorage.getItem("token"));

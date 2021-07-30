@@ -18,20 +18,16 @@ export const useForm = ( initialState = {} ) => {
 
     }
     
-   
+ /*   
     const handleFileChange=({ target})=> {
         
         setValues({
             ...values,
             file: target.files[0]
         });
-    }
-    const handleChangePicker = (date, dateString)=>{
-        setValues({
-            ...values,fechaSelect:dateString
-        })
-    }
+    } */
+    
 
-    return [ values, handleInputChange,handleFileChange,handleChangePicker,reset,setValues ];
+    return [ values, handleInputChange,reset,setValues ];
 
 }

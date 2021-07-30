@@ -8,12 +8,7 @@ export const Perfil = ({ history }) => {
   const getHours= async() =>{
     await axiosURL.get('/perfil')
   }
-  setInterval(
-    function(){
-      console.log('hola soy setInterval de 10"');
-      getHours();
-    }, 10000);
- 
+
  const [stateusuarios, setStateusuarios] = useState([])
   useEffect(() => {
     const socket =  io.connect( "//intranet.penalty.com.ar:4000",{ 

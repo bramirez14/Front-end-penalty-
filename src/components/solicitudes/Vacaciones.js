@@ -230,6 +230,7 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
                   style={{ width: "100%" }}
                   onChange={handleChangeSelect}
                   placeholder='Ingrese un año'
+                  
                 />
               </Form.Item>
               {/*   ************* Condicion por año ******************* */}

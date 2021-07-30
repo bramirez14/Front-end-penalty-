@@ -6,21 +6,30 @@ import { Link } from "react-router-dom";
 import { TablaKm } from "./TablaKm";
 import { ModalKm } from "./ModalKm";
 import { ImagenKm } from "./ImagenKm";
+import moment from 'moment';
+import { Spin, Space } from 'antd';
+import './css/spiner.css'
 
-export const Kilometros = (history) => {
+export const Kilometros = ({history}) => {
+  const dateFormat = 'DD/MM/YYYY';
+  const [loading, setLoading] = useState(false)
   const [stateKm, setStateKm] = useState([]);
   const [datosKm, setDatosKm] = useState([]);
+  const [datePicker, setDatePicker] = useState('')
   const id = localStorage.getItem('uid')
-  const [values, handleInputChange, handleFileChange, handleChangePicker] =useForm({
+  const [values, handleInputChange,reset] =useForm({
     KmI:'',
     KmF:'',
-    fechaSelect:'',
     usuarioId: id,
+    notas:'',
   });
   const[km,setKm] = useState({
     imagen:''
   })
-  const {KmI,KmF,fecha}=values
+  const handleChangePicker = (date, dateString)=>{
+    setDatePicker( dateString)
+}
+  const {KmI,KmF,notas,fechaSelect}=values
   const restaKm = KmI==='' && KmF==='' ? '0 ': KmF-KmI;
   const totalImporte= restaKm==='0'?'Importe':restaKm*17
   const  peticionGet= async () => {
@@ -32,14 +41,10 @@ export const Kilometros = (history) => {
   },[])
 
 const filtroUsuario= stateKm.filter(s=>s.usuarioId===parseInt(id))
-console.log(filtroUsuario);
 const filtroSinKmId=filtroUsuario.filter(d=>d.kilometroId===null)
 const idDB= filtroSinKmId?.map(i=>i.id)
-console.log(idDB);
 const importeDB=filtroSinKmId.map(i=>i.importe)
-console.log(filtroSinKmId);
 const kmRecorridos=filtroSinKmId.map(i=>i.KmRecorrido)
-console.log(kmRecorridos);
 const totalKmDB = kmRecorridos.reduce((acumulador, item) => {
 return  (acumulador =(acumulador) + (item));
 },0);
@@ -47,7 +52,8 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
   return  (acumulador =(acumulador) + (item));
   },0);
   
-   const handleClick= async() => {
+   const handleConfirm= async() => {
+    setLoading(true)
      const f= new FormData();
      f.append('imagen',km.imagen)
       for (const d of idDB) {
@@ -56,22 +62,29 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
      f.append('kmTotal',totalKmDB)
      f.append('importeTotal',importeTotalDB)
      f.append('usuarioId',id)
-     await axiosURL.post('/km',f);
-
-     // history.push('/lista/kilometros')
+    const resp= await axiosURL.post('/km',f);
+    console.log(resp);
+    
+    if(resp.status===200){
+      history.push('/lista/kilometros')
+      setLoading(false)
+    }
+     
    }
    const handleSubmit= async() =>{
-    await axiosURL.post('/kilometros',{...values,KmRecorrido:restaKm,importe:totalImporte})
+    await axiosURL.post('/kilometros',{...values,KmRecorrido:restaKm,importe:totalImporte,fechaSelect:datePicker})
     peticionGet();
+      reset()
+
  }
  const borrar = async (id) => {
-  console.log(id);
   await axiosURL.delete(`/borrar/rendicionKm/${id}`);
   peticionGet();
 }
 const style={
   borderRadius:10,background:'#46a461',border:'none',boxShadow:'none',color:'#ffff'
 }
+console.log(!!loading);
   return (
     <div style={{display:'flex',flexWrap:'nowrap'}}>
 <Form
@@ -80,27 +93,30 @@ const style={
       size="large"
       onChange={handleInputChange}
      onFinish={handleSubmit}
+     id='formulario'
     >
       <h4 style={{ textAlign: "center", marginLeft: "20px" }}>
         Agregar Rendicion de KM
-        <Button className="btn-rendicion" style={{ marginLeft: 10 }}>
-          X
+        <Button className="btn-rendicion" style={{ marginLeft: 10 }} >
+          <Link to='/lista/kilometros'> X </Link>
         </Button>
       </h4>
       <Divider />
       <Form.Item>
         <DatePicker
           style={{ width: "100%" }}
-          placeholder="Ingrese una fehca"
+          placeholder="Ingrese una fecha"
           onChange={handleChangePicker}
           name="fecha"
+          format={dateFormat}
+          
         />
       </Form.Item>
       <Form.Item>
-        <Input type='number' name="KmI" placeholder="Km Inicial" min={0} />
+        <Input type='number' name="KmI" placeholder="Km Inicial" min={0} value={KmI}/>
       </Form.Item>
       <Form.Item>
-        <Input type='number' name="KmF" placeholder="Km Final" min={0} />
+        <Input type='number' name="KmF" placeholder="Km Final" min={0} value={KmF} />
       </Form.Item>
       <Form.Item >
         <Input value={`${restaKm} Km`} disabled />
@@ -109,20 +125,29 @@ const style={
         <Input  value={` $${totalImporte}`} disabled />
       </Form.Item>
       <Form.Item>
-        <Input.TextArea name="notas" placeholder="Nota" />
+        <Input.TextArea name="notas" placeholder="Nota" value={notas}/>
       </Form.Item>
       <Form.Item >
         <Button block style={{borderRadius:10}} htmlType="submit" >Agregar</Button>
       </Form.Item> 
+
+   
+
       <Form.Item >
-        <ModalKm title={'Finalizar'} state={km} setState={setKm} click={handleClick} boton={'Confirmar'} style={style} block={true}>
+  
+        <ModalKm title={'Finalizar'}  state={km} setState={setKm} click={handleConfirm} boton={'Confirmar'} style={style} block={true} Return={'Salir'} Submit={'Guardar'}>
           <ImagenKm state={km} setState={setKm}/>
           </ModalKm>
-      {/* <Button  > <Link to='/lista/kilometros'>Confirmar </Link>  </Button> */}
       </Form.Item>
     </Form>
-
-    <TablaKm datos={filtroSinKmId} borrar={borrar} />
+{
+  loading?<Spin size="large" /> :''
+}
+      
+       {
+         loading ? '':<TablaKm datos={filtroSinKmId} borrar={borrar} />
+       } 
+   
     </div>
     
   );

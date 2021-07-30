@@ -4,6 +4,8 @@ import { PeticionGET } from '../../config/PeticionGET';
 import { Button } from 'antd/lib/radio';
 import { ModalKm } from './ModalKm';
 import { TablaInfkm } from './TablaInfkm';
+import {Link} from "react-router-dom";
+
 export const CardKm = () => {
     const peticionKM=PeticionGET('/todos/kilometros')
     console.log(peticionKM);
@@ -14,7 +16,8 @@ export const CardKm = () => {
         dataSource={peticionKM}
         footer={
           <div>
-            <Button>Ingresar Rendicion</Button>
+              
+            <Button> <Link to='/kilometros'> Ingresar Rendicion </Link> </Button>
           </div>
         }
         renderItem={item => (
