@@ -40,6 +40,7 @@ import { ListaKm } from "../components/rendicionesKm/ListaKm";
 import { AprobacionKm } from "../ComponentsGerentes/AprobacionKm";
 import { RendicionKmVista } from "../view/RendicionKmVista";
 import { PagosKm } from "../view/PagosKm";
+import { AntSueldoVista } from "../view/AntSueldoVista";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -95,6 +96,8 @@ export const DashboardRoutes = ({ history }) => {
 
         <RouteEmpleado  exact path='/vista/rendicion/gasto' component={RendicionGastosVista}/>
         <RouteEmpleado  exact path='/vista/rendicion/km' component={RendicionKmVista}/>
+        <RouteEmpleado  exact path='/vista/anicipo/sueldo' component={AntSueldoVista}/>
+
 
 
         <Redirect to="/login" />

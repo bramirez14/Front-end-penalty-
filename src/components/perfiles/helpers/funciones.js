@@ -1,5 +1,6 @@
 import {useState,useEffect} from 'react'
 import { axiosURL } from '../../../config/axiosURL';
+import { PeticionGET } from '../../../config/PeticionGET';
 
 /** funcion de alerta  para anticipo y vacaciones  */
 
@@ -127,5 +128,20 @@ const N = localStorage.getItem("N"); // numero de registro local storage
   
 return state
 
+}
+
+export const antSueldo=(url) => {
+const getodosAnt= PeticionGET(url);
+const filtroAprobacion=getodosAnt.filter(a=>a.estadoFinal==='aprobado')
+
+return (
+  <>
+    {filtroAprobacion.length > 0 ? (
+      <p>Pendiente: {filtroAprobacion.length}</p>
+    ) : (
+      <p>No hay notificaciones!!!</p>
+    )}
+  </>
+);
 }
 
