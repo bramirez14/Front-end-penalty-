@@ -85,7 +85,7 @@ console.log(stateForm);
         <>
         
         <Button type="primary" onClick={showModal}  
-        style={{ marginTop: 20 ,float:'right'}}>
+        style={{ marginTop: 10 ,/* float:'right' */}}>
         Subir Archivo
       </Button>
       <Modal

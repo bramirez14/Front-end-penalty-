@@ -83,6 +83,7 @@ const [state, setState] = useState({
           estado: "rechazado",
           notificacion: "inactiva",
           estadoFinal: "rechazado",
+          f:new Date().toLocaleString()
         });// trabajando
         setVisible(false);
         setMensaje({ respMensaje: "" });

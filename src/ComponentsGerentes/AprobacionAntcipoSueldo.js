@@ -83,6 +83,8 @@ export const AprobacionAntcipoSueldo = () => {
       estado: "rechazado",
       notificacion: "inactiva",
       estadoFinal: "rechazado",
+      f:new Date().toLocaleString()
+
     });
     setVisible(false);
     setMensaje({ respMensaje: "" });

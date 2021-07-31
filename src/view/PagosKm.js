@@ -4,7 +4,6 @@ import { axiosURL } from '../config/axiosURL';
 import { saveAs } from "file-saver";
 import { ModalKm } from '../components/rendicionesKm/ModalKm';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-import { FormularioSinAnt } from './helpers/FormularioSinAnt';
 import { Archivo } from '../file/Archivo';
 
 export const PagosKm = () => {
@@ -87,9 +86,6 @@ export const PagosKm = () => {
         dataIndex: 'importeTotal',
         render:(state,file)=>(<span style={{marginLeft: "20px"}}> ${file.importeTotal}</span>)
       },
-      
-      
-      
       
       {
         title: 'N orden',
