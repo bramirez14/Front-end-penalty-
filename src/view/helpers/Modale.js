@@ -3,7 +3,7 @@ import { Modal, Button,Form,Input} from 'antd';
 import { Archivo } from '../../file/Archivo';
 import { axiosURL } from '../../config/axiosURL';
 import Swal from 'sweetalert2'
-export const Modale = ({id,get}) => {
+export const Modale = ({id,get,url}) => {
   console.log(id);
   const [state, setState] = useState({
     loading: false,
@@ -66,7 +66,7 @@ if(norden===''){
   f.append("norden",norden);
   f.append("file",file);
   f.append('procesoFinalizado',obj.procesoFinalizado)
-  const {data} = await axiosURL.post(`/archivo/pdf/${id}`,f);
+  const {data} = await axiosURL.post(`${url}/${id}`,f);
   if(data==='ok')
   setStateForm({norden:'',file:''})
   Swal.fire({

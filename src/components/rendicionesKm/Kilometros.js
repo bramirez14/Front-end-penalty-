@@ -22,7 +22,7 @@ export const Kilometros = ({history}) => {
     KmI:'',
     KmF:'',
     usuarioId: id,
-    notas:'',
+    nota:'',
   });
   const[km,setKm] = useState({
     imagen:''
@@ -134,7 +134,7 @@ console.log(!!loading);
         <Input  value={` $${totalImporte}`} disabled />
       </Form.Item>
       <Form.Item>
-        <Input.TextArea name="notas" placeholder="Nota" value={notas}/>
+        <Input.TextArea name="nota" placeholder="Nota" value={notas}/>
       </Form.Item>
       <Form.Item >
         <Button block style={{borderRadius:10}} htmlType="submit" >Agregar</Button>

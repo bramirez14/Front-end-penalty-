@@ -90,7 +90,7 @@ const descargarPDF= async ( pdf)=>{
           key: 'pdf',
         render:(state,file)=>{return(
           <>  
-          { file.pdf===null || ''?<span>No hay pdf</span>:
+          { file.pdf===null || file.pdf===''?<span>No hay pdf</span>:
             <Button type='link' onClick={()=>descargarPDF(file.pdf)} >pdf</Button>
             }
           </>
@@ -104,7 +104,7 @@ const descargarPDF= async ( pdf)=>{
          
             return(
               <>
-              {file.pdf===null || ''?<span>No hay pdf</span>: 
+              {file.pdfinal===null || file.pdfinal===''?<span>No hay pdf</span>: 
               
             <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} >pdf</Button>
               

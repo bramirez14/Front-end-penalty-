@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row,Col,Card } from 'antd'
 import { Link } from "react-router-dom";
-import { PagoAntGasto, PagoAntSueldo } from './helpers/funcionesTarjeta';
+import { PagoAntGasto, PagoAntSueldo, PagosKm } from './helpers/funcionesTarjeta';
 
 export const TarjetaEmpleado906 = () => {
     return (
@@ -25,10 +25,10 @@ export const TarjetaEmpleado906 = () => {
         </Col>
         <Col xs={24} sm={12} md={12} lg={6} xl={6}>
           <Card
-            title="En Construccion"
-            extra={<Link to="/comprobante/rendicion">More</Link>}
+            title="Pago de  Km"
+            extra={<Link to="/pagos/km">More</Link>}
           >
-            <p>No hay notificaciones!!!</p>
+           <PagosKm/>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={12} lg={6} xl={6}>

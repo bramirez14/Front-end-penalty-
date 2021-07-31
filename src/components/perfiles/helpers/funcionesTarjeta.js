@@ -1,8 +1,8 @@
 import React from 'react'
 import { PeticionGET } from '../../../config/PeticionGET';
 
-export const Listo = () => {
-    const get = PeticionGET("/gastos");
+export const Listo = ({url}) => {
+    const get = PeticionGET(url);
     const filtroRendicionTerminada = get.filter((g) => (g.estadoFinal==='aprobado' && g.listo === "Si") && (g.procesoFinalizado!=='Si' ));
     return (
       <>
@@ -39,6 +39,20 @@ export const PagoAntSueldo=()=>{
     return(
       <>
        {getTotalMuestra.length > 0 ? (
+          <p>Pendiente: {getTotalMuestra.length}</p>
+        ) : (
+          <p>No hay notificaciones!!!</p>
+        )}
+      </>
+    )
+  }
+  export const PagosKm =()=> {
+    const get=PeticionGET('/todos/kilometros');
+    const filtroAprobacion= get.filter(q=> q.estadoFinal==='aprobado' && q.procesoFinalizado==='Si');
+    const getTotalMuestra = filtroAprobacion.filter(d=>d.procesoPagar!=='Si');
+    return(
+      <>
+       {filtroAprobacion.length > 0 ? (
           <p>Pendiente: {getTotalMuestra.length}</p>
         ) : (
           <p>No hay notificaciones!!!</p>

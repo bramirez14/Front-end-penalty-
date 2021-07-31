@@ -38,6 +38,8 @@ import { Verificacion } from "../components/verificaciones/Verificacion";
 import { Kilometros } from "../components/rendicionesKm/Kilometros";
 import { ListaKm } from "../components/rendicionesKm/ListaKm";
 import { AprobacionKm } from "../ComponentsGerentes/AprobacionKm";
+import { RendicionKmVista } from "../view/RendicionKmVista";
+import { PagosKm } from "../view/PagosKm";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -89,7 +91,11 @@ export const DashboardRoutes = ({ history }) => {
         {/**Vistas */}
         <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
         <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
-        <RouteEmpleado  exact path='/pagos/rendiciongasto' component={RendicionGastosVista}/>
+        <RouteEmpleado exact path='/pagos/km' component={PagosKm}/>
+
+        <RouteEmpleado  exact path='/vista/rendicion/gasto' component={RendicionGastosVista}/>
+        <RouteEmpleado  exact path='/vista/rendicion/km' component={RendicionKmVista}/>
+
 
         <Redirect to="/login" />
 

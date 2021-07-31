@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { axiosURL } from "../config/axiosURL";
-import { Card, Collapse, Button, Row, Col, Table } from "antd";
-import { Modale } from "./helpers/Modale";
+import React,{useState,useEffect} from 'react'
+import { axiosURL } from '../config/axiosURL';
 import { saveAs } from "file-saver";
+import { Card, Collapse, Button, Row, Col, Table } from "antd";
+import { Modale } from './helpers/Modale';
 
-export const RendicionGastosVista = ({ history }) => {
-  const N = localStorage.getItem("N");
-
-  const [gasto, setGasto] = useState([]);
-
-  /**evitar que usuari 905 ingresen a la ruta */
-  N != "905" && history.push("/perfil");
-
-  /* const finalizar= async (id)=>{
-let result = await axiosURL.post(`/finalizar/gasto/${id}`,{procesoFinalizado:'Si'})
-result.status===200 && history.push('/perfil')
-} */
-
-  const get = async () => {
-    const { data } = await axiosURL.get("/gastos");
-    setGasto(data);
+export const RendicionKmVista = ({history}) => {
+    const N = localStorage.getItem("N");
+  const [km, setKm] = useState([]);
+   /**evitar que usuari 905 ingresen a la ruta */
+   N !== "905" && history.push("/perfil");
+   const get = async () => {
+    const { data } = await axiosURL.get("/todos/kilometros");
+    setKm(data);
   };
   useEffect(() => {
     get();
   }, []);
-
-  const filtroListo = gasto.filter(
+  const filtroListo = km.filter(
     (f) => f.listo === "Si" && f.estadoFinal === "aprobado"
   );
   const descargarPDF = async (pdf) => {
@@ -37,9 +28,10 @@ result.status===200 && history.push('/perfil')
     saveAs(pdfBlob, `${pdf}`);
   };
   console.log(filtroListo);
+
   const columns = [
     {
-      title: "Numero de Anticipo",
+      title: "Numero de Rendicion",
       dataIndex: "id",
       key: "id",
       width: "100px",
@@ -53,12 +45,10 @@ result.status===200 && history.push('/perfil')
       key: "apellido",
       width: "100px",
     },
-    { title: "Fecha", dataIndex: "fecha", key: "fecha", width: "100px" },
+    { title: "Km Total", dataIndex: "kmTotal", key: "kmTotal", width: "100px", render:(state,file)=><span>{file.kmTotal} Km</span> },
 
-    { title: "Importe", dataIndex: "importe", key: "importe", width: "100px" },
-    { title: "Nota", dataIndex: "notas", key: "notas", width: "100px" },
+    { title: "Importe total", dataIndex: "importeTotal", key: "importeTotal", width: "100px", render:(state, file)=> <span>${file.importeTotal}</span>},
 
-    { title: "N° orden", dataIndex: "norden", key: "norden", width: "100px" },
     {
       title: "PDFSB",
       dataIndex: "pdf",
@@ -83,13 +73,12 @@ result.status===200 && history.push('/perfil')
           {file.procesoFinalizado === "Si" ? (
             <span y>Completado</span>
           ) : (
-            <Modale id={file.id} orden={file.norden} get={get} url={'/archivo/pdf'} />
+            <Modale id={file.id} orden={file.norden} get={get} url={'/km/pdf'} />
           )}
         </>
       ),
     },
   ];
-
   const datos = filtroListo?.map((f) => {
     return {
       ...f,
@@ -98,7 +87,7 @@ result.status===200 && history.push('/perfil')
       apellido: f.usuario.apellido,
       description: (
         <Row gutter={[10, 10]}>
-          {f.rendicion.map((r) => (
+          {f.rendicionKm.map((r) => (
             <>
               <Col xs={6} sm={4} md={4} lg={4} xl={4}>
                 <Card
@@ -108,22 +97,24 @@ result.status===200 && history.push('/perfil')
                     height: "auto",
                   }}
                 >
-                  <img
-                    style={{ width: 100, height: 100 }}
-                    alt="example"
-                    src={r.imagen}
-                  />
-                  <p>
-                    <b>Fecha:</b> {r.fecha}
+                 <p>
+                    <b>Fecha:</b> {r.fechaSelect}
                   </p>
                   <p>
-                    <b>Categoria:</b> {r.categoria}
+                    <b> Km Inicial:</b> {r.KmI}
+                  </p>
+                  
+                  <p>
+                    <b>Km Final:</b> ${r.KmF}
                   </p>
                   <p>
-                    <b>Importe:</b> ${r.importe}
+                    <b>Km Recorrido :</b> {r.KmRecorrido}
                   </p>
                   <p>
-                    <b>Nota:</b> {r.notas}
+                    <b>Nota :</b> {r.nota}
+                  </p>
+                  <p>
+                    <b>Importe :</b> ${r.importe}
                   </p>
                 </Card>
               </Col>
@@ -148,4 +139,6 @@ result.status===200 && history.push('/perfil')
       />
     </>
   );
-};
+
+
+}

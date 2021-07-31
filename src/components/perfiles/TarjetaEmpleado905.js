@@ -11,17 +11,18 @@ export const TarjetaEmpleado905 = () => { //Sandra y Bely
     <Col xs={24} sm={12} md={12} lg={6} xl={6}>
       <Card
         title="Rendicion de gasto"
-        extra={<Link to="/pagos/rendiciongasto">More</Link>}
+        extra={<Link to="/vista/rendicion/gasto">More</Link>}
       >
-       <Listo/>
+       <Listo url={'/gastos'}/>
       </Card>
     </Col>
 
     <Col xs={24} sm={12} md={12} lg={6} xl={6}>
       <Card
-        title="En Construccion"
+        title="Rendicion de Km"
+        extra={<Link to="/vista/rendicion/Km">More</Link>}
       >
-       <p>No hay notificaciones!!!</p>
+      <Listo url={'/lista/kilometros'}/>
       </Card>
     </Col>
     <Col xs={24} sm={12} md={12} lg={6} xl={6}>

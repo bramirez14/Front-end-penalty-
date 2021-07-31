@@ -26,7 +26,7 @@ const expandable = {
 };
 export const AprobacionKm = () => {
   const N = localStorage.getItem("N"); // numero de registro
-  const [gastoPendiente, setGastoPendiente] = useState(); //estado de a fn
+  const [kmPendiente, setKmPendiente] = useState(); //estado de a fn
   const [data, setData] = useState([]);
   const [mensaje, setMensaje] = useState({
     respMensaje: "",
@@ -57,7 +57,7 @@ export const AprobacionKm = () => {
 
   const showModal = (datos) => {
     setVisible(true);
-    setGastoPendiente(datos);
+    setKmPendiente(datos);
 
   };
   const handleOk = () => {
@@ -75,14 +75,14 @@ export const AprobacionKm = () => {
   /**fin seleccion de check */
   const aprobado = async () => {
     N === "902"
-      ? await axiosURL.put(`/gasto/aprobado/${gastoPendiente.id}`, {
+      ? await axiosURL.put(`/km/aprobado/${kmPendiente.id}`, {
         ...mensaje,
         estadoFinal: "aprobado",
         notificacion: "inactiva",
         estado: "aprobado",
         f: new Date().toLocaleString(),
       })
-      : await axiosURL.put(`/gasto/aprobado/${gastoPendiente.id}`, {
+      : await axiosURL.put(`/km/aprobado/${kmPendiente.id}`, {
         ...mensaje,
         estado: "aprobado",
       });
@@ -91,11 +91,12 @@ export const AprobacionKm = () => {
     axiosGet();
   };
   const rechazado = async () => {
-    await axiosURL.put(`/gasto/rechazado/${gastoPendiente.id}`, {
+    await axiosURL.put(`/km/rechazado/${kmPendiente.id}`, {
       ...mensaje,
       estado: "rechazado",
       notificacion: "inactiva",
       estadoFinal: "rechazado",
+      f: new Date().toLocaleString(),
     });
     setVisible(false);
     setMensaje({ respMensaje: "" });
@@ -364,22 +365,25 @@ export const AprobacionKm = () => {
                     height: "auto",
                   }}
                 >
-                  <img
-                    style={{ width: 100, height: 100 }}
-                    alt="example"
-                    src={r.imagen}
-                  />
+                 
                   <p>
-                    <b>Fecha:</b> {r.fecha}
+                    <b>Fecha:</b> {r.fechaSelect}
                   </p>
                   <p>
-                    <b>Categoria:</b> {r.categoria}
+                    <b> Km Inicial:</b> {r.KmI}
+                  </p>
+                  
+                  <p>
+                    <b>Km Final:</b> ${r.KmF}
                   </p>
                   <p>
-                    <b>Importe:</b> ${r.importe}
+                    <b>Km Recorrido :</b> {r.KmRecorrido}
                   </p>
                   <p>
-                    <b>Nota:</b> {r.notas}
+                    <b>Nota :</b> {r.nota}
+                  </p>
+                  <p>
+                    <b>Importe :</b> ${r.importe}
                   </p>
                 </Card>
               </Col>
@@ -475,10 +479,9 @@ export const AprobacionKm = () => {
         columns={tableColumns}
         dataSource={ste.hasData ? datos : null}
         scroll={scroll}
-      //rowSelection={{ ...rowSelection}}
       />
       <Modal
-        title="Anticipo de Sueldo"
+        title="Kilometros"
         visible={visible}
         onOk={handleOk}
         confirmLoading={confirmLoading}
