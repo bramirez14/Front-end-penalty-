@@ -1,5 +1,4 @@
 import  { useState,useEffect } from 'react'
-import { axiosURL } from '../../config/axiosURL';
 
 export const TodosGastos=(data) => {
 const N = localStorage.getItem("N"); // numero de registro
@@ -28,32 +27,30 @@ const gastoTotal= [...usuariosSinAnt,...usuariosConAnt]
 return gastoTotal
 }
 
-export const GetFiltroGerencia=(data)=>{
+export const GetFiltroGerencia=(array)=>{
     const N = localStorage.getItem('N')
-    const [state, setState] = useState([]);
      /**selecion de gerente  recordamos que Cristian Rios da el ok final*/
-     useEffect(() => {
-        const getAxios= async () => {
-          const {data} = await axiosURL.get('/anticipo')
-            const dataPendiente= data.filter(d=>d.estado==='pendiente')
-              /**usuario901 */
+     const data = array ;
+     const dataPendiente= data.filter(d=>d.estado==='pendiente' ||  d.sueldo);
+     let filtro;
+       /**usuario901 */
     if (N === "901") {
-        const filtro = dataPendiente.filter(r=>(r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2));
-        setState(filtro);
+        filtro = dataPendiente.filter(r=>(r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2));
+        
       }
       /**usuario902 */
       if (N === "902") {
-        const filtro = data.filter(r=>(r.usuario.departamentoId === 5 || r.estado=== 'aprobado'));
-        setState(filtro);
+        filtro = data.filter(r=>(r.usuario.departamentoId === 5 || r.estado=== 'aprobado'));
+        
       }
       /**usuario903*/
       if (N === "903") {
-        const filtro = data.filter((r) =>(r.usuario.departamentoId === 3 || r.usuario.departamentoId === 4) );
-        setState(filtro);
+        filtro = data.filter((r) =>(r.usuario.departamentoId === 3 || r.usuario.departamentoId === 4) );
+        
       }
-        }
-        getAxios();
-     },[N])
-  return state
+        
+        ;
+     
+  return filtro
 }
 

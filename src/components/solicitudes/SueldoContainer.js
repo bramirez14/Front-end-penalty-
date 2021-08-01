@@ -62,7 +62,7 @@ export const SueldoContainer = ({ history }) => {
   };
   /*********fx para guardar anticipo con axios en DB **********/
   const guardarAnticipo = async (values) => {
-    let result = await axiosURL.post("/anticipo", {...values,estado:'pendiente',estadoFinal:'pendiente',sueldo,fecha});
+    let result = await axiosURL.post("/anticipo", {...values,sueldo,fecha});
     if (result.status === 200) {
       history.push("/");
     }
@@ -84,8 +84,6 @@ export const SueldoContainer = ({ history }) => {
   let handleSubmit;
 
   /***tmb agregamos un alert para evitar fraudes  */
-  
-  
       handleSubmit = (v) => {
         console.log({...v,sueldo,fecha});
         if (importe >= 3000 && sueldo === "Aguinaldo") {
@@ -93,20 +91,15 @@ export const SueldoContainer = ({ history }) => {
           " La opcion AGUINALDO , solo cubre un monto inferior a 3000"
           )
         }else{
+          console.log('paso la prueba ');
           let u = { ...v, usuarioId, fecha, sueldo, cuotas };
           handleAlert();
           guardarAnticipo(u);
         }
         
       };
-    
-      
-    
-  
 
   /**********fin submit para enviar el formulario ************************/
-
-
   const handleChange = (e) => {
     setAnticipo({
       ...anticipo,
