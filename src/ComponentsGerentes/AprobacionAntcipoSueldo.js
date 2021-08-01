@@ -61,21 +61,28 @@ export const AprobacionAntcipoSueldo = () => {
   };
 
   const aprobado = async () => {
-    N === "902"
-      ? await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
-          ...mensaje,
-          estadoFinal: "aprobado",
-          notificacion: "inactiva",
-          estado: "aprobado",
-          f:new Date().toLocaleString()
-        })
-      : await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
-          ...mensaje,
-          estado: "aprobado",
-        });
+    console.log(N);
+    if(N === "902"){
+      await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
+        ...mensaje,
+        estadoFinal: "aprobado",
+        notificacion: "inactiva",
+        estado: "aprobado",
+        f:new Date().toLocaleString()
+      })
+     
+    }else{
+      console.log('soy usuario distiton de 902');
+      await axiosURL.put(`/anticipo/aprobado/${anticipoPendiente.id}`, {
+        ...mensaje,
+        estado: "aprobado",
+      });
+      
+    }
     setVisible(false);
     setMensaje({ respMensaje: "" });
     axiosGet();
+   
   };
   const rechazado = async () => {
     await axiosURL.put(`/anticipo/rechazado/${anticipoPendiente.id}`, {
@@ -338,7 +345,7 @@ export const AprobacionAntcipoSueldo = () => {
       apellido: f.usuario.apellido,
     };
   });
-
+console.log(data);
   return (
     <>
       <Table columns={columns} dataSource={datos} />

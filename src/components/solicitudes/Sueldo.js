@@ -43,7 +43,7 @@ export const Sueldo = ({
               sueldo==='Sueldo'?
               <FormAntSueldo handleChange={handleChange} data={data} handleChangeCuotas={handleChangeCuotas} />
               : 
-              <FormAntAguinaldo handleChange={handleChange} handleChangeCuotas={handleChangeCuotas} mes={mes}/>
+              <FormAntAguinaldo handleChange={handleChange} handleChangeCuotas={handleChangeCuotas} mes={mes} cuotas={cuotas} />
             }
 
               <Form.Item name="mensaje">
