@@ -1,7 +1,9 @@
 import React from "react";
-import { Form, Input, Button, Select, Col, Row } from "antd";
+import { Form, Input, Button, Select, Col, Row,Radio } from "antd";
 import { SelectAnt } from "../inputs/SelectAnt";
 import { Titulo } from "../titulos/Titulo";
+import { FormAntAguinaldo } from "./helpers/FormAntAguinaldo";
+import { FormAntSueldo } from "./helpers/FormAntSueldo";
 export const Sueldo = ({
   open,
   handleSubmit,
@@ -29,70 +31,23 @@ export const Sueldo = ({
           (<Row gutter={10}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Titulo titulo="Anticipo de Sueldo" />
+            <>  
+            <Radio.Group name="sueldo" onChange={handleChange} value={sueldo} style={{marginBottom:10}}>
+            <Radio value={'Sueldo'}>Anticipo de Sueldo</Radio>
+            <Radio value={'Aguinaldo'}>Anticipo de Aguinaldo</Radio>
+          </Radio.Group>
 
-          
-            <>
-              <Form.Item
-                name="importe"
-                rules={[
-                  {
-                    required: true,
-                    message: "ingrese un importe",
-                  },
-                ]}
-              >
-                <Input
-                  type="number"
-                  placeholder="Importe"
-                  name="importe"
-                  onChange={handleChange}
-                />
-              </Form.Item>
+            
 
-              {importe < 3000 ? (
-                <Form.Item
-                  name="sueldo"
-                  rules={[
-                    {
-                      required: true,
-                      message: "seleccione una opcion",
-                    },
-                  ]}
-                >
-                  <Select placeholder="Devolucion" onChange={handleChangeDev}>
-                    <Option value="Sueldo">Sueldo</Option>
-                    <Option value="Aguinaldo">Aguinaldo</Option>
-                  </Select>
-                </Form.Item>
-              ) : (
-                <Form.Item name="sueldo">
-                  <Input disabled placeholder="Sueldo" />
-                </Form.Item>
-              )}
-
-              {sueldo === "Sueldo" ? (
-                <SelectAnt
-                  placeholder="Cuotas"
-                  name="cuotas"
-                  array={data}
-                  mensaje="seleccione una opcion"
-                  change={handleChangeCuotas}
-                />
-              ) : mes > 0 && mes <= 5 ? (
-                <Form.Item>
-                  <Input name="cuotas" value="1" disabled />
-                </Form.Item>
-              ) : (
-                <Form.Item name="cuotas">
-                  <Select name="cuotas" onChange={handleChangeCuotas}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                  </Select>
-                </Form.Item>
-              )}
+            {
+              sueldo==='Sueldo'?
+              <FormAntSueldo handleChange={handleChange} data={data} handleChangeCuotas={handleChangeCuotas} />
+              : 
+              <FormAntAguinaldo handleChange={handleChange} handleChangeCuotas={handleChangeCuotas} mes={mes}/>
+            }
 
               <Form.Item name="mensaje">
-                <Input.TextArea name="mensaje" placeholder="Mensaje" />
+                <Input.TextArea  placeholder="Mensaje" />
               </Form.Item>
 
               <Form.Item>
@@ -101,7 +56,7 @@ export const Sueldo = ({
                 </Button>
               </Form.Item>
             </>
-          
+            
         </Col>
       </Row>)}
     </Form>
