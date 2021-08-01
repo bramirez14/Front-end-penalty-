@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import {axiosURL} from "../../config/axiosURL";
 import Swal from "sweetalert2";
-import emailjs from "emailjs-com";
 import "./css/anticipoGasto.css";
 import {PeticionGET} from "../../config/PeticionGET";
 import { Sueldo } from "./Sueldo";
@@ -35,14 +34,13 @@ export const SueldoContainer = ({ history }) => {
     });
   };
 
-
   const handleChangeDev = (values) => {
     setAnticipo({ ...anticipo, sueldo: values, cuotas: "1" });
   };
   const handleChangeCuotas = (values) => {
     setAnticipo({ ...anticipo, cuotas: values });
   };
-  /******fx para deteminar catidad  de cuotas *******/
+  /******fx para deteminar canntidad  de cuotas *******/
   const verificarMes = () => {
     let vacio = [];
     let day = new Date().toLocaleDateString().split("/");
@@ -54,10 +52,7 @@ export const SueldoContainer = ({ history }) => {
     setData(vacio);
   };
   /***********calculamos el mes************ */
-  const mes = () => {
-    let day = new Date().getMonth();
-    return day;
-  };
+  const mes = () =>  new Date().getMonth();
   /*********** fin calculamos el mes***** */
 
   /****** f(x) solicitud de usuarios a DB con axios *******/
@@ -67,7 +62,7 @@ export const SueldoContainer = ({ history }) => {
   };
   /*********fx para guardar anticipo con axios en DB **********/
   const guardarAnticipo = async (values) => {
-    let result = await axiosURL.post("/anticipo", {...values,estado:'pendiente',estadoFinal:'pendiente'});
+    let result = await axiosURL.post("/anticipo", {...values,estado:'pendiente',estadoFinal:'pendiente',sueldo,fecha});
     if (result.status === 200) {
       history.push("/");
     }
@@ -82,38 +77,34 @@ export const SueldoContainer = ({ history }) => {
     let usuarioDep = users.find((u) => u.id === parseInt(id));
     return usuarioDep?.departamento.departamento;
   };
-
   const anticipos = PeticionGET("/anticipo");
   const filtro = anticipos.filter((a) => a.usuarioId === parseInt(id));
   const APROBACION = filtro[filtro.length - 1]?.estadoFinal;
   /************submit para enviar el formulario ************************ */
   let handleSubmit;
 
-  /*******condicion para envio de mail a cada departamento******* */
   /***tmb agregamos un alert para evitar fraudes  */
-  if (importe >= 3000 && sueldo === "Aguinaldo") {
-    alert(
-      "no podes hacer eso, la opcion AGUINALDO , solo cubre un monto inferior a 3000"
-    );
-  } else {
-    if (departamento() === "Sistemas" || departamento() === "Logistica") {
+  
+  
       handleSubmit = (v) => {
-        let u = { ...v, usuarioId, fecha, sueldo, cuotas };
-        handleAlert();
-        guardarAnticipo(u);
+        console.log({...v,sueldo,fecha});
+        if (importe >= 3000 && sueldo === "Aguinaldo") {
+          alert(
+          " La opcion AGUINALDO , solo cubre un monto inferior a 3000"
+          )
+        }else{
+          let u = { ...v, usuarioId, fecha, sueldo, cuotas };
+          handleAlert();
+          guardarAnticipo(u);
+        }
+        
       };
-    } else {
-      handleSubmit = (v) => {
-        let u = { ...v, usuarioId, fecha, sueldo, cuotas };
-        handleAlert();
-        guardarAnticipo(u);
-      };
-    }
-  }
+    
+      
+    
+  
 
   /**********fin submit para enviar el formulario ************************/
-
-  /**********funcion para enviar un mail de alerta **********************/
 
 
   const handleChange = (e) => {
@@ -122,7 +113,10 @@ export const SueldoContainer = ({ history }) => {
       [e.target.name]: e.target.value,
     });
   };
-  /********************* fin funcion para enviar un mail de alerta ********************* */
+
+  console.log(anticipo);
+
+  
   return (
     <Sueldo
       open={open}
