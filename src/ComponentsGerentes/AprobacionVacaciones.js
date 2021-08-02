@@ -246,11 +246,11 @@ const [state, setState] = useState({
           const color =()=>{
             switch (file.estado) {
               case 'pendiente':
-                return(<h6 style={{color:'yellow'}}> pendiente...</h6> )
+                return(<span style={{color:'yellow'}}> pendiente...</span> )
                 case 'aprobado':
-             return (<h6 style={{color:'green'}}> aprobado </h6>)
+             return (<span style={{color:'green'}}> aprobado </span>)
               default: 
-              return(<h6 style={{color:'red'}}> rechazado </h6>)
+              return(<span style={{color:'red'}}> rechazado </span>)
             }}
          return(
            <>
@@ -272,11 +272,11 @@ const [state, setState] = useState({
           const color = () => {
             switch (file.estadoFinal) {
               case "pendiente":
-                return <h6 style={{ color: "yellow" }}> pendiente...</h6>;
+                return <span style={{ color: "yellow" }}> pendiente...</span>;
               case "aprobado":
-                return <h6 style={{ color: "green" }}> aprobado </h6>;
+                return <span style={{ color: "green" }}> aprobado </span>;
               default:
-                return <h6 style={{ color: "red" }}> rechazado </h6>;
+                return <span style={{ color: "red" }}> rechazado </span>;
             }
           };
           return <> { N=== '902' && color()}</>;

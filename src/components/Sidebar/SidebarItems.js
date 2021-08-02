@@ -59,7 +59,7 @@ export const SidebarItems = [
     ],
   },
   {
-    title: "R. Gestion",
+    title: "Reporte de Gestion",
     icon: <MdTrendingUp />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -72,7 +72,7 @@ export const SidebarItems = [
     ],
   },
   {
-    title: "Solicitudes",
+    title: "Solicitud",
     icon: <FaEnvelope />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -96,7 +96,7 @@ export const SidebarItems = [
     ],
   },
   {
-    title: "Rendiciones",
+    title: "Rendicion",
     icon: <GiPayMoney />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
