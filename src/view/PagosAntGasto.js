@@ -122,8 +122,9 @@ const descargarPDF= async ( pdf)=>{
               <p>Realizado</p>
               :
               <Modalgasto
-               boton='Completar' 
-               importe={file.importe} importeRendido={file.importerendido} 
+              boton='Completar' 
+              importe={file.importe}
+              importeRendido={file.importerendido} 
               title='Rendicion con Anticipo'  id={file.id}
               orden={file.norden}
               file={file}

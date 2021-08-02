@@ -31,7 +31,7 @@ export const GetFiltroGerencia=(array)=>{
     const N = localStorage.getItem('N')
      /**selecion de gerente  recordamos que Cristian Rios da el ok final*/
      const data = array ;
-     const dataPendiente= data.filter(d=>d.estado==='pendiente' ||  d.sueldo);
+     const dataPendiente= data.filter(d=>d.estado==='pendiente' ||  d.id);
      let filtro;
        /**usuario901 */
     if (N === "901") {

@@ -31,28 +31,37 @@ import { FormularioConAnt1 } from './FormularioConAnt1';
       
   
       const finalizar= async (id)=>{
-      console.log(id);
-        if(stateFile.file===''){
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Ingrese un archivo pdf!',
-            
+        if(listo==='Si'){
+          if(stateFile.file===''){
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Ingrese un archivo pdf!',
+              
+            })
+          }
+          const obj={
+            pagoRealizado:'Si'
+          }
+          const f= new FormData();
+          f.append('file',stateFile.file);
+          f.append('pagoRealizado',obj.pagoRealizado)
+          await axiosURL.put(`/pago/gasto/${id}`,f);
+          setStateFile({file:''})
+          setState({
+            visible: false,
+          });
+          get()
+          setState({
+            visible: false,
           })
+        }else{
+          setState({
+            visible: false,
+          });
         }
-        const obj={
-          pagoRealizado:'Si'
-        }
-        const f= new FormData();
-        f.append('file',stateFile.file);
-        f.append('pagoRealizado',obj.pagoRealizado)
-        await axiosURL.put(`/pago/gasto/${id}`,f);
-        setStateFile({file:''})
-        setState({
-          visible: false,
-        });
-        get()
       }
+      
        const enCurso= async (id)=>{
 
        
@@ -67,7 +76,7 @@ import { FormularioConAnt1 } from './FormularioConAnt1';
         }
 
  
-/**Fin secto modal */
+/**Fin sector modal */
 console.log(listo);
 const { visible, loading } = state;
     return (
@@ -108,7 +117,8 @@ const { visible, loading } = state;
         sinocon==='sin'?
         <FormularioSinAnt importeRendido={importeRendido} importe={importe} orden={orden} id={id} file={file}
         stateFile={stateFile}
-        setStateFile={setStateFile} />: listo==='Si'?
+        setStateFile={setStateFile} />:
+         listo==='Si'?
         <FormularioConAnt importeRendido={importeRendido} importe={importe} orden={orden} id={id} file={file}
        stateFile={stateFile}
        setStateFile={setStateFile}
