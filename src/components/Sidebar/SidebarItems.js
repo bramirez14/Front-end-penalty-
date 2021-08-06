@@ -69,6 +69,11 @@ export const SidebarItems = [
         path: "/reportes/gestion/remitos",
         icon: <IoIcons.IoIosPaper />,
       },
+       {
+        title: "Facturacion por Vendedor",
+        path: "/reportes/facturacion/ventas",
+        icon: <IoIcons.IoIosPaper />,
+      },
     ],
   },
   {

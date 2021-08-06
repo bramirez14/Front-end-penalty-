@@ -12,7 +12,7 @@ const gastoTotal= [...gastosConAnt,...gastosSinAnt];
 const gastoMuestra= muestraPendiente(gastoTotal);
 const anticipoMuestra= muestraPendiente(anticipo);
 const vacacionMuestra= muestraPendiente(vacacion);
-// kilometros
+
 const km= KmPendiente('/todos/kilometros')
 const kmMuestra= muestraPendiente(km)
 console.log(kmMuestra);

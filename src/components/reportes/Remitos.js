@@ -76,17 +76,7 @@ console.log(todosRemitos);
         setTimeout(() => searchInput, 100);
       }
     },
- /*    render: text =>
-      state.searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-          searchWords={[state.searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ''}
-        />
-      ) : (
-        text
-      ), */
+
   });
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {

@@ -27,11 +27,11 @@ import { PDF } from "../components/view/PDF";
 import { Remitos } from "../components/reportes/Remitos";
 import { Mensajes } from "../components/mensajes/Mensajes";
 import { EstadoUsuario } from "../components/estado/EstadoUsuario";
-import { FacturaVendedor } from "../components/reportes/FacturaVendedor";
+
 import { Demo } from "../components/Demo";
 import { RendicionGastosVista } from "../view/RendicionGastosVista";
 import { PagosAntSueldo } from "../view/PagosAntSueldo";
-import { PagosAntGasto } from "../view/PagosAntGasto";
+import { PagosAntGasto } from "../view/pagoAntGasto/PagosAntGasto";
 import { CambiarContraseña } from "../components/configuraciones/CambiarContraseña";
 import { RendicionSinAnticipoContainer } from "../components/solicitudes/RendicionSinAnticipoContainer";
 import { Verificacion } from "../components/verificaciones/Verificacion";
@@ -41,6 +41,7 @@ import { AprobacionKm } from "../ComponentsGerentes/AprobacionKm";
 import { RendicionKmVista } from "../view/RendicionKmVista";
 import { PagosKm } from "../view/PagosKm";
 import { AntSueldoVista } from "../view/AntSueldoVista";
+import { FacturaVendedor } from "../components/reportes/FacturaVendedor/FacturaVendedor";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -79,11 +80,10 @@ export const DashboardRoutes = ({ history }) => {
 
         <RouteEmpleado exact path="/img" component={Uploads} />
         <RouteEmpleado exact path="/prueba" component={Alerta} />
-        <RouteEmpleado exact path='/reportes/gestion/remitos' component={Remitos}/>
         <RouteEmpleado exact path='/mensajes' component={Mensajes}/>
         <RouteEmpleado exact path='/estado/usuario' component={EstadoUsuario}/>
         <RouteEmpleado exact path='/configuraciones/cambiar/contraseña' component={CambiarContraseña}/>
-        <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
+        
         <RouteEmpleado exact path='/demo' component={Demo}/>
         {/** Km */}
         <RouteEmpleado exact path='/kilometros' component={Kilometros}/>
@@ -98,6 +98,9 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado  exact path='/vista/rendicion/km' component={RendicionKmVista}/>
         <RouteEmpleado  exact path='/vista/anicipo/sueldo' component={AntSueldoVista}/>
 
+        {/**Reportes de Gestion */}
+        <RouteEmpleado exact path='/reportes/gestion/remitos' component={Remitos}/>
+        <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
 
 
         <Redirect to="/login" />
