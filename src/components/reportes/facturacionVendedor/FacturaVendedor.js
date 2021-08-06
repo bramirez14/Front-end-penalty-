@@ -1,7 +1,11 @@
 import React,{useState} from 'react'
 import { Card } from 'antd';
 import { PeticionGETIntranet } from '../../../config/PeticionGET';
-import { FacturacionMes } from './FacturacionMes';
+import { FacturacionMes } from './facturaMes/FacturacionMes';
+import { Remitado } from '../remitado/Remitado';
+import { FacturacionAnno } from './facturacionAnno/FacturacionAnno';
+import { FacturacionMesGral } from './facturacionMesGral/FacturacionMesGral';
+import { FacturacionAnnoGral } from './facturacionAnnoGral/FacturacionAnnoGral';
 
 const tabList = [
     {
@@ -23,47 +27,18 @@ const tabList = [
         key: 'tab5',
         tab: 'Facturacion Año Gral',
       },
-      {
-        key: 'tab6',
-        tab: 'Exportar a Excel',
-      },
+     
   ];
-  const columnas=[
-    {
-        title: 'N° de vendedor',
-        dataIndex: 'vendedor',
-        key: 'vendedor',
-        width: '30%',
-      },
-    {
-        title: 'N° de Cliente',
-        dataIndex: 'cliente',
-        key: 'cliente',
-    },
-    {
-        title: 'Razon Social',
-        dataIndex: 'razonsoc',
-        key: 'razonsoc',
-        width: '200px',
-      },
-    {
-      title: 'Unidades',
-      dataIndex: 'UNIDADES',
-      key: 'UNIDADES',
-    },
-    {
-        title: 'Importe',
-        dataIndex: 'Importe',
-        key: 'Importe',
-      },
-  ]
+ 
 
   const contentList = {
     tab1: <FacturacionMes/>,
-    tab2: <p>
+    tab2: <Remitado/>,
+    tab3: <FacturacionAnno/>,
+    tab4: <FacturacionMesGral/>,
+    tab5: <FacturacionAnnoGral/>
 
-
-    </p>,
+    
   };
 export const FacturaVendedor = () => {
 
@@ -73,14 +48,11 @@ export const FacturaVendedor = () => {
         console.log(key, type);
         setState({ [type]: key });
       };
-  
-    const remmes= PeticionGETIntranet('/')
       
     return (
         <Card
         style={{ width: '100%' }}
         title={<h1>Listado Ventas por Vendedor / Cliente</h1>}
-        extra={<a href="#">More</a>}
         tabList={tabList}
         activeTabKey={state.key}
         onTabChange={key => {
