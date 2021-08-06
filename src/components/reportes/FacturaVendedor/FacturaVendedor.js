@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { Card } from 'antd';
-import { PeticionGETIntranet } from '../../config/PeticionGET';
+import { PeticionGETIntranet } from '../../../config/PeticionGET';
+import { FacturacionMes } from './FacturacionMes';
 
 const tabList = [
     {
@@ -58,7 +59,7 @@ const tabList = [
   ]
 
   const contentList = {
-    tab1: <p>content1</p>,
+    tab1: <FacturacionMes/>,
     tab2: <p>
 
 
@@ -72,10 +73,7 @@ export const FacturaVendedor = () => {
         console.log(key, type);
         setState({ [type]: key });
       };
-    //buscar en ant un metodo para poder intercambiar cada tabla
-    // hacer las 6 tablas 
-    //imprimir  las tablas de la Db 
-    // hacer importacion a excel.
+  
     const remmes= PeticionGETIntranet('/')
       
     return (

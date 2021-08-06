@@ -31,7 +31,9 @@ export const Kilometros = ({history}) => {
     setDatePicker( dateString)
 }
   const {KmI,KmF,notas,fechaSelect}=values
-  const restaKm = KmI==='' && KmF==='' ? '0 ': KmF-KmI;
+  const restaKm = KmI==='' && KmF==='' ? '0 ': parseFloat(KmF) - parseFloat(KmI);
+  console.log(restaKm);
+  console.log(parseFloat(KmF) > parseFloat(KmI));
   const totalImporte= restaKm==='0'?'Importe':restaKm*17
   const  peticionGet= async () => {
     const { data } = await axiosURL.get('/rendiciones/kilometros')
