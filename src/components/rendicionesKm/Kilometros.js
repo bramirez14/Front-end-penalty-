@@ -30,11 +30,11 @@ export const Kilometros = ({history}) => {
   const handleChangePicker = (date, dateString)=>{
     setDatePicker( dateString)
 }
-  const {KmI,KmF,notas,fechaSelect}=values
+  const {KmI,KmF,nota,fechaSelect}=values
   const restaKm = KmI==='' && KmF==='' ? '0 ': parseFloat(KmF) - parseFloat(KmI);
   console.log(restaKm);
   console.log(parseFloat(KmF) > parseFloat(KmI));
-  const totalImporte= restaKm==='0'?'Importe':restaKm*17
+  const totalImporte= restaKm==='0'?'Importe':restaKm*17//debe venir de la db
   const  peticionGet= async () => {
     const { data } = await axiosURL.get('/rendiciones/kilometros')
     setStateKm(data)
@@ -75,12 +75,13 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
      
    }
    const handleSubmit= async() =>{
-    if(KmF< KmI){
+    if(parseFloat(KmF)< parseFloat(KmI)){
       Swal.fire(
         ' Km final debe ser mayor a  Km inicial',
         
       )
     }else{
+      console.log(values);
       await axiosURL.post('/kilometros',{...values,KmRecorrido:restaKm,importe:totalImporte,fechaSelect:datePicker})
       peticionGet();
         reset()
@@ -95,7 +96,7 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
 const style={
   borderRadius:10,background:'#46a461',border:'none',boxShadow:'none',color:'#ffff'
 }
-console.log(!!loading);
+console.log(values);
   return (
     <div style={{display:'flex',flexWrap:'nowrap'}}>
 <Form
@@ -136,7 +137,7 @@ console.log(!!loading);
         <Input  value={` $${totalImporte}`} disabled />
       </Form.Item>
       <Form.Item>
-        <Input.TextArea name="nota" placeholder="Nota" value={notas}/>
+        <Input.TextArea name="nota" placeholder="Nota" value={nota}/>
       </Form.Item>
       <Form.Item >
         <Button block style={{borderRadius:10}} htmlType="submit" >Agregar</Button>

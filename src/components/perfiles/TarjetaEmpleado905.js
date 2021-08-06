@@ -23,7 +23,7 @@ export const TarjetaEmpleado905 = () => { //Sandra y Bely
         title="Rendicion de Km"
         extra={<Link to="/vista/rendicion/Km">Mas</Link>}
       >
-      <Listo url={'/lista/kilometros'}/>
+      <Listo url={'/todos/kilometros'}/>
       </Card>
     </Col>
     <Col xs={24} sm={12} md={12} lg={6} xl={6}>
@@ -31,7 +31,7 @@ export const TarjetaEmpleado905 = () => { //Sandra y Bely
         title="Anticipo de Sueldo"
         extra={<Link to="/vista/anicipo/sueldo">Mas</Link>}
       >
-      {antSueldo('/anticipo')}
+      <Listo url={'/anticipo'}/>
       </Card>
     </Col>
     <Col xs={24} sm={12} md={12} lg={6} xl={6}>

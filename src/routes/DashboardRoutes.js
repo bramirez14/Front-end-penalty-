@@ -41,7 +41,19 @@ import { AprobacionKm } from "../ComponentsGerentes/AprobacionKm";
 import { RendicionKmVista } from "../view/RendicionKmVista";
 import { PagosKm } from "../view/PagosKm";
 import { AntSueldoVista } from "../view/AntSueldoVista";
-import { FacturaVendedor } from "../components/reportes/FacturaVendedor/FacturaVendedor";
+import { FacturacionDetalladata } from "../components/reportes/facturacionDetallada/FacturacionDetalladata";
+import { FacturaVendedor } from "../components/reportes/facturacionVendedor/FacturaVendedor";
+import { CuentaCorriente } from "../components/reportes/cuentaCorriente/CuentaCorriente";
+import { CobranzaMes } from "../components/reportes/Cobranza/CobranzaMes";
+import { CobranzaAnno } from "../components/reportes/Cobranza/CobranzaAnno";
+import { Cobranza } from "../components/reportes/Cobranza/Cobranza";
+import { ClientesInhabilitados } from "../components/reportes/ClientesInhabilitados/ClientesInhabilitados";
+import { CargaPedidos } from "../components/reportes/cargaPedidos/CargaPedidos";
+import { PendienteDetallado } from "../components/reportes/pendiente/PendienteDetallado";
+import { PendienteAgrupadoCliente } from "../components/reportes/pendiente/PendienteAgrupadoCliente";
+import { FuturosIngresos} from "../components/reportes/futurosIngresos/FuturosIngresos";
+import { Stock } from "../components/reportes/stock/Stock";
+import { SCC } from "../components/reportes/scc/SCC";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -101,13 +113,16 @@ export const DashboardRoutes = ({ history }) => {
         {/**Reportes de Gestion */}
         <RouteEmpleado exact path='/reportes/gestion/remitos' component={Remitos}/>
         <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
-
-
+        <RouteEmpleado exact path='/reportes/facturacion/detallada' component={FacturacionDetalladata}/>
+        <RouteEmpleado exact path='/reportes/cuentacorriente' component={CuentaCorriente}/>
+        <RouteEmpleado exact path='/reportes/cobranza' component={Cobranza}/>
+        <RouteEmpleado exact path='/reportes/clientes/inhabilitados' component={ClientesInhabilitados}/>
+        <RouteEmpleado exact path='/reportes/pendiente/detallado' component={PendienteDetallado}/>
+        <RouteEmpleado exact path='/reportes/pendiente/cliente' component={PendienteAgrupadoCliente}/>
+        <RouteEmpleado exact path='/reportes/futuros/ingresos' component={FuturosIngresos}/>
+        <RouteEmpleado exact path='/reportes/stock' component={Stock}/>
+        <RouteEmpleado exact path='/reportes/scc' component={SCC}/>
         <Redirect to="/login" />
-
-        
-        
-
       </Switch>
       </div>
     

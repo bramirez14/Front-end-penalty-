@@ -3,6 +3,7 @@ import { PeticionGET } from '../../../config/PeticionGET';
 
 export const Listo = ({url}) => {
     const get = PeticionGET(url);
+    console.log(get);
     const filtroRendicionTerminada = get.filter((g) => (g.estadoFinal==='aprobado' && g.listo === "Si") && (g.procesoFinalizado!=='Si' ));
     return (
       <>

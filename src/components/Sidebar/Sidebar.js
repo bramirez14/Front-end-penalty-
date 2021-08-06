@@ -88,7 +88,7 @@ export const Sidebar = ({ history }) => {
               {nombre} {apellido}
             </h4>
           </div>
-          <div style={{ marginTop: 20 }}>
+          <div className='auto' style={{ marginTop: 20 }}>
             {reconocerUsuario.map((item, index) => {
               return <SubMenu item={item} key={index} />;
             })}

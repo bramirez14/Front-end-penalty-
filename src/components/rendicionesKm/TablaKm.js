@@ -32,8 +32,8 @@ export const TablaKm = ({datos,borrar,setState,state}) => {
         },
         {
           title: 'NOTAS',
-          dataIndex: 'notas',
-          render:(state,file) => <span>{file.notas}</span>
+          dataIndex: 'nota',
+          render:(state,file) => <span>{file.nota}</span>
         },
         {
           title: '',
