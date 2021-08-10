@@ -120,7 +120,7 @@ export const SidebarItems = [
       },
       {
         title: "Control de SCC",
-        path: "/reportes/facturacion/detallada",
+        path: "/reportes/scc",
         icon: <IoIcons.IoIosPaper />,
       },
     ],

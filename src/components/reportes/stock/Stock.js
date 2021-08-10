@@ -1,18 +1,26 @@
 import React from 'react'
-import { PeticionGETIntranet } from '../../../config/PeticionGET'
 import { HelperTABLEobj } from '../../../helpers/HelperTABLEobj'
+import { filtradoPorVendedor } from '../helpers/funciones'
 import { columnasStock } from './columnasStock'
 
 export const Stock = () => {
-    const getSotck=PeticionGETIntranet('/stock')
+    const getSotck=filtradoPorVendedor('/stock');
+    var mediaqueryList = window.matchMedia("(min-width: 1200px)");
     return (
-      <HelperTABLEobj
-      hoja={'Stock'}
-      namefile={'Stock'}
-      columns= {columnasStock}
-      data={getSotck}
-      boton={true}
-      paginas={true}
-      />
+      <>{
+        getSotck===undefined?
+        <h1 style={{marginTop:200,marginLeft:300}}>Compruebe su conexion!!!</h1>:
+        <HelperTABLEobj
+        hoja={'Stock'}
+        namefile={'Stock'}
+        columns= {columnasStock}
+        data={getSotck}
+        boton={true}
+        paginas={true}
+        y={mediaqueryList.matches?400:500}
+
+        />
+      }
+      </>
     )
 }

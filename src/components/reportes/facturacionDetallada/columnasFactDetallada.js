@@ -3,112 +3,142 @@ export const columnasFactDet=[
         title: 'Fecha',
         dataIndex: 'fecemision',
         key: 'fecemision',
-        width: '20%',
+        width: 120,
+        render:(state,file)=> {
+        const fecha = file.fecemision.split('T')[0];
+        return <h5>{fecha}</h5>
+      }
         
       },
       {
         title: 'Codigo',
         dataIndex: 'codigo',
         key: 'codigo',
-        width: '20%',
+        width: 100,
+        render:(state,file)=> <h5>{file.codigo}</h5>,
         
       },
       {
         title: 'Comprobante',
         dataIndex: 'numeromov',
         key: 'numeromov',
-        width: '20%',
+        width: 140,
+        render:(state,file)=> <h5>{file.numeromov}</h5>,
         
       },
       {
         title: 'Cliente',
         dataIndex: 'numctacte',
         key: 'numctacte',
-        width: '20%',
+        width: 100,
+        render:(state,file)=> <h5>{file.numctacte}</h5>,
         
       },
       {
         title: 'Razon Social',
         dataIndex: 'razonsoc',
         key: 'razonsoc',
-        width: '20%',
+        width: 200,
+        render:(state,file)=> <h5>{file.razonsoc}</h5>,
         
       },
       {
-        title: 'Vendedor',
+        title: 'Vdor',
         dataIndex: 'vendedor',
         key: 'vendedor',
-        width: '20%',
+        width: 80,
+        
+        render:(state,file)=> <h5>{file.vendedor}</h5>,
         
       },
       {
         title: 'Condicion',
         dataIndex: 'condventa',
         key: 'condventa',
-        width: '20%',
+        width: 120,
+        
+        render:(state,file)=> <h5>{file.condventa}</h5>,
         
       },
       {
-        title: 'Descuento',
+        title: 'Dto',
         dataIndex: 'bonifica',
         key: 'bonifica',
-        width: '20%',
+        width: 120,
+        
+        render:(state,file)=> <h5>{file.bonifica}</h5>,
         
       },
       {
         title: 'Articulo',
         dataIndex: 'articulo',
         key: 'articulo',
-        width: '20%',
+        width: 200,
+        
+        render:(state,file)=> <h5>{file.articulo}</h5>,
         
       },
       {
         title: 'Descripcion',
         dataIndex: 'descrip',
         key: 'descrip',
-        width: '20%',
+        width: 120,
+        
+        render:(state,file)=> <h5>{file.decrip}</h5>,
         
       },
       {
         title: 'Unidades',
         dataIndex: 'unidades',
         key: 'unidades',
-        width: '20%',
+        width: 120,
+        
+        render:(state,file)=> <h5>{file.unidades}</h5>,
         
       },
       {
         title: 'Precio',
         dataIndex: 'precio',
         key: 'precio',
-        width: '20%',
+        width: 120,
+        
+        render:(state,file)=> <h5>{file.precio}</h5>,
         
       },
       {
         title: 'Importe',
         dataIndex: 'importe',
         key: 'importe',
-        width: '20%',
+        width: 120,
+        
+        render:(state,file)=> <h5>{file.importe}</h5>,
         
       },
       {
         title: 'IVA',
         dataIndex: 'iva',
         key: 'iva',
-        width: '20%',
+        width: 120,
+        
+        render:(state,file)=> <h5>{file.iva}</h5>,
         
       },
       {
         title: 'Bonificacion',
         dataIndex: 'bonificacion',
         key: 'bonificacion',
-        width: '20%',
+        width: 130,
+        
+        render:(state,file)=> <h5>{file.bonificacion}</h5>,
         
       },
       {
         title: 'Total',
         dataIndex: 'total',
         key: 'total',
-        width: '20%',
+        width: 120,
+        
+        render:(state,file)=> <h5>{file.total}</h5>,
         
       },
 ]
