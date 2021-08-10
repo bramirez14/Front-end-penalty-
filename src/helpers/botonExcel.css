@@ -8,3 +8,39 @@ padding:7px;
 margin-bottom: 10px;
 
 }
+
+.ant-table-body::-webkit-scrollbar {
+    width: 4px; /* Tamaño del scroll en vertical */
+    height: 4px; /*Tamaño del scroll en horizontal */
+  }
+  /*color y border del scroll*/
+  .ant-table-body::-webkit-scrollbar-thumb {
+    background: #a8a8a8 ;
+    border-radius: 4px;
+  
+  }
+  
+  .ant-table-body::-webkit-scrollbar-thumb:hover {
+    background: #cec8c8;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Cambiamos el fondo cuando esté en active */
+  .ant-table-body::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+  }
+  /* Ponemos un color de fondo y redondeamos las esquinas del track */
+  .ant-table-body::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 4px;
+    
+  }
+  
+  /* Cambiamos el fondo cuando esté en active o hover */
+  .ant-table-body::-webkit-scrollbar-track:hover,
+  .ant-table-body::-webkit-scrollbar-track:active {
+    background: #d4d4d4;
+  }
+  .ant-table-filter-column-title{
+
+  }

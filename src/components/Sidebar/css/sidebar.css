@@ -53,8 +53,39 @@ margin-top:8px
 .auto{
   width: 100%;
   height: 70%;
-  overflow: scroll;
+  overflow-y: scroll;
+
+}
+.auto::-webkit-scrollbar {
+  width: 8px; /* Tamaño del scroll en vertical */
+  height: 8px; /*Tamaño del scroll en horizontal */
+}
+
+.auto::-webkit-scrollbar-thumb {
+  background: #46a461  ;
+  border-radius: 4px;
 
 }
 
+.auto::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Cambiamos el fondo cuando esté en active */
+.auto::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+/* Ponemos un color de fondo y redondeamos las esquinas del track */
+.auto::-webkit-scrollbar-track {
+  background: #46a461 ;
+  border-radius: 4px;
+  
+}
+
+/* Cambiamos el fondo cuando esté en active o hover */
+.auto::-webkit-scrollbar-track:hover,
+.auto::-webkit-scrollbar-track:active {
+  background: #46a461 ;
+}
 

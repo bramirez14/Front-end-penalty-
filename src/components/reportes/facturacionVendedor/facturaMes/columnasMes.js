@@ -4,32 +4,32 @@ export const columnasMes=[
           dataIndex: 'vendedor',
           key: 'vendedor',
           width: '20%',
-          
+          render:(state,file)=> <h5>{file.vendedor}</h5>,
         },
         {
           title: 'Cliente',
           dataIndex: 'numctacte',
           key: 'numctacte',
           width: '20%',
-          
+          render:(state,file)=> <h5>{file.numctacte}</h5>,
         },
         {
           title: 'Razon Social',
           dataIndex: 'razonsoc',
           key: 'razonsoc',
-        
+          render:(state,file)=> <h5>{file.razonsoc}</h5>,
         },
         {
           title: 'Unidades',
           dataIndex: 'unidades',
           key: 'unidades',
-        
+          render:(state,file)=> <h5>{file.unidades}</h5>,
         },
         {
           title: 'Importe',
           dataIndex: 'importe',
           key: 'importe',
-        
+          render:(state,file)=> <h5>{file.importe}</h5>,
         },
 
 

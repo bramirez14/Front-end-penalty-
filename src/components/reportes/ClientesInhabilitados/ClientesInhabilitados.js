@@ -1,19 +1,29 @@
-import React from 'react'
-import { PeticionGETIntranet } from '../../../config/PeticionGET'
-import { HelperTABLEobj } from '../../../helpers/HelperTABLEobj'
-import { columnasCliInhab } from './columnasCliInhab'
+import React from "react";
+import { HelperTABLEobj } from "../../../helpers/HelperTABLEobj";
+import { filtradoPorVendedor } from "../helpers/funciones";
+import { columnasCliInhab } from "./columnasCliInhab";
 
 export const ClientesInhabilitados = () => {
-    const getCliInhab=PeticionGETIntranet('/clientes/inhabilitados')
-    return (
-<HelperTABLEobj
-hoja={'clientes Inhab'}
-namefile={'Clientes Inhabilitados'}
-columns={columnasCliInhab}
-data={getCliInhab}
-paginas={true}
-boton={true}
-
-/>
- )
-}
+  const getCliInhab = filtradoPorVendedor("/clientes/inhabilitados");
+  var mediaqueryList = window.matchMedia("(min-width: 1200px)");
+  return (
+    <>
+      {getCliInhab === undefined ? (
+        <h1 style={{ marginTop: 200, marginLeft: 300 }}>
+          Compruebe su conexion!!!
+        </h1>
+      ) : (
+        <HelperTABLEobj
+          hoja={"clientes Inhab"}
+          namefile={"Clientes Inhabilitados"}
+          columns={columnasCliInhab}
+          data={getCliInhab}
+          paginas={true}
+          boton={true}
+        y={mediaqueryList.matches?400:500}
+          
+        />
+      )}
+    </>
+  );
+};

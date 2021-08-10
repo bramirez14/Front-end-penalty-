@@ -1,17 +1,28 @@
-import React from 'react'
-import { PeticionGETIntranet } from "../../../../config/PeticionGET";
-import { HelperTABLE } from '../../../../helpers/HelperTABLE'
-import { columnasFactAnno } from './columnasFactAnno'
+import React from "react";
+import { HelperTABLEobj } from "../../../../helpers/HelperTABLEobj";
+import { filtradoPorVendedor } from "../../helpers/funciones";
+import { columnasFactAnno } from "./columnasFactAnno";
 export const FacturacionAnno = () => {
-    const getFactAnno= PeticionGETIntranet('/facturacion/anno')
-    return (
-       <HelperTABLE
-       hoja={'Facturacion por Año'}
-       namefile={'Facturacion por Año'}
-       columns={columnasFactAnno}
-       data={getFactAnno}
-       boton={true}
-       
-       />
-    )
-}
+  const getFactAnno = filtradoPorVendedor("/facturacion/anno");
+  var mediaqueryList = window.matchMedia("(min-width: 1200px)");
+
+  return (
+    <>
+      {getFactAnno === undefined ? (
+        <h1 style={{ marginTop: 200, marginLeft: 300 }}>
+          Compruebe su conexion!!!
+        </h1>
+      ) : (
+        <HelperTABLEobj
+          hoja={"Facturacion por Año"}
+          namefile={"Facturacion por Año"}
+          columns={columnasFactAnno}
+          data={getFactAnno}
+          boton={true}
+          paginas={true}
+          y={mediaqueryList.matches ? 200 : 300}
+        />
+      )}
+    </>
+  );
+};

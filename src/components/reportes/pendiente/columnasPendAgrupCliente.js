@@ -1,9 +1,37 @@
-export const columnasPendAgrupCliente=[
-    
-    { title: "Vendedor", dataIndex: "vendedor", key: "vendedor"},
-    { title: "Cliente", dataIndex: "cliente", key: "cliente"},
-    { title: "Razon Social", dataIndex: "razonsoc", key: "razonsoc"},
-    { title: "Pendiente", dataIndex: "pendiente", key: "pendiente"},
-    { title: "Importe", dataIndex: "importe", key: "importe"},
-
-]
+export const columnasPendAgrupCliente = [
+  {
+    title: "Vendedor",
+    dataIndex: "vendedor",
+    key: "vendedor",
+    width: 100,
+    render: (state, file) => <h5>{file.vendedor}</h5>,
+  },
+  {
+    title: "Cliente",
+    dataIndex: "cliente",
+    key: "cliente",
+    width: 100,
+    render: (state, file) => <h5>{file.cliente}</h5>,
+  },
+  {
+    title: "Razon Social",
+    dataIndex: "razonsoc",
+    key: "razonsoc",
+    width: 100,
+    render: (state, file) => <h5>{file.razonsoc}</h5>,
+  },
+  {
+    title: "Pendiente",
+    dataIndex: "pendiente",
+    key: "pendiente",
+    width: 100,
+    render: (state, file) => <h5>{file.pendiente}</h5>,
+  },
+  {
+    title: "Importe",
+    dataIndex: "importe",
+    key: "importe",
+    width: 100,
+    render: (state, file) => <h5>${file.importe}</h5>,
+  },
+];

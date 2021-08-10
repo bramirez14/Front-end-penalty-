@@ -13,7 +13,7 @@ console.log(todosRemitos);
 
     let filtrado;
 
-    if(N==='0000'||'905'||'906'||'903'||'902'||'901'){
+    if(N==='0000'||'905'||'906'||'903'||'902'||'901'||'907'){
 
       filtrado = todosRemitos
     }else{

@@ -46,7 +46,7 @@ export const SidebarItems2 = [
     ],
   },
   {
-    title: "Reporte de  Gestion",
+    title: "Reporte de Gestion",
     icon: <MdTrendingUp />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -56,13 +56,57 @@ export const SidebarItems2 = [
         path: "/reportes/gestion/remitos",
         icon: <IoIcons.IoIosPaper />,
       },
-      {
+       {
         title: "Facturacion por Vendedor",
         path: "/reportes/facturacion/ventas",
         icon: <IoIcons.IoIosPaper />,
       },
       {
         title: "Facturacion Detallada",
+        path: "/reportes/facturacion/detallada",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Cuenta Corriente",
+        path: "/reportes/cuentacorriente",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Cobranzas",
+        path: "/reportes/cobranza",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Clientes Inhabilitados",
+        path: "/reportes/clientes/inhabilitados",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Control Carga de Pedidos",
+        path: "/reportes/carga/pedidos",
+        icon: <IoIcons.IoIosPaper />,
+      },  {
+        title: "pendiente Detallado",
+        path: "/reportes/pendiente/detallado",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Pendiente Agrupado por Cliente",
+        path: "/reportes/pendiente/cliente",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Futuros Ingresos",
+        path: "/reportes/futuros/ingresos",
+        icon: <IoIcons.IoIosPaper />,
+      }, 
+       {
+        title: "Stock",
+        path: "/reportes/stock",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Control de SCC",
         path: "/reportes/facturacion/detallada",
         icon: <IoIcons.IoIosPaper />,
       },
