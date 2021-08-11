@@ -1,4 +1,6 @@
 import { Button } from "antd";
+import { axiosURLIntranet } from "../../../config/axiosURL";
+import { saveAs } from "file-saver";
 
 export const columnasCtaCte=[
    
@@ -107,8 +109,17 @@ export const columnasCtaCte=[
         dataIndex: 'pdf',
         key: 'pdf',
         width:120,
-
-        render:(state,file)=> <h5>{file.pdf}</h5>//pendiente
+        render: (a, file) => {
+          const descargarPDF = async (pdf) => {
+            let res = await axiosURLIntranet.get("/remitos/pdf/comprobantes", {
+              headers: { archivo: pdf },
+              responseType: "blob",
+            });
+            const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
+            saveAs(pdfBlob, `${file.pdf}`);
+          };
+          return <Button type='link' onClick={() => descargarPDF(file.pdf)}>descargar</Button>;
+        },
       },
       
       

@@ -9,7 +9,11 @@ export const FacturacionAnnoGral = () => {
 
   return (
     <>
-     
+      {getFactAnnoGral === undefined ? (
+        <h1 style={{ marginTop: 200, marginLeft: 300 }}>
+          Compruebe su conexion!!!
+        </h1>
+      ) : (
         <HelperTABLEobj
           hoja={"Factruacion Año Gral"}
           namefile={"Factruacion Año Gral"}
@@ -19,7 +23,7 @@ export const FacturacionAnnoGral = () => {
           paginas={true}
           y={mediaqueryList.matches ? 200 : 300}
         />
-      
+      )}
     </>
   );
 };

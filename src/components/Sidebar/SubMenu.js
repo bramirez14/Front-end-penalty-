@@ -8,7 +8,8 @@ const SubMenu = ({ item }) => {
   const showSubnav = () => setSubnav(!subnav);
   return (
     <>
-    <Link to='/perfil'>
+    <div>
+    <Link to={item.path}>
       <div className='link' onClick={item.subNav && showSubnav}>
         <div>
           {item.icon}
@@ -23,6 +24,7 @@ const SubMenu = ({ item }) => {
         </div>
       </div>
       </Link>
+      </div>
       {subnav &&
         item.subNav.map((item, index) => {
           return (
