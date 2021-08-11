@@ -6,7 +6,7 @@ import { Remitado } from '../remitado/Remitado';
 import { FacturacionAnno } from './facturacionAnno/FacturacionAnno';
 import { FacturacionMesGral } from './facturacionMesGral/FacturacionMesGral';
 import { FacturacionAnnoGral } from './facturacionAnnoGral/FacturacionAnnoGral';
-
+const N = localStorage.getItem('N');
 const tabList = [
     {
       key: 'tab1',
@@ -22,16 +22,30 @@ const tabList = [
       },
       {
         key: 'tab4',
-        tab: 'Facturacion Mes Gral',
+        tab: N === "0000"||
+        N === "905" ||
+        N === "906" ||
+        N === "903" ||
+        N === "902" ||
+        N === "901" ||
+        N === "907"?'Facturacion Mes Gral':'',
       },{
         key: 'tab5',
-        tab: 'Facturacion Año Gral',
+        tab:  
+        N === "0000"||
+       N === "905" ||
+       N === "906" ||
+       N === "903" ||
+       N === "902" ||
+       N === "901" ||
+       N === "907"? 'Facturacion Año Gral':'',
       },
      
   ];
  
 
   const contentList = {
+    
     tab1: <FacturacionMes/>,
     tab2: <Remitado/>,
     tab3: <FacturacionAnno/>,

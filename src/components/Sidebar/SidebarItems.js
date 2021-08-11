@@ -13,6 +13,7 @@ import { MdTrendingUp } from "react-icons/md";
 export const SidebarItems = [
   {
     title: "Home",
+    path: "/perfil",
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,

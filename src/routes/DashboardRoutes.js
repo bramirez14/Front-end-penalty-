@@ -24,10 +24,8 @@ import { UserContext } from "../contexto/UserContext";
 import { SueldoContainer } from "../components/solicitudes/SueldoContainer";
 import { AprobacionGastos } from "../ComponentsGerentes/AprobacionGastos";
 import { PDF } from "../components/view/PDF";
-import { Remitos } from "../components/reportes/Remitos";
 import { Mensajes } from "../components/mensajes/Mensajes";
 import { EstadoUsuario } from "../components/estado/EstadoUsuario";
-
 import { Demo } from "../components/Demo";
 import { RendicionGastosVista } from "../view/RendicionGastosVista";
 import { PagosAntSueldo } from "../view/PagosAntSueldo";
@@ -44,8 +42,6 @@ import { AntSueldoVista } from "../view/AntSueldoVista";
 import { FacturacionDetalladata } from "../components/reportes/facturacionDetallada/FacturacionDetalladata";
 import { FacturaVendedor } from "../components/reportes/facturacionVendedor/FacturaVendedor";
 import { CuentaCorriente } from "../components/reportes/cuentaCorriente/CuentaCorriente";
-import { CobranzaMes } from "../components/reportes/Cobranza/CobranzaMes";
-import { CobranzaAnno } from "../components/reportes/Cobranza/CobranzaAnno";
 import { Cobranza } from "../components/reportes/Cobranza/Cobranza";
 import { ClientesInhabilitados } from "../components/reportes/ClientesInhabilitados/ClientesInhabilitados";
 import { CargaPedidos } from "../components/reportes/cargaPedidos/CargaPedidos";
@@ -54,6 +50,7 @@ import { PendienteAgrupadoCliente } from "../components/reportes/pendiente/Pendi
 import { FuturosIngresos} from "../components/reportes/futurosIngresos/FuturosIngresos";
 import { Stock } from "../components/reportes/stock/Stock";
 import { SCC } from "../components/reportes/scc/SCC";
+import { Remitos } from "../components/reportes/remitos/Remitos";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
