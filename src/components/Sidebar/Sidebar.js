@@ -21,6 +21,8 @@ import { SidebarItemsEmpleado } from "./SidebarItemsEmpleado";
 import { BotomHamburguesa } from "../botones/BotomHamburguesa";
 import { NombreCompleto } from "./NombreCompleto";
 import io from "socket.io-client";
+import CustomScroll from 'react-custom-scroll';
+
 
 export const Sidebar = ({ history }) => {
   const abrirCerrarHamburguesa = () => setOpen(!open);
@@ -88,11 +90,13 @@ export const Sidebar = ({ history }) => {
               {nombre} {apellido}
             </h4>
           </div>
-          <div className='auto' style={{ marginTop: 20 }}>
+          <CustomScroll heightRelativeToParent="calc(80% - 100px)">
+          <div  style={{ marginTop: 20,paddingRight:12 }}>
             {reconocerUsuario.map((item, index) => {
               return <SubMenu item={item} key={index} />;
             })}
           </div>
+          </CustomScroll>
         </div>
       </nav>
     </>

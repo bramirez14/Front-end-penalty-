@@ -3,36 +3,36 @@ body {
   background: #f0f2f5;
 }
 body::-webkit-scrollbar {
-  width: 12px; /* Tamaño del scroll en vertical */
-  height: 12px; /*Tamaño del scroll en horizontal */
+  width: 8px; /* Tamaño del scroll en vertical */
+  height: 8px; /*Tamaño del scroll en horizontal */
+
 }
 body::-webkit-scrollbar-thumb {
-  background: #F6F3DD  ;
-  border-radius: 4px;
-
+  background: #8D8888  ;
+  border-radius: 10px;
 }
 
 body::-webkit-scrollbar-thumb:hover {
   background: #b3b3b3;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2); */
 }
 
+
 /* Cambiamos el fondo cuando esté en active */
-body::-webkit-scrollbar-thumb:active {
+/* body::-webkit-scrollbar-thumb:active {
   background-color: #999999;
-}
+} */
 /* Ponemos un color de fondo y redondeamos las esquinas del track */
 body::-webkit-scrollbar-track {
-  background: #9B9B9B;
-  border-radius: 4px;
-  
+  background: #f0f2f5;
+ 
 }
 
 /* Cambiamos el fondo cuando esté en active o hover */
-body::-webkit-scrollbar-track:hover,
+/* body::-webkit-scrollbar-track:hover,
 body::-webkit-scrollbar-track:active {
   background: #d4d4d4;
-}
+} */
 
 #img {
   display: none;

@@ -1,12 +1,10 @@
-import React from 'react'
 import { PeticionGETIntranet } from "../../../config/PeticionGET";
-import { HelperTABLEobj } from '../../../helpers/HelperTABLEobj';
 
 export const filtradoPorVendedor = (url) => {
   const N = localStorage.getItem("N");
   let filtrado;
   const getDB = PeticionGETIntranet(url);
-  if (!!getDB.original) {
+  if (!!getDB?.original) {
     console.log(getDB);
     console.log(!!getDB.original);
   } else {
@@ -29,3 +27,4 @@ export const filtradoPorVendedor = (url) => {
 
   return filtrado;
 };
+
