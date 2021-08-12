@@ -21,7 +21,7 @@ export const CuentaCorriente = () => {
           columns={columnasCtaCte}
           boton={true}
           paginas={true}
-          y={mediaqueryList.matches ? 400 : 500}
+          y={mediaqueryList.matches ? 350 : 500}
         />
       )}
     </>

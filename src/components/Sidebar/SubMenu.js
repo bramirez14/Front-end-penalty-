@@ -4,13 +4,16 @@ import './css/subMenu.css'
 
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
+  const [cambioColor, setCambioColor] = useState(false);
 
-  const showSubnav = () => setSubnav(!subnav);
+  const showSubnav = () => {
+    setCambioColor(!cambioColor)
+    setSubnav(!subnav);}
   return (
     <>
     <div>
     <Link to={item.path}>
-      <div className='link' onClick={item.subNav && showSubnav}>
+      <div className={cambioColor?'color' : 'link' }onClick={item.subNav && showSubnav}>
         <div>
           {item.icon}
           <span className='label'>{item.title}</span>
@@ -29,9 +32,9 @@ const SubMenu = ({ item }) => {
         item.subNav.map((item, index) => {
           return (
             <Link to={item?.path} >
-            <div className='dropdownLink'  key={index}>
+            <div className='dropdownLink' key={index}>
               {item.icon}
-              <label className='label' onClick={showSubnav}>{item.title}</label>
+              <label className='label' /* onClick={showSubnav} */>{item.title}</label>
             </div>
             </Link>
           );
