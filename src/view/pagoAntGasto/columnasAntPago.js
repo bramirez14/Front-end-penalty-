@@ -75,7 +75,7 @@ export const columnsant = [
                 <span>No hay pdf</span>
               ) : (
                 <Button type="link" onClick={() => descargarPDF(file.pdf)}>
-                  pdf
+                  descargar
                 </Button>
               )}
             </>
@@ -93,7 +93,7 @@ export const columnsant = [
                 <span>No hay pdf</span>
               ) : (
                 <Button type="link" onClick={() => descargarPDF(file.pdfinal)}>
-                  pdf
+                  descargar
                 </Button>
               )}
             </>

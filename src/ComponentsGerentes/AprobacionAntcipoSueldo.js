@@ -68,7 +68,8 @@ export const AprobacionAntcipoSueldo = () => {
         estadoFinal: "aprobado",
         notificacion: "inactiva",
         estado: "aprobado",
-        f:new Date().toLocaleString()
+        listo:'Si',
+        f:new Date().toLocaleString(),
       })
      
     }else{
