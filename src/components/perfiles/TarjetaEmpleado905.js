@@ -1,8 +1,7 @@
 import React from 'react'
 import { Row,Col,Card } from 'antd'
 import { Link } from "react-router-dom";
-import { Listo,AntSueldo } from './helpers/funcionesTarjeta';
-import { antSueldo } from './helpers/funciones';
+import { Listo } from './helpers/funcionesTarjeta';
 
 
 export const TarjetaEmpleado905 = () => { //Sandra y Bely

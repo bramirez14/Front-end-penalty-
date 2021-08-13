@@ -263,7 +263,7 @@ export const AprobacionGastos = () => {
       render: (state, file) => (
         <>
           {
-          file.sinAnticipo==='sin'?'':
+          file.sinAnticipo !== 'sin'?'':
           file.importe < file.importerendido ? (
             <span style={{ color: "red" }}> ${file.importerendido} </span>
           ) : (

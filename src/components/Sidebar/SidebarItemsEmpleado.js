@@ -13,6 +13,7 @@ import { MdTrendingUp } from "react-icons/md";
 export const SidebarItemsEmpleado = [
   {
     title: "Home",
+    path: "/perfil",
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -123,7 +124,31 @@ export const SidebarItemsEmpleado = [
       },
       {
         title: "Control de SCC",
-        path: "/reportes/facturacion/detallada",
+        path: "/reportes/scc",
+        icon: <IoIcons.IoIosPaper />,
+      },
+    ],
+  },
+  {
+    title: "Solicitudes",
+    icon: <FaEnvelope />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: "Sueldo",
+        path: "/sueldos",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Vacaciones",
+        path: "/vacaciones",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Gastos",
+        path: "/anticipo/gastos",
         icon: <IoIcons.IoIosPaper />,
       },
     ],

@@ -8,7 +8,7 @@ export const AntSueldoVista = ({ history }) => {
   const N = localStorage.getItem("N");
   const [sueldo, setSueldo] = useState([]);
   /**evitar que usuari 905 ingresen a la ruta */
-  N != "905" && history.push("/perfil");
+  N !== "905" && history.push("/perfil");
 
   /* const finalizar= async (id)=>{
 let result = await axiosURL.post(`/finalizar/gasto/${id}`,{procesoFinalizado:'Si'})

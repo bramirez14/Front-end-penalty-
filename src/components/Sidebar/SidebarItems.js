@@ -127,7 +127,7 @@ export const SidebarItems = [
     ],
   },
   {
-    title: "Solicitud",
+    title: "Solicitudes",
     icon: <FaEnvelope />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,

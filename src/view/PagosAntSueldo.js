@@ -108,7 +108,7 @@ file:''
         render:(state,file)=>{return(
           <>  
           { file.pdf===null || file.pdf===''?<span>No hay pdf</span>:
-            <Button type='link' onClick={()=>descargarPDF(file.pdf)} >pdf</Button>
+            <Button type='link' onClick={()=>descargarPDF(file.pdf)} >descargar</Button>
             }
           </>
           )}
@@ -123,7 +123,7 @@ file:''
               <>
               {file.pdfinal===null || file.pdfinal===''?<span>No hay pdf</span>: 
               
-            <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} >pdf</Button>
+            <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} >descargar</Button>
               
               }
               </>

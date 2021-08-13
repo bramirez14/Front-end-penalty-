@@ -30,7 +30,7 @@ export const PagosAntGasto = () => {
         <>
           {file.pagoRealizado === "Si" ? (
             <p>Realizado</p>
-          ) : file.pagoRealizado === "En curso" ? (
+          ) : file.pagoRealizado === "En curso" && file.listo!=='Si' ? (
             <p> En curso...</p>
           ) : (
             <>
@@ -40,7 +40,7 @@ export const PagosAntGasto = () => {
                   title={"Rendicion sin Anticipo"}
                   Submit={"Finalizar"}
                   Return={"Salir"}
-                  click={() => finalizar(file.id)}
+                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile)}
                 >
                   <FormularioSinAnt
                     stateFile={stateFile}
@@ -49,6 +49,8 @@ export const PagosAntGasto = () => {
                     importeRendido={file.importerendido}
                   />
                 </HelperMODAL>
+
+
               ) : file.listo === "Si" ? (
                 <HelperMODAL
                   boton={"Completar"}
@@ -65,6 +67,8 @@ export const PagosAntGasto = () => {
                     importe={file.importe}
                   />
                 </HelperMODAL>
+
+
               ) : (
                 <HelperMODAL
                   boton={"Completar"}

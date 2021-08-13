@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { axiosURL } from "../config/axiosURL";
-import { Card, Collapse, Button, Row, Col, Table } from "antd";
+import { Card, Button, Row, Col, Table } from "antd";
 import { Modale } from "./helpers/Modale";
 import { saveAs } from "file-saver";
 
@@ -10,7 +10,7 @@ export const RendicionGastosVista = ({ history }) => {
   const [gasto, setGasto] = useState([]);
 
   /**evitar que usuari 905 ingresen a la ruta */
-  N != "905" && history.push("/perfil");
+  N !== "905" && history.push("/perfil");
 
   /* const finalizar= async (id)=>{
 let result = await axiosURL.post(`/finalizar/gasto/${id}`,{procesoFinalizado:'Si'})
@@ -60,7 +60,7 @@ result.status===200 && history.push('/perfil')
 
     { title: "N° orden", dataIndex: "norden", key: "norden", width: "100px" },
     {
-      title: "PDFSB",
+      title: "PDFproveedores",
       dataIndex: "pdf",
       key: "pdf",
       width: "100px",
@@ -68,11 +68,11 @@ result.status===200 && history.push('/perfil')
         <>
         {file.pdf===null || ''?
         <span>No hay pdf!!</span>:
-          <Button type="link" onClick={() => descargarPDF(file.pdf)}>pdf</Button>
+          <Button type="link" onClick={() => descargarPDF(file.pdf)}>descargar</Button>
         }
         </>
       ),
-    }, //cambiar nombre de titulo
+    }, 
     {
       title: "Acciones",
       dataIndex: "acciones",
@@ -81,7 +81,7 @@ result.status===200 && history.push('/perfil')
       render: (state, file) => (
         <>
           {file.procesoFinalizado === "Si" ? (
-            <span y>Completado</span>
+            <span>Completado</span>
           ) : (
             <Modale id={file.id} orden={file.norden} get={get} url={'/archivo/pdf'} />
           )}

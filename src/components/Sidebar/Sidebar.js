@@ -67,7 +67,7 @@ export const Sidebar = ({ history }) => {
           <div className="navbar">
             <div className='hamburguesa'> <BotomHamburguesa abrirCerrarHamburguesa={abrirCerrarHamburguesa}/></div>
             <div className='nomaler'style={{display:'flex'}}> 
-            <div className='alerta' ><Alerta/></div> 
+            {/* <div className='alerta' ><Alerta/></div>  */}
             <div className='nombreCompleto'><NombreCompleto nombre={nombre} apellido={apellido} handleLogout={handleLogout}/></div>
             
             </div>
