@@ -41,7 +41,7 @@ export const CardKm = () => {
             {item.content}
             <p>Importe Total: {item.importeTotal} </p>
             <p>Km Total: {item.kmTotal}</p>
-            <ModalKm title={'Informacion'} boton={'Inf'}>
+            <ModalKm title={'Informacion'} boton={'Inf'} longModal={800}>
             <TablaInfkm data={item.rendicionKm}/>
             </ModalKm>
           </List.Item>

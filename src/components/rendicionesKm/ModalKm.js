@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button } from 'antd';
 
-export const ModalKm = ({state,setState,click,children,boton,block,style,title,Submit,Return,history}) => {
+export const ModalKm = ({longModal,click,children,boton,block,style,title,Submit,Return,history}) => {
 
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
@@ -21,6 +21,7 @@ export const ModalKm = ({state,setState,click,children,boton,block,style,title,S
     title={title}
     onOk={handleOk}
     onCancel={handleCancel}
+    width={longModal}
     footer={[
       <Button key="back" onClick={handleCancel}>
        {Return}
