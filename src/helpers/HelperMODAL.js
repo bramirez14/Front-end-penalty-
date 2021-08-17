@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
-import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export const HelperMODAL = ({
   state,
   setState,
   click,
+  noclick,
   children,
   boton,
   block,
@@ -13,11 +13,14 @@ export const HelperMODAL = ({
   title,
   Submit,
   Return,
-  history,
+  longModal
 }) => {
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
-  const handleCancel = () => setVisible(false);
+  const handleCancel = () => {
+    setVisible(false);
+    noclick()
+  }
   const handleOk = () => {
     setVisible(false);
     click();
@@ -33,6 +36,7 @@ export const HelperMODAL = ({
         title={title}
         onOk={handleOk}
         onCancel={handleCancel}
+        width={longModal}
         footer={[
           <Button key="back" onClick={handleCancel}>
             {Return}
