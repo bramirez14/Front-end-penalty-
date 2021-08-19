@@ -1,4 +1,4 @@
-import React,{ useEffect,useContext} from "react";
+import React from "react";
 import { Row, Col, List, Button, } from "antd";
 import {
   Get,
@@ -11,22 +11,9 @@ import { run } from "../helper/funciones";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Link } from "react-router-dom";
 import { axiosURL } from "../../config/axiosURL";
-import { UserContext } from "../../contexto/UserContext";
-import io from "socket.io-client";
 
 export const MensajesGerencia = ({history}) => {
-  useEffect(() => {
-    const socket =  io.connect( "http://localhost:4000",{ 
-    transports: ['websocket'],
-    autoConnect: true,
-    forceNew: true,})
-    //console.log(socket);
-    console.log(socket);
-   
-  }, []);
 
-
-  const {msj,setMsj} = useContext(UserContext)
   const anticipos = Get("/anticipo");
   const anticiposnew = anticipos.map((a) => {
     return { ...a, link: "/aprobacion/sueldo", titulo: "Anticipo de Sueldo",linkDB:`/alerta/anticipo/${a.id}` };
@@ -100,10 +87,10 @@ export const MensajesGerencia = ({history}) => {
     console.log(data.linkDB);
     const resp=await axiosURL.put(data.linkDB,{notificacion:'activa'});
     console.log(resp);
-    if(resp.status===200){
+   /*  if(resp.status===200){
       const eliminado=todosgtes.filter(t=>t.id!== data.id)
       setMsj(eliminado)
-    }
+    } */
   };
   return (
     <List
