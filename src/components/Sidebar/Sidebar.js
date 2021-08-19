@@ -26,7 +26,7 @@ import CustomScroll from 'react-custom-scroll';
 
 export const Sidebar = ({ history }) => {
   const abrirCerrarHamburguesa = () => setOpen(!open);
-  const { setAuth } = useContext(UserContext);
+  const { setAuth,usuariosIO,setUsuariosIO} = useContext(UserContext);
   const id = localStorage.getItem("uid");
   const mediaqueryList = window.matchMedia("(max-width: 576px)");
   const q = mediaqueryList.matches;
@@ -39,6 +39,8 @@ export const Sidebar = ({ history }) => {
 
 
   const handleLogout = async () => {
+ const token = localStorage.getItem('token'); // se solicita el token de localstorage
+
     await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
     logout();
     history.push("/login");
@@ -46,9 +48,15 @@ export const Sidebar = ({ history }) => {
     const socket =  io.connect( "//intranet.penalty.com.ar:4000",{ 
       transports: ['websocket'],
       autoConnect: true,
-      forceNew: true,})
-     console.log(socket);
+      forceNew: true,
+      query: {
+        'x-token': token
+    }
+    })
       socket?.disconnect();
+      socket.on('lista-usuarios', (data)=> { 
+        setUsuariosIO(data)
+      });
   };
 
 

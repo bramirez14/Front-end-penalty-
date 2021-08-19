@@ -13,7 +13,7 @@ export const AlertaGerencia = () => {
   const [listaVacaciones, setListaVacaciones] = useState([]);
   const [listaGasto, setListaGasto] = useState([]);
   const [listaKm, setListaKm] = useState([]);
-//secto socket 
+//sector socket 
 useEffect(() => {
   const socket =  io.connect( "http://localhost:4000",{ 
   transports: ['websocket'],
