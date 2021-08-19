@@ -1,0 +1,22 @@
+.lista-usuarios{
+    height: 535px;
+    overflow: auto;
+}
+.lista-usuarios::-webkit-scrollbar {
+    width: 8px; /* Tamaño del scroll en vertical */
+  }
+  /* 
+  .lista-usuarios::-webkit-scrollbar-thumb {
+    background: #8D8888;
+  
+  }
+   */
+  .lista-usuarios::-webkit-scrollbar-thumb:hover{
+    background: #b3b3b3;
+  }
+  
+  /*barra scroll*/
+  .rcs-custom-scroll {
+    min-height: 0;
+    min-width: 0
+  }

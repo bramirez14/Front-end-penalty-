@@ -18,7 +18,7 @@ const SubMenu = ({ item }) => {
           {item.icon}
           <span className='label'>{item.title}</span>
         </div>
-        <div>
+        <div >
           {item?.subNav && subnav
             ? item?.iconOpened
             : item?.subNav

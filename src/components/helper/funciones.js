@@ -73,7 +73,6 @@ export const run = (date) => {
     console.log(St + 'SEGUNDOS');
     console.log(resultDias); */
     if (resultDias === '0 dia'){
-      console.log('vamos a lograrlo');
    if(Ht===0){
      
        return Mt>1? `${Mt} minutos`: `${Mt} minuto`}

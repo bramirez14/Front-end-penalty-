@@ -12,16 +12,15 @@ const gastoTotal= [...gastosConAnt,...gastosSinAnt];
 const gastoMuestra= muestraPendiente(gastoTotal);
 const anticipoMuestra= muestraPendiente(anticipo);
 const vacacionMuestra= muestraPendiente(vacacion);
-
 const km= KmPendiente('/todos/kilometros')
+console.log(km);
 const kmMuestra= muestraPendiente(km)
-console.log(kmMuestra);
   return (
-    <Row gutter={[30,30]}>
-      <Col xs={24} sm={12} md={12} lg={6} xl={6}>
+    <>
         <Card
           title="Anticipo de sueldo"
           extra={<Link to="/aprobacion/sueldo">Mas</Link>}
+          bordered={false}
         >
           {anticipoMuestra.length > 0 ? (
             <h4>
@@ -31,12 +30,12 @@ console.log(kmMuestra);
             <h4 >No hay notificaciones!!!</h4>
           )}
         </Card>
-      </Col>
 
-      <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
           title="Anticipo de gasto"
           extra={<Link to="/aprobacion/gastos">Mas</Link>}
+          bordered={false}
+
         >
           {gastoMuestra?.length > 0 ? (
             <h4>
@@ -46,11 +45,11 @@ console.log(kmMuestra);
             <h4>No hay notificaciones!!!</h4>
           )}
         </Card>
-      </Col>
-      <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
           title="Vacaciones"
           extra={<Link to="/aprobacion/vacaciones">Mas</Link>}
+          bordered={false}
+
         >
           {vacacionMuestra.length > 0 ? (
             <h4>
@@ -60,11 +59,11 @@ console.log(kmMuestra);
             <h4>No hay notificaciones!!!</h4>
           )}
         </Card>
-      </Col>
-      <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
           title="Rendicion de Km"
           extra={<Link to="/aprobacion/km">Mas</Link>}
+          bordered={false}
+
         >
         {kmMuestra.length > 0 ? (
             <h4>
@@ -74,7 +73,6 @@ console.log(kmMuestra);
             <h4 >No hay notificaciones!!!</h4>
           )}
         </Card>
-      </Col>
-    </Row>
+  </>
   );
 };

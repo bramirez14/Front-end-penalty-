@@ -1,12 +1,9 @@
 import React from "react";
 import { Table, Input, Button, Space } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import ReactHTMLTableToExcel from "react-html-table-to-excel";
-import "./botonExcel.css";
 
-export const HelperTABLE = ({ hoja, namefile,columns,data,boton,paginas=false}) => {
-  
-  
+
+export const HelperTABLE = ({ columns,data,paginas=false,bordered=false,expandible=false,y}) => {
   const getColumnSearchProps = (dataIndex) => {
     return {
       filterDropdown: ({setSelectedKeys,selectedKeys,confirm,clearFilters,}) => (
@@ -54,24 +51,20 @@ export const HelperTABLE = ({ hoja, namefile,columns,data,boton,paginas=false}) 
   };
   const handleSearch = (selectedKeys, confirm, dataIndex) => confirm();
   const handleReset = (clearFilters) =>  clearFilters();
-  const col = columns?.map((d) => {return {...d,...getColumnSearchProps(d.key)};});
-  return (
-    <>
-    {boton &&
-      <ReactHTMLTableToExcel
-        id="test-table-xls-button"
-        className="btn-excel"
-        table="ant-table-wrapper"
-        filename={namefile}
-        sheet={hoja}
-        buttonText="Exportar a Excel"
-      />}
-      <table
-        id="ant-table-wrapper"
-        style={{ width: "100%", marginTop: "10px" }}
-      >
-        <Table columns={col} dataSource={data} pagination={paginas} />
-      </table>
-    </>
-  );
+  const filtrosinLupa= columns?.filter(l=>l.lupa===false);
+  const filtroconLupa= columns?.filter(l=>l.lupa!==false);
+  const col = filtroconLupa?.map((d) => {return {...d,...getColumnSearchProps(d.key)};});
+  const columna= [...col,...filtrosinLupa]
+  console.log(columna);
+  return <Table
+   columns={columna} 
+   dataSource={data}
+    pagination={paginas}
+     bordered={bordered}
+     expandable={expandible?{
+      expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+    }:''}
+    scroll={{ y: y}}
+  
+  />
 };

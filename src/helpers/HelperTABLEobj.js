@@ -69,6 +69,7 @@ export const HelperTABLEobj = ({
   };
   const handleSearch = (selectedKeys, confirm, dataIndex) => confirm();
   const handleReset = (clearFilters) => clearFilters();
+ 
   const col = columns?.map((d) => {
     return { ...d, ...getColumnSearchProps(d.key) };
   });

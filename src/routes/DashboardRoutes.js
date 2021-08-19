@@ -8,7 +8,6 @@ import { RendicionGastos } from "../components/rendiciones/RendicionGastos";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { RouteGerente } from "./RouteGerente";
 import { RouteEmpleado } from "./RouteEmpleado";
-
 import { Vacaciones } from "../components/solicitudes/Vacaciones";
 import { AnticipoGasto } from "../components/solicitudes/AnticipoGasto";
 import { EditarRendicion } from "../components/rendiciones/EditarRendicion";
@@ -16,7 +15,6 @@ import { CrearRendicion } from "../components/rendiciones/CrearRendicion";
 import { Uploads } from "../components/rendiciones/Uploads";
 import { ListaRendiciones } from "../components/rendiciones/ListaRendiciones";
 import {  AprobacionAntcipoSueldo } from "../ComponentsGerentes/AprobacionAntcipoSueldo";
-import { Alerta } from "../components/alertas/Alerta";
 import { Register } from "../components/login/Register";
 import { Perfil } from "../components/perfiles/Perfil";
 import { AprobacionVacaciones } from "../ComponentsGerentes/AprobacionVacaciones";
@@ -88,7 +86,6 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path="/rendicion" component={RendicionSinAnticipoContainer} />
 
         <RouteEmpleado exact path="/img" component={Uploads} />
-        <RouteEmpleado exact path="/prueba" component={Alerta} />
         <RouteEmpleado exact path='/mensajes' component={Mensajes}/>
         <RouteEmpleado exact path='/estado/usuario' component={EstadoUsuario}/>
         <RouteEmpleado exact path='/configuraciones/cambiar/contraseña' component={CambiarContraseña}/>

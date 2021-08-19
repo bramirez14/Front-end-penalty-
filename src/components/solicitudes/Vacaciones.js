@@ -123,7 +123,7 @@ const añosTrabajados=(fecha)=>{
   const tipo = localStorage.getItem('type')
 
   const guardarAnticipoDeVacaciones = async () => {
-    let result = await axiosURL.post("/vacaciones", {...vacaciones,estadoFinal:'pendiente',estado:'pendiente'});
+    let result = await axiosURL.post("/vacaciones", {...vacaciones,estadoFinal:'pendiente',estado:'pendiente', f: new Date().toLocaleString(),});
     if (result.status === 200) {
       history.push("/");
     }

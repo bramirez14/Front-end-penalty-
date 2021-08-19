@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Dropdown, Button, message, Space, Tooltip } from "antd";
+import { Menu, Dropdown, Space } from "antd";
 import { UserOutlined, SettingOutlined } from "@ant-design/icons";
 import { CaretDownOutlined } from "@ant-design/icons";
 import { ImExit } from "react-icons/im";
@@ -14,8 +14,8 @@ export const NombreCompleto = ({ handleLogout, nombre, apellido, history }) => {
         style={{ fontSize: "20px" }}
       >
         <Link to="/estado/usuario">
-          {" "}
-          <span style={{ marginLeft: "5px" }}>Estado del Usuario</span>{" "}
+          
+          <span style={{ marginLeft: "5px" }}>Estado del Usuario</span>
         </Link>
       </Menu.Item>
       <Menu.Item
@@ -24,8 +24,8 @@ export const NombreCompleto = ({ handleLogout, nombre, apellido, history }) => {
         style={{ fontSize: "20px" }}
       >
         <Link to="/configuraciones/cambiar/contraseña">
-          {" "}
-          <span style={{ marginLeft: "10px" }}> Configuracion </span>{" "}
+          
+          <span style={{ marginLeft: "10px" }}> Configuracion </span>
         </Link>
       </Menu.Item>
       <Menu.Item
