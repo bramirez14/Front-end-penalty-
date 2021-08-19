@@ -6,7 +6,10 @@ import { Remitado } from '../remitado/Remitado';
 import { FacturacionAnno } from './facturacionAnno/FacturacionAnno';
 import { FacturacionMesGral } from './facturacionMesGral/FacturacionMesGral';
 import { FacturacionAnnoGral } from './facturacionAnnoGral/FacturacionAnnoGral';
-const N = localStorage.getItem('N');
+
+export const FacturaVendedor = () => {
+  const N = localStorage.getItem('N');
+
 const tabList = [
     {
       key: 'tab1',
@@ -54,7 +57,6 @@ const tabList = [
 
     
   };
-export const FacturaVendedor = () => {
 
     const [state, setState] = useState({key: 'tab1'})
     console.log(state);
