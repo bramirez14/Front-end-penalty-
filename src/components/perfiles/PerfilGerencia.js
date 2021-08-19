@@ -1,16 +1,16 @@
-import React, {  useContext,useEffect  } from "react";
+import React from "react";
+import { Row, Col, Card, Statistic } from "antd";
 import "./css/perfiles.css";
 import { Tarjetas } from "./Tarjetas";
 import { ListaUsuarios } from "./ListaUsuarios";
-export const PerfilGerencia = ({ history,usuarios}) => {
-return (
+import { CardEstado } from "./CardEstado";
+import { CardAprobaciones } from "./CardAprobaciones";
+export const PerfilGerencia = ({ history, usuarios }) => {
+  return (
     <>
-      <div className='contenedore'>
-        <Tarjetas />
-        {/**Lista */}
-        <ListaUsuarios
-          lista={usuarios}
-        />
+      <div className="contenedore">
+      <CardEstado/>
+      <ListaUsuarios lista={usuarios} />
       </div>
     </>
   );

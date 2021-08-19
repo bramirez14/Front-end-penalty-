@@ -25,7 +25,7 @@ const [ data,axiosGet] =useGet('/anticipo')
         notificacion: "inactiva",
         estado: "aprobado",
         listo: "Si",
-        f: new Date().toLocaleString(),
+        fd: new Date().toLocaleString(),
       });
     } else {
       console.log("soy usuario distiton de 902");
@@ -43,7 +43,7 @@ const [ data,axiosGet] =useGet('/anticipo')
       estado: "rechazado",
       notificacion: "inactiva",
       estadoFinal: "rechazado",
-      f: new Date().toLocaleString(),
+      fd: new Date().toLocaleString(),
     });
     setMensaje({ respMensaje: "" });
     axiosGet();

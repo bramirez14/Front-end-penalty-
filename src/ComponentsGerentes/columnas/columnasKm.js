@@ -38,7 +38,7 @@ export const ColumnasKm = () => {
             estadoFinal: "aprobado",
             notificacion: "inactiva",
             estado: "aprobado",
-            f: new Date().toLocaleString(),
+            fd: new Date().toLocaleString(),
           })
           : await axiosURL.put(`/km/aprobado/${id}`, {
             ...mensaje,
@@ -53,7 +53,7 @@ export const ColumnasKm = () => {
           estado: "rechazado",
           notificacion: "inactiva",
           estadoFinal: "rechazado",
-          f: new Date().toLocaleString(),
+          fd: new Date().toLocaleString(),
         });
         setMensaje({ respMensaje: "" });
         axiosGet();

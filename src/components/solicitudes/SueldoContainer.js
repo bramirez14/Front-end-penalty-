@@ -66,7 +66,8 @@ export const SueldoContainer = ({ history }) => {
     const result = await axiosURL.post("/anticipo", {...values,sueldo,
       fecha, 
       estado: "pendiente",
-    estadoFinal: "pendiente"
+    estadoFinal: "pendiente",
+    f: new Date().toLocaleString(),
   });
     if (result.status === 200) {
       history.push("/");

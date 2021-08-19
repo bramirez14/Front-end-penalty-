@@ -56,6 +56,9 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
   },0);
   
    const handleConfirm= async() => {
+     const obj={
+      f: new Date().toLocaleString(),
+     }
     setLoading(true)
      const f= new FormData();
      f.append('imagen',km.imagen)
@@ -65,6 +68,7 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
      f.append('kmTotal',totalKmDB)
      f.append('importeTotal',importeTotalDB)
      f.append('usuarioId',id)
+     f.append('f',obj.f)
     const resp= await axiosURL.post('/km',f);
     console.log(resp);
     

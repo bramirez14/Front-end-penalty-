@@ -34,7 +34,7 @@ export const ColumnasGastos = () => {
           estadoFinal: "aprobado",
           notificacion: "inactiva",
           estado: "aprobado",
-          f: new Date().toLocaleString(),
+          fd: new Date().toLocaleString(),
         })
       : await axiosURL.put(`/gasto/aprobado/${id}`, {
           ...mensaje,
@@ -49,7 +49,7 @@ export const ColumnasGastos = () => {
       estado: "rechazado",
       notificacion: "inactiva",
       estadoFinal: "rechazado",
-      f: new Date().toLocaleString(),
+      fd: new Date().toLocaleString(),
     });
     setMensaje({ respMensaje: "" });
     axiosGet();

@@ -1,61 +1,36 @@
-import React, { useState} from "react";
-import { PeticionGET } from "../../config/PeticionGET";
-import { axiosURL } from "../../config/axiosURL";
-import { Link } from "react-router-dom";
-import { Badge, Button } from "antd";
-import { FaBell } from "react-icons/fa";
-import "./alerta.css";
+import React from "react";
+import { Alerta0000 } from "./Alerta0000";
+import { Alerta905 } from "./Alerta905";
+import { Alerta906 } from "./Alerta906";
+import { AlertaGerencia } from "./AlertaGerencia";
 
 export const Alerta = () => {
-  const [state, setState] = useState();
-  /* alerta de anticipo */
-  const id = localStorage.getItem("uid");
-  const { anticipo, vacacion, gasto } = PeticionGET(`/${id}`);
+const N = localStorage.getItem('N')
+/* const todos=[...todosgtes,...todos905,...todos906];
+console.log(todos); */
 
-  /**Alerta de anticipo de sueldo */
-  const notificacionSueldo = anticipo?.filter(
-    (a) => a.notificacion === "inactiva"
-  );
-  /**Alerta de anticipo de vacaciones */
-  const notificacionVacaciones = vacacion?.filter(
-    (b) => b.notificacion === "inactiva"
-  );
-  /**Alerta de anticipo de gastos */
-  const notificacionGastos = gasto?.filter(
-    (c) => c.notificacion === "inactiva"
-  );
-/**condicional para saber si hay un alerta y si hay se concatena con las otras alertas */
-  const estadoId = (notificacionSueldo,
-  notificacionVacaciones,
-  notificacionGastos === undefined)
-    ? ""
-    : [...notificacionGastos, ...notificacionSueldo, ...notificacionVacaciones];
-  const estadoPorSector = (notificacionSueldo,
-  notificacionVacaciones,
-  notificacionGastos === undefined)
-    ? ""
-    : [
-        [...notificacionSueldo],
-        [...notificacionVacaciones],
-        [...notificacionGastos],
-      ];
   /** Longuitud tota de las alertas  */
-  const numberTotal = estadoId?.length;
+  //const numberTotal = estadoId?.length;
   /**Envio a la DB */
-  const openNotification = async () => {
+ /*  const openNotification = async () => {
     let result = await axiosURL.put("/alerta", estadoPorSector);
     setState(result.data);
-  };
+  }; */
   return (
     <>
-      <Link to="/mensajes">
-        <Button onClick={openNotification} className="boton-campana">
-          <Badge count={state === "ok" ? 0 : numberTotal}>
-            <span className="head-example" />
-            <FaBell className="icon-campana" />
-          </Badge>
-        </Button>
-      </Link>
+    {
+      N === '901' || N === '902' || N === '903'?
+      <AlertaGerencia/>
+      :
+      N === '905'?
+      <Alerta905/>
+      :
+      N === '906'?
+      <Alerta906/>
+      :
+      <Alerta0000/>
+    
+    }
     </>
   );
 };

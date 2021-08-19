@@ -1,5 +1,7 @@
 import { PeticionJWT } from '../../auth/PeticionJWT'
+import { CardEstado } from './CardEstado'
 import './css/perfiles.css'
+import { PerfilVendedor } from './PerfilVendedor'
 import { TarjetaEmpleado0000 } from './TarjetaEmpleado0000'
 import {TarjetaEmpleado905} from './TarjetaEmpleado905'
 import { TarjetaEmpleado906 } from './TarjetaEmpleado906'
@@ -12,12 +14,12 @@ export const PerfilEmpleado = ({history}) => {
         return (
         <>
       <div className='contenedore'>
-
+            <CardEstado/>
       
-            {N==='905'? <TarjetaEmpleado905/>:N==='906'?
+           {/*  {N==='905'? <TarjetaEmpleado905/>:N==='906'?
             <TarjetaEmpleado906/>:N==='0000'?<TarjetaEmpleado0000/>:
-            <h1>Bienvenido/a</h1>
-           }
+            <PerfilVendedor/>
+        } */}
 
         
                </div>

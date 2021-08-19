@@ -14,6 +14,8 @@ function App() {
   const [openn, setOpen] = useState(false);
   const [auth, setAuth] = useState(false)
   const [arrayUsuarios, setArrayUsuarios] = useState()
+  const [msj, setMsj] = useState([])
+  const [usuarios, setUsuarios] = useState([])
   return (
     <UserContext.Provider
       value={{
@@ -23,6 +25,10 @@ function App() {
         setAuth:setAuth,
         arrayUsuarios:arrayUsuarios,
         setArrayUsuarios:setArrayUsuarios,
+        msj:msj,
+        setMsj:setMsj,
+        usuariosIO:usuarios,
+        setUsuariosIO:setUsuarios
       }}
     >
 {/*       <SocketProvider>

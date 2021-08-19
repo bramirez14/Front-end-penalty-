@@ -33,7 +33,9 @@ export const CrearRendicion = ({ match, history }) => {
 
   
   const agregar = async () => {
-  
+  const obj={
+    f: new Date().toLocaleString(),
+  }
       let f = new FormData();
      
       f.append("imagen", imagen);
@@ -43,6 +45,7 @@ export const CrearRendicion = ({ match, history }) => {
       f.append("fecha", fecha);
       f.append("gastoId", gastoId);
       f.append("total",total);
+      f.append('f',obj.f)
 
       let result = await axiosURL.post("/rendicion", f);
       console.log(result.data);
