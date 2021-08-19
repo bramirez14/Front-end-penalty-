@@ -19,10 +19,10 @@ const {usuariosIO,setUsuariosIO} = useContext(UserContext)
     )
     //console.log(socket);
     socket.on('lista-usuarios', (data)=> { 
-      console.log(data);
       setUsuariosIO(data)
     });
 }, [setUsuariosIO, token]);
+
   const tipo = localStorage.getItem("type");
   console.log(usuariosIO);
   return (
