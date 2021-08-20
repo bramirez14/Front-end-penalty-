@@ -8,48 +8,15 @@ import { FacturacionAnnoGral } from './facturacionAnnoGral/FacturacionAnnoGral';
 
 export const FacturaVendedor = () => {
   const N = localStorage.getItem('N');
-<<<<<<< HEAD
-
-const tabList = [
-    {
-      key: 'tab1',
-      tab: 'Facturacion Mes',
-    },
-    {
-      key: 'tab2',
-      tab: 'Remitado',
-    },
-    {
-        key: 'tab3',
-        tab: 'Facturacion por Año ',
-=======
   const tabList = [
       {
         key: 'tab1',
         tab: 'Facturacion Mes',
->>>>>>> a5332d5edbeaeef34170755434680abe52255ea2
       },
       {
         key: 'tab2',
         tab: 'Remitado',
       },
-<<<<<<< HEAD
-     
-  ];
- 
-
-  const contentList = {
-    
-    tab1: <FacturacionMes/>,
-    tab2: <Remitado/>,
-    tab3: <FacturacionAnno/>,
-    tab4: <FacturacionMesGral/>,
-    tab5: <FacturacionAnnoGral/>
-
-    
-  };
-
-=======
       {
           key: 'tab3',
           tab: 'Facturacion por Año ',
@@ -88,7 +55,6 @@ const tabList = [
   
       
     };
->>>>>>> a5332d5edbeaeef34170755434680abe52255ea2
     const [state, setState] = useState({key: 'tab1'})
     console.log(state);
       const onTabChange = (key, type) => {
