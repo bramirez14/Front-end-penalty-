@@ -10,6 +10,7 @@ import moment from 'moment';
 import { Spin, Space } from 'antd';
 import './css/spiner.css'
 import Swal from 'sweetalert2'
+import { PeticionGET } from "../../config/PeticionGET";
 
 export const Kilometros = ({history}) => {
   const dateFormat = 'DD/MM/YYYY';
@@ -30,11 +31,13 @@ export const Kilometros = ({history}) => {
   const handleChangePicker = (date, dateString)=>{
     setDatePicker( dateString)
 }
+const precioKM= PeticionGET('/precio/km')
+console.log(parseFloat(precioKM[0]?.precio));
   const {KmI,KmF,nota,fechaSelect}=values
   const restaKm = KmI==='' && KmF==='' ? '0 ': parseFloat(KmF) - parseFloat(KmI);
   console.log(restaKm);
   console.log(parseFloat(KmF) > parseFloat(KmI));
-  const totalImporte= restaKm==='0'?'Importe':restaKm*17//debe venir de la db
+  const totalImporte= restaKm==='0'?'Importe':restaKm*( parseFloat(precioKM[0]?.precio))//debe venir de la db
   const  peticionGet= async () => {
     const { data } = await axiosURL.get('/rendiciones/kilometros')
     setStateKm(data)

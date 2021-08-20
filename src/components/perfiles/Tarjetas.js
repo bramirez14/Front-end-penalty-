@@ -17,7 +17,9 @@ console.log(km);
 const kmMuestra= muestraPendiente(km)
   return (
     <>
-        <Card
+    <Row gutter={[20,20]}>
+      <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+      <Card
           title="Anticipo de sueldo"
           extra={<Link to="/aprobacion/sueldo">Mas</Link>}
           bordered={false}
@@ -30,8 +32,10 @@ const kmMuestra= muestraPendiente(km)
             <h4 >No hay notificaciones!!!</h4>
           )}
         </Card>
+      </Col>
 
-        <Card
+<Col xs={12} sm={12} md={12} lg={12} xl={12}>
+<Card
           title="Anticipo de gasto"
           extra={<Link to="/aprobacion/gastos">Mas</Link>}
           bordered={false}
@@ -45,7 +49,12 @@ const kmMuestra= muestraPendiente(km)
             <h4>No hay notificaciones!!!</h4>
           )}
         </Card>
-        <Card
+    
+</Col>
+        
+    
+      <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+      <Card
           title="Vacaciones"
           extra={<Link to="/aprobacion/vacaciones">Mas</Link>}
           bordered={false}
@@ -59,6 +68,8 @@ const kmMuestra= muestraPendiente(km)
             <h4>No hay notificaciones!!!</h4>
           )}
         </Card>
+        </Col>
+        <Col xs={12} sm={12} md={12} lg={12} xl={12}>
         <Card
           title="Rendicion de Km"
           extra={<Link to="/aprobacion/km">Mas</Link>}
@@ -73,6 +84,12 @@ const kmMuestra= muestraPendiente(km)
             <h4 >No hay notificaciones!!!</h4>
           )}
         </Card>
+      </Col>
+   
+
+    </Row>
+       
+       
   </>
   );
 };

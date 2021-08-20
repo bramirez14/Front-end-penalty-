@@ -63,6 +63,7 @@ export const ListaUsuarios = ({ lista }) => {
   return (
     <>
       <Row gutter={20} style={{ marginTop: 20 }}>
+      <CardAprobaciones/>
         <Col xs={15} sm={15} md={15} lg={15} xl={15}>
           <Card>
           <div className='lista-usuarios'>
@@ -86,9 +87,9 @@ export const ListaUsuarios = ({ lista }) => {
                       }
                       description={q.email}
                     />
-                    <span className="conectado">
+                    {/* <span className="conectado">
                       Conectado: {SelecionColores(q.conectado)}
-                    </span>
+                    </span> */}
                   </List.Item>
                 </>
               ))}
@@ -98,7 +99,6 @@ export const ListaUsuarios = ({ lista }) => {
          
         </Col>
         
-        <CardAprobaciones/>
        
 
       </Row>

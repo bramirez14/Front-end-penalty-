@@ -34,6 +34,30 @@ const normFile = (e) => {
 };
 
 export const Demo = () => {
+
+
+  function sumaDeLosPares(numerox=10){
+let conteo=0
+
+    for (let i = 0; i <= numerox; i++) {
+      if( i%2 === 0){
+        conteo=conteo+i
+      }
+    }
+  return conteo
+  }
+
+
+
+
+
+
+
+
+
+
+
+
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
@@ -245,3 +269,7 @@ export const Demo = () => {
     </Form>
   );
 };
+
+
+
+

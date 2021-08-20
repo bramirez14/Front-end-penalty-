@@ -43,7 +43,7 @@ export const Sidebar = ({ history }) => {
     logout();
     history.push("/login");
     setAuth(false);
-    const socket =  io.connect( "//intranet.penalty.com.ar:4000",{ 
+    const socket =  io.connect( "http://localhost:4000",{ 
       transports: ['websocket'],
       autoConnect: true,
       forceNew: true,})
@@ -67,7 +67,7 @@ export const Sidebar = ({ history }) => {
           <div className="navbar">
             <div className='hamburguesa'> <BotomHamburguesa abrirCerrarHamburguesa={abrirCerrarHamburguesa}/></div>
             <div className='nomaler'style={{display:'flex'}}> 
-            <div className='alerta' ><Alerta/></div> 
+            {/* <div className='alerta' ><Alerta/></div>  */}
             <div className='nombreCompleto'><NombreCompleto nombre={nombre} apellido={apellido} handleLogout={handleLogout}/></div>
             
             </div>

@@ -1,5 +1,5 @@
 .lista-usuarios{
-    height: 535px;
+    height: 290px;
     overflow: auto;
 }
 .lista-usuarios::-webkit-scrollbar {
