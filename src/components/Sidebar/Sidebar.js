@@ -26,7 +26,7 @@ import CustomScroll from 'react-custom-scroll';
 
 export const Sidebar = ({ history }) => {
   const abrirCerrarHamburguesa = () => setOpen(!open);
-  const { setAuth,usuariosIO,setUsuariosIO} = useContext(UserContext);
+  const { setAuth } = useContext(UserContext);
   const id = localStorage.getItem("uid");
   const mediaqueryList = window.matchMedia("(max-width: 576px)");
   const q = mediaqueryList.matches;
@@ -39,24 +39,16 @@ export const Sidebar = ({ history }) => {
 
 
   const handleLogout = async () => {
- const token = localStorage.getItem('token'); // se solicita el token de localstorage
-
     await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
     logout();
     history.push("/login");
     setAuth(false);
-    const socket =  io.connect( "//intranet.penalty.com.ar:4000",{ 
+    const socket =  io.connect( "http://localhost:4000",{ 
       transports: ['websocket'],
       autoConnect: true,
-      forceNew: true,
-      query: {
-        'x-token': token
-    }
-    })
+      forceNew: true,})
+     console.log(socket);
       socket?.disconnect();
-      socket.on('lista-usuarios', (data)=> { 
-        setUsuariosIO(data)
-      });
   };
 
 
@@ -75,7 +67,7 @@ export const Sidebar = ({ history }) => {
           <div className="navbar">
             <div className='hamburguesa'> <BotomHamburguesa abrirCerrarHamburguesa={abrirCerrarHamburguesa}/></div>
             <div className='nomaler'style={{display:'flex'}}> 
-            <div className='alerta' ><Alerta/></div> 
+            {/* <div className='alerta' ><Alerta/></div>  */}
             <div className='nombreCompleto'><NombreCompleto nombre={nombre} apellido={apellido} handleLogout={handleLogout}/></div>
             
             </div>
@@ -93,7 +85,7 @@ export const Sidebar = ({ history }) => {
           <div style={{ marginTop: "20px" }}>
             <h4
               className="title-sidebar"
-              style={{ color: "#fff", marginLeft: "30px" }}
+              style={{ color: "#fff", marginLeft: "50px" }}
             >
               {nombre} {apellido}
             </h4>

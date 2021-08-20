@@ -16,7 +16,6 @@ const N = localStorage.getItem("N"); // numero de registro local storage
     if (N === "901") {
       const filtro = dataPendiente.filter(r=>(r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2));
       setState(filtro);
-      console.log(filtro);
     }
     /**usuario902 */
     if (N === "902") {
@@ -30,7 +29,7 @@ const N = localStorage.getItem("N"); // numero de registro local storage
     }
     }
     axiosGet()
-    }, [])
+    }, [ url,N])
       return (state)
 };
 
@@ -102,8 +101,11 @@ const N = localStorage.getItem("N"); // numero de registro local storage
    useEffect(() => {
     const getKm = async () => {
       const {data} = await axiosURL.get('/todos/kilometros');
+      console.log(data);
       const filtradoListo= data.filter(t => t.listo === "Si");
+      console.log(filtradoListo);
       const dataPendiente= filtradoListo.filter(d=>d.estado==='pendiente')//filtro por estado pendiente
+    console.log(dataPendiente)
       /**usuario901 */
     if (N === "901") {
       const filtro = dataPendiente.filter(r=>(r.usuario.departamentoId === 1 || r.usuario.departamentoId === 2));
