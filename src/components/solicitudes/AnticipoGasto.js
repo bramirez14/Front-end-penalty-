@@ -7,6 +7,9 @@ import { UserContext } from "../../contexto/UserContext";
 import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Titulo } from "../titulos/Titulo";
+import { Typography } from 'antd';
+
+const { Title } = Typography;
 
 export const AnticipoGasto = ({ history }) => {
   //Peticion get para saber cuando vence el localStorage
@@ -59,10 +62,11 @@ export const AnticipoGasto = ({ history }) => {
   };
 
   return (
-    <Form className="container agregado" onFinish={onSubmit} size="large">
+    <Form className='form container' onFinish={onSubmit} size="large">
       <Row gutter={10}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-          <Titulo titulo="Anticipo de Gastos" />
+          <Titulo numero={2} titulo="Anticipo de Gastos" />
+          <Divider/>
           <Form.Item
             hasFeedback
             rules={[

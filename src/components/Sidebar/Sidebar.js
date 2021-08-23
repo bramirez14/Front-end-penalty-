@@ -22,32 +22,38 @@ import { BotomHamburguesa } from "../botones/BotomHamburguesa";
 import { NombreCompleto } from "./NombreCompleto";
 import io from "socket.io-client";
 import CustomScroll from 'react-custom-scroll';
-let useClickOutside = (handler) => {
-  let domNode = useRef();
-  useEffect(() => {
-    let maybeHandler = (event) => {
-      if (!domNode.current.contains(event.target)) {
-        handler();
-      }
-    };
 
-    document.addEventListener("mousedown", maybeHandler);
+const mediaqueryList = window.matchMedia("(max-width: 1024px)");
+const q = mediaqueryList.matches;
+console.log(q);
+let useClickOutside = q?
+   (handler) => {
+    let domNode = useRef();
+    useEffect(() => {
+      let maybeHandler = (event) => {
+        if (!domNode.current.contains(event.target)) {
+          handler();
+        }
+      };
+  
+      document.addEventListener("mousedown", maybeHandler);
+  
+      return () => {
+        document.removeEventListener("mousedown", maybeHandler);
+      };
+    });
+  
+    return domNode;
+  }
+:()=>{}
 
-    return () => {
-      document.removeEventListener("mousedown", maybeHandler);
-    };
-  });
-
-  return domNode;
-};
 
 export const Sidebar = ({ history }) => {
   let [isOpen, setIsOpen] = useState(false);
-  const abrirCerrarHamburguesa = () => setOpen(!open);
+  const abrirCerrarHamburguesa = () => setOpen(!open)
   const { setAuth } = useContext(UserContext);
   const id = localStorage.getItem("uid");
-  const mediaqueryList = window.matchMedia("(max-width: 576px)");
-  const q = mediaqueryList.matches;
+
   const n = localStorage.getItem("N");
   const Sidebar = useContext(UserContext);
   const { open, setOpen } = Sidebar;
@@ -57,9 +63,11 @@ export const Sidebar = ({ history }) => {
 
   let domNode = useClickOutside(() => {
     setIsOpen(false);
+    setOpen(false)
+
   });
 
-
+console.log(isOpen);
 
   const handleLogout = async () => {
     await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
@@ -97,9 +105,10 @@ export const Sidebar = ({ history }) => {
           </div>
         </Col>
       </Row>
-
+      <div className={open?'black':''}></div>
 
       <nav className={open ? "nav-menu active" : "nav-menu"} ref={domNode} >
+       
         <div className="nav-menu-items">
           <AiIcons.AiOutlineClose
             onClick={abrirCerrarHamburguesa}

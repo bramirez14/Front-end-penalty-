@@ -1,7 +1,9 @@
 import React, { useEffect, useState} from "react";
 import{ axiosURL} from "../../config/axiosURL";
-import { Form, Input, Button, Row, Select, Divider } from "antd";
+import { Form, Input, Button, Row, Select, Divider,Col } from "antd";
 import "./css/editarRendicion.css";
+import "../solicitudes/css/anticipoGasto.css";
+
 import TextArea from "antd/lib/input/TextArea";
 import {PeticionGET} from "../../config/PeticionGET";
 import { categorias } from "./categorias";
@@ -114,6 +116,8 @@ console.log(crearRendicion);
   return (
     <>
       <Row>
+      <Col xs={24} sm={24} md={24} lg={8} xl={8}> 
+
         <Form
           onFinish={handleSubmit}
           onChange={handleChange}
@@ -147,6 +151,24 @@ console.log(crearRendicion);
             setState={setCrearRendicion}
             state={crearRendicion}
           />
+         {/**imagen modo cel y ipad  */}{
+              data.length> 0 &&
+              <div className='img-muestra'> 
+            <div className="custom-file-preview " >
+              {data?.length === 0 ? (
+                <h2 className='sector'>Imagen</h2>
+              ) : (
+                <div
+                  className="prev-img"
+                >
+                  <span className="prev-img" onClick={handleDelete}>
+                    &times;
+                  </span>
+                  <img src={data[0].src} />
+                </div>
+              )}
+            </div>
+        </div>}
 
           
           <Form.Item>
@@ -155,11 +177,19 @@ console.log(crearRendicion);
             </Button>
           </Form.Item>
         </Form>
-        <VistaImg
+        </Col>
+
+        <Col xs={16} sm={16} md={16} lg={16} xl={16}>
+        <div className='vista-muestra'>
+            <VistaImg
           data={data}
           setData={setData}
           handleDelete={handleDelete}
           {...crearRendicion} />
+        </div>
+        </Col>
+      
+       
 
       </Row>
     </>

@@ -365,5 +365,31 @@ color: red
   height: 400px;
 }
 
-  
+
 }
+
+
+/*----------------------------------------------Media query celular -----------------------------------------------------------------*/
+@media (max-width: 768px) {
+  .formulario-rendicion{
+    overflow-y: hidden;
+    margin:auto;
+    width:70%;
+    margin-top:28px;
+    border-radius: 20px;
+  }
+
+}
+
+@media (max-width: 576px) {
+   .formulario-rendicion{
+    overflow-y: hidden;
+    margin:auto;
+    width:98%;
+    margin-top:28px;
+    border-radius: 20px;
+  }
+}
+
+
+

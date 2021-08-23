@@ -51,7 +51,7 @@ export const ListaRendiciones = ({ match, history }) => {
       res.status===200&& history.push('/gastos')
   };
   return (
-    <div className='container'>
+    <div className='container-form'>
 
       <Encabezado />
       <SubEncabezado

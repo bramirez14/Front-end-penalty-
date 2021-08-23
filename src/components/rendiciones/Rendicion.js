@@ -1,14 +1,16 @@
 import React from "react";
-import { Form,Col, Row } from "antd";
+import { Form,Col, Row,Divider } from "antd";
 import "./css/createRendicion.css";
 import { Tabla } from "./Tabla";
+import { Titulo } from "../titulos/Titulo";
 
 export const Rendicion = ({ history }) => {
   return (
   <>
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-          <h2 className='title'>Rendicion de Gastos</h2>
+          <Titulo numero={2} titulo='Rendicion de Gastos'/>
+          <Divider/>
          
         </Col>
       </Row>

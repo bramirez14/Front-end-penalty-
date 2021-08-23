@@ -8,7 +8,7 @@ import { TarjetaEmpleado0000 } from './TarjetaEmpleado0000';
 export const CardAprobaciones = (array,url) => {
   const N = localStorage.getItem('N')
     return (
-      <Col xs={9} sm={9} md={9} lg={9} xl={9}>
+      <Col xs={24} sm={24} md={24} lg={9} xl={9}>
         <Card title='Aprobaciones'>
              {N==='905'?
              <TarjetaEmpleado905/>:N==='906'?

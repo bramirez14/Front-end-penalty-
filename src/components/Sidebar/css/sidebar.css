@@ -152,3 +152,35 @@ margin-top:8px
   border-radius: 3px
 }
 /*fin de barra scroll*/
+@media (max-width: 768px) {
+  .black{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000047;
+    z-index: 98;
+    cursor: pointer;
+    transition:3s;
+  
+  }
+  
+}
+/*----------------------------------------------Media query celular -----------------------------------------------------------------*/
+@media (max-width: 576px) {
+  .black{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000047;
+    z-index: 98;
+    cursor: pointer;
+    transition:3s;
+  
+  }
+ 
+}
+

@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Row, Select, Divider } from "antd";
+import { Form, Input, Button, Row, Select, Divider,Col } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Imagen } from "../img/Imagen";
 import { VistaImg } from "../rendiciones/VistaImg";
@@ -22,11 +22,12 @@ export const RendicionSinAnticipo = ({
   state,
 }) => {
   const { Option } = Select;
-
+console.log(data);
   return (
     <>
       <Row>
-        <Form
+        <Col xs={24} sm={24} md={24} lg={8} xl={8}> 
+         <Form
           onFinish={handleSubmit}
           onChange={handleChange}
           layout="vertical"
@@ -34,12 +35,12 @@ export const RendicionSinAnticipo = ({
           {...estilo}
           size="large"
         >
-          <h4 style={{ textAlign: "center", marginLeft: "40px" }}>
+          <h3 style={{ textAlign: "center", marginLeft: "40px" }}>
             Agregar Rendicion
             <Button className="btn-rendicion" onClick={handleBack} style={{marginLeft:20}}>
               X
             </Button>
-          </h4>
+          </h3>
           <Divider />
           <Form.Item
             name="categoria"
@@ -93,7 +94,6 @@ export const RendicionSinAnticipo = ({
           >
             <Input name="importe" placeholder="Importe" />
           </Form.Item>
-
           <Form.Item name="notas">
             <TextArea
               name="notas"
@@ -110,12 +110,33 @@ export const RendicionSinAnticipo = ({
           />
 
           <Form.Item>
+            {/**imagen modo cel y ipad  */}{
+              data.length> 0 &&
+          <div className='img-muestra'> 
+        <div className="custom-file-preview " >
+          {data?.length === 0 ? (
+            <h2 className='sector'>Imagen</h2>
+          ) : (
+            <div
+              className="prev-img"
+            >
+              <span className="prev-img" onClick={handleDelete}>
+                &times;
+              </span>
+              <img src={data[0].src} />
+            </div>
+          )}
+        </div>
+    </div>}
+
             <Button className="btn" htmlType="submit" block>
               Guardar
             </Button>
           </Form.Item>
         </Form>
-
+        </Col>
+      <Col xs={16} sm={16} md={16} lg={16} xl={16}>
+      <div className='vista-muestra'>
         <VistaImg
           data={data}
           setData={setData}
@@ -124,6 +145,9 @@ export const RendicionSinAnticipo = ({
           medio="Medio de pago: "
           pago={state.children}
         />
+        </div>
+      </Col>
+        
       </Row>
     </>
   );

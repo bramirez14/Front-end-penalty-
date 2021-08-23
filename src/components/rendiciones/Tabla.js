@@ -56,34 +56,44 @@ export const Tabla = ({ usuario, setUsuario }) => {
       title: "N° de Rendicion",
       dataIndex: "id",
       key: "item",
-      width: "50px",
+      width: 100,
     },
 
     {
       title: "Fecha",
       dataIndex: "fecha",
+      width: 100,
+
     },
 
     {
       title: "Medios de Pago",
       dataIndex: "pago",
       key: "pago",
+      width: 100,
+
     },
     {
       title: "Notas",
       dataIndex: "notas",
       key: "notas",
+      width: 100,
+
     },
     {
       title: "Importe",
       dataIndex: "importe",
       key: "importe",
+      width: 100,
+
     },
 
     {
       title: "Acciones",
       dataIndex: "acciones",
       key: "acciones",
+      width: 100,
+
       render: (f, fila) => {
         console.log(fila.estado);
 
@@ -132,11 +142,11 @@ export const Tabla = ({ usuario, setUsuario }) => {
   };
 
   return (
-    <Col>
+    <>
       <Link to="/rendicion">
         <Button>Ingresar Rendicion</Button>
       </Link>
-      <Table columns={columns} dataSource={filas} />
-    </Col>
+      <Table columns={columns} dataSource={filas} scroll={{ y: 500 }} />
+      </>
   );
 };

@@ -54,9 +54,9 @@ export const SubEncabezado = ({uuid,total,importeAnticipo,sinAnticipo}) => {
         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} style={{
             borderBottom: "solid 1px rgba(92, 99, 105, 0.5)",
           }}>
-          <h2 style={{marginLeft:'100px'}}> anticipo: #{uuid}</h2>
+          <h2 className='sub-ant' style={{marginLeft:'100px'}}> anticipo: #{uuid}</h2>
           {sinAnticipo==='sin'?'': importeAnticipo===undefined?'':<h4 style={{marginLeft:'100px'}}> Importe: ${importeAnticipo} </h4>}
-          {total===undefined?'':<h4 style={{marginLeft:'100px'}}> Total: ${total} </h4>}
+          {total===undefined?'':<h4 className='sub-ant-total' style={{marginLeft:'100px'}}> Total: ${total} </h4>}
 
         </Col>
       </Row>

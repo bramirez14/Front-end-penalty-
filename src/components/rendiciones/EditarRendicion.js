@@ -83,20 +83,21 @@ export const EditarRendicion = ({ match, history }) => {
   return (
     <>
       <Row>
-        <Form
+      <Col xs={24} sm={24} md={24} lg={8} xl={8}>
+         <Form
           onFinish={handleSubmit}
           onChange={handleChange}
           layout="vertical"
           className="formulario-rendicion"
         >
-          <h5 style={{ textAlign: "center", marginLeft: "32px" }}>
+          <h4 style={{ textAlign: "center", marginLeft: "32px" ,marginTop:20}}>
             
             Editar Rendicion
-            <Button className="btn-rendicion" onClick={handleBack}>
+            <Button className="btn-rendicion" onClick={handleBack} style={{marginLeft:20}}>
               
               X
             </Button>
-          </h5>
+          </h4>
           <Divider />
           <Form.Item label="Categoria">
             <Select value={categoria} onChange={onChange}>
@@ -126,7 +127,24 @@ export const EditarRendicion = ({ match, history }) => {
             setState={setImg}
             state={img}
           />
-
+  {/**imagen modo cel y ipad  */}{
+              data.length> 0 &&
+              <div className='img-muestra'> 
+            <div className="custom-file-preview " >
+              {data?.length === 0 ? (
+                <h2 className='sector'>Imagen</h2>
+              ) : (
+                <div
+                  className="prev-img"
+                >
+                  <span className="prev-img" onClick={handleDelete}>
+                    &times;
+                  </span>
+                  <img src={data[0].src} />
+                </div>
+              )}
+            </div>
+        </div>}
 
           <Form.Item>
             <Button className="btn" htmlType="submit" block>
@@ -134,13 +152,21 @@ export const EditarRendicion = ({ match, history }) => {
             </Button>
           </Form.Item>
         </Form>
+      </Col>
 
+      <Col xs={16} sm={16} md={16} lg={16} xl={16}>
+      <div className='vista-muestra'>
         <VistaImg
           data={data}
           setData={setData}
           handleDelete={handleDelete}
           {...rendicionEditar}
         />
+      </div>
+        </Col>
+       
+
+        
       </Row>
     </>
   );

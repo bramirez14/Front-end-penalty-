@@ -45,10 +45,10 @@ export const CardEstado = () => {
   const dtos=PeticionGET('/departamentos')
   return (
     <>
-      <Row gutter={20} >
+      <Row gutter={[20,20]} >
 
 {/**Sueldo */}
-        <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+        <Col xs={24} sm={12} md={12} lg={6} xl={6}>
            
  <Card className="card-sueldo" >
  <div className="sueldo">
@@ -77,7 +77,7 @@ export const CardEstado = () => {
          
         </Col>
 {/**Vacaciones */}
-        <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+        <Col xs={24} sm={12} md={12} lg={6} xl={6}>
           <Card className="card-vacaciones">
             <div className="vacaciones"><FaUmbrellaBeach Okayama style={{ fontSize: 30 }} /></div>
               {vacacion?.length>0?
@@ -104,7 +104,7 @@ export const CardEstado = () => {
           </Card>
         </Col>
 {/**Gastos */}
-        <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+        <Col xs={24} sm={12} md={12} lg={6} xl={6}>
           <Card className="card-gasto" >
             <div className="gasto"> <FaRegMoneyBillAlt style={{ fontSize: 30 }}/> </div>
            
@@ -131,7 +131,7 @@ export const CardEstado = () => {
           </Card>
         </Col>
 {/** Km */}
-        <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+        <Col xs={24} sm={12} md={12} lg={6} xl={6}>
           <Card className="card-km">
             <div className="km"><AiFillCar style={{ fontSize: 30 }}/> </div>
             {km?.length>0?

@@ -62,9 +62,9 @@ export const ListaUsuarios = ({ lista }) => {
 
   return (
     <>
-      <Row gutter={20} style={{ marginTop: 20 }}>
+      <Row gutter={[20,20]} style={{ marginTop: 20 }}>
       <CardAprobaciones/>
-        <Col xs={15} sm={15} md={15} lg={15} xl={15}>
+        <Col xs={24} sm={24} md={24} lg={15} xl={15}>
           <Card title='Usuarios'>
           <div className='lista-usuarios'>
             <List bordered className="lista">

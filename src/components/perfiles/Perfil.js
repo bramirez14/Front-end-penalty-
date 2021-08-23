@@ -3,6 +3,7 @@ import { PerfilEmpleado } from "./PerfilEmpleado";
 import { PerfilGerencia } from "./PerfilGerencia";
 import io from "socket.io-client";
 import { UserContext } from "../../contexto/UserContext";
+import "./css/perfiles.css";
 
 export const Perfil = ({ history }) => {
 const {usuariosIO,setUsuariosIO} = useContext(UserContext)
@@ -26,8 +27,9 @@ const {usuariosIO,setUsuariosIO} = useContext(UserContext)
   const tipo = localStorage.getItem("type");
   console.log(usuariosIO);
   return (
-    <>
+    <div className='contenedore'>
       {tipo === "Gerente" ? <PerfilGerencia usuarios={usuariosIO}/> : <PerfilEmpleado />}
-    </>
+      </div>
+      
   );
 };
