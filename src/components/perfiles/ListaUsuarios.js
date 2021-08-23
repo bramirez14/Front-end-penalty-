@@ -65,7 +65,7 @@ export const ListaUsuarios = ({ lista }) => {
       <Row gutter={20} style={{ marginTop: 20 }}>
       <CardAprobaciones/>
         <Col xs={15} sm={15} md={15} lg={15} xl={15}>
-          <Card>
+          <Card title='Usuarios'>
           <div className='lista-usuarios'>
             <List bordered className="lista">
               {TodosLosUsuarios?.map((q, i) => (

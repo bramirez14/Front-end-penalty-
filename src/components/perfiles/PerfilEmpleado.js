@@ -15,9 +15,6 @@ export const PerfilEmpleado = ({history}) => {
             { N=== '905 '|| N === '906'?
             <CardAprobaciones/>:''
             }
-     
-         
-
         
                </div>
          </>   

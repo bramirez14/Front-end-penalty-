@@ -22,9 +22,27 @@ import { BotomHamburguesa } from "../botones/BotomHamburguesa";
 import { NombreCompleto } from "./NombreCompleto";
 import io from "socket.io-client";
 import CustomScroll from 'react-custom-scroll';
+let useClickOutside = (handler) => {
+  let domNode = useRef();
+  useEffect(() => {
+    let maybeHandler = (event) => {
+      if (!domNode.current.contains(event.target)) {
+        handler();
+      }
+    };
 
+    document.addEventListener("mousedown", maybeHandler);
+
+    return () => {
+      document.removeEventListener("mousedown", maybeHandler);
+    };
+  });
+
+  return domNode;
+};
 
 export const Sidebar = ({ history }) => {
+  let [isOpen, setIsOpen] = useState(false);
   const abrirCerrarHamburguesa = () => setOpen(!open);
   const { setAuth } = useContext(UserContext);
   const id = localStorage.getItem("uid");
@@ -35,6 +53,11 @@ export const Sidebar = ({ history }) => {
   const { open, setOpen } = Sidebar;
   const get = PeticionJWT();
   const { nombre, apellido } = get;
+
+
+  let domNode = useClickOutside(() => {
+    setIsOpen(false);
+  });
 
 
 
@@ -75,7 +98,8 @@ export const Sidebar = ({ history }) => {
         </Col>
       </Row>
 
-      <nav className={open ? "nav-menu active" : "nav-menu"}>
+
+      <nav className={open ? "nav-menu active" : "nav-menu"} ref={domNode} >
         <div className="nav-menu-items">
           <AiIcons.AiOutlineClose
             onClick={abrirCerrarHamburguesa}
