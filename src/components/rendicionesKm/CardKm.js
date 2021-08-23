@@ -10,16 +10,15 @@ export const CardKm = () => {
     const peticionKM=PeticionGET('/todos/kilometros')
     console.log(peticionKM);
     return (
+      <>
+    <div>
+      <Button> <Link to='/kilometros'> Ingresar Rendicion </Link> </Button>
+    </div>
         <List
         itemLayout="vertical"
         size="large"
         dataSource={peticionKM}
-        footer={
-          <div>
-              
-            <Button> <Link to='/kilometros'> Ingresar Rendicion </Link> </Button>
-          </div>
-        }
+        
         renderItem={item => (
           <List.Item
 
@@ -47,5 +46,6 @@ export const CardKm = () => {
           </List.Item>
         )}
       />
+      </>
     )
 }

@@ -8,8 +8,9 @@ export const TarjetaEmpleado906 = () => {
         <Row gutter={[20,20]}>
         <Col xs={12} sm={12} md={12} lg={12} xl={12}>
           <Card
-            title="Pago de Ant Sueldo"
+            title="Sueldo"
             extra={<Link to="/pagos/anticipo">More</Link>}
+            bordered={false}
           >
           <PagoAntSueldo/>
           </Card>
@@ -17,16 +18,20 @@ export const TarjetaEmpleado906 = () => {
     
         <Col xs={12} sm={12} md={12} lg={12} xl={12}>
           <Card
-            title="Pago de Ant Gasto"
+            title=" Gasto"
             extra={<Link to="/pagos/gasto">More</Link>}
+            bordered={false}
+
           >
          <PagoAntGasto/>
           </Card>
         </Col>
         <Col xs={12} sm={12} md={12} lg={12} xl={12}>
           <Card
-            title="Pago de  Km"
+            title=" Km"
             extra={<Link to="/pagos/km">More</Link>}
+            bordered={false}
+
           >
            <PagosKm/>
           </Card>
@@ -35,6 +40,8 @@ export const TarjetaEmpleado906 = () => {
           <Card
             title="En Construccion"
             extra={<Link to="/comprobante/rendicion">More</Link>}
+            bordered={false}
+
           >
          <p>No hay notificaciones!!!</p>
           </Card>

@@ -10,7 +10,7 @@ export const TarjetaEmpleado905 = () => { //Sandra y Bely
     <Row gutter={[20,20]}>
     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
       <Card
-        title="Rendicion de gasto"
+        title="Gasto"
         extra={<Link to="/vista/rendicion/gasto">Mas</Link>}
         bordered={false}
       >
@@ -20,7 +20,7 @@ export const TarjetaEmpleado905 = () => { //Sandra y Bely
 
     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
       <Card
-        title="Rendicion de Km"
+        title="Km"
         extra={<Link to="/vista/rendicion/Km">Mas</Link>}
         bordered={false}
 
@@ -30,7 +30,7 @@ export const TarjetaEmpleado905 = () => { //Sandra y Bely
     </Col>
     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
       <Card
-        title="Anticipo de Sueldo"
+        title="Sueldo"
         extra={<Link to="/vista/anicipo/sueldo">Mas</Link>}
         bordered={false}
 

@@ -18,7 +18,7 @@ export const Listo = ({url}) => {
 
 export const PagoAntSueldo=()=>{
     const get = PeticionGET("/anticipo");
-    const filtroAntAprobado= get.filter(q => q.estadoFinal==='aprobado'  && q.pagoRealizado!=='Si');
+    const filtroAntAprobado= get.filter(q =>( q.estadoFinal==='aprobado' && q.procesoFinalizado==='Si')  && q.pagoRealizado!=='Si');
     return(
       <>
        {filtroAntAprobado.length > 0 ? (
@@ -32,11 +32,15 @@ export const PagoAntSueldo=()=>{
   export const PagoAntGasto=()=>{
     const get = PeticionGET("/gastos");
     const getconAnt=get.filter(f=> f.sinAnticipo!=='sin' && f.estadoFinal==='aprobado' )
-    
     const getsinAnt=get.filter(f=> f.sinAnticipo==='sin' && f.estadoFinal==='aprobado' )
-    const getsinAntListo=getsinAnt.filter(f=> f.listo === "Si");
+    const getsinAntListo=getsinAnt.filter(f=> f.procesoFinalizado === "Si");
+    
+    
     const getantTotal=[...getsinAntListo,...getconAnt];
+    
     const getTotalMuestra = getantTotal.filter(d=>d.pagoRealizado!=='Si');
+
+    console.log(getantTotal);
     return(
       <>
        {getTotalMuestra.length > 0 ? (

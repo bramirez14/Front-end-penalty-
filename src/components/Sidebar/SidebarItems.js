@@ -57,6 +57,12 @@ export const SidebarItems = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
+      {
+        title: "Km",
+        path: "/aprobacion/km",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
     ],
   },
   {
@@ -151,7 +157,7 @@ export const SidebarItems = [
     ],
   },
   {
-    title: "Rendicion",
+    title: "Rendiciones",
     icon: <GiPayMoney />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,

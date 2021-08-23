@@ -38,7 +38,15 @@ export const SueldoContainer = ({ history }) => {
     setAnticipo({ ...anticipo, sueldo: values, cuotas: "1" });
   };
   const handleChangeCuotas = (values) => {
-    setAnticipo({ ...anticipo, cuotas: values });
+    console.log(!!values.target);
+    if(!!values.target===true){
+      
+      setAnticipo({ ...anticipo, cuotas: values.target?.value });
+    }else{
+      setAnticipo({ ...anticipo, cuotas: values });
+
+    }
+    
   };
   /******fx para deteminar canntidad  de cuotas *******/
   const verificarMes = () => {
@@ -62,7 +70,7 @@ export const SueldoContainer = ({ history }) => {
   };
   /*********fx para guardar anticipo con axios en DB **********/
   const guardarAnticipo = async (values) => {
-    
+    console.log(values);
     const result = await axiosURL.post("/anticipo", {...values,sueldo,
       fecha, 
       estado: "pendiente",
@@ -111,6 +119,7 @@ export const SueldoContainer = ({ history }) => {
       ...anticipo,
       [e.target.name]: e.target.value,
     });
+
   };
 
   console.log(anticipo);

@@ -21,7 +21,7 @@ export const SidebarItemsEmpleado = [
 
   
   {
-    title: "Solicitud",
+    title: "Solicitudes",
     icon: <FaEnvelope />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -45,7 +45,7 @@ export const SidebarItemsEmpleado = [
     ],
   },
   {
-    title: "Rendicion",
+    title: "Rendiciones",
     icon: <GiPayMoney />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -129,28 +129,5 @@ export const SidebarItemsEmpleado = [
       },
     ],
   },
-  {
-    title: "Solicitudes",
-    icon: <FaEnvelope />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: "Sueldo",
-        path: "/sueldos",
-        icon: <IoIcons.IoIosPaper />,
-      },
-      {
-        title: "Vacaciones",
-        path: "/vacaciones",
-        icon: <IoIcons.IoIosPaper />,
-      },
-      {
-        title: "Gastos",
-        path: "/anticipo/gastos",
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ],
-  },
+  
 ];
