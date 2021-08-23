@@ -6,9 +6,10 @@ export const PrecioKM = ({ history}) => {
     const handleSubmit= async (values) =>{
         console.log(values);
        const res= await axiosURL.put('/precio/km',values)
-       if(res.status=== 200){
+       console.log(res);
+     /*   if(res.status=== 200){
            history.push('/perfil')
-       }
+       } */
     }
     return (
         <div className='container' style={{width:500}}>

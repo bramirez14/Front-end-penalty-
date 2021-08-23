@@ -43,7 +43,6 @@ export const CardEstado = () => {
     </Tooltip>
   }
   const dtos=PeticionGET('/departamentos')
-  console.log(dtos);
   return (
     <>
       <Row gutter={20} >

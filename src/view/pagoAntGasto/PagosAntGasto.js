@@ -41,6 +41,7 @@ export const PagosAntGasto = () => {
                   Submit={"Finalizar"}
                   Return={"Salir"}
                   click={() => finalizar(file.id,getGastos,stateFile,setStateFile)}
+                  noclick={() => {}}
                 >
                   <FormularioSinAnt
                     stateFile={stateFile}
@@ -58,6 +59,7 @@ export const PagosAntGasto = () => {
                   Submit={"Finalizar"}
                   Return={"Salir"}
                   click={() => finalizar(file.id,getGastos,stateFile,setStateFile)}
+                  noclick={() => {}}
                 >
                   <FormularioConAnt
                     stateFile={stateFile}
@@ -75,6 +77,7 @@ export const PagosAntGasto = () => {
                   Submit={"Pagado"}
                   Return={"Salir"}
                   click={() => enCurso(file.id,getGastos)}
+                  noclick={() => {}}
                 >
                   <FormularioConAntPago
                     orden={file.norden}

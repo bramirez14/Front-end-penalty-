@@ -122,7 +122,8 @@ console.log(crearRendicion);
           {...estilo}
           size='large'
         >
-          <h5 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendicion<Button className='btn-rendicion' onClick={handleBack}> X </Button></h5>
+          <h4 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendicion 
+          <Button className='btn-rendicion' onClick={handleBack} style={{marginLeft:20}}> X </Button></h4>
           <Divider />
           <Form.Item name="categoria">
             <Select placeholder="Categoria" onChange={selectChange} >

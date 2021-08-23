@@ -20,7 +20,7 @@ const kmMuestra= muestraPendiente(km)
     <Row gutter={[20,20]}>
       <Col xs={12} sm={12} md={12} lg={12} xl={12}>
       <Card
-          title="Anticipo de sueldo"
+          title="Sueldo"
           extra={<Link to="/aprobacion/sueldo">Mas</Link>}
           bordered={false}
         >
@@ -36,7 +36,7 @@ const kmMuestra= muestraPendiente(km)
 
 <Col xs={12} sm={12} md={12} lg={12} xl={12}>
 <Card
-          title="Anticipo de gasto"
+          title="Gasto"
           extra={<Link to="/aprobacion/gastos">Mas</Link>}
           bordered={false}
 
@@ -71,7 +71,7 @@ const kmMuestra= muestraPendiente(km)
         </Col>
         <Col xs={12} sm={12} md={12} lg={12} xl={12}>
         <Card
-          title="Rendicion de Km"
+          title="Km"
           extra={<Link to="/aprobacion/km">Mas</Link>}
           bordered={false}
 

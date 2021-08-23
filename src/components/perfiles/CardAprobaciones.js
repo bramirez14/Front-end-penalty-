@@ -9,8 +9,9 @@ export const CardAprobaciones = (array,url) => {
   const N = localStorage.getItem('N')
     return (
       <Col xs={9} sm={9} md={9} lg={9} xl={9}>
-        <Card >
-             {N==='905'? <TarjetaEmpleado905/>:N==='906'?
+        <Card title='Aprobaciones'>
+             {N==='905'?
+             <TarjetaEmpleado905/>:N==='906'?
             <TarjetaEmpleado906/>:''
             
         }
