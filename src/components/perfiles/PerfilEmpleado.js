@@ -17,9 +17,6 @@ export const PerfilEmpleado = ({history}) => {
             </Row>
             :
                 ''         }
-         
-
-        
                </div>
          </>   
     )
