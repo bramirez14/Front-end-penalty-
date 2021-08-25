@@ -1,28 +1,61 @@
 import React from "react";
 import "./css/cardRendiciones.css";
-import { Button } from "antd";
+import { Card,Avatar,Button,Row,Col } from "antd";
 import {Link} from 'react-router-dom'
-export const CardRendiciones = ({imagen,categoria,importe,fecha,notas,id}) => {
- 
+import { List, Space } from 'antd';
+export const CardRendiciones = ({data,imagen,categoria,importe,fecha,notas,id}) => {
+  console.log(data);
+ const {Meta}= Card
   return (
-    <div className="list-container">
-      <div className="img-div">
-        <img className="img" src={imagen} alt="" />
-      </div>
-      <div className="text-date">
-       <h4>{categoria}</h4>
-       <div><span>$ {importe}</span></div>
-       <div><span> fecha de ingreso: {fecha} </span></div>
-      </div>
-      <div className='nota'><span>Descripcion:<br/>{notas} </span > </div>
-      <Link
-        to={`/editar/rendicion/${id}`}>
-      <Button
-        style={{ width: "auto",  marginTop:'10px',borderRadius:'10px'}}
+    <>
+    <List
+    itemLayout="vertical"
+    size="large"
+    dataSource={data}
+  bordered={true}
+  className="list-card"
+    renderItem={item => (
+      <List.Item
+        key={item.title}
+        actions={[
+          <div>
+            <Link
+          to={`/editar/rendicion/${item.id}`}>
+        <Button
+        block
+          style={{ borderRadius:'10px'}}
+        >
+        Editar
+        </Button>
+        </Link>
+          </div>
+          ]}
+          extra={
+            <img
+            width={272}
+            height={200}
+            alt="logo"
+            src={item.imagen}
+          />
+            }
       >
-      Editar
-      </Button>
-      </Link>
-    </div>
+        <List.Item.Meta
+         
+        />
+         <div >
+             <h2> <b> Categoria:</b> {item.categoria}</h2>
+             <h2> <b>Importe:</b> $  {item.importe}</h2>
+             <h2> <b>fecha de ingreso:</b>  {item.fecha} </h2>
+            <h2> <b>Descripcion:</b> {item.notas} </h2 > 
+            </div>
+      </List.Item>
+    )}
+  />
+
+
+  </>
+    
+      
+    
   );
 };

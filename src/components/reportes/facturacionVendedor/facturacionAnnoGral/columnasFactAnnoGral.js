@@ -1,3 +1,5 @@
+import { numberWithCommas } from "../../helpers/funciones";
+
 export const columnasFactAnnoGral=[
     {
         title: 'Categoria',
@@ -19,8 +21,8 @@ export const columnasFactAnnoGral=[
         title: 'Importe',
         dataIndex: 'importe',
         key: 'importe',
-        width: '150px',
-        render:(state,file)=> <h5>{file.importe}</h5>,
+        width: '170px',
+        render:(state,file)=> <h5>${numberWithCommas(file.importe)}</h5>,
 
       },
     

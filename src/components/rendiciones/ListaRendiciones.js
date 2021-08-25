@@ -68,14 +68,12 @@ export const ListaRendiciones = ({ match, history }) => {
           <Link to="/gastos">
             <Button className="btn-list-rendicion">X</Button>
           </Link>
-          {todasLasRendicones?.map((t) => (
             <CardRendiciones
-              key={t.id}
-              {...t}
+             
+              data={todasLasRendicones}
               uid={id}
               importeAnt={totalDeImporte}
             />
-          ))}
         </Col>
         </Row>
         <Row>

@@ -28,7 +28,7 @@ top:-40;
   padding: 27px;
 }
 .container-form{
-  width:90% ;
+  width:70%;
   margin:auto;
   margin-top: 50px;
   border-radius: 20px;
@@ -41,15 +41,19 @@ top:-40;
   .list-container{
     height:157px;
   }
-
-
+  .sub-ant{
+    margin-left:0 !important;
+  }
+  .sub-ant-total{
+    margin-left:0 !important;
+  }
+  .container-form{
+    width:97%;
+  }
 }
+
 @media (max-width: 576px) {
-.sub-ant{
-  margin-left:40px;
-}
-.sub-ant-total{
-  margin-left:64px;
-}
-
+  .container-form{
+    width:97%;
+  }
 }

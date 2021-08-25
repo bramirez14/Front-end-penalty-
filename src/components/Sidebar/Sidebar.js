@@ -67,7 +67,7 @@ export const Sidebar = ({ history }) => {
 
   });
 
-console.log(isOpen);
+console.log(open);
 
   const handleLogout = async () => {
     await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
@@ -126,7 +126,10 @@ console.log(isOpen);
           <CustomScroll heightRelativeToParent="calc(80% - 100px)">
           <div  style={{ marginTop: 20,paddingRight:12 }}>
             {reconocerUsuario.map((item, index) => {
-              return <SubMenu item={item} key={index} />;
+              return <SubMenu item={item} key={index} 
+              open={open}
+              setOpen={setOpen}
+              />;
             })}
           </div>
           </CustomScroll>

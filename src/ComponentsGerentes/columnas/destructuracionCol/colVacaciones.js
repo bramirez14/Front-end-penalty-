@@ -90,7 +90,7 @@ export const colVacaciones=[
             const color =()=>{
               switch (file.estado) {
                 case 'pendiente':
-                  return(<span style={{color:'yellow'}}> pendiente...</span> )
+                  return(<span style={{color:'#F79E0B' }}> pendiente...</span> )
                   case 'aprobado':
                return (<span style={{color:'green'}}> aprobado </span>)
                 default: 

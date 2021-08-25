@@ -11,7 +11,6 @@ export const columnasSCC = [
     dataIndex: "fecemision",
     key: "fecemision",
     width:120,
-
     render: (state, file) => <h5>{file.fecemision}</h5>,
   },
   {
@@ -19,7 +18,6 @@ export const columnasSCC = [
     dataIndex: "nombre",
     key: "nombre",
     width:100,
-
     render: (state, file) => <h5>{file.nombre}</h5>,
   },
   {
@@ -27,7 +25,6 @@ export const columnasSCC = [
     dataIndex: "nroscc",
     key: "nroscc",
     width:100,
-
     render: (state, file) => <h5>{file.nroscc}</h5>,
   },
   {
@@ -35,7 +32,6 @@ export const columnasSCC = [
     dataIndex: "vendedor",
     key: "vendedor",
     width:120,
-
     render: (state, file) => <h5>{file.vendedor}</h5>,
   },
   {
@@ -43,7 +39,6 @@ export const columnasSCC = [
     dataIndex: "cliente",
     key: "cliente",
     width:100,
-
     render: (state, file) => <h5>{file.cliente}</h5>,
   },
   {
@@ -51,7 +46,6 @@ export const columnasSCC = [
     dataIndex: "razonsoc",
     key: "razonsoc",
     width:200,
-
     render: (state, file) => <h5>{file.razonsoc}</h5>,
   },
   {
@@ -59,7 +53,6 @@ export const columnasSCC = [
     dataIndex: "articulo",
     key: "articulo",
     width:200,
-
     render: (state, file) => <h5>{file.articulo}</h5>,
   },
   {
@@ -67,7 +60,6 @@ export const columnasSCC = [
     dataIndex: "descrip",
     key: "descrip",
     width:270,
-
     render: (state, file) => <h5>{file.descrip}</h5>,
   },
   {
@@ -75,7 +67,6 @@ export const columnasSCC = [
     dataIndex: "cantped",
     key: "cantped",
     width:100,
-
     render: (state, file) => <h5>{file.cantped}</h5>,
   },
   {
@@ -83,7 +74,6 @@ export const columnasSCC = [
     dataIndex: "aprobdep",
     key: "aprobdep",
     width:120,
-
     render: (state, file) => <h5>{file.aprobdep}</h5>,
   },
   {
@@ -91,7 +81,6 @@ export const columnasSCC = [
     dataIndex: "rechazado",
     key: "rechazado",
     width:120,
-
     render: (state, file) => <h5>{file.rechazado}</h5>,
   },
   {
@@ -99,7 +88,6 @@ export const columnasSCC = [
     dataIndex: "aprobcred",
     key: "creditos",
     width:100,
-
     render: (state, file) => <h5>{file.creditos}</h5>,
   },
   {
@@ -107,7 +95,6 @@ export const columnasSCC = [
     dataIndex: "nrocomp",
     key: "nrocomp",
     width:120,
-
     render: (state, file) => <h5>{file.nrocomp}</h5>,
   },
 ];

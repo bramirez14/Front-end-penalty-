@@ -25,6 +25,7 @@ export const HelperMODAL = ({
     setVisible(false);
     click();
   };
+  const handleX= () =>setVisible(false);
 
   return (
     <>
@@ -35,7 +36,7 @@ export const HelperMODAL = ({
         visible={visible}
         title={title}
         onOk={handleOk}
-        onCancel={handleCancel}
+        onCancel={handleX}
         width={longModal}
         footer={[
           <Button key="back" onClick={handleCancel}>

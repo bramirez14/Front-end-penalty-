@@ -1,3 +1,5 @@
+import { numberWithCommas } from "../helpers/funciones";
+
 export const columnasCargaPedidos = [
   {
     title: "Tipo",
@@ -69,6 +71,6 @@ export const columnasCargaPedidos = [
     key: "facturado",
     width: "120px",
 
-    render: (state, file) => <h5>{file.facturado}</h5>,
+    render: (state, file) => <h5>${numberWithCommas(file.facturado)}</h5>,
   },
 ];

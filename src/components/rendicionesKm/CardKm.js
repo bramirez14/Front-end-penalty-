@@ -18,7 +18,7 @@ export const CardKm = () => {
         itemLayout="vertical"
         size="large"
         dataSource={peticionKM}
-        
+        style={{backgroundColor:'#fff', marginTop:20}}
         renderItem={item => (
           <List.Item
 

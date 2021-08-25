@@ -1,9 +1,9 @@
 import React from "react";
 import {PeticionGET} from "../config/PeticionGET";
 import { GetFiltroGerencia } from "./helpers/funciones";
-import { HelperTABLE } from "../helpers/HelperTABLE";
 import { ColumnasVacaciones } from "./columnas/columnasVacaciones";
 import "./css/aprob.css";
+import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
 
 export const AprobacionVacaciones = () => {
 const [columnasVacaciones,data]=ColumnasVacaciones()
@@ -20,12 +20,14 @@ const [columnasVacaciones,data]=ColumnasVacaciones()
     };
   });
     return (
-    <HelperTABLE
+    <HelperTABLEobj
+    hoja={"Aprobaciones de Vacaciones"}
+    namefile={"Aprobaciones de Vacaciones"}
     columns={columnasVacaciones}
     data={datos}
     paginas={true}
+    boton={true}
     y={400}
-
     />
     )
 }

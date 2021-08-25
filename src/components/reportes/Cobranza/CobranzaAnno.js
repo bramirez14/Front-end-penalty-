@@ -1,7 +1,7 @@
 import React from 'react'
 import { PeticionGETIntranet } from '../../../config/PeticionGET'
 import { HelperTABLEobj } from '../../../helpers/HelperTABLEobj'
-import { columnasCobranzasMes } from './columnaCobranzaMes'
+import { columnasCobranzasAnno } from './columnasCobranzaAnno'
 
 export const CobranzaAnno = () => {
     const getCobranzas=PeticionGETIntranet('/cobranza/anno')
@@ -13,7 +13,7 @@ export const CobranzaAnno = () => {
  <HelperTABLEobj
         hoja={'cobranzas'}
         namefile={'Cobranzas'}
-        columns={columnasCobranzasMes}
+        columns={columnasCobranzasAnno}
         data={getCobranzas}
         boton={true}
         paginas={true}
