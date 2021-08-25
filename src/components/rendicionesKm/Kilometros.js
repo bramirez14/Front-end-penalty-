@@ -121,7 +121,7 @@ console.log(values);
         </Button>
       </h4>
       <Divider />
-      <Form.Item>
+      <Form.Item >
         <DatePicker
           style={{ width: "100%" }}
           placeholder="Ingrese una fecha"

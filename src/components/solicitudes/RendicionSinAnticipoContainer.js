@@ -4,6 +4,7 @@ import { axiosURL } from "../../config/axiosURL";
 import { categorias } from "../rendiciones/categorias";
 import { RendicionSinAnticipo } from "./RendicionSinAnticipo";
 export const RendicionSinAnticipoContainer = ({ history }) => {
+  const [spinner, setSpinner] = useState(false)
   const id = localStorage.getItem("uid");
   const [data, setData] = useState([]);
   const [state, setState] = useState({});
@@ -37,6 +38,7 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
   };
 
   const handleSubmit = async (values) => {
+    setSpinner(true)
     let obj = {
       fecha: new Date().toLocaleDateString(),
       usuarioId: id,
@@ -60,7 +62,13 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
     f.append("estadoFinal", obj.estadoFinal);
     f.append('f',obj.f)
     let result = await axiosURL.post("/gasto/rendicion", f);
-    if (result.data) {
+console.log(result);
+    if(result.data?.error?.errno===-3008){
+      alert('Compruebe su connexion!!!')
+      setSpinner(false)
+    }
+
+    if (result.data.status === 200) {
       history.push("/gastos");
     }
   };
@@ -87,6 +95,7 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       setData={setData}
       setCrearRendicion={setCrearRendicion}
       handleDelete={handleDelete}
+      spinner={spinner}
     />
   );
 };

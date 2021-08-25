@@ -1,11 +1,16 @@
-import React from "react";
+import React,{ useState,useEffect} from "react";
 import "./css/cardRendiciones.css";
 import { Card,Avatar,Button,Row,Col } from "antd";
 import {Link} from 'react-router-dom'
 import { List, Space } from 'antd';
-export const CardRendiciones = ({data,imagen,categoria,importe,fecha,notas,id}) => {
-  console.log(data);
- const {Meta}= Card
+import { axiosURL } from "../../config/axiosURL";
+
+export const CardRendiciones = ({data,axiosGet,imagen,categoria,importe,fecha,notas,uid}) => {
+ const handleDeleteRendicion = async (id)=> {
+   await axiosURL.delete(`/delete/rendicion/gasto/${id}`)
+   axiosGet();
+  
+ }
   return (
     <>
     <List
@@ -13,21 +18,31 @@ export const CardRendiciones = ({data,imagen,categoria,importe,fecha,notas,id}) 
     size="large"
     dataSource={data}
   bordered={true}
+  pagination={{
+   
+    pageSize: 4,
+  }}
   className="list-card"
     renderItem={item => (
       <List.Item
         key={item.title}
         actions={[
-          <div>
+          <div style={{display:'flex',flexWrap:'nowrap'}}>
             <Link
           to={`/editar/rendicion/${item.id}`}>
         <Button
-        block
           style={{ borderRadius:'10px'}}
         >
         Editar
         </Button>
         </Link>
+        
+        <Button onClick={() => handleDeleteRendicion(item.id)}
+          style={{ borderRadius:'10px',marginLeft:20,}}
+        >
+      Borrar
+        </Button>
+    
           </div>
           ]}
           extra={

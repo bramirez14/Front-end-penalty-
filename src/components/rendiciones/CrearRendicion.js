@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from "react";
 import{ axiosURL} from "../../config/axiosURL";
-import { Form, Input, Button, Row, Select, Divider,Col } from "antd";
+import { Form, Input, Button, Row, Select, Divider,Col,Spin } from "antd";
 import "./css/editarRendicion.css";
 import "../solicitudes/css/anticipoGasto.css";
 
@@ -11,6 +11,7 @@ import { VistaImg } from "./VistaImg";
 import { Imagen } from "../img/Imagen";
 
 export const CrearRendicion = ({ match, history }) => {
+  const [spinner, setSpinner] = useState(false)
   const { id } = match.params;
   const { Option } = Select;
   const [highlight, setHighlight] = useState(false);
@@ -33,8 +34,10 @@ export const CrearRendicion = ({ match, history }) => {
     gastoId,
   } = crearRendicion;
 
+  console.log(spinner);
   
   const agregar = async () => {
+   setSpinner(true)
   const obj={
     f: new Date().toLocaleString(),
   }
@@ -50,9 +53,14 @@ export const CrearRendicion = ({ match, history }) => {
       f.append('f',obj.f)
 
       let result = await axiosURL.post("/rendicion", f);
-      console.log(result.data);
-      if (result.status===200) {
-        history.push(`/lista/rendicion/${id}`);
+   console.log(result.data);
+      if(result.data?.error?.errno===-3008){
+        alert('Compruebe su connexion!!!')
+        setSpinner(false)
+      }
+      
+      if (result.data.status===200) {
+       history.push(`/lista/rendicion/${id}`);
       }
    
   };
@@ -99,10 +107,12 @@ export const CrearRendicion = ({ match, history }) => {
     totalDeImporte = sumaGastos?.reduce((acumulador, item) => {
       return (acumulador = parseFloat(acumulador) + parseFloat(item));
     });
+  }else{
+    totalDeImporte=0
   }
   const i = peticionGastoId?.importe
   const total = parseFloat(totalDeImporte) + parseFloat(importe)
- console.log(totalDeImporte);
+ console.log(total);
 
 
 console.log(crearRendicion);
@@ -129,7 +139,9 @@ console.log(crearRendicion);
           <h4 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendicion 
           <Button className='btn-rendicion' onClick={handleBack} style={{marginLeft:20}}> X </Button></h4>
           <Divider />
-          <Form.Item name="categoria">
+          <Form.Item name="categoria"
+          hasFeedback
+          >
             <Select placeholder="Categoria" onChange={selectChange} >
               {categorias.map((c) => (
                 <Option key={c.id} value={c.categoria}>
@@ -138,11 +150,15 @@ console.log(crearRendicion);
               ))}
             </Select>
           </Form.Item>
-          <Form.Item name="importe">
-            <Input name="importe" placeholder="Importe" />
+          <Form.Item name="importe"
+          hasFeedback
+          >
+            <Input name="importe" placeholder="Importe" type='number'/>
           </Form.Item>
 
-          <Form.Item name="notas">
+          <Form.Item name="notas"
+          hasFeedback
+          >
             <TextArea name="notas" value={notas} placeholder="Nota" autoSize={{ minRows: 2, maxRows: 6 }} />
           </Form.Item>
         <Imagen 
@@ -180,13 +196,18 @@ console.log(crearRendicion);
         </Col>
 
         <Col xs={16} sm={16} md={16} lg={16} xl={16}>
-        <div className='vista-muestra'>
+          { !!spinner?
+       <Spin size="large" /> 
+          : 
+      <div className='vista-muestra'>
             <VistaImg
           data={data}
           setData={setData}
           handleDelete={handleDelete}
           {...crearRendicion} />
         </div>
+          }
+        
         </Col>
       
        

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { axiosURL } from "../../config/axiosURL";
-import { Form, Input, Button, Col, Row, Select, Divider } from "antd";
+import { Form, Input, Button, Col, Row, Select, Divider, Spin } from "antd";
 import "./css/editarRendicion.css";
 import TextArea from "antd/lib/input/TextArea";
 import { categorias } from "./categorias";
@@ -9,6 +9,7 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { Imagen } from "../img/Imagen";
 
 export const EditarRendicion = ({ match, history }) => {
+  const [spinner, setSpinner] = useState(false)
   const { id } = match.params;
   console.log(id);
   const [data, setData] = useState([]);
@@ -30,11 +31,19 @@ export const EditarRendicion = ({ match, history }) => {
   }, [id]);
 
   const crearImg = async () => {
+    setSpinner(true)
     editarRendicion();
     let f = new FormData();
     f.append("imagen", img.imagen);
     let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f);
-    if (result.data) {
+    console.log(result);
+
+    if(result.data?.error?.errno===-3008){
+      alert('Compruebe su connexion!!!')
+      setSpinner(false)
+    }
+    
+    if (result.data.status===200) {
       history.push(`/lista/rendicion/${gastoId}`);
     }
   };
@@ -108,8 +117,8 @@ export const EditarRendicion = ({ match, history }) => {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item label="Importe">
-            <Input name="importe" value={importe} />
+          <Form.Item label="Importe" >
+            <Input name="importe" value={importe} type='number' />
           </Form.Item>
           <Form.Item label="Fecha">
             <Input name="fecha" value={fecha} />
@@ -127,7 +136,7 @@ export const EditarRendicion = ({ match, history }) => {
             setState={setImg}
             state={img}
           />
-  {/**imagen modo cel y ipad  */}{
+            {/**imagen modo cel y ipad  */}{
               data.length> 0 &&
               <div className='img-muestra'> 
             <div className="custom-file-preview " >
@@ -155,7 +164,10 @@ export const EditarRendicion = ({ match, history }) => {
       </Col>
 
       <Col xs={16} sm={16} md={16} lg={16} xl={16}>
-      <div className='vista-muestra'>
+        {!!spinner?
+       <Spin size="large" /> 
+        : 
+        <div className='vista-muestra'>
         <VistaImg
           data={data}
           setData={setData}
@@ -163,6 +175,8 @@ export const EditarRendicion = ({ match, history }) => {
           {...rendicionEditar}
         />
       </div>
+        }
+      
         </Col>
        
 

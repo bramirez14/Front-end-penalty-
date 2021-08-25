@@ -1,20 +1,24 @@
 .titulo {
     text-align: center;
-  
+  border-bottom: solid 2px #46a461;
+  padding:2px;
    
   }
+ 
 /*----------------------------------------------Media query table-----------------------------------------------------------------*/
 
 @media (max-width: 768px) {
-.titulo{
-    font-size: 30px;
-
-}}
+    h2.ant-typography{
+        font-size:30px;
+      
+    }
+}
 /*----------------------------------------------Media query celular -----------------------------------------------------------------*/
 
 @media (max-width: 576px) {
-    .titulo{
+  
+    h2.ant-typography{
         font-size: 28px;
-    
+      
     }
 }

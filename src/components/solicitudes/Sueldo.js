@@ -34,7 +34,6 @@ export const Sueldo = ({
           (<Row gutter={10}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <Titulo numero={2} titulo='Anticipo de Sueldo'/>
-        <Divider/>
 
             <>  
             <Radio.Group name="sueldo" onChange={handleChange} value={sueldo} style={{marginBottom:10}}>

@@ -100,9 +100,9 @@ export const SueldoContainer = ({ history }) => {
   /***tmb agregamos un alert para evitar fraudes  */
       handleSubmit = (v) => {
         console.log({...v,sueldo,fecha});
-        if (importe >= 3000 && sueldo === "Aguinaldo") {
+        if (importe >= 30001 && sueldo === "Aguinaldo") {
           alert(
-          " La opcion AGUINALDO , solo cubre un monto inferior a 3000"
+          " La opcion AGUINALDO , solo cubre un monto inferior a 30000"
           )
         }else{
           console.log('paso la prueba ');

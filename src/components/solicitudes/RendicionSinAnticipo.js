@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Row, Select, Divider,Col } from "antd";
+import { Form, Input, Button, Row, Select, Divider,Col, Spin } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Imagen } from "../img/Imagen";
 import { VistaImg } from "../rendiciones/VistaImg";
@@ -20,6 +20,7 @@ export const RendicionSinAnticipo = ({
   crearRendicion,
   handleDelete,
   state,
+  spinner
 }) => {
   const { Option } = Select;
 console.log(data);
@@ -43,6 +44,7 @@ console.log(data);
           </h3>
           <Divider />
           <Form.Item
+          hasFeedback
             name="categoria"
             rules={[
               {
@@ -84,6 +86,7 @@ console.log(data);
           </Form.Item>
 
           <Form.Item
+          hasFeedback
             name="importe"
             rules={[
               {
@@ -92,9 +95,12 @@ console.log(data);
               },
             ]}
           >
-            <Input name="importe" placeholder="Importe" />
+            <Input name="importe" placeholder="Importe" type='number' />
           </Form.Item>
-          <Form.Item name="notas">
+          <Form.Item name="notas" 
+          hasFeedback
+          
+          >
             <TextArea
               name="notas"
               value={notas}
@@ -136,6 +142,9 @@ console.log(data);
         </Form>
         </Col>
       <Col xs={16} sm={16} md={16} lg={16} xl={16}>
+      { !!spinner?
+       <Spin size="large" /> 
+          : 
       <div className='vista-muestra'>
         <VistaImg
           data={data}
@@ -146,6 +155,7 @@ console.log(data);
           pago={state.children}
         />
         </div>
+        }
       </Col>
         
       </Row>

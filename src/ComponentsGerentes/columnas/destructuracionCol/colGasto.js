@@ -77,7 +77,7 @@ export const colGastos = [
     lupa: false,
     render: (state, file) => (
       <>
-        {file.sinAnticipo !== "sin" ? (
+        {file.sinAnticipo === "sin" ? (
           ""
         ) : file.importe < file.importerendido ? (
           <h5 style={{ color: "red" }}>

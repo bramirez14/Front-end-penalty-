@@ -10,7 +10,7 @@ export const Rendicion = ({ history }) => {
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
           <Titulo numero={2} titulo='Rendicion de Gastos'/>
-          <Divider/>
+          
          
         </Col>
       </Row>

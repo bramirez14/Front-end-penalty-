@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
-import { Form, Input, Button, Select, Col, Row, Divider } from "antd";
+import { Form, Input, Button, Select, Col, Row,  } from "antd";
 import "./css/anticipoGasto.css";
 import { UserContext } from "../../contexto/UserContext";
 import { axiosURL } from "../../config/axiosURL";
@@ -66,7 +66,6 @@ export const AnticipoGasto = ({ history }) => {
       <Row gutter={10}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Titulo numero={2} titulo="Anticipo de Gasto" />
-          <Divider/>
           <Form.Item
             hasFeedback
             rules={[
