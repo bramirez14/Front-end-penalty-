@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Form, Input, Button, Col, Row, DatePicker, Select } from "antd";
+import { Form, Input, Button, Col, Row, DatePicker, Select,Divider} from "antd";
 import { UserContext } from "../../contexto/UserContext";
 import { Titulo } from "../titulos/Titulo";
 import {axiosURL} from "../../config/axiosURL";
@@ -203,8 +203,7 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
     <>
         <Form
           {...formLayout}
-          className={!open ? "form" : "form-active"}
-          className='container agregado'
+          className='form container'
           onFinish={handleSubmit}
           onChange={handleChange}
           size="large"
@@ -214,7 +213,8 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
             <>
           <Row gutter={10}>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <Titulo titulo=" Vacaciones" />
+              <Titulo numero={2} titulo=" Vacaciones" />
+              <Divider/>
               <Form.Item
                 label="Periodo"
                 name="periodo"

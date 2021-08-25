@@ -29,7 +29,13 @@ export const columnasMes=[
           title: 'Importe',
           dataIndex: 'importe',
           key: 'importe',
-          render:(state,file)=> <h5>{file.importe}</h5>,
+          render:(state,file)=>{
+            function numberWithCommas(x) { 
+              const valorNumerico = parseFloat(x).toFixed(2)
+              const valor= valorNumerico.replace('.', ',');
+              return valor.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
+
+            return <h5>${numberWithCommas(file.importe)}</h5>},
         },
 
 

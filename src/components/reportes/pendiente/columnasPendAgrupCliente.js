@@ -1,3 +1,5 @@
+import { numberWithCommas } from "../helpers/funciones";
+
 export const columnasPendAgrupCliente = [
   {
     title: "Vendedor",
@@ -17,7 +19,7 @@ export const columnasPendAgrupCliente = [
     title: "Razon Social",
     dataIndex: "razonsoc",
     key: "razonsoc",
-    width: 100,
+    width: 140,
     render: (state, file) => <h5>{file.razonsoc}</h5>,
   },
   {
@@ -31,7 +33,7 @@ export const columnasPendAgrupCliente = [
     title: "Importe",
     dataIndex: "importe",
     key: "importe",
-    width: 100,
-    render: (state, file) => <h5>${file.importe}</h5>,
+    width: 120,
+    render: (state, file) => <h5>${numberWithCommas(file.importe)}</h5>,
   },
 ];

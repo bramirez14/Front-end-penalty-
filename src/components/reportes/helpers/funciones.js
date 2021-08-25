@@ -17,7 +17,8 @@ export const filtradoPorVendedor = (url) => {
       N === "903" ||
       N === "902" ||
       N === "901" ||
-      N === "907"
+      N === "907"||
+      N === "908"
     ) {
       filtrado = getDB;
     } else {
@@ -28,3 +29,8 @@ export const filtradoPorVendedor = (url) => {
   return filtrado;
 };
 
+export const  numberWithCommas = (x) =>{ 
+  const valorNumerico = parseFloat(x).toFixed(2)
+  const valor= valorNumerico.replace('.', ',');
+  return valor.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}

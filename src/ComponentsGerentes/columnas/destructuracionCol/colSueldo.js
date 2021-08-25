@@ -89,7 +89,7 @@ export const colSueldo = [
       const color = () => {
         switch (file.estado) {
           case "pendiente":
-            return <h5 style={{ color: "yellow" }}> pendiente...</h5>;
+            return <h5 style={{ color: '#F79E0B'  }}> pendiente...</h5>;
           case "aprobado":
             return <h5 style={{ color: "green" }}> aprobado </h5>;
           default:

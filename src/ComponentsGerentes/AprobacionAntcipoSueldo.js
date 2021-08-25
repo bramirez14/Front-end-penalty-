@@ -1,8 +1,8 @@
 import React from "react";
 import "./css/aprob.css";
 import { GetFiltroGerencia } from "./helpers/funciones";
-import { HelperTABLE } from "../helpers/HelperTABLE";
 import { ColumnasSueldo} from "./columnas/columnasSueldo";
+import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
 
 export const AprobacionAntcipoSueldo = () => {
  const[columnasSueldo,data]=ColumnasSueldo()
@@ -16,10 +16,13 @@ export const AprobacionAntcipoSueldo = () => {
     };
   });
   return (
-    <HelperTABLE
+    <HelperTABLEobj
+    hoja={"Aprobaciones de Sueldos"}
+    namefile={"Aprobaciones de Sueldos"}
     columns={columnasSueldo}
     data={datos}
     paginas={true}
+    boton={true}
     y={400}
     />
      

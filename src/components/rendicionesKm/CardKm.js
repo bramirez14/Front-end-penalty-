@@ -18,7 +18,11 @@ export const CardKm = () => {
         itemLayout="vertical"
         size="large"
         dataSource={peticionKM}
-        
+        style={{backgroundColor:'#fff', marginTop:20}}
+        pagination={{
+   
+          pageSize: 4,
+        }}
         renderItem={item => (
           <List.Item
 

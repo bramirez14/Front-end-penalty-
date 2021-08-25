@@ -1,9 +1,12 @@
 import React from "react";
-import { Form, Input, Button, Select, Col, Row,Radio } from "antd";
+import { Form, Input, Button, Select, Col, Row,Radio, Divider } from "antd";
 import { SelectAnt } from "../inputs/SelectAnt";
 import { Titulo } from "../titulos/Titulo";
 import { FormAntAguinaldo } from "./helpers/FormAntAguinaldo";
 import { FormAntSueldo } from "./helpers/FormAntSueldo";
+import { Typography } from 'antd';
+
+const { Title } = Typography;
 export const Sueldo = ({
   open,
   handleSubmit,
@@ -21,7 +24,7 @@ export const Sueldo = ({
 
   return (
     <Form
-      className='container agregado'
+      className='form container'
       onFinish={handleSubmit}
       size="large"
     >
@@ -30,7 +33,8 @@ export const Sueldo = ({
           ) :
           (<Row gutter={10}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-          <Titulo titulo="Anticipo de Sueldo" />
+        <Titulo numero={2} titulo='Anticipo de Sueldo'/>
+
             <>  
             <Radio.Group name="sueldo" onChange={handleChange} value={sueldo} style={{marginBottom:10}}>
             <Radio value={'Sueldo'}>Anticipo de Sueldo</Radio>

@@ -1,13 +1,15 @@
 import React from 'react'
-import { Form,Col, Row } from "antd";
+import { Col, Row, Divider} from "antd";
 import { CardKm } from './CardKm';
+import { Titulo } from '../titulos/Titulo';
 
 export const ListaKm = () => {
     return (
-    <div className='container'>
+    <div className='container-form'>
     <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-          <h2 className='title'>Rendicion de KM</h2>
+        <Titulo numero={2} titulo='Rendicion de Kilometros'/>
+          <Divider/>
         </Col>
       </Row>
 

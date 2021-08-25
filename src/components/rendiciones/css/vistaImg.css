@@ -2,10 +2,11 @@
   display: flex;
   flex-wrap: nowrap;
   margin-top: 70px;
- margin-left: 200px;
+ margin-left: 10px;
   border: solid 1px #ddd;
   border-radius: 14px;
   height: 340px;
+  width:597px;
 }
 .vista-imagenes-active{
   display: flex;
@@ -13,8 +14,9 @@
   margin-top: 70px;
   border: solid 1px #ddd;
   border-radius: 14px;
-  margin-left: 100px;
+  margin-left: 10px;
   height: 340px;
+  width:597px;
   
 }
 .vista-datos {

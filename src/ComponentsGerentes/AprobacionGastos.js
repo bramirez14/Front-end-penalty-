@@ -8,7 +8,7 @@ import { Card, } from "antd";
 import "./css/aprob.css";
 import { TodosGastos } from "./helpers/funciones";
 import { ColumnasGastos } from "./columnas/columnasGastos";
-import { HelperTABLE } from "../helpers/HelperTABLE";
+import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
 export const AprobacionGastos = () => {
 const [columnasGastos,data]=ColumnasGastos();
 
@@ -56,10 +56,13 @@ const [columnasGastos,data]=ColumnasGastos();
       ),
     };
   });
-  return <HelperTABLE
+  return <HelperTABLEobj
+      hoja={"Aprobaciones de Gastos"}
+      namefile={"Aprobaciones de Gastos"}
       columns={columnasGastos}
       data={datos}
       expandible={true}
+      boton={true}
       paginas={true}
       y={400}
       />

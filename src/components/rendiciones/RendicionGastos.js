@@ -6,7 +6,7 @@ export const RendicionGastos = ({ history }) => {
  
   return (
     <>
-      <div className ='container' >
+      <div className ='contenedor-rendicion-gasto' >
         <Rendicion history={history} />
       </div>
     </>

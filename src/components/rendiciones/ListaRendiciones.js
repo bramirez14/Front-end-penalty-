@@ -8,10 +8,12 @@ import {PeticionGET }from "../../config/PeticionGET";
 import { SubEncabezado } from "./SubEncabezado";
 import { UserContext } from "../../contexto/UserContext";
 import { saveAs } from "file-saver";
+import { useGet } from "../../hooks/useGet";
 
 export const ListaRendiciones = ({ match, history }) => {
   const { id } = match.params;
-  const peticionGastoId = PeticionGET(`/gastos/${id}`);
+  const [peticionGastoId,axiosGet] = useGet(`/gastos/${id}`);
+
   // prohibe ingreso por medio de la ruta
   peticionGastoId?.listo==='Si'&& history.push('/perfil')
 
@@ -51,7 +53,7 @@ export const ListaRendiciones = ({ match, history }) => {
       res.status===200&& history.push('/gastos')
   };
   return (
-    <div className='container'>
+    <div className='container-form'>
 
       <Encabezado />
       <SubEncabezado
@@ -68,14 +70,13 @@ export const ListaRendiciones = ({ match, history }) => {
           <Link to="/gastos">
             <Button className="btn-list-rendicion">X</Button>
           </Link>
-          {todasLasRendicones?.map((t) => (
             <CardRendiciones
-              key={t.id}
-              {...t}
+             
+              data={todasLasRendicones}
               uid={id}
               importeAnt={totalDeImporte}
+              axiosGet={axiosGet}
             />
-          ))}
         </Col>
         </Row>
         <Row>

@@ -1,3 +1,5 @@
+import { numberWithCommas } from "../helpers/funciones";
+
 export const columnasFactDet=[
     {
         title: 'Fecha',
@@ -102,7 +104,7 @@ export const columnasFactDet=[
         key: 'precio',
         width: 120,
         
-        render:(state,file)=> <h5>{file.precio}</h5>,
+        render:(state,file)=> <h5>${numberWithCommas(file.precio)}</h5>,
         
       },
       {
@@ -111,7 +113,7 @@ export const columnasFactDet=[
         key: 'importe',
         width: 120,
         
-        render:(state,file)=> <h5>{file.importe}</h5>,
+        render:(state,file)=> <h5>${numberWithCommas(file.importe)}</h5>,
         
       },
       {
@@ -120,7 +122,7 @@ export const columnasFactDet=[
         key: 'iva',
         width: 120,
         
-        render:(state,file)=> <h5>{file.iva}</h5>,
+        render:(state,file)=> <h5>${numberWithCommas(file.iva)}</h5>,
         
       },
       {
@@ -138,7 +140,7 @@ export const columnasFactDet=[
         key: 'total',
         width: 120,
         
-        render:(state,file)=> <h5>{file.total}</h5>,
+        render:(state,file)=> <h5>${numberWithCommas(file.total)}</h5>,
         
       },
 ]

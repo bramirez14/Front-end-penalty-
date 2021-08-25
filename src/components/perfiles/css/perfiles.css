@@ -3,16 +3,26 @@
 }
 .contenedor{
     transition: 1200ms;
-    padding-top:54px;
+    padding-top:50px;
     height: auto;
-    padding-right:10px;
 
 
 }
 .contenedor-active{
     padding-left: 265px;
     transition: 700ms;
-    padding-top:54px;
-    padding-right: 10px;
+    padding-top:50px;
     
+}
+
+
+@media (max-width: 768px){
+  
+    .contenedor-active{
+        padding-left: 0px;
+}
+}
+@media (max-width: 576px){
+
+
 }

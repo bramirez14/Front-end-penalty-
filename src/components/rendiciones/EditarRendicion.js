@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { axiosURL } from "../../config/axiosURL";
-import { Form, Input, Button, Col, Row, Select, Divider } from "antd";
+import { Form, Input, Button, Col, Row, Select, Divider, Spin } from "antd";
 import "./css/editarRendicion.css";
 import TextArea from "antd/lib/input/TextArea";
 import { categorias } from "./categorias";
@@ -9,6 +9,7 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { Imagen } from "../img/Imagen";
 
 export const EditarRendicion = ({ match, history }) => {
+  const [spinner, setSpinner] = useState(false)
   const { id } = match.params;
   console.log(id);
   const [data, setData] = useState([]);
@@ -30,11 +31,19 @@ export const EditarRendicion = ({ match, history }) => {
   }, [id]);
 
   const crearImg = async () => {
+    setSpinner(true)
     editarRendicion();
     let f = new FormData();
     f.append("imagen", img.imagen);
     let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f);
-    if (result.data) {
+    console.log(result);
+
+    if(result.data?.error?.errno===-3008){
+      alert('Compruebe su connexion!!!')
+      setSpinner(false)
+    }
+    
+    if (result.data.status===200) {
       history.push(`/lista/rendicion/${gastoId}`);
     }
   };
@@ -83,20 +92,21 @@ export const EditarRendicion = ({ match, history }) => {
   return (
     <>
       <Row>
-        <Form
+      <Col xs={24} sm={24} md={24} lg={8} xl={8}>
+         <Form
           onFinish={handleSubmit}
           onChange={handleChange}
           layout="vertical"
           className="formulario-rendicion"
         >
-          <h5 style={{ textAlign: "center", marginLeft: "32px" }}>
+          <h4 style={{ textAlign: "center", marginLeft: "32px" ,marginTop:20}}>
             
             Editar Rendicion
-            <Button className="btn-rendicion" onClick={handleBack}>
+            <Button className="btn-rendicion" onClick={handleBack} style={{marginLeft:20}}>
               
               X
             </Button>
-          </h5>
+          </h4>
           <Divider />
           <Form.Item label="Categoria">
             <Select value={categoria} onChange={onChange}>
@@ -107,8 +117,8 @@ export const EditarRendicion = ({ match, history }) => {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item label="Importe">
-            <Input name="importe" value={importe} />
+          <Form.Item label="Importe" >
+            <Input name="importe" value={importe} type='number' />
           </Form.Item>
           <Form.Item label="Fecha">
             <Input name="fecha" value={fecha} />
@@ -126,7 +136,24 @@ export const EditarRendicion = ({ match, history }) => {
             setState={setImg}
             state={img}
           />
-
+            {/**imagen modo cel y ipad  */}{
+              data.length> 0 &&
+              <div className='img-muestra'> 
+            <div className="custom-file-preview " >
+              {data?.length === 0 ? (
+                <h2 className='sector'>Imagen</h2>
+              ) : (
+                <div
+                  className="prev-img"
+                >
+                  <span className="prev-img" onClick={handleDelete}>
+                    &times;
+                  </span>
+                  <img src={data[0].src} />
+                </div>
+              )}
+            </div>
+        </div>}
 
           <Form.Item>
             <Button className="btn" htmlType="submit" block>
@@ -134,13 +161,26 @@ export const EditarRendicion = ({ match, history }) => {
             </Button>
           </Form.Item>
         </Form>
+      </Col>
 
+      <Col xs={16} sm={16} md={16} lg={16} xl={16}>
+        {!!spinner?
+       <Spin size="large" /> 
+        : 
+        <div className='vista-muestra'>
         <VistaImg
           data={data}
           setData={setData}
           handleDelete={handleDelete}
           {...rendicionEditar}
         />
+      </div>
+        }
+      
+        </Col>
+       
+
+        
       </Row>
     </>
   );

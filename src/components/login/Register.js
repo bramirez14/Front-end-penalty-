@@ -50,7 +50,7 @@ export const Register = ({history}) => {
 
   return (
     <Form
-      className='container'
+      className='container-form'
       name="register"
       onFinish={onFinish}
       initialValues={{

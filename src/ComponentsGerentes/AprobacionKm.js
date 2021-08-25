@@ -8,8 +8,8 @@ import {
 import { Card } from "antd";
 import { TodosGastos } from "./helpers/funciones";
 import { ColumnasKm } from "./columnas/columnasKm";
-import { HelperTABLE } from "../helpers/HelperTABLE";
 import "./css/aprob.css";
+import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
 
 export const AprobacionKm = () => {
  const [columnasKm,data] = ColumnasKm();
@@ -40,7 +40,7 @@ export const AprobacionKm = () => {
                   </p>
                   
                   <p>
-                    <b>Km Final:</b> ${r.KmF}
+                    <b>Km Final:</b> {r.KmF}
                   </p>
                   <p>
                     <b>Km Recorrido :</b> {r.KmRecorrido}
@@ -60,7 +60,9 @@ export const AprobacionKm = () => {
     };
   });
 
- return  <HelperTABLE
+ return  <HelperTABLEobj
+ hoja={"Aprobaciones de Kilometros"}
+    namefile={"Aprobaciones de Kilometros"}
  columns={columnasKm}
     data={datos}
     paginas={true}

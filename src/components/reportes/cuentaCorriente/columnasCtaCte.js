@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import { axiosURLIntranet } from "../../../config/axiosURL";
 import { saveAs } from "file-saver";
+import { numberWithCommas } from "../helpers/funciones";
 
 export const columnasCtaCte=[
    
@@ -92,17 +93,17 @@ export const columnasCtaCte=[
         title: 'Total',
         dataIndex: 'totalml',
         key: 'totalml',
-        width:100,
+        width:120,
 
-        render:(state,file)=> <h5>${file.totalml}</h5>,
+        render:(state,file)=> <h5>${numberWithCommas(file.totalml)}</h5>,
       },
        {
         title: 'Saldo',
         dataIndex: 'saldoml',
         key: 'saldoml',
-        width:100,
+        width:120,
 
-        render:(state,file)=> <h5>${file.saldoml}</h5>,
+        render:(state,file)=> <h5>${numberWithCommas(file.saldoml)}</h5>,
       },
       {
         title: 'pdf',

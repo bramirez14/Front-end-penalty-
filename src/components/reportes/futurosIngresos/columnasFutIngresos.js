@@ -31,6 +31,8 @@ export const columnasFutIngresos = [
     title: "Unidades",
     dataIndex: "unidades",
     key: "unidades",
+    width:120,
+
     render: (state, file) => <h5>{file.unidades}</h5>,
   },
 ];

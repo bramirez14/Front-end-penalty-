@@ -1,3 +1,5 @@
+import { numberWithCommas } from "../helpers/funciones";
+
 export const columnasStock = [
   {
     title: "id",
@@ -51,13 +53,13 @@ export const columnasStock = [
 
     render: (state, file) => <h5>{file.codtalle}</h5>,
   },
-  {
+  /* {
     title: "Total",
     dataIndex: "total",
     key: "total",
     width:100,
-    render: (state, file) => <h5>{file.total}</h5>,
-  },
+    render: (state, file) => <h5>{numberWithCommas(file.total)}</h5>,
+  }, */
   {
     title: "33-25-18-TU-XS-5",
     dataIndex: "talle00",
