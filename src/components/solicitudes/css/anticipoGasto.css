@@ -161,13 +161,13 @@ height: auto !important;
 /*----------------------------------------------Media query celular -----------------------------------------------------------------*/
 @media (max-width: 576px) {
   .form {
-    width: 95% !important;
+    width: 94% !important;
     border-radius: 20px;
     box-shadow: none;
     margin:auto;
   }
   .formulario-rendicion-crear{
-    width: 95% !important;
+    width: 94% !important;
     height: auto !important;
     margin:auto
   }

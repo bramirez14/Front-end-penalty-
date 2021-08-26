@@ -7,8 +7,10 @@ import { TablaInfkm } from './TablaInfkm';
 import {Link} from "react-router-dom";
 
 export const CardKm = () => {
-    const peticionKM=PeticionGET('/todos/kilometros')
-    console.log(peticionKM);
+    const id= localStorage.getItem('uid') 
+    const peticionKM=PeticionGET('/todos/kilometros');
+    const filtroIdUsuario= peticionKM.filter(p=>p.usuarioId === parseInt(id));
+   
     return (
       <>
     <div>
@@ -17,7 +19,7 @@ export const CardKm = () => {
         <List
         itemLayout="vertical"
         size="large"
-        dataSource={peticionKM}
+        dataSource={filtroIdUsuario}
         style={{backgroundColor:'#fff', marginTop:20}}
         pagination={{
    

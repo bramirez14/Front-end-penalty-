@@ -17,11 +17,7 @@ export const PerfilEmpleado = ({history}) => {
             </Row>
             :
                 ''         }
-<<<<<<< HEAD
-               </div>
-=======
                
->>>>>>> 928bbaa213641cd285e23b7a51ad5d18b81bfdeb
          </>   
     )
 }
