@@ -22,7 +22,7 @@ export const FormularioSinAnt = ({
       </Form.Item>
 
       <Form.Item>
-        <Archivo change={handleFileChange} />
+        <Archivo boton='PDF Pago' change={handleFileChange} />
       </Form.Item>
       <Form.Item label={stateFile.name} />
     </Form>

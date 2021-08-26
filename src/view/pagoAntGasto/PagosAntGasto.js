@@ -10,7 +10,9 @@ import { columnsant } from "./columnasAntPago";
 
 export const PagosAntGasto = () => {
   const [dataGasto, setDataGasto] = useState([]);
-  const [stateFile, setStateFile] = useState("");
+  const [stateFile, setStateFile] = useState('');
+  const [stateFilefinal, setStateFilefinal] = useState('');
+ 
   const getGastos = async () => {
     const { data } = await axiosURL.get("/gastos");
     setDataGasto(data);
@@ -26,6 +28,8 @@ export const PagosAntGasto = () => {
     {
       title: "Acciones",
       key: "acciones",
+      width:120,
+
       render: (state, file) => (
         <>
           {file.pagoRealizado === "Si" ? (
@@ -40,7 +44,7 @@ export const PagosAntGasto = () => {
                   title={"Rendicion sin Anticipo"}
                   Submit={"Finalizar"}
                   Return={"Salir"}
-                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile)}
+                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile,stateFilefinal,setStateFilefinal)}
                   noclick={() => {}}
                 >
                   <FormularioSinAnt
@@ -58,12 +62,14 @@ export const PagosAntGasto = () => {
                   title={"Rendicion sin Anticipo"}
                   Submit={"Finalizar"}
                   Return={"Salir"}
-                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile)}
+                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile,stateFilefinal,setStateFilefinal)}
                   noclick={() => {}}
                 >
                   <FormularioConAnt
                     stateFile={stateFile}
+                    stateFilefinal={stateFilefinal}
                     setStateFile={setStateFile}
+                    setStateFilefinal={setStateFilefinal}
                     orden={file.norden}
                     importeRendido={file.importerendido}
                     importe={file.importe}
@@ -106,6 +112,7 @@ export const PagosAntGasto = () => {
       dataSource={datos}
       pagination={false}
       bordered={true}
+      scroll={{y:500}}
     />
   );
 };

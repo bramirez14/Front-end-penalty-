@@ -23,6 +23,7 @@ export const AprobacionAntcipoSueldo = () => {
     data={datos}
     paginas={true}
     boton={true}
+    bordered={false}
     y={400}
     />
      

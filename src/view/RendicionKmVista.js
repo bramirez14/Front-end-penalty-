@@ -3,6 +3,8 @@ import { axiosURL } from '../config/axiosURL';
 import { saveAs } from "file-saver";
 import { Card, Collapse, Button, Row, Col, Table } from "antd";
 import { Modale } from './helpers/Modale';
+import { BiDownload } from 'react-icons/bi';
+import { numberWithCommas } from '../components/reportes/helpers/funciones';
 
 export const RendicionKmVista = ({history}) => {
     const N = localStorage.getItem("N");
@@ -47,10 +49,10 @@ export const RendicionKmVista = ({history}) => {
     },
     { title: "Km Total", dataIndex: "kmTotal", key: "kmTotal", width: "100px", render:(state,file)=><span>{file.kmTotal} Km</span> },
 
-    { title: "Importe total", dataIndex: "importeTotal", key: "importeTotal", width: "100px", render:(state, file)=> <span>${file.importeTotal}</span>},
+    { title: "Importe total", dataIndex: "importeTotal", key: "importeTotal", width: "100px", render:(state, file)=> <span>${numberWithCommas(file.importeTotal)}</span>},
 
     {
-      title: "PDFSB",
+      title: "PDF Provedores",
       dataIndex: "pdf",
       key: "pdf",
       width: "100px",
@@ -58,7 +60,7 @@ export const RendicionKmVista = ({history}) => {
         <>
         {file.pdf===null || ''?
         <span>No hay pdf!!</span>:
-          <Button type="link" onClick={() => descargarPDF(file.pdf)}>pdf</Button>
+          <Button type="link" onClick={() => descargarPDF(file.pdf)}><BiDownload/></Button>
         }
         </>
       ),

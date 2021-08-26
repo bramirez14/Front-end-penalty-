@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { TablaKm } from "./TablaKm";
 import { ModalKm } from "./ModalKm";
 import { ImagenKm } from "./ImagenKm";
-import moment from 'moment';
-import { Spin, Space } from 'antd';
+import { Spin,} from 'antd';
 import './css/spiner.css'
+import './css/kilometros.css'
+
 import Swal from 'sweetalert2'
 import { PeticionGET } from "../../config/PeticionGET";
 
@@ -101,7 +102,7 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
   peticionGet();
 }
 const style={
-  borderRadius:10,background:'#46a461',border:'none',boxShadow:'none',color:'#ffff'
+  borderRadius:10,background:'#46a461',border:'none',boxShadow:'none',color:'#ffff',marginTop:20
 }
 console.log(values);
   return (
@@ -146,11 +147,15 @@ console.log(values);
       <Form.Item>
         <Input.TextArea name="nota" placeholder="Nota" value={nota}/>
       </Form.Item>
+
       <Form.Item >
         <Button block style={{borderRadius:10}} htmlType="submit" >Agregar</Button>
       </Form.Item> 
 
-   
+      <div className='table-km-sm'>
+        <TablaKm datos={filtroSinKmId} borrar={borrar} long={300} />
+
+        </div>
 
       <Form.Item >
   
@@ -159,13 +164,10 @@ console.log(values);
           </ModalKm>
       </Form.Item>
     </Form>
-{
-  loading?<Spin size="large" /> :''
-}
-      
-       {
-         loading ? '':<TablaKm datos={filtroSinKmId} borrar={borrar} />
-       } 
+      <div className='table-km-xl'>
+      <TablaKm datos={filtroSinKmId} borrar={borrar} />
+      </div>
+        
    
     </div>
     

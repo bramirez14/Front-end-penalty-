@@ -1,8 +1,8 @@
-import React,{ useState,useEffect} from "react";
+import React from "react";
 import "./css/cardRendiciones.css";
-import { Card,Avatar,Button,Row,Col } from "antd";
+import { Button, } from "antd";
 import {Link} from 'react-router-dom'
-import { List, Space } from 'antd';
+import { List,  } from 'antd';
 import { axiosURL } from "../../config/axiosURL";
 
 export const CardRendiciones = ({data,axiosGet,imagen,categoria,importe,fecha,notas,uid}) => {

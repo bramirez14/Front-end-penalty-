@@ -67,6 +67,7 @@ export const AprobacionKm = () => {
     data={datos}
     paginas={true}
     expandible={true}
+    bordered={false}
     y={400}
  />
        

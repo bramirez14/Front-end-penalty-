@@ -27,6 +27,7 @@ const [columnasVacaciones,data]=ColumnasVacaciones()
     data={datos}
     paginas={true}
     boton={true}
+    bordered={false}
     y={400}
     />
     )

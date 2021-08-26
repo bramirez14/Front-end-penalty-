@@ -3,6 +3,9 @@ import { axiosURL } from "../config/axiosURL";
 import { Card, Collapse, Button, Row, Col, Table } from "antd";
 import { Modale } from "./helpers/Modale";
 import { saveAs } from "file-saver";
+import { numberWithCommas } from "../components/reportes/helpers/funciones";
+import { BiDownload } from 'react-icons/bi';
+
 
 export const AntSueldoVista = ({ history }) => {
   const N = localStorage.getItem("N");
@@ -52,10 +55,10 @@ result.status===200 && history.push('/perfil')
     },
     { title: "Devolucion", dataIndex: "sueldo", key: "sueldo", width: "100px"},
     { title: "Cuotas", dataIndex: "cuotas", key: "cuotas", width: "100px"},
-    { title: "Importe", dataIndex: "importe", key: "importe", width: "100px",render: (state, file) => <span>${file.importe}</span> },
+    { title: "Importe", dataIndex: "importe", key: "importe", width: "140px",render: (state, file) => <span>${numberWithCommas(file.importe)}</span> },
     { title: "N° orden", dataIndex: "norden", key: "norden", width: "100px" },
     {
-      title: "PDFProveedores",
+      title: "PDF Proveedores",
       dataIndex: "pdf",
       key: "pdf",
       width: "100px",
@@ -63,7 +66,7 @@ result.status===200 && history.push('/perfil')
         <>
         {file.pdf===null || file.pdf===''?
         <span>No hay pdf!!</span>:
-          <Button type="link" onClick={() => descargarPDF(file.pdf)}>pdf</Button>
+          <Button type="link" onClick={() => descargarPDF(file.pdf)}> <BiDownload/> </Button>
         }
         </>
       ),

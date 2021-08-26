@@ -5,12 +5,13 @@ import { saveAs } from "file-saver";
 import { ModalKm } from '../components/rendicionesKm/ModalKm';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { Archivo } from '../file/Archivo';
+import { BiDownload } from 'react-icons/bi';
 
 export const PagosKm = () => {
-    const [dataKm, setDataKm] = useState([])
-    const [stateFile, setStateFile] = useState({
-  file:''
-    })
+  const [stateFile, setStateFile] = useState('');
+  const [stateFilefinal, setStateFilefinal] = useState('');
+  const [dataKm, setDataKm] = useState([])
+ 
   const getKm = async ()=>{
     const {data} = await axiosURL.get('/todos/kilometros')
     setDataKm(data)
@@ -31,32 +32,60 @@ export const PagosKm = () => {
     console.log(filtroAprobacion);
 
     const finalizar= async (id)=>{
-        console.log(id);
-          if(stateFile.file===''){
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Ingrese un archivo pdf!',
-              
-            })
-          }
-          const obj={
-            procesoPagar:'Si'
-          }
-          const f= new FormData();
-          f.append('file',stateFile.file);
-          f.append('procesoPagar',obj.procesoPagar)
-          await axiosURL.put(`/pago/km/${id}`,f);
-          setStateFile({file:''})
+      if (stateFile === '') {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Ingreses los  archivo pdf!",
+        });
+      }else if (stateFilefinal===''){
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Ingreses los  archivo pdf!",
+        });
+    
+    
+      }else{
+        
+        const obj={
+          procesoPagar:'Si'
+        }
+        const f= new FormData();
+        f.append('file',stateFile);
+        f.append('procesoPagar',obj.procesoPagar)
+        await axiosURL.put(`/pago/km/${id}`,f);
+        await finalizarfinal(id,stateFilefinal)
+        setStateFile('')
+        setStateFilefinal('')
+        getKm()
+         
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'se guardo con exito!!!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
+      }
           
-          getKm()
+        }
+        const finalizarfinal=async (id,statefinal) =>{
+          const final = new FormData();
+          final.append("file",statefinal);
+          const  result= await axiosURL.put(`/pagofinal/kilometros/${id}`, final);
+          console.log(result);
         }
         const handleFileChange = (e)=> {
-            setStateFile({...stateFile,file:e.target.files[0]})
+            setStateFile(e.target.files[0])
         }
+        const handleFileChangeFinal = (e)=> {
+          setStateFilefinal(e.target.files[0])
+      }
   const columns = [
     {
-      title: 'N de Ant Gasto',
+      title: 'N de Ant km',
       dataIndex: 'id',
       key: 'id',
       width:'80px',
@@ -99,7 +128,7 @@ export const PagosKm = () => {
       render:(state,file)=>{return(
         <>  
         { file.pdf===null || file.pdf===''?<span>No hay pdf</span>:
-          <Button type='link' onClick={()=>descargarPDF(file.pdf)} >pdf</Button>
+          <Button type='link' onClick={()=>descargarPDF(file.pdf)} style={{marginLeft:30}}><BiDownload /></Button>
           }
         </>
         )}
@@ -114,11 +143,30 @@ export const PagosKm = () => {
             <>
             {file.pdfinal===null || file.pdfinal===''?<span>No hay pdf</span>: 
             
-          <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} >pdf</Button>
+          <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} ><BiDownload /></Button>
             
             }
             </>
         )}
+      },
+      {
+        title: "  PDF Orden pago final ",
+        dataIndex: "pdfpagoFinal",
+        key: "pdfpagoFinal",
+        width:170,
+        render: (state, file) => {
+          return (
+            <>
+              {file.pdfpagoFinal === null || file.pdfpagoFinal === "" ? (
+                <span>No hay pdf</span>
+              ) : (
+                <Button type="link" onClick={() => descargarPDF(file.pdfpagoFinal)} >
+                  <BiDownload />
+                </Button>
+              )}
+            </>
+          );
+        },
       },
       {
         title: 'Acciones',
@@ -140,9 +188,13 @@ export const PagosKm = () => {
 </Form.Item>
 
 <Form.Item  >
-    <Archivo change={handleFileChange}/>
+    <Archivo boton='PDF pago' change={handleFileChange}/>
 </Form.Item>
-<Form.Item label={stateFile.file.name}/>
+<p>{stateFile.name}</p>
+<Form.Item  >
+      <Archivo boton='PDF Orden de pago final' change={handleFileChangeFinal}/>
+  </Form.Item>
+  <p>{stateFilefinal.name}</p>
       </Form>
           </ModalKm>
             

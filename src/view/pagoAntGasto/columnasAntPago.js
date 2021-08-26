@@ -1,6 +1,9 @@
 import { Button, Table } from "antd";
 import { saveAs } from "file-saver";
 import { axiosURL } from "../../config/axiosURL";
+import { BiDownload } from 'react-icons/bi';
+import { numberWithCommas } from "../../components/reportes/helpers/funciones";
+
 const descargarPDF = async (pdf) => {
     let res = await axiosURL.get("/pdf/gastos/rendicion", {
       headers: { archivo: pdf },
@@ -14,35 +17,46 @@ export const columnsant = [
         title: "N de Ant Gasto",
         dataIndex: "id",
         key: "id",
-        width: "80px",
+        width:100,
+
       },
       {
         title: "Nombre",
         dataIndex: "nombre",
         key: "nombre",
+        width:100,
+
       },
       {
         title: "Apellido",
         dataIndex: "apellido",
         key: "apellido",
+        width:140,
+
       },
   
       {
         title: "Fecha",
         dataIndex: "fecha",
         key: "fecha",
+        width:120,
+
       },
   
       {
         title: "Importe",
         key: "importerendido",
         dataIndex: "importerendido",
-        render: (state, file) => <span> ${file.importerendido}</span>,
+        width:140,
+
+        render: (state, file) => <span> ${numberWithCommas(file.importe)}</span>,
       },
       {
         title: "Modalidad",
         key: "sinAnticipo",
         dataIndex: "sinAnticipo",
+        width:120,
+
         render: (state, file) => (
           <>
             {file.sinAnticipo === "sin" ? (
@@ -58,16 +72,22 @@ export const columnsant = [
         title: "Estado",
         dataIndex: "estadoFinal",
         key: "estadoFinal",
+        width:100,
+
       },
       {
         title: "N orden",
         dataIndex: "norden",
         key: "norden",
+        width:140,
+
       },
       {
         title: "PDF Proveedores",
         dataIndex: "pdf",
         key: "pdf",
+        width:140,
+
         render: (state, file) => {
           return (
             <>
@@ -75,7 +95,7 @@ export const columnsant = [
                 <span>No hay pdf</span>
               ) : (
                 <Button type="link" onClick={() => descargarPDF(file.pdf)}>
-                  descargar
+                  <BiDownload/>
                 </Button>
               )}
             </>
@@ -86,6 +106,8 @@ export const columnsant = [
         title: "PDF Pagos",
         dataIndex: "pdfinal",
         key: "pdfinal",
+        width:100,
+
         render: (state, file) => {
           return (
             <>
@@ -93,7 +115,26 @@ export const columnsant = [
                 <span>No hay pdf</span>
               ) : (
                 <Button type="link" onClick={() => descargarPDF(file.pdfinal)}>
-                  descargar
+                  <BiDownload/>
+                </Button>
+              )}
+            </>
+          );
+        },
+      },
+      {
+        title: "  PDF Orden pago final ",
+        dataIndex: "pdfpagoFinal",
+        key: "pdfpagoFinal",
+        width:170,
+        render: (state, file) => {
+          return (
+            <>
+              {file.pdfpagoFinal === null || file.pdfpagoFinal === "" ? (
+                <span>No hay pdf</span>
+              ) : (
+                <Button type="link" onClick={() => descargarPDF(file.pdfpagoFinal)} >
+                  <BiDownload />
                 </Button>
               )}
             </>

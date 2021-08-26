@@ -3,6 +3,9 @@ import { axiosURL } from "../config/axiosURL";
 import { Card, Button, Row, Col, Table } from "antd";
 import { Modale } from "./helpers/Modale";
 import { saveAs } from "file-saver";
+import { BiDownload } from 'react-icons/bi';
+import { numberWithCommas } from "../components/reportes/helpers/funciones";
+
 
 export const RendicionGastosVista = ({ history }) => {
   const N = localStorage.getItem("N");
@@ -55,12 +58,13 @@ result.status===200 && history.push('/perfil')
     },
     { title: "Fecha", dataIndex: "fecha", key: "fecha", width: "100px" },
 
-    { title: "Importe", dataIndex: "importe", key: "importe", width: "100px" },
+    { title: "Importe", dataIndex: "importe", key: "importe", width: "140px",render: (state, file) => <span>${numberWithCommas(file.importe)}</span> },
+
     { title: "Nota", dataIndex: "notas", key: "notas", width: "100px" },
 
     { title: "N° orden", dataIndex: "norden", key: "norden", width: "100px" },
     {
-      title: "PDFproveedores",
+      title: "PDF Proveedores",
       dataIndex: "pdf",
       key: "pdf",
       width: "100px",
@@ -68,7 +72,7 @@ result.status===200 && history.push('/perfil')
         <>
         {file.pdf===null || ''?
         <span>No hay pdf!!</span>:
-          <Button type="link" onClick={() => descargarPDF(file.pdf)}>descargar</Button>
+          <Button type="link" onClick={() => descargarPDF(file.pdf)}><BiDownload/></Button>
         }
         </>
       ),
@@ -145,6 +149,7 @@ result.status===200 && history.push('/perfil')
         }}
         dataSource={datos}
         bordered
+        scroll={{ y:500}}
       />
     </>
   );

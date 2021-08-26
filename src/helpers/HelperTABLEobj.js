@@ -16,6 +16,8 @@ export const HelperTABLEobj = ({
   paginas = false,
   x,
   y,
+  expandible= false,
+  bordered=true
 }) => {
   const getColumnSearchProps = (dataIndex) => {
     return {
@@ -92,7 +94,10 @@ export const HelperTABLEobj = ({
         columns={col}
         dataSource={data}
         pagination={paginas}
-        bordered
+        bordered={bordered}
+        expandable={expandible?{
+          expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+        }:''}
         scroll={{ y: y}}
         
       />
