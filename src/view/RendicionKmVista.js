@@ -1,17 +1,17 @@
-import React,{useState,useEffect} from 'react'
-import { axiosURL } from '../config/axiosURL';
+import React, { useState, useEffect } from "react";
+import { axiosURL } from "../config/axiosURL";
 import { saveAs } from "file-saver";
 import { Card, Collapse, Button, Row, Col, Table } from "antd";
-import { Modale } from './helpers/Modale';
-import { BiDownload } from 'react-icons/bi';
-import { numberWithCommas } from '../components/reportes/helpers/funciones';
+import { Modale } from "./helpers/Modale";
+import { BiDownload } from "react-icons/bi";
+import { numberWithCommas } from "../components/reportes/helpers/funciones";
 
-export const RendicionKmVista = ({history}) => {
-    const N = localStorage.getItem("N");
+export const RendicionKmVista = ({ history }) => {
+  const N = localStorage.getItem("N");
   const [km, setKm] = useState([]);
-   /**evitar que usuari 905 ingresen a la ruta */
-   N !== "905" && history.push("/perfil");
-   const get = async () => {
+  /**evitar que usuari 905 ingresen a la ruta */
+  N !== "905" && history.push("/perfil");
+  const get = async () => {
     const { data } = await axiosURL.get("/todos/kilometros");
     setKm(data);
   };
@@ -36,32 +36,54 @@ export const RendicionKmVista = ({history}) => {
       title: "Numero de Rendicion",
       dataIndex: "id",
       key: "id",
-      width: "100px",
-      render: (state, file) => <span>#{file.id}</span>,
+      width: 100,
+      render: (state, file) => <h5>#{file.id}</h5>,
     },
 
-    { title: "Nombre", dataIndex: "nombre", key: "nombre", width: "100px" },
+    {
+      title: "Nombre",
+      dataIndex: "nombre",
+      key: "nombre",
+      width: 100,
+      render: (state, file) => <h5>{file.nombre}</h5>,
+    },
     {
       title: "Apellido",
       dataIndex: "apellido",
       key: "apellido",
-      width: "100px",
+      width: 100,
+      render: (state, file) => <h5>{file.apellido}</h5>,
     },
-    { title: "Km Total", dataIndex: "kmTotal", key: "kmTotal", width: "100px", render:(state,file)=><span>{file.kmTotal} Km</span> },
+    {
+      title: "Km Total",
+      dataIndex: "kmTotal",
+      key: "kmTotal",
+      width: 100,
+      render: (state, file) => <h5>{file.kmTotal} Km</h5>,
+    },
 
-    { title: "Importe total", dataIndex: "importeTotal", key: "importeTotal", width: "100px", render:(state, file)=> <span>${numberWithCommas(file.importeTotal)}</span>},
+    {
+      title: "Importe total",
+      dataIndex: "importeTotal",
+      key: "importeTotal",
+      width: 100,
+      render: (state, file) => <h5>${numberWithCommas(file.importeTotal)}</h5>,
+    },
 
     {
       title: "PDF Provedores",
       dataIndex: "pdf",
       key: "pdf",
-      width: "100px",
+      width: 100,
       render: (state, file) => (
         <>
-        {file.pdf===null || ''?
-        <span>No hay pdf!!</span>:
-          <Button type="link" onClick={() => descargarPDF(file.pdf)}><BiDownload/></Button>
-        }
+          {file.pdf === null || "" ? (
+            <h5>No hay pdf!!</h5>
+          ) : (
+            <Button type="link" onClick={() => descargarPDF(file.pdf)}>
+              <BiDownload />
+            </Button>
+          )}
         </>
       ),
     }, //cambiar nombre de titulo
@@ -69,13 +91,18 @@ export const RendicionKmVista = ({history}) => {
       title: "Acciones",
       dataIndex: "acciones",
       key: "acciones",
-      width: "100px",
+      width: 100,
       render: (state, file) => (
         <>
           {file.procesoFinalizado === "Si" ? (
-            <span y>Completado</span>
+            <h5 y>Completado</h5>
           ) : (
-            <Modale id={file.id} orden={file.norden} get={get} url={'/km/pdf'} />
+            <Modale
+              id={file.id}
+              orden={file.norden}
+              get={get}
+              url={"/km/pdf"}
+            />
           )}
         </>
       ),
@@ -91,7 +118,7 @@ export const RendicionKmVista = ({history}) => {
         <Row gutter={[10, 10]}>
           {f.rendicionKm.map((r) => (
             <>
-              <Col xs={6} sm={4} md={4} lg={4} xl={4}>
+              <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                 <Card
                   style={{
                     width: 200,
@@ -99,13 +126,13 @@ export const RendicionKmVista = ({history}) => {
                     height: "auto",
                   }}
                 >
-                 <p>
+                  <p>
                     <b>Fecha:</b> {r.fechaSelect}
                   </p>
                   <p>
                     <b> Km Inicial:</b> {r.KmI}
                   </p>
-                  
+
                   <p>
                     <b>Km Final:</b> ${r.KmF}
                   </p>
@@ -137,10 +164,7 @@ export const RendicionKmVista = ({history}) => {
           ),
         }}
         dataSource={datos}
-        bordered
       />
     </>
   );
-
-
-}
+};

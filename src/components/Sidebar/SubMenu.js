@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './css/subMenu.css'
 
 const SubMenu = ({ open,setOpen,item, }) => {
-  console.log(open);
   const [subnav, setSubnav] = useState(false);
   const [cambioColor, setCambioColor] = useState(false);
   var mediaqueryList = window.matchMedia("(max-width: 768px)");

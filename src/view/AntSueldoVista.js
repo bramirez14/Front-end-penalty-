@@ -4,8 +4,7 @@ import { Card, Collapse, Button, Row, Col, Table } from "antd";
 import { Modale } from "./helpers/Modale";
 import { saveAs } from "file-saver";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
-import { BiDownload } from 'react-icons/bi';
-
+import { BiDownload } from "react-icons/bi";
 
 export const AntSueldoVista = ({ history }) => {
   const N = localStorage.getItem("N");
@@ -26,9 +25,7 @@ result.status===200 && history.push('/perfil')
     get();
   }, []);
 
-  const filtroListo = sueldo.filter(
-    (f) =>  f.estadoFinal === "aprobado"
-  );
+  const filtroListo = sueldo.filter((f) => f.estadoFinal === "aprobado");
   const descargarPDF = async (pdf) => {
     let res = await axiosURL.get("/pdf/gastos/rendicion", {
       headers: { archivo: pdf },
@@ -43,31 +40,66 @@ result.status===200 && history.push('/perfil')
       title: "Numero de Anticipo",
       dataIndex: "id",
       key: "id",
-      width: "100px",
-      render: (state, file) => <span>#{file.id}</span>,
+      width: 100,
+      render: (state, file) => <h5>#{file.id}</h5>,
     },
-    { title: "Nombre", dataIndex: "nombre", key: "nombre", width: "100px" },
+    {
+      title: "Nombre",
+      dataIndex: "nombre",
+      key: "nombre",
+      width: "100px",
+      render: (state, file) => <h5>{file.nombre}</h5>,
+    },
     {
       title: "Apellido",
       dataIndex: "apellido",
       key: "apellido",
-      width: "100px",
+      width: 100,
+      render: (state, file) => <h5>{file.apellido}</h5>,
     },
-    { title: "Devolucion", dataIndex: "sueldo", key: "sueldo", width: "100px"},
-    { title: "Cuotas", dataIndex: "cuotas", key: "cuotas", width: "100px"},
-    { title: "Importe", dataIndex: "importe", key: "importe", width: "140px",render: (state, file) => <span>${numberWithCommas(file.importe)}</span> },
-    { title: "N° orden", dataIndex: "norden", key: "norden", width: "100px" },
+
+    {
+      title: "Devolucion",
+      dataIndex: "sueldo",
+      key: "sueldo",
+      width: 100,
+      render: (state, file) => <h5>{file.sueldo}</h5>,
+    },
+    {
+      title: "Cuotas",
+      dataIndex: "cuotas",
+      key: "cuotas",
+      width: 100,
+      render: (state, file) => <h5>{file.cuotas}</h5>,
+    },
+    {
+      title: "Importe",
+      dataIndex: "importe",
+      key: "importe",
+      width: 140,
+      render: (state, file) => <h5>${numberWithCommas(file.importe)}</h5>,
+    },
+    {
+      title: "N° orden",
+      dataIndex: "norden",
+      key: "norden",
+      width: 100,
+      render: (state, file) => <h5>{file.norden}</h5>,
+    },
     {
       title: "PDF Proveedores",
       dataIndex: "pdf",
       key: "pdf",
-      width: "100px",
+      width: 120,
       render: (state, file) => (
         <>
-        {file.pdf===null || file.pdf===''?
-        <span>No hay pdf!!</span>:
-          <Button type="link" onClick={() => descargarPDF(file.pdf)}> <BiDownload/> </Button>
-        }
+          {file.pdf === null || file.pdf === "" ? (
+            <h5>No hay pdf!!</h5>
+          ) : (
+            <Button type="link" onClick={() => descargarPDF(file.pdf)}>
+              <BiDownload />
+            </Button>
+          )}
         </>
       ),
     },
@@ -75,14 +107,18 @@ result.status===200 && history.push('/perfil')
       title: "Acciones",
       dataIndex: "acciones",
       key: "acciones",
-      width: "10px",
+      width: 100,
       render: (state, file) => (
         <>
           {file.procesoFinalizado === "Si" ? (
-            <span y>Completado</span>
+            <h5 y>Completado</h5>
           ) : (
-            
-            <Modale id={file.id} orden={file.norden} get={get} url={'/sueldo/pdf'} />
+            <Modale
+              id={file.id}
+              orden={file.norden}
+              get={get}
+              url={"/sueldo/pdf"}
+            />
           )}
         </>
       ),
@@ -95,17 +131,12 @@ result.status===200 && history.push('/perfil')
       key: f.id,
       nombre: f.usuario.nombre,
       apellido: f.usuario.apellido,
-      
     };
   });
 
   return (
     <>
-      <Table
-        columns={columns}
-        dataSource={datos}
-        bordered
-      />
+      <Table columns={columns} dataSource={datos} />
     </>
   );
 };

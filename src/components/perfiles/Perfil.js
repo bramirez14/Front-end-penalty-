@@ -25,7 +25,6 @@ const {usuariosIO,setUsuariosIO} = useContext(UserContext)
 }, [setUsuariosIO, token]);
 
   const tipo = localStorage.getItem("type");
-  console.log(usuariosIO);
   return (
     <div className='contenedore'>
       {tipo === "Gerente" ? <PerfilGerencia usuarios={usuariosIO}/> : <PerfilEmpleado />}

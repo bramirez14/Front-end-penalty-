@@ -13,7 +13,7 @@ const gastoMuestra= muestraPendiente(gastoTotal);
 const anticipoMuestra= muestraPendiente(anticipo);
 const vacacionMuestra= muestraPendiente(vacacion);
 const km= KmPendiente('/todos/kilometros')
-console.log(km);
+
 const kmMuestra= muestraPendiente(km)
   return (
     <>

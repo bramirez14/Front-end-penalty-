@@ -58,10 +58,10 @@ export const ColumnasGastos = () => {
   const columnasGastos = [
     ...colGastos,
     {
-        title: N=== "902"&& 'AprobacionFinal',
+        title: N=== "902"&& 'Aprobacion Final',
         dataIndex: "estadoFinal",
         key: "estadoFinal",
-        width:N=== "902"?150:0,
+        width:N=== "902"?170:0,
         lupa:false,
         render: (estado, file) => {
           const color = () => {
@@ -74,7 +74,7 @@ export const ColumnasGastos = () => {
                 return <span style={{ color: "red" }}> rechazado </span>;
             }
           };
-          return <h5>{N=== "902" && color()}</h5>
+          return <h5 style={{marginLeft:20}}>{N=== "902" && color()}</h5>
         },
       },
     {

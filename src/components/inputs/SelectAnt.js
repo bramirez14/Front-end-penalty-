@@ -4,9 +4,7 @@ import "./select.css";
 export const SelectAnt = ({ name,array, placeholder,change,mensaje,label}) => {
  
   const { Option } = Select;
-  function onSearch(val) {
-    console.log("search:", val);
-  }
+  
   return (
     <Form.Item
     name={name}
@@ -20,12 +18,11 @@ export const SelectAnt = ({ name,array, placeholder,change,mensaje,label}) => {
     label={label}
   >
     <Select
-  name={name}
+/*   name={name} */
       className="select-empleado"
       showSearch
       placeholder={placeholder}
       optionFilterProp="children"
-      onSearch={onSearch}
       onChange={change}
     >
       {array?.map((a) => (

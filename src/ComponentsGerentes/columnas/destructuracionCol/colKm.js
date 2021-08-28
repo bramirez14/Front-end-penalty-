@@ -1,7 +1,10 @@
 import {
+  Button,
     Image
   } from "antd";
+import { BiDownload } from "react-icons/bi";
 import { PeticionGET } from "../../../config/PeticionGET";
+import { descargarPDF } from "../../helpers/funciones";
 var numberFormat = new Intl.NumberFormat("es-ES");
 export const colKm=[
     {
@@ -75,6 +78,57 @@ export const colKm=[
               </Image.PreviewGroup>
             );
         }
+      },
+      {
+        title: "PDF proveedores",
+        dataIndex: 'pdf',
+        key: "pdf",
+        width: 140,
+        lupa: false,
+        render: (state, file) => (
+          <>
+          {
+            file.pdf === null? <h5>No hay pdf!!!</h5>:
+            <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdf)}>
+                <BiDownload/>
+                </Button>
+          }
+        </>
+      )
+      },
+      {
+        title: "PDF pagos",
+        dataIndex: 'pdfinal',
+        key: "pdfinal",
+        width: 140,
+        lupa: false,
+        render: (state, file) => (
+          <>
+          {
+            file.pdf === null? <h5>No hay pdf!!!</h5>:
+            <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdfinal)}>
+                <BiDownload/>
+                </Button>
+          }
+        </>
+      )
+      },
+      {
+        title: "PDF orden de pago final",
+        dataIndex: 'pdfpagoFinal',
+        key: "pdfpagoFinal",
+        width: 140,
+        lupa: false,
+        render: (state, file) => (
+          <>
+          {
+            file.pdf === null? <h5>No hay pdf!!!</h5>:
+            <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdfpagoFinal)}>
+                <BiDownload/>
+                </Button>
+          }
+        </>
+      )
       },
      
   

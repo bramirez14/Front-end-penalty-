@@ -2,11 +2,12 @@ import React from 'react'
 import { Form, Input} from "antd";
 import { SelectAnt } from '../../inputs/SelectAnt';
 
-export const FormAntSueldo = ({handleChange,data,handleChangeCuotas,mes}) => {
+export const FormAntSueldo = ({data,}) => {
     return (
       <>
         <Form.Item
                 name="importe"
+                hasFeedback
                 rules={[
                   {
                     required: true,
@@ -17,17 +18,13 @@ export const FormAntSueldo = ({handleChange,data,handleChangeCuotas,mes}) => {
                 <Input
                   type="number"
                   placeholder="Importe"
-                  name="importe"
-                  onChange={handleChange}
                 />
-     </Form.Item>
-             
+      </Form.Item>
                <SelectAnt
                placeholder="Cuotas"
                name="cuotas"
                array={data}
                mensaje="seleccione una opcion"
-               change={handleChangeCuotas}
              />
                 
        </>

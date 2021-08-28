@@ -3,18 +3,12 @@ import "./css/sidebar.css";
 import { AvatarImg } from "../img/Avatar";
 import { UserContext } from "../../contexto/UserContext";
 import { PeticionJWT } from "../../auth/PeticionJWT";
-import { Alerta } from "../alertas/Alerta";
 import { Row, Col, } from "antd";
-import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
 import { axiosURL } from "../../config/axiosURL";
 import { logout } from "../../auth/localStorage";
 
-import { Link } from "react-router-dom";
-import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import SubMenu from "./SubMenu";
-import { IconContext } from "react-icons/lib";
-import { FaBars, FaSearch } from "react-icons/fa";
 import { SidebarItems } from "./SidebarItems";
 import { SidebarItems2 } from "./SidebarItems2";
 import { SidebarItemsEmpleado } from "./SidebarItemsEmpleado";
@@ -25,7 +19,6 @@ import CustomScroll from 'react-custom-scroll';
 
 const mediaqueryList = window.matchMedia("(max-width: 1024px)");
 const q = mediaqueryList.matches;
-console.log(q);
 let useClickOutside = q?
    (handler) => {
     let domNode = useRef();
@@ -67,7 +60,6 @@ export const Sidebar = ({ history }) => {
 
   });
 
-console.log(open);
 
   const handleLogout = async () => {
     await axiosURL.put(`/cs/${id}`, { conectado: "NO" });

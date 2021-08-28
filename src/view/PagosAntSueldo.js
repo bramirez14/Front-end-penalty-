@@ -93,44 +93,57 @@ console.log(stateFilefinal);
           title: 'N de Anticipo',
           dataIndex: 'id',
           key: 'id',
-          width:'80px',
+          width:80,
+          render: (state, file) => <h5>{file.id}</h5>
         },
         {
           title: 'Nombre',
           dataIndex: 'nombre',
           key: 'nombre',
+          render: (state, file) => <h5>{file.nombre}</h5>
+
         },
         {
           title: 'Apellido',
           dataIndex: 'apellido',
           key: 'apellido',
+          render: (state, file) => <h5>{file.apellido}</h5>
+
         },
         {
           title: 'Fecha',
           dataIndex: 'fecha',
           key: 'fecha',
+          render: (state, file) => <h5>{file.fecha}</h5>
+
         },
         {
           title: 'Devolucion',
           dataIndex: 'sueldo',
           key: 'sueldo',
+          render: (state, file) => <h5>{file.sueldo}</h5>
+
         },
         {
           title: 'Cuotas',
           dataIndex: 'cuotas',
           key: 'cuotas',
+          render: (state, file) => <h5>{file.cuotas}</h5>
+
         },
       
         {
           title: 'Importe',
           key: 'importe',
           dataIndex: 'importe',
-          render: (state, file) => <span> ${numberWithCommas(file.importe)}</span>,
+          render: (state, file) => <h5> ${numberWithCommas(file.importe)}</h5>,
         },
         {
           title: 'Estado',
           dataIndex: 'estadoFinal',
           key: 'estadoFinal',
+          render: (state, file) => <h5>{file.estadoFinal}</h5>
+
         },
         {
           title: 'PDF Proveedores',
@@ -138,7 +151,7 @@ console.log(stateFilefinal);
           key: 'pdf',
         render:(state,file)=>{return(
           <>  
-          { file.pdf===null || file.pdf===''?<span>No hay pdf</span>:
+          { file.pdf===null || file.pdf===''?<h5>No hay pdf</h5>:
             <Button type='link' onClick={()=>descargarPDF(file.pdf)} ><BiDownload /></Button>
             }
           </>
@@ -152,7 +165,7 @@ console.log(stateFilefinal);
          
             return(
               <>
-              {file.pdfinal===null || file.pdfinal===''?<span>No hay pdf</span>: 
+              {file.pdfinal===null || file.pdfinal===''?<h5>No hay pdf</h5>: 
               
             <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} ><BiDownload /></Button>
               
@@ -169,7 +182,7 @@ console.log(stateFilefinal);
             return (
               <>
                 {file.pdfpagoFinal === null || file.pdfpagoFinal === "" ? (
-                  <span>No hay pdf</span>
+                  <h5>No hay pdf</h5>
                 ) : (
                   <Button type="link" onClick={() => descargarPDF(file.pdfpagoFinal)} >
                     <BiDownload />

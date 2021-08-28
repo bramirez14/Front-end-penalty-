@@ -48,11 +48,36 @@ export const Tabla = ({ usuario, setUsuario }) => {
 
     },
     {
+      title: "rendicion",
+      key: "sinAnticipo",
+      dataIndex: "sinAnticipo",
+      width:120,
+
+      render: (state, file) => (
+        <>
+          {file.sinAnticipo === "sin" ? (
+            <span>Sin Anticipo </span>
+          ) : (
+            <span>Con Anticipo</span>
+          )}
+        </>
+      ),
+    },
+    {
       title: "Importe",
       dataIndex: "importe",
       key: "importe",
       width: 100,
-
+      render:(state, file)=> (  
+        <>
+        {file.sinAnticipo==='sin'?
+        <h5>{file.importerendido}</h5>
+      :
+      <h5>{file.importe}</h5>
+      }
+      </>
+      )
+      
     },
 
     {
@@ -113,7 +138,9 @@ export const Tabla = ({ usuario, setUsuario }) => {
       <Link to="/rendicion">
         <Button>Nueva Rendicion</Button>
       </Link>
-      <Table columns={columns} dataSource={filas} scroll={{ y: 500 }} />
+      <Table columns={columns} dataSource={filas} scroll={{ y: 500 }}  pagination={{
+       pageSize: 4,
+      }}/>
       </>
   );
 };

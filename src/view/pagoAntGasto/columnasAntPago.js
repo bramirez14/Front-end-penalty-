@@ -18,6 +18,7 @@ export const columnsant = [
         dataIndex: "id",
         key: "id",
         width:100,
+        render: (state, file) =><h5>{file.id}</h5>
 
       },
       {
@@ -25,6 +26,8 @@ export const columnsant = [
         dataIndex: "nombre",
         key: "nombre",
         width:100,
+        render: (state, file) =><h5>{file.nombre}</h5>
+
 
       },
       {
@@ -32,6 +35,7 @@ export const columnsant = [
         dataIndex: "apellido",
         key: "apellido",
         width:140,
+        render: (state, file) =><h5>{file.apellido}</h5>
 
       },
   
@@ -40,19 +44,13 @@ export const columnsant = [
         dataIndex: "fecha",
         key: "fecha",
         width:120,
+        render: (state, file) =><h5>{file.fecha}</h5>
 
       },
   
+   
       {
-        title: "Importe",
-        key: "importerendido",
-        dataIndex: "importerendido",
-        width:140,
-
-        render: (state, file) => <span> ${numberWithCommas(file.importe)}</span>,
-      },
-      {
-        title: "Modalidad",
+        title: "Rendicion",
         key: "sinAnticipo",
         dataIndex: "sinAnticipo",
         width:120,
@@ -60,19 +58,43 @@ export const columnsant = [
         render: (state, file) => (
           <>
             {file.sinAnticipo === "sin" ? (
-              <span>Sin Anticipo </span>
+              <h5>Sin Anticipo </h5>
             ) : (
-              <span>Con Anticipo</span>
+              <h5>Con Anticipo</h5>
             )}
           </>
         ),
+      },
+      {
+        title: "Importe solicitado",
+        dataIndex: "importerendido",
+        key: "importerendido",
+        width: 170,
+        render: (state, file) => (
+            <>
+          {file.sinAnticipo === "sin" ? 
+           <h5 style={{color:'orange'}}>Sin importe</h5>
+         :
+            <h5>${numberWithCommas(file.importe)}</h5>
+          }
+          </>
+        ),
+      },
+      {
+        title: "Importe rendido",
+        dataIndex: "importerendido",
+        key: "importerendido",
+        width: 170,
+        lupa: false,
+        render: (state, file) => <h5> ${numberWithCommas(file.importerendido)} </h5>
       },
   
       {
         title: "Estado",
         dataIndex: "estadoFinal",
         key: "estadoFinal",
-        width:100,
+        width:120,
+        render: (state, file) =><h5>{file.estadoFinal}</h5>
 
       },
       {
@@ -80,6 +102,7 @@ export const columnsant = [
         dataIndex: "norden",
         key: "norden",
         width:140,
+        render: (state, file) =><h5>{file.norden}</h5>
 
       },
       {
@@ -92,7 +115,7 @@ export const columnsant = [
           return (
             <>
               {file.pdf === null || file.pdf === "" ? (
-                <span>No hay pdf</span>
+                <h5>No hay pdf</h5>
               ) : (
                 <Button type="link" onClick={() => descargarPDF(file.pdf)}>
                   <BiDownload/>
@@ -112,7 +135,7 @@ export const columnsant = [
           return (
             <>
               {file.pdfinal === null || file.pdfinal === "" ? (
-                <span>No hay pdf</span>
+                <h5>No hay pdf</h5>
               ) : (
                 <Button type="link" onClick={() => descargarPDF(file.pdfinal)}>
                   <BiDownload/>
@@ -131,7 +154,7 @@ export const columnsant = [
           return (
             <>
               {file.pdfpagoFinal === null || file.pdfpagoFinal === "" ? (
-                <span>No hay pdf</span>
+                <h5>No hay pdf</h5>
               ) : (
                 <Button type="link" onClick={() => descargarPDF(file.pdfpagoFinal)} >
                   <BiDownload />

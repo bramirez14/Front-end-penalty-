@@ -58,6 +58,7 @@ margin-top:8px
 }
 .auto::-webkit-scrollbar {
   width: 8px; /* Tamaño del scroll en vertical */
+  height: 10px; /*Tamaño del scroll en horizontal */
 }
 /* 
 .auto::-webkit-scrollbar-thumb {

@@ -118,7 +118,7 @@ export const CardEstado = () => {
                      <b>Fecha de Solicitud: {ultimoGasto?.fecha}</b>
                    </h5>
                    <h5 className="gasto-item">
-                     <b> Importe: {ultimoGasto?.importe} </b>
+                     <b> Importe: {ultimoGasto?.importerendido} </b>
                    </h5>
                    <h5 className="gasto-item">
                      <b> Pago realizado: {ultimoGasto?.pagoRealizado} </b>

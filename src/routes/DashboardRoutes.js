@@ -50,6 +50,7 @@ import { Stock } from "../components/reportes/stock/Stock";
 import { SCC } from "../components/reportes/scc/SCC";
 import { Remitos } from "../components/reportes/remitos/Remitos";
 import { PrecioKM } from "../components/rendicionesKm/PrecioKM";
+import { Alerta } from "../components/alertas/Alerta";
 
 export const DashboardRoutes = ({ history }) => {
   const Text = useContext(UserContext);
@@ -119,7 +120,8 @@ export const DashboardRoutes = ({ history }) => {
         <RouteEmpleado exact path='/reportes/stock' component={Stock}/>
         <RouteEmpleado exact path='/reportes/scc' component={SCC}/>
         <RouteEmpleado exact path='/precio/km' component={PrecioKM}/>
-
+        {/**Alertas */}
+        <RouteEmpleado exact path='/alerta' component={Alerta}/>
 
         <Redirect to="/login" />
       </Switch>

@@ -39,7 +39,7 @@ console.log(data);
           <h3 style={{ textAlign: "center", marginLeft: "40px" }}>
             Agregar Rendicion
             <Button className="btn-rendicion" onClick={handleBack} style={{marginLeft:20}}>
-              X
+             X
             </Button>
           </h3>
           <Divider />

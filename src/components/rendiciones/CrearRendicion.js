@@ -9,8 +9,27 @@ import {PeticionGET} from "../../config/PeticionGET";
 import { categorias } from "./categorias";
 import { VistaImg } from "./VistaImg";
 import { Imagen } from "../img/Imagen";
-
+import { css } from "@emotion/react";
+import BeatLoader from "react-spinners/BeatLoader";
+const override = css`
+  display: flex;
+  margin: 280px 300px;
+  
+  @media (max-width: 768px) {
+    display:flex;
+    margin: 70px 220px;
+    width:70px;
+    
+  }
+  @media (max-width: 480px) {
+    display:flex;
+    margin: 100px 120px;
+    width:70px;
+  }
+}
+`;
 export const CrearRendicion = ({ match, history }) => {
+  let [color, setColor] = useState('#46a461');
   const [spinner, setSpinner] = useState(false)
   const { id } = match.params;
   const { Option } = Select;
@@ -115,7 +134,6 @@ export const CrearRendicion = ({ match, history }) => {
  console.log(total);
 
 
-console.log(crearRendicion);
   /**Submit */
   const handleSubmit = () => {
     if(peticionGastoId?.sinAnticipo!=='sin'){
@@ -161,15 +179,24 @@ console.log(crearRendicion);
           >
             <TextArea name="notas" value={notas} placeholder="Nota" autoSize={{ minRows: 2, maxRows: 6 }} />
           </Form.Item>
+        
+         
         <Imagen 
-          
             setData={setData}
             setState={setCrearRendicion}
             state={crearRendicion}
           />
-         {/**imagen modo cel y ipad  */}{
+         
+         {/**imagen modo cel y ipad  */}
+             
+            {
               data.length> 0 &&
               <div className='img-muestra'> 
+
+              {
+                !!spinner?
+                 <BeatLoader color={color}   css={override} size={20} />
+                 :
             <div className="custom-file-preview " >
               {data?.length === 0 ? (
                 <h2 className='sector'>Imagen</h2>
@@ -184,6 +211,7 @@ console.log(crearRendicion);
                 </div>
               )}
             </div>
+            }
         </div>}
 
           
@@ -194,19 +222,21 @@ console.log(crearRendicion);
           </Form.Item>
         </Form>
         </Col>
-
+      
         <Col xs={16} sm={16} md={16} lg={16} xl={16}>
-          { !!spinner?
-       <Spin size="large" /> 
-          : 
+         
       <div className='vista-muestra'>
+      { !!spinner?
+         <BeatLoader color={color}  css={override} size={20} />
+          : 
             <VistaImg
           data={data}
           setData={setData}
           handleDelete={handleDelete}
           {...crearRendicion} />
+        }
+      
         </div>
-          }
         
         </Col>
       

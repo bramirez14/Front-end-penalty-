@@ -19,7 +19,6 @@ export const CardRendiciones = ({data,axiosGet,imagen,categoria,importe,fecha,no
     dataSource={data}
   bordered={true}
   pagination={{
-   
     pageSize: 4,
   }}
   className="list-card"

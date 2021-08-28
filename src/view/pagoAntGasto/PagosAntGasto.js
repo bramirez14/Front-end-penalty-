@@ -33,9 +33,9 @@ export const PagosAntGasto = () => {
       render: (state, file) => (
         <>
           {file.pagoRealizado === "Si" ? (
-            <p>Realizado</p>
+            <h5>Realizado</h5>
           ) : file.pagoRealizado === "En curso" && file.listo!=='Si' ? (
-            <p> En curso...</p>
+            <h5> En curso...</h5>
           ) : (
             <>
               {file.sinAnticipo === "sin" ? (
@@ -48,8 +48,10 @@ export const PagosAntGasto = () => {
                   noclick={() => {}}
                 >
                   <FormularioSinAnt
-                    stateFile={stateFile}
-                    setStateFile={setStateFile}
+                  stateFile={stateFile}
+                  setStateFile={setStateFile}
+                   stateFilefinal={stateFilefinal}
+                    setStateFilefinal={setStateFilefinal}
                     orden={file.norden}
                     importeRendido={file.importerendido}
                   />
@@ -111,7 +113,6 @@ export const PagosAntGasto = () => {
       columns={columns}
       dataSource={datos}
       pagination={false}
-      bordered={true}
       scroll={{y:500}}
     />
   );

@@ -89,37 +89,43 @@ export const PagosKm = () => {
       dataIndex: 'id',
       key: 'id',
       width:'80px',
-      render:(state,file)=><span>#{file.id}</span>
+      render:(state,file)=><h5>#{file.id}</h5>
     },
     {
       title: 'Nombre',
       dataIndex: 'nombre',
       key: 'nombre',
+      render:(state,file)=><h5>{file.nombre}</h5>
+      
     },
     {
       title: 'Apellido',
       dataIndex: 'apellido',
       key: 'apellido',
+      render:(state,file)=><h5>{file.apellido}</h5>
+
     },
     {
         title: 'Km Total',
         key: 'kmTotal',
         dataIndex: 'kmTotal',
-        width: '100px',
-        render:(state,file)=>(<span style={{marginLeft: "20px"}}> {file.kmTotal} Km</span>)
+        width: 100,
+        render:(state,file)=>(<h5 style={{marginLeft: "20px"}}> {file.kmTotal} Km</h5>)
       },
     
       {
         title: 'Importe Total',
         key: 'importeTotal',
         dataIndex: 'importeTotal',
-        render:(state,file)=>(<span style={{marginLeft: "20px"}}> ${file.importeTotal}</span>)
+        render:(state,file)=>(<h5 style={{marginLeft: "20px"}}> ${file.importeTotal}</h5>)
       },
       
       {
         title: 'N orden',
         dataIndex: 'norden',
         key: 'norden',
+      render:(state,file)=><h5>{file.norden}</h5>
+
       },
       {
         title: 'PDF Proveedores',
@@ -127,7 +133,7 @@ export const PagosKm = () => {
         key: 'pdf',
       render:(state,file)=>{return(
         <>  
-        { file.pdf===null || file.pdf===''?<span>No hay pdf</span>:
+        { file.pdf===null || file.pdf===''?<h5>No hay pdf</h5>:
           <Button type='link' onClick={()=>descargarPDF(file.pdf)} style={{marginLeft:30}}><BiDownload /></Button>
           }
         </>
@@ -141,7 +147,7 @@ export const PagosKm = () => {
        
           return(
             <>
-            {file.pdfinal===null || file.pdfinal===''?<span>No hay pdf</span>: 
+            {file.pdfinal===null || file.pdfinal===''?<h5>No hay pdf</h5>: 
             
           <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} ><BiDownload /></Button>
             
@@ -158,7 +164,7 @@ export const PagosKm = () => {
           return (
             <>
               {file.pdfpagoFinal === null || file.pdfpagoFinal === "" ? (
-                <span>No hay pdf</span>
+                <h5>No hay pdf</h5>
               ) : (
                 <Button type="link" onClick={() => descargarPDF(file.pdfpagoFinal)} >
                   <BiDownload />
@@ -175,7 +181,7 @@ export const PagosKm = () => {
           <>
          {
             file.procesoPagar==='Si'?
-            <p>Realizado</p>
+            <h5>Realizado</h5>
             :
           <ModalKm title={'Kilometros'} boton={'Completar'} Return={'Salir'} Submit={'Finalizar'} click={()=>finalizar(file.id)} >
             <Form layout="vertical">
