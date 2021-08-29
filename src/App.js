@@ -8,6 +8,7 @@ import { Routes } from "./routes/Routes";
 import { UserContext } from "./contexto/UserContext";
 import { PeticionJWT } from "./auth/PeticionJWT";
 import { SocketProvider } from "./contexto/SocketContext";
+import { useGet } from "./hooks/useGet";
 
 function App() {
   PeticionJWT();
@@ -16,6 +17,8 @@ function App() {
   const [arrayUsuarios, setArrayUsuarios] = useState()
   const [msj, setMsj] = useState([])
   const [usuarios, setUsuarios] = useState([])
+  const [alertas, nuevasAlertas] = useGet("/msg/alertas");
+
   return (
     <UserContext.Provider
       value={{
@@ -28,7 +31,9 @@ function App() {
         msj:msj,
         setMsj:setMsj,
         usuariosIO:usuarios,
-        setUsuariosIO:setUsuarios
+        setUsuariosIO:setUsuarios,
+        alertas:alertas,
+        nuevasAlertas:nuevasAlertas,
       }}
     >
 {/*       <SocketProvider>

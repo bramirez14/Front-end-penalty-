@@ -16,6 +16,7 @@ import { BotomHamburguesa } from "../botones/BotomHamburguesa";
 import { NombreCompleto } from "./NombreCompleto";
 import io from "socket.io-client";
 import CustomScroll from 'react-custom-scroll';
+import { Alerta } from "../alertas/Alerta";
 
 const mediaqueryList = window.matchMedia("(max-width: 1024px)");
 const q = mediaqueryList.matches;
@@ -90,7 +91,7 @@ export const Sidebar = ({ history }) => {
           <div className="navbar">
             <div className='hamburguesa'> <BotomHamburguesa abrirCerrarHamburguesa={abrirCerrarHamburguesa}/></div>
             <div className='nomaler'style={{display:'flex'}}> 
-            {/* <div className='alerta' ><Alerta/></div>  */}
+            <div className='alerta' ><Alerta/></div> 
             <div className='nombreCompleto'><NombreCompleto nombre={nombre} apellido={apellido} handleLogout={handleLogout}/></div>
             
             </div>

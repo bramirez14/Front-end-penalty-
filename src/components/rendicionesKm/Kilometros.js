@@ -12,6 +12,7 @@ import './css/kilometros.css'
 
 import Swal from 'sweetalert2'
 import { PeticionGET } from "../../config/PeticionGET";
+import { alerta } from "../solicitudes/helpers/funciones";
 
 export const Kilometros = ({history}) => {
   const dateFormat = 'DD/MM/YYYY';
@@ -82,14 +83,14 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
     }
      
    }
+   const datos=PeticionGET(`/${id}`)
    const handleSubmit= async() =>{
     if(parseFloat(KmF)< parseFloat(KmI)){
       Swal.fire(
         ' Km final debe ser mayor a  Km inicial',
-        
       )
     }else{
-      console.log(values);
+      alerta(datos,datos?.rendicionKm?.[datos?.rendicion?.length-1].notas ,'Kilometros')
       await axiosURL.post('/kilometros',{...values,KmRecorrido:restaKm,importe:totalImporte,fechaSelect:datePicker})
       peticionGet();
         reset()

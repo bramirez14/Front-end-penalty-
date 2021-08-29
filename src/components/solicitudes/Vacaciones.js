@@ -1,19 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Form, Input, Button, Col, Row, DatePicker, Select,Divider} from "antd";
-import { UserContext } from "../../contexto/UserContext";
+import React, { useState, useEffect, } from "react";
+import { Form, Input, Button, Col, Row, DatePicker,} from "antd";
 import { Titulo } from "../titulos/Titulo";
 import {axiosURL} from "../../config/axiosURL";
 import Swal from "sweetalert2";
-import emailjs from "emailjs-com";
 import {PeticionGET }from "../../config/PeticionGET";
+import { alerta } from "./helpers/funciones";
 
 export const Vacaciones = ({ history }) => {
- const [datoImportante, setDatoImportante] = useState()
   const id = localStorage.getItem("uid");
-  const { Option } = Select;
   /**useContext***/
-  const Text = useContext(UserContext);
-  const { open } = Text;
   /***iniciamos el estado******/
   const [vacaciones, setVacaciones] = useState({
     periodo: "",
@@ -28,14 +23,9 @@ export const Vacaciones = ({ history }) => {
     diasFaltantes:''
   });
   const {
-    diasFaltantes,
-    empleado,
     dias,
     fechaDesde,
-    fechaHasta,
     maximo,
-    periodoo,
-    depto,
     periodo,
     fechaContratacion
   } = vacaciones;
@@ -118,7 +108,9 @@ const añosTrabajados=(fecha)=>{
     const fcha = sumaFecha(dias, dateString);
     setVacaciones({ ...vacaciones, fechaDesde: dateString, fechaHasta: fcha });
   };
-
+  const getUsuario = PeticionGET(`/${id}`)
+  const log=getUsuario.vacacion?.length-'1'
+const APROBACION = getUsuario.vacacion?.[log]?.estadoFinal
   /********enviamos el formulario a DB********/
   const tipo = localStorage.getItem('type')
 
@@ -129,29 +121,15 @@ const añosTrabajados=(fecha)=>{
     }
   };
 
-  let handleSubmit;
+  let handleSubmit= (e) => {
+    console.log(e);
+    handleAlert();
+    guardarAnticipoDeVacaciones();
+    alerta(getUsuario,vacaciones.obs,'Vacaciones');
+    //enviarMensaje()
+  };
 
-  /*******condicion para envio de mail a cada departamento******* */
-  if (depto === "Sistema" || depto === "Logistica") {
-    handleSubmit = (e) => {
-      handleAlert();
-      guardarAnticipoDeVacaciones();
-
-      //enviarMensaje()
-    };
-  } else if (depto === "Administracion" || depto === "Marketing") {
-    handleSubmit = (e) => {
-      handleAlert();
-      guardarAnticipoDeVacaciones();
-      //enviarMensaje()
-    };
-  } else {
-    handleSubmit = (e) => {
-      handleAlert();
-      guardarAnticipoDeVacaciones();
-      //enviarMensaje()
-    };
-  }
+  
   const dateFormat = "DD/MM/YYYY";
 
   // Función que suma días a la fecha indicada
@@ -196,9 +174,16 @@ const añosTrabajados=(fecha)=>{
   useEffect(() => {
     diasFalt();
   }, [dias])
-  const getUsuarios = PeticionGET(`/${id}`)
-  const log=getUsuarios.vacacion?.length-'1'
-const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
+
+
+
+
+
+
+
+
+
+
   return (
     <>
         <Form
@@ -214,10 +199,9 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
           <Row gutter={10}>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
               <Titulo numero={2} titulo=" Vacaciones" />
-              <Divider/>
+              
               <Form.Item
                 label="Periodo"
-                name="periodo"
                 rules={[
                   {
                     required: true,
@@ -227,10 +211,10 @@ const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
               >
                 <DatePicker
                   picker="year"
+                  name="periodo"
                   style={{ width: "100%" }}
-                  onChange={handleChangeSelect}
                   placeholder='Ingrese un año'
-                  
+                  onChange={handleChangeSelect}
                 />
               </Form.Item>
               {/*   ************* Condicion por año ******************* */}

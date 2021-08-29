@@ -12,32 +12,33 @@ export const colKm=[
         dataIndex: "id",
         key: "id",
         width: 100,
+        render: (state, file) => <h5>{file.id}</h5>
+
       },
       {
         title: "Nombre",
         dataIndex: "nombre",
         key: "nombre",
         width: 100,
-
+        render: (state, file) => <h5>{file.nombre}</h5>
       },
       {
         title: "Apellido",
         dataIndex: "apellido",
         key: "apellido",
         width: 100,
-
+        render: (state, file) => <h5>{file.apellido}</h5>
       },
       {
         title: "Departamento",
         dataIndex: "departamento",
         key: "departamento",
         width: 170,
-
         render: (estado, file) => {
             const dtos = PeticionGET("/departamentos")
           const Dto = dtos.find((d) => d.id === file.usuario?.departamentoId);
           const DtoSelect = Dto?.departamento;
-          return <span style={{ marginLeft: "10px" }}>{DtoSelect}</span>;
+          return <h5 style={{ marginLeft: "10px" }}>{DtoSelect}</h5>;
         },
       },
       {
@@ -46,8 +47,7 @@ export const colKm=[
         key: "kmTotal",
         width: 140,
         lupa: false,
-
-        render: (state, file) => <span>{file.kmTotal} Km</span>,
+        render: (state, file) => <h5>{file.kmTotal} Km</h5>,
       },
   
       {
@@ -55,8 +55,7 @@ export const colKm=[
         dataIndex: "importeTotal",
         key: "importeTotal",
         width: 170,
-
-        render:(state,file)=><span > ${numberFormat.format(file.importeTotal)}</span>,
+        render:(state,file)=><h5 > ${numberFormat.format(file.importeTotal)}</h5>,
         
       },
     
@@ -66,7 +65,6 @@ export const colKm=[
         key: "imagen",
         width: 100,
         lupa:false,
-
         render:(state,file)=>{
           return (
               <Image.PreviewGroup>
@@ -136,17 +134,17 @@ export const colKm=[
         title: "Estado",
         dataIndex: "estado",
         key: "estado",
-        width: 100,
+        width: 120,
         lupa: false,
         render: (estado, file) => {
           const color = () => {
             switch (file.estado) {
               case "pendiente":
-                return <span style={{ color: '#F79E0B'  }}> pendiente...</span>;
+                return <h5 style={{ color: '#F79E0B'  }}> pendiente...</h5>;
               case "aprobado":
-                return <span style={{ color: "green" }}> aprobado </span>;
+                return <h5 style={{ color: "green" }}> aprobado </h5>;
               default:
-                return <span style={{ color: "red" }}> rechazado </span>;
+                return <h5 style={{ color: "red" }}> rechazado </h5>;
             }
           };
           return <>{color()}</>;

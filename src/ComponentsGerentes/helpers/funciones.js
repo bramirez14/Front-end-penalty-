@@ -80,3 +80,20 @@ export const descargarPDF = async (pdf) => {
   const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
   saveAs(pdfBlob, `${pdf}`);
 };
+
+export const alertaGerencia = async (datosUsuario,file,msj,estado,nombre) =>{
+  const mailEmpleado = file.usuario.email;
+  const mailGerente = datosUsuario.gerente.email;
+  const nuevoObj = {
+    alerta: `${msj} Estado: ${estado}`,
+    info: nombre,
+    nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+    f: new Date().toLocaleString(),
+    emisor: mailGerente,
+    receptor: mailEmpleado,
+    estado:'activa',
+    usuarioId:datosUsuario.id
+  };
+  const res = await axiosURL.post("/msg/alerta", nuevoObj);
+  return res;
+}

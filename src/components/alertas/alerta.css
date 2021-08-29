@@ -25,24 +25,3 @@ background-color: #46a461;
 margin: auto;
 }
 
-
-.contenedor-alerta{
-  margin:auto;
-  margin-top:20px !important
-}
-.boton-alerta{
-background-color:rgba(240, 232, 232, 0.867);
-border-color: #fff;
-color:rgba(75, 73, 73, 0.867);
-}
-.boton-alerta:hover{
-  background-color: #ddd;
-border-color: #fff;
-color:rgba(75, 73, 73, 0.867);
-
-}
-.boton-alerta:active{
-  background-color: #ddd;
-  border-color: #fff;
-  color:rgba(75, 73, 73, 0.867);
-}

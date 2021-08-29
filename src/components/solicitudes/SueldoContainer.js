@@ -4,6 +4,7 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { Sueldo } from "./Sueldo";
 import Swal from "sweetalert2";
 import "./css/anticipoGasto.css";
+import { alerta } from "./helpers/funciones";
 
 export const SueldoContainer = ({ history }) => {
   const id = localStorage.getItem("uid");
@@ -76,29 +77,13 @@ export const SueldoContainer = ({ history }) => {
       alert(" La opcion AGUINALDO , solo cubre un monto inferior a 30000");
     } else {
       handleAlert();
-      const { data } = await alerta({ ...v, sueldo });
+      const { data } =  alerta(datosUsuario,v.mensaje,sueldo);
       let u = { ...v, usuarioId, fecha, alertaId: data?.alertaCreada?.id };
       guardarAnticipo(u);
     }
   };
 
-  //alerta.
-  const alerta = async (value) => {
-    const mailEmpleado = datosUsuario.email;
-    const mailGerente = datosUsuario.gerente.email;
-    const nuevoObj = {
-      alerta: value.mensaje,
-      info: `Tenes un anticipo de ${value.sueldo}`,
-      nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
-      f: new Date().toLocaleString(),
-      emisor: mailEmpleado,
-      receptor: mailGerente,
-      estado:'activa',
-      usuarioId:id
-    };
-    const res = await axiosURL.post("/msg/alerta", nuevoObj);
-    return res;
-  };
+
   return (
     <Sueldo
       handleSubmit={handleSubmit}

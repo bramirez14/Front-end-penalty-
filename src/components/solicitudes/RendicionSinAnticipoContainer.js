@@ -3,6 +3,7 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { axiosURL } from "../../config/axiosURL";
 import { categorias } from "../rendiciones/categorias";
 import { RendicionSinAnticipo } from "./RendicionSinAnticipo";
+import { alerta } from "./helpers/funciones";
 export const RendicionSinAnticipoContainer = ({ history }) => {
   const [spinner, setSpinner] = useState(false)
   const id = localStorage.getItem("uid");
@@ -36,9 +37,10 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       imagen: "",
     });
   };
-
+  const datos = PeticionGET(`/${id}`)
   const handleSubmit = async (values) => {
     setSpinner(true)
+    alerta(datos,values.notas,'RSinAnt')
     let obj = {
       fecha: new Date().toLocaleDateString(),
       usuarioId: id,
@@ -62,7 +64,6 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
     f.append("estadoFinal", obj.estadoFinal);
     f.append('f',obj.f)
     let result = await axiosURL.post("/gasto/rendicion", f);
-console.log(result);
     if(result.data?.error?.errno===-3008){
       alert('Compruebe su connexion!!!')
       setSpinner(false)

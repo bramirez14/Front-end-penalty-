@@ -139,7 +139,7 @@ export const colSueldo = [
     title: "Estado",
     dataIndex: "estado",
     key: "estado",
-    width:100,
+    width:120,
     lupa: false,
     render: (estado, file) => {
       const color = () => {

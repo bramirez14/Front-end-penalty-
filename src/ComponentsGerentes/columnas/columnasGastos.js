@@ -6,9 +6,13 @@ import { HelperMODAL } from "../../helpers/HelperMODAL";
 import { AiOutlineDelete } from "react-icons/ai";
 import { colGastos } from "./destructuracionCol/colGasto";
 import Swal from "sweetalert2";
+import { PeticionGET } from "../../config/PeticionGET";
+import { alertaGerencia } from "../helpers/funciones";
 
 export const ColumnasGastos = () => {
   const N = localStorage.getItem("N"); // numero de registro
+  const id = localStorage.getItem('uid')
+  const datos= PeticionGET(`/${id}`)
   const [data, setData] = useState([]);
   const [mensaje, setMensaje] = useState({
     respMensaje: "",
@@ -27,24 +31,26 @@ export const ColumnasGastos = () => {
     const { name, value } = e.target;
     setMensaje({ ...mensaje, [name]: value });
   };
-  const aprobado = async (id) => {
+  const aprobado = async (file) => {
     N === "902"
-      ? await axiosURL.put(`/gasto/aprobado/${id}`, {
+      ? await axiosURL.put(`/gasto/aprobado/${file.id}`, {
           ...mensaje,
           estadoFinal: "aprobado",
           notificacion: "inactiva",
           estado: "aprobado",
           fd: new Date().toLocaleString(),
-        })
-      : await axiosURL.put(`/gasto/aprobado/${id}`, {
+       })
+      : await axiosURL.put(`/gasto/aprobado/${file.id}`, {
           ...mensaje,
           estado: "aprobado",
         });
     setMensaje({ respMensaje: "" });
     axiosGet();
+    alertaGerencia(datos,file,mensaje.respMensaje,'APROBADO','Gasto')
+
   };
-  const rechazado = async (id) => {
-    await axiosURL.put(`/gasto/rechazado/${id}`, {
+  const rechazado = async (file) => {
+    await axiosURL.put(`/gasto/rechazado/${file.id}`, {
       ...mensaje,
       estado: "rechazado",
       notificacion: "inactiva",
@@ -53,6 +59,7 @@ export const ColumnasGastos = () => {
     });
     setMensaje({ respMensaje: "" });
     axiosGet();
+    alertaGerencia(datos,file,mensaje.respMensaje,'RECHAZADO','Gasto')
   };
  
   const columnasGastos = [
@@ -67,7 +74,7 @@ export const ColumnasGastos = () => {
           const color = () => {
             switch (file.estadoFinal) {
               case "pendiente":
-                return <span style={{ color: "yellow" }}> pendiente...</span>;
+                return <span style={{ color: '#F79E0B' }}> pendiente...</span>;
               case "aprobado":
                 return <span style={{ color: "green" }}> aprobado </span>;
               default:
@@ -83,11 +90,11 @@ export const ColumnasGastos = () => {
       key: "acciones",
       width: 100,
       lupa:false,
-      render: (f, fila) => {
+      render: (f, file) => {
         return (
           <>
-            {fila.estadoFinal === "aprobado" ||
-            fila.estadoFinal === "rechazado" ? (
+            {file.estadoFinal === "aprobado" ||
+            file.estadoFinal === "rechazado" ? (
               ""
             ) : (
               <HelperMODAL
@@ -95,8 +102,8 @@ export const ColumnasGastos = () => {
                 title="Aprobacion Ant Gasto"
                 Return="Rechazar"
                 Submit="Aprobacion"
-                click={() => aprobado(fila.id)}
-                noclick={() => rechazado(fila.id)}
+                click={() => aprobado(file)}
+                noclick={() => rechazado(file)}
               >
                 <section>
                   <TextArea
@@ -119,7 +126,7 @@ export const ColumnasGastos = () => {
       key: "borrar",
       lupa:false,
       width:100,
-      render: (f, fila) => {
+      render: (f, file) => {
         const handleDelete = async () => {
           console.log("me clickeaste para borrar");
           let resultado = await Swal.fire({
@@ -132,7 +139,7 @@ export const ColumnasGastos = () => {
             confirmButtonText: "Borrar",
           });
           if (resultado.isConfirmed) {
-            await axiosURL.delete(`/gasto/borrar/${fila.id}`);
+            await axiosURL.delete(`/gasto/borrar/${file.id}`);
             Swal.fire("Borrado!", "Su archivo se borró con exito.", "success");
             axiosGet();
           }

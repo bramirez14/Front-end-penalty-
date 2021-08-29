@@ -8,18 +8,21 @@ import { HelperMODAL } from "../../helpers/HelperMODAL";
 import { BsCheck } from "react-icons/bs";
 import { useGet } from "../../hooks/useGet";
 import { colSueldo } from "./destructuracionCol/colSueldo";
+import { alertaGerencia } from "../helpers/funciones";
 
 export const ColumnasSueldo = () => {
   const N = localStorage.getItem("N");
+  const id = localStorage.getItem('uid')
+  const datos= PeticionGET(`/${id}`)
   const [mensaje, setMensaje] = useState({
     respMensaje: "",
     estado: "",
   });
   const { TextArea } = Input;
 const [ data,axiosGet] =useGet('/anticipo')
-  const aprobado = async (id) => {
+  const aprobado = async (file) => {
     if (N === "902") {
-      await axiosURL.put(`/anticipo/aprobado/${id}`, {
+      await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estadoFinal: "aprobado",
         notificacion: "inactiva",
@@ -29,16 +32,18 @@ const [ data,axiosGet] =useGet('/anticipo')
       });
     } else {
       console.log("soy usuario distiton de 902");
-      await axiosURL.put(`/anticipo/aprobado/${id}`, {
+      await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estado: "aprobado",
       });
     }
     setMensaje({ respMensaje: "" });
     axiosGet();
+    alertaGerencia(datos,file,mensaje.respMensaje,'APROBADO','Sueldo')
+
   };
-  const rechazado = async (id) => {
-    await axiosURL.put(`/anticipo/rechazado/${id}`, {
+  const rechazado = async (file) => {
+    await axiosURL.put(`/anticipo/rechazado/${file.id}`, {
       ...mensaje,
       estado: "rechazado",
       notificacion: "inactiva",
@@ -47,6 +52,8 @@ const [ data,axiosGet] =useGet('/anticipo')
     });
     setMensaje({ respMensaje: "" });
     axiosGet();
+    alertaGerencia(datos,file,mensaje.respMensaje,'RECHAZADO','Sueldo')
+
   };
 
   const handleChange = (e) => {
@@ -83,11 +90,11 @@ const [ data,axiosGet] =useGet('/anticipo')
       key: "acciones",
       lupa:false,
       width:100,
-      render: (f, fila) => {
+      render: (f, file) => {
         return (
           <>
-            {fila.estadoFinal === "aprobado" ||
-            fila.estadoFinal === "rechazado" ? (
+            {file.estadoFinal === "aprobado" ||
+            file.estadoFinal === "rechazado" ? (
               ""
             ) : (
               <HelperMODAL
@@ -95,8 +102,8 @@ const [ data,axiosGet] =useGet('/anticipo')
                 title="Aprobacion Ant Sueldo"
                 Return="Rechazar"
                 Submit="Aprobacion"
-                click={() => aprobado(fila.id)}
-                noclick={() => rechazado(fila.id)}
+                click={() => aprobado(file)}
+                noclick={() => rechazado(file)}
                 className="btn-aprob"
               >
                 <section>
@@ -120,7 +127,7 @@ const [ data,axiosGet] =useGet('/anticipo')
       key: "borrar",
       lupa:false,
       width:100,
-      render: (f, fila) => {
+      render: (f, file) => {
         const handleDelete = async () => {
           console.log("me clickeaste para borrar");
           let resultado = await Swal.fire({
@@ -133,7 +140,7 @@ const [ data,axiosGet] =useGet('/anticipo')
             confirmButtonText: "Borrar",
           });
           if (resultado.isConfirmed) {
-            await axiosURL.delete(`/anticipo/borrar/${fila.id}`);
+            await axiosURL.delete(`/anticipo/borrar/${file.id}`);
             Swal.fire("Borrado!", "Su archivo se borró con exito.", "success");
             axiosGet();
           }

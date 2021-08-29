@@ -9,7 +9,10 @@ import {
   } from "antd";
 import { HelperMODAL } from '../../helpers/HelperMODAL';
 import { colKm } from './destructuracionCol/colKm';
+import { PeticionGET } from '../../config/PeticionGET';
+import { alertaGerencia } from '../helpers/funciones';
 export const ColumnasKm = () => {
+  const id = localStorage.getItem('uid')
     const N= localStorage.getItem("N");
   const [data, setData] = useState([]);
 
@@ -17,7 +20,7 @@ export const ColumnasKm = () => {
         respMensaje: "",
         estado: "",
       });
-      
+      const datos=PeticionGET(`/${id}`)
       const { TextArea } = Input;
       /** peticion get trae todo los gastos */
       const axiosGet = async () => {
@@ -31,24 +34,26 @@ export const ColumnasKm = () => {
     
     
      
-      const aprobado = async (id) => {
+      const aprobado = async (file) => {
         N === "902"
-          ? await axiosURL.put(`/km/aprobado/${id}`, {
+          ? await axiosURL.put(`/km/aprobado/${file.id}`, {
             ...mensaje,
             estadoFinal: "aprobado",
             notificacion: "inactiva",
             estado: "aprobado",
             fd: new Date().toLocaleString(),
           })
-          : await axiosURL.put(`/km/aprobado/${id}`, {
+          : await axiosURL.put(`/km/aprobado/${file.id}`, {
             ...mensaje,
             estado: "aprobado",
           });
         setMensaje({ respMensaje: "" });
         axiosGet();
+        alertaGerencia(datos,file,mensaje.respMensaje,'APROBADO','Kilometro')
+
       };
-      const rechazado = async (id) => {
-        await axiosURL.put(`/km/rechazado/${id}`, {
+      const rechazado = async (file) => {
+        await axiosURL.put(`/km/rechazado/${file.id}`, {
           ...mensaje,
           estado: "rechazado",
           notificacion: "inactiva",
@@ -57,6 +62,7 @@ export const ColumnasKm = () => {
         });
         setMensaje({ respMensaje: "" });
         axiosGet();
+        alertaGerencia(datos,file,mensaje.respMensaje,'RECHAZADO','Kilometro')
       };
       const handleChange = (e) => {
         // para registrar los cambios del formulario
@@ -69,17 +75,17 @@ export const ColumnasKm = () => {
             title: N === "902" && "Aprobacion Final",
             dataIndex: "estadoFinal",
             key: "estadoFinal",
-        width:N=== "902"?170:0,
+            width:N=== "902"?170:0,
               lupa:false,
             render: (estado, file) => {
               const color = () => {
                 switch (file.estadoFinal) {
                   case "pendiente":
-                    return <span style={{ color: "yellow" }}> pendiente...</span>;
+                    return <h5 style={{ color: '#F79E0B'  }}> pendiente...</h5>;
                   case "aprobado":
-                    return <span style={{ color: "green" }}> aprobado </span>;
+                    return <h5 style={{ color: "green" }}> aprobado </h5>;
                   default:
-                    return <span style={{ color: "red" }}> rechazado </span>;
+                    return <h5 style={{ color: "red" }}> rechazado </h5>;
                 }
               };
               return <> {N === "902" && color()}</>;
@@ -89,8 +95,7 @@ export const ColumnasKm = () => {
             title: "Acciones",
             dataIndex: "acciones",
             key: "acciones",
-      width: 100,
-
+            width: 100,
             lupa:false,
             render: (f, fila) => {
               return (
@@ -104,8 +109,8 @@ export const ColumnasKm = () => {
                 title="Aprobacion Ant Km"
                 Return="Rechazar"
                 Submit="Aprobacion"
-                click={() => aprobado(fila.id)}
-                noclick={() => rechazado(fila.id)}
+                click={() => aprobado(fila)}
+                noclick={() => rechazado(fila)}
               >
                 <section>
                   <TextArea
