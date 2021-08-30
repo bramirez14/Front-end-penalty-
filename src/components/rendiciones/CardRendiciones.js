@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/cardRendiciones.css";
-import { Button, } from "antd";
+import { Button, Card } from "antd";
 import {Link} from 'react-router-dom'
 import { List,  } from 'antd';
 import { axiosURL } from "../../config/axiosURL";
@@ -13,6 +13,7 @@ export const CardRendiciones = ({data,axiosGet,imagen,categoria,importe,fecha,no
  }
   return (
     <>
+   
     <List
     itemLayout="vertical"
     size="large"

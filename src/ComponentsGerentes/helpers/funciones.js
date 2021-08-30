@@ -85,7 +85,7 @@ export const alertaGerencia = async (datosUsuario,file,msj,estado,nombre) =>{
   const mailEmpleado = file.usuario.email;
   const mailGerente = datosUsuario.gerente.email;
   const nuevoObj = {
-    alerta: `${msj} Estado: ${estado}`,
+    alerta: `${msj}, Estado: ${estado}`,
     info: nombre,
     nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
     f: new Date().toLocaleString(),

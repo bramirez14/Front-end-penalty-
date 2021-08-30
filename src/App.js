@@ -18,7 +18,7 @@ function App() {
   const [msj, setMsj] = useState([])
   const [usuarios, setUsuarios] = useState([])
   const [alertas, nuevasAlertas] = useGet("/msg/alertas");
-
+console.log(nuevasAlertas);
   return (
     <UserContext.Provider
       value={{
