@@ -43,7 +43,15 @@ export const AnticipoGasto = ({ history }) => {
 
   const onSubmit = async (values) => {
     handleAlert();
-    alerta(datosUsuario,values.notas,'Gasto')
+    const obj={ 
+    ...datosUsuario,
+    msj:values.notas,
+    info:`Tenes un anticipo de Gasto`,
+    path:'/aprobacion/gastos'
+    
+    }
+   const{data} = await alerta(obj)
+
     let result = await axiosURL.post("/mpago", {
       ...values,
       fecha,
@@ -51,6 +59,7 @@ export const AnticipoGasto = ({ history }) => {
       estado: "pendiente",
       estadoFinal: "pendiente",
       f: new Date().toLocaleString(),
+      alertaId: data?.alertaCreada?.id
     });
     if (result.status === 200) {
       history.push("/");

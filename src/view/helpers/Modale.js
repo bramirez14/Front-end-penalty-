@@ -4,8 +4,10 @@ import { Archivo } from '../../file/Archivo';
 import { axiosURL } from '../../config/axiosURL';
 import Swal from 'sweetalert2'
 import './full.css'
-export const Modale = ({id,get,url}) => {
-  console.log(id);
+
+import { alerta906 } from './funciones';
+export const Modale = ({get,url,archivo,obj}) => {
+  console.log(archivo);
   const [state, setState] = useState({
     loading: false,
     visible: false,
@@ -62,12 +64,15 @@ if(norden===''){
     text: 'Ingresa un archivo pdf!',
   })
 }else{
+  
   handleOk();
+ 
+  await alerta906(obj)
   let f = new FormData();
   f.append("norden",norden);
   f.append("file",file);
   f.append('procesoFinalizado',obj.procesoFinalizado)
-  const {data} = await axiosURL.post(`${url}/${id}`,f);
+  const {data} = await axiosURL.post(`${url}/${archivo.id}`,f);
   if(data==='ok')
   setStateForm({norden:'',file:''})
   Swal.fire({
@@ -80,7 +85,6 @@ if(norden===''){
   get();
 }
 }
-console.log(stateForm);
   const { visible, loading } = state;
     return (
         <>

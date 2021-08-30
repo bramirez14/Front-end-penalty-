@@ -5,6 +5,7 @@ import { Modale } from "./helpers/Modale";
 import { saveAs } from "file-saver";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
 import { BiDownload } from "react-icons/bi";
+import { PeticionGET } from "../config/PeticionGET";
 
 export const AntSueldoVista = ({ history }) => {
   const N = localStorage.getItem("N");
@@ -35,6 +36,7 @@ result.status===200 && history.push('/perfil')
     saveAs(pdfBlob, `${pdf}`);
   };
   console.log(filtroListo);
+
   const columns = [
     {
       title: "Numero de Anticipo",
@@ -108,20 +110,34 @@ result.status===200 && history.push('/perfil')
       dataIndex: "acciones",
       key: "acciones",
       width: 100,
-      render: (state, file) => (
+      render: (state, file) => {
+        const gtes= PeticionGET("/gerentes")
+        console.log(gtes);
+        const gerente=gtes.filter( g=> g.id === file.usuario.gerenteId)
+        console.log(file);
+        
+        const obj={
+          ...file,
+          msj:'Se cargo el numero de orden y pdf proveedores',
+          info:`Tenes un aprobacion de ${file.sueldo}`,
+          path:'/pagos/anticipo',
+          mailGerente:gerente
+      }
+        return (
         <>
           {file.procesoFinalizado === "Si" ? (
             <h5 y>Completado</h5>
           ) : (
             <Modale
-              id={file.id}
-              orden={file.norden}
+             obj={obj}
+              archivo={file}
               get={get}
               url={"/sueldo/pdf"}
             />
           )}
         </>
-      ),
+      );
+    }
     },
   ];
 

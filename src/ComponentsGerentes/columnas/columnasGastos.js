@@ -7,17 +7,27 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { colGastos } from "./destructuracionCol/colGasto";
 import Swal from "sweetalert2";
 import { PeticionGET } from "../../config/PeticionGET";
-import { alertaGerencia } from "../helpers/funciones";
+import { alerta905, alertaGerencia } from "../helpers/funciones";
 
 export const ColumnasGastos = () => {
-  const N = localStorage.getItem("N"); // numero de registro
-  const id = localStorage.getItem('uid')
-  const datos= PeticionGET(`/${id}`)
   const [data, setData] = useState([]);
   const [mensaje, setMensaje] = useState({
     respMensaje: "",
     estado: "",
   });
+  const N = localStorage.getItem("N"); // numero de registro
+  const id = localStorage.getItem('uid')
+  const datos = PeticionGET(`/${id}`)
+  const usuario905 = PeticionGET(`/allusers`)
+  const filtroUsuario905= usuario905.filter(u=>u.nvendedor === '905')
+  const filtrodata905 = filtroUsuario905.map(f=> 
+  {return{receptor:f.email,emisor:f.gerente.email,
+ nombre:`${f.nombre} ${f.apellido}`,
+ alerta: 'solicitud aprobada',
+ info:'Tenes una operacion de  Gasto',
+ id,
+ path:'/vista/rendicion/gasto'
+ }});
   const { TextArea } = Input;
   const axiosGet = async () => {
     let result = await axiosURL.get("/gastos");
@@ -32,22 +42,39 @@ export const ColumnasGastos = () => {
     setMensaje({ ...mensaje, [name]: value });
   };
   const aprobado = async (file) => {
-    N === "902"
-      ? await axiosURL.put(`/gasto/aprobado/${file.id}`, {
+    
+    const obj={
+      ...datos,
+      ...file,
+      msj:mensaje.respMensaje,
+      estado:'APROBADO',
+      info:'Respuesta de tu rendicion de Gasto',
+      path:'/estado/usuario'
+    }
+    if(N === "902")
+   {   
+      
+     if( file.sinAnticipo ==='sin'){
+       await alerta905(filtrodata905)
+     }
+    await  alertaGerencia(obj);
+      await axiosURL.put(`/gasto/aprobado/${file.id}`, {
           ...mensaje,
           estadoFinal: "aprobado",
           notificacion: "inactiva",
           estado: "aprobado",
           fd: new Date().toLocaleString(),
-       })
-      : await axiosURL.put(`/gasto/aprobado/${file.id}`, {
+       })}else{
+ await axiosURL.put(`/gasto/aprobado/${file.id}`, {
           ...mensaje,
           estado: "aprobado",
         });
     setMensaje({ respMensaje: "" });
-    axiosGet();
-    alertaGerencia(datos,file,mensaje.respMensaje,'APROBADO','Gasto')
+       }
 
+     
+    axiosGet();
+   
   };
   const rechazado = async (file) => {
     await axiosURL.put(`/gasto/rechazado/${file.id}`, {
@@ -59,7 +86,15 @@ export const ColumnasGastos = () => {
     });
     setMensaje({ respMensaje: "" });
     axiosGet();
-    alertaGerencia(datos,file,mensaje.respMensaje,'RECHAZADO','Gasto')
+    const obj={
+      ...datos,
+      ...file,
+      msj:mensaje.respMensaje,
+      estado:'RECHAZADO',
+      info:'Respuesta de tu rendicion de Gasto',
+      path:'/estado/usuario'
+    }
+    alertaGerencia(obj)
   };
  
   const columnasGastos = [

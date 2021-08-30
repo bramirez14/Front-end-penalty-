@@ -8,7 +8,7 @@ import { HelperMODAL } from "../../helpers/HelperMODAL";
 import { BsCheck } from "react-icons/bs";
 import { useGet } from "../../hooks/useGet";
 import { colSueldo } from "./destructuracionCol/colSueldo";
-import { alertaGerencia } from "../helpers/funciones";
+import { alerta905, alertaGerencia } from "../helpers/funciones";
 
 export const ColumnasSueldo = () => {
   const N = localStorage.getItem("N");
@@ -18,10 +18,31 @@ export const ColumnasSueldo = () => {
     respMensaje: "",
     estado: "",
   });
+  const usuario905 = PeticionGET(`/allusers`)
+  
   const { TextArea } = Input;
 const [ data,axiosGet] =useGet('/anticipo')
-  const aprobado = async (file) => {
+  const aprobado = async (file) => {  
+    const obj={
+    ...datos,
+    ...file,
+    msj:mensaje.respMensaje,
+    estado:'APROBADO',
+    info:`Respuesta de tu anticipo de ${file.sueldo}`,
+    path:'/estado/usuario'
+  }
+  const filtroUsuario905 = usuario905.filter(u=>u.nvendedor === '905')
+  const filtrodata905 = filtroUsuario905.map(f=> 
+  {return{receptor:f.email,emisor:f.gerente.email,
+ nombre:`${f.nombre} ${f.apellido}`,
+ alerta: 'solicitud aprobada',
+ info:`Tenes una operacion de ${file.sueldo}`,
+ id,
+ path:'/vista/anticipo/sueldo'
+ }});
     if (N === "902") {
+      await alertaGerencia(obj);
+      await alerta905(filtrodata905);
       await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estadoFinal: "aprobado",
@@ -30,16 +51,20 @@ const [ data,axiosGet] =useGet('/anticipo')
         listo: "Si",
         fd: new Date().toLocaleString(),
       });
+     
     } else {
-      console.log("soy usuario distiton de 902");
+      console.log("soy usuario distinton de 902");
       await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estado: "aprobado",
       });
     }
+
     setMensaje({ respMensaje: "" });
     axiosGet();
-    alertaGerencia(datos,file,mensaje.respMensaje,'APROBADO','Sueldo')
+    
+   
+  
 
   };
   const rechazado = async (file) => {
@@ -52,7 +77,15 @@ const [ data,axiosGet] =useGet('/anticipo')
     });
     setMensaje({ respMensaje: "" });
     axiosGet();
-    alertaGerencia(datos,file,mensaje.respMensaje,'RECHAZADO','Sueldo')
+    const obj={
+      ...datos,
+      ...file,
+      msj:mensaje.respMensaje,
+      estado:'RECHAZADO',
+      info:`Respuesta de tu anticipo de ${file.sueldo}`,
+      path:'/estado/usuario'
+    }
+    alertaGerencia(obj)
 
   };
 

@@ -85,12 +85,15 @@ const usuario = PeticionGET(`/${id}`);
                     onClick={()=>handleCard(item.id)}
                     className='item-meta'
                     avatar={<Avatar src={item.usuario.imagen} />}
-                    title={<h3>{item.info}</h3>}
+                    title={<Link to={item.path} >{item.info}</Link>}
                     description={
+                      <>
                       <div className="item-alerta" style={{ color: "black" }}>
+                      
                         {item.alerta}
                        <p style={{color:'#46a461'}}> hace {run(item.f)}</p>
                       </div>
+                      </>
                     }
                   />
                 </Skeleton>

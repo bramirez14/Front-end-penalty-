@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { axiosURL } from "../../config/axiosURL";
 import { saveAs } from "file-saver";
+import { PeticionGET } from "../../config/PeticionGET";
 
 export const TodosGastos = (data) => {
   const N = localStorage.getItem("N"); // numero de registro
@@ -81,19 +82,38 @@ export const descargarPDF = async (pdf) => {
   saveAs(pdfBlob, `${pdf}`);
 };
 
-export const alertaGerencia = async (datosUsuario,file,msj,estado,nombre) =>{
-  const mailEmpleado = file.usuario.email;
-  const mailGerente = datosUsuario.gerente.email;
+export const alertaGerencia = async (obj) =>{
+  const mailEmpleado = obj.usuario.email;
+  const mailGerente = obj.gerente.email;
   const nuevoObj = {
-    alerta: `${msj}, Estado: ${estado}`,
-    info: nombre,
-    nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+    alerta: `${obj.msj}, Estado: ${obj.estado}`,
+    info: obj.info,
+    nombre:`${obj.nombre} ${obj.apellido}`,
     f: new Date().toLocaleString(),
     emisor: mailGerente,
     receptor: mailEmpleado,
     estado:'activa',
-    usuarioId:datosUsuario.id
+    path:obj.path,
+    usuarioId:obj.id
   };
   const res = await axiosURL.post("/msg/alerta", nuevoObj);
   return res;
+}
+export const alerta905= async (array) =>{
+  console.log(array);
+  for (const iterator of array) {
+    const nuevoObj = {
+    alerta: `${iterator.alerta}`,
+    info: iterator.info,
+    nombre:`${iterator.nombre} ${iterator.apellido}`,
+    f: new Date().toLocaleString(),
+    emisor: iterator.emisor,
+    receptor: iterator.receptor,
+    estado:'activa',
+    path:iterator.path,
+    usuarioId:iterator.id
+  };
+   await axiosURL.post("/msg/alerta", nuevoObj);
+  }
+  
 }

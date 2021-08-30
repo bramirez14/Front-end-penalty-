@@ -37,10 +37,16 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       imagen: "",
     });
   };
-  const datos = PeticionGET(`/${id}`)
+  const datosUsuario = PeticionGET(`/${id}`)
   const handleSubmit = async (values) => {
     setSpinner(true)
-    alerta(datos,values.notas,'RSinAnt')
+    const objs={ 
+    ...datosUsuario,
+    msj:values.notas,
+    nombre:'Tenes una Rendicion Sin Anticipo',
+    path:'/aprobacion/gastos'
+    }
+   const {data} = await alerta(objs)
     let obj = {
       fecha: new Date().toLocaleDateString(),
       usuarioId: id,
@@ -49,6 +55,8 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       estadoFinal: "pendiente",
       notificacion: "activa",
       f: new Date().toLocaleString(),
+      alertaId: data?.alertaCreada?.id
+
     };
     let f = new FormData();
     f.append("imagen", imagen);

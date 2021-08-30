@@ -30,22 +30,30 @@ export const ColumnasVacaciones = () => {
     axiosGet();
   }, []);
   const aprobado = async (file) => {
-    N === "902"
-      ? await axiosURL.put(`/vacaciones/aprobado/${file.id}`, {
+    const obj={
+      ...datos,
+      ...file,
+      msj:mensaje.respMensaje,
+      estado:'APROBADO',
+      info:'Respuesta de las Vacaciones solicitadas',
+      path:'/estado/usuario'
+    }
+    if(N === "902"){    
+    await alertaGerencia(obj);
+    await axiosURL.put(`/vacaciones/aprobado/${file.id}`, {
           ...mensaje,
           estadoFinal: "aprobado",
           notificacion: "inactiva",
           estado: "aprobado",
           fd: new Date().toLocaleString(),
-        })
-      : await axiosURL.put(`/vacaciones/aprobado/${file.id}`, {
-          ...mensaje,
-          estado: "aprobado",
-        });
+        })}else{
+      await axiosURL.put(`/vacaciones/aprobado/${file.id}`, {
+                ...mensaje,
+                estado: "aprobado",
+              });
+        }
     setMensaje({ respMensaje: "" });
     axiosGet();
-    alertaGerencia(datos,file,mensaje.respMensaje,'APROBADO','Vacaciones')
-
   };
   const rechazado = async (file) => {
     await axiosURL.put(`/vacaciones/rechazado/${file.id}`, {
@@ -57,7 +65,15 @@ export const ColumnasVacaciones = () => {
     }); // trabajando
     setMensaje({ respMensaje: "" });
     axiosGet();
-    alertaGerencia(datos,file,mensaje.respMensaje,'RECHAZADO','Vacaciones')
+    const obj={
+      ...datos,
+      ...file,
+      msj:mensaje.respMensaje,
+      estado:'RECHAZADO',
+      info:'Respuesta de las Vacaciones solicitadas',
+      path:'/estado/usuario'
+    }
+    alertaGerencia(obj)
 
   };
   const handleChange = (e) => {

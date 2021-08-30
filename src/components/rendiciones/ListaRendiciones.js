@@ -8,11 +8,23 @@ import { SubEncabezado } from "./SubEncabezado";
 import { UserContext } from "../../contexto/UserContext";
 import { saveAs } from "file-saver";
 import { useGet } from "../../hooks/useGet";
+import { alerta905 } from "../../ComponentsGerentes/helpers/funciones";
+import { PeticionGET } from "../../config/PeticionGET";
 
 export const ListaRendiciones = ({ match, history }) => {
   const { id } = match.params;
   const [peticionGastoId,axiosGet] = useGet(`/gastos/${id}`);
-
+  const uid = localStorage.getItem('uid')
+  const usuario905 = PeticionGET(`/allusers`)
+  const filtroUsuario905= usuario905.filter(u=>u.nvendedor === '905')
+  const filtrodata905 = filtroUsuario905.map(f=> 
+  {return{receptor:f.email,emisor:f.gerente.email,
+ nombre:`${f.nombre} ${f.apellido}`,
+ alerta: 'solicitud aprobada',
+ info:'Tenes una operacion de  Gasto',
+ uid,
+ path:'/vista/rendicion/gasto'
+ }});
   // prohibe ingreso por medio de la ruta
   peticionGastoId?.listo==='Si'&& history.push('/perfil')
 
@@ -48,6 +60,9 @@ export const ListaRendiciones = ({ match, history }) => {
   };
 
   const listo = async ()=>{
+    if(peticionGastoId?.sinAnticipo!=='sin'){
+      await alerta905(filtrodata905);
+    }
       let res=await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si'});
       res.status===200&& history.push('/gastos')
   };

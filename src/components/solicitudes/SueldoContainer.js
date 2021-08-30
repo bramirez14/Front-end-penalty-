@@ -77,7 +77,13 @@ export const SueldoContainer = ({ history }) => {
       alert(" La opcion AGUINALDO , solo cubre un monto inferior a 30000");
     } else {
       handleAlert();
-      const { data } =  alerta(datosUsuario,v.mensaje,sueldo);
+      const obj={ 
+      ...datosUsuario,
+      msj:v.mensaje,
+      info:`Tenes un anticipo de ${sueldo}`,
+      path:'/aprobacion/sueldo'
+      }
+      const { data } =  await alerta(obj);
       let u = { ...v, usuarioId, fecha, alertaId: data?.alertaCreada?.id };
       guardarAnticipo(u);
     }

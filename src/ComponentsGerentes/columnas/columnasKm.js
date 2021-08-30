@@ -10,7 +10,7 @@ import {
 import { HelperMODAL } from '../../helpers/HelperMODAL';
 import { colKm } from './destructuracionCol/colKm';
 import { PeticionGET } from '../../config/PeticionGET';
-import { alertaGerencia } from '../helpers/funciones';
+import { alerta905, alertaGerencia } from '../helpers/funciones';
 export const ColumnasKm = () => {
   const id = localStorage.getItem('uid')
     const N= localStorage.getItem("N");
@@ -21,6 +21,16 @@ export const ColumnasKm = () => {
         estado: "",
       });
       const datos=PeticionGET(`/${id}`)
+      const usuario905 = PeticionGET(`/allusers`)
+      const filtroUsuario905= usuario905.filter(u=>u.nvendedor === '905')
+      const filtrodata905 = filtroUsuario905.map(f=> 
+      {return{receptor:f.email,emisor:f.gerente.email,
+     nombre:`${f.nombre} ${f.apellido}`,
+     alerta: 'solicitud aprobada',
+     info:'Tenes una operacion de  Km',
+     id,
+     path:'/vista/rendicion/km'
+     }});
       const { TextArea } = Input;
       /** peticion get trae todo los gastos */
       const axiosGet = async () => {
@@ -30,26 +40,37 @@ export const ColumnasKm = () => {
       useEffect(() => {
         axiosGet();
       }, []);
-    
-    
-    
      
       const aprobado = async (file) => {
-        N === "902"
-          ? await axiosURL.put(`/km/aprobado/${file.id}`, {
-            ...mensaje,
-            estadoFinal: "aprobado",
-            notificacion: "inactiva",
-            estado: "aprobado",
-            fd: new Date().toLocaleString(),
-          })
-          : await axiosURL.put(`/km/aprobado/${file.id}`, {
-            ...mensaje,
-            estado: "aprobado",
-          });
+         const obj={
+          ...datos,
+          ...file,
+          msj:mensaje.respMensaje,
+          estado:'APROBADO',
+          info:'Respuesta de tu rendicion de Kilometro',
+          path:'/estado/usuario'
+        }
+        
+       if( N === "902"){
+        await alertaGerencia(obj);
+        await alerta905(filtrodata905)
+        await axiosURL.put(`/km/aprobado/${file.id}`, {
+                    ...mensaje,
+                    estadoFinal: "aprobado",
+                    notificacion: "inactiva",
+                    estado: "aprobado",
+                    fd: new Date().toLocaleString(),
+                  })
+       }else{
+        await axiosURL.put(`/km/aprobado/${file.id}`, {
+                    ...mensaje,
+                    estado: "aprobado",
+                  });
+       }
         setMensaje({ respMensaje: "" });
         axiosGet();
-        alertaGerencia(datos,file,mensaje.respMensaje,'APROBADO','Kilometro')
+       
+        
 
       };
       const rechazado = async (file) => {
@@ -62,7 +83,15 @@ export const ColumnasKm = () => {
         });
         setMensaje({ respMensaje: "" });
         axiosGet();
-        alertaGerencia(datos,file,mensaje.respMensaje,'RECHAZADO','Kilometro')
+        const obj={
+          ...datos,
+          ...file,
+          msj:mensaje.respMensaje,
+          estado:'RECHAZADO',
+          info:'Respuesta de tu rendicion de Kilometro',
+          path:'/estado/usuario'
+        }
+        alertaGerencia(obj);
       };
       const handleChange = (e) => {
         // para registrar los cambios del formulario
