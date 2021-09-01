@@ -46,7 +46,7 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
     nombre:'Tenes una Rendicion Sin Anticipo',
     path:'/aprobacion/gastos'
     }
-   const {data} = await alerta(objs)
+//   const {data} = await alerta(objs)
     let obj = {
       fecha: new Date().toLocaleDateString(),
       usuarioId: id,

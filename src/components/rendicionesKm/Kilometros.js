@@ -90,7 +90,7 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
       receptor:datosUsuario.gerente.email,
       usuarioId:datosUsuario.id
      }
-socket.emit('alerta-nueva',obj)
+socket.emit('alerta-nueva',objs)
     setLoading(true)
      const f= new FormData();
      f.append('imagen',km.imagen)

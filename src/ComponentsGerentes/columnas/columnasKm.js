@@ -10,7 +10,6 @@ import {
 import { HelperMODAL } from '../../helpers/HelperMODAL';
 import { colKm } from './destructuracionCol/colKm';
 import { PeticionGET } from '../../config/PeticionGET';
-import { alerta902, alerta905, alertaGerencia } from '../helpers/funciones';
 import { SocketContext } from '../../context/SocketContext';
 
 export const ColumnasKm = () => {
@@ -103,7 +102,10 @@ export const ColumnasKm = () => {
                     ...mensaje,
                     estado: "aprobado",
                   });
-                  await alerta902(obj902)
+                  for (const i of filtro902){
+                    const objNew={...obj902,receptor:i.email}
+                    socket.emit('alerta-nueva',objNew);
+                    }
        }
         setMensaje({ respMensaje: "" });
         axiosGet();

@@ -86,8 +86,9 @@ export const ListaRendiciones = ({ match, history }) => {
       socket.emit('alerta-nueva',i)
       }
       
-        socket.emit('alerta-nueva',obj)
-      
+    }else{
+      socket.emit('alerta-nueva',obj)
+
     }
       let res=await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si'});
       res.status===200&& history.push('/gastos')

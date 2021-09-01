@@ -7,9 +7,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { colGastos } from "./destructuracionCol/colGasto";
 import Swal from "sweetalert2";
 import { PeticionGET } from "../../config/PeticionGET";
-import { alerta902, alerta905, alertaGerencia } from "../helpers/funciones";
 import { SocketContext } from "../../context/SocketContext";
-import { alerta } from "../../components/solicitudes/helpers/funciones";
 
 export const ColumnasGastos = () => {
 const {socket} = useContext(SocketContext);
@@ -101,20 +99,23 @@ const {socket} = useContext(SocketContext);
         socket.emit('alerta-nueva',objNew);
       }
      }
-    await  alertaGerencia(obj);
       await axiosURL.put(`/gasto/aprobado/${file.id}`, {
           ...mensaje,
           estadoFinal: "aprobado",
           notificacion: "inactiva",
           estado: "aprobado",
           fd: new Date().toLocaleString(),
-       })}else{
+       })}
+       else{
         await axiosURL.put(`/gasto/aprobado/${file.id}`, {
                 ...mensaje,
                 estado: "aprobado",
               });
           setMensaje({ respMensaje: "" });
-          await alerta902(obj902)
+          for (const i of filtro902){
+            const objNew={...obj902,receptor:i.email}
+            socket.emit('alerta-nueva',objNew);
+            }
       }
     axiosGet();
   };
