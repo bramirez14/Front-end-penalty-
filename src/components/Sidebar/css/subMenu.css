@@ -13,7 +13,7 @@
     
   }
   .link:hover {
-    background-color: rgba(0, 0, 0,0.1);
+    background-color: transparent;
     cursor: pointer;
     color:#ffff;
   }
@@ -29,7 +29,7 @@
     font-size: 15px;
     overflow: hidden;
     white-space: nowrap;
-    background-color: rgba(0, 0, 0,0.1);
+    background-color: transparent /* rgba(0, 0, 0,0.1) */;
   }
   
   .label {
@@ -46,14 +46,14 @@
     text-decoration: none;
     color:#ffff;
     font-size: 15px;
-     background-color: rgba(0, 0, 0,0.1);
+     background-color: transparent/* rgba(0, 0, 0,0.1) */;
   }
  
 
   .dropdownLink:hover {
     color:#ffff;
     cursor: pointer;
-    background-color: rgba(0, 0, 0,0.3);
+    background-color: transparent/* rgba(0, 0, 0,0.3) */;
   }
   @media (max-width: 768px) {
    .color{
@@ -63,5 +63,7 @@
   }
 
   @media (max-width: 576px) {
-
+     .color{
+  background-color:transparent;
+}
   }

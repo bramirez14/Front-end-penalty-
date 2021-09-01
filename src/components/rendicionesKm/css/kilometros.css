@@ -1,0 +1,23 @@
+.table-km-sm{display:none}
+.table-km-xl{
+    margin:auto !important ;
+}
+
+@media (max-width: 768px) {
+    .table-km-xl{display:none}
+    .table-km-sm{display:block}
+
+
+}
+@media (max-width: 576px) {
+
+    .table-km-sm{display:block}
+    .table-km-xl{display:none}
+    
+
+
+}
+
+
+
+

@@ -4,7 +4,6 @@ import { Button, Col, Row } from "antd";
 import { CardRendiciones } from "./CardRendiciones";
 import { Link } from "react-router-dom";
 import {axiosURL} from "../../config/axiosURL";
-import {PeticionGET }from "../../config/PeticionGET";
 import { SubEncabezado } from "./SubEncabezado";
 import { UserContext } from "../../contexto/UserContext";
 import { saveAs } from "file-saver";

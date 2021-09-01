@@ -2,15 +2,25 @@ import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
 import { axiosURL } from '../../config/axiosURL';
 import { logout } from '../../auth/localStorage';
+import Swal from 'sweetalert2'
+import './config.css'
 
 export const CambiarContraseña = ({history}) => {
     const id = localStorage.getItem('uid')
 
     const onFinish = async (values) => {
-       const {data} = await axiosURL.put('/cambiar/contrasena',{...values,id});
-       if( data==='ok' ){
-           logout();
-           history.push("/login");}
+       const result= await axiosURL.put('/cambiar/contrasena',{...values,id});
+       if( result.data.status === 200 ){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'La contraseña se guardo con exito!!!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        logout();
+
+        history.push("/login");}
     };
     
       const onFinishFailed = (errorInfo) => {
@@ -18,14 +28,16 @@ export const CambiarContraseña = ({history}) => {
       };
      
     return (
+      <div className='cambiopassword' >
+
         <Form
         style={{marginTop:'20px'}}
         name="Cambiar Contrasena"
         labelCol={{
-          span: 8,
+          span: 12,
         }}
         wrapperCol={{
-          span: 6,
+          span: 8,
         }}
         initialValues={{
           remember: true,
@@ -86,5 +98,6 @@ export const CambiarContraseña = ({history}) => {
           </Button>
         </Form.Item>
       </Form>
+      </div>
     )
 }

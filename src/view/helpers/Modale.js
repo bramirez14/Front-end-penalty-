@@ -3,6 +3,7 @@ import { Modal, Button,Form,Input} from 'antd';
 import { Archivo } from '../../file/Archivo';
 import { axiosURL } from '../../config/axiosURL';
 import Swal from 'sweetalert2'
+import './full.css'
 export const Modale = ({id,get,url}) => {
   console.log(id);
   const [state, setState] = useState({
@@ -102,13 +103,13 @@ console.log(stateForm);
           </Button>
         ]}
       >
-         <div className='container'> 
+         <div className='fullcontainer' > 
       <Form layout="vertical">
         <Form.Item  >
           <Input name='norden' onChange={handleChange} placeholder='N de orden' value={norden} />
         </Form.Item>  
         <Form.Item>
-           <Archivo change={handleChangeFile}/>
+           <Archivo boton='pdf proveedores' change={handleChangeFile}/>
           </Form.Item>
           <Form.Item label={file?.name}/>
         </Form>

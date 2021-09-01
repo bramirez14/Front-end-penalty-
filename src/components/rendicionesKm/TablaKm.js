@@ -2,42 +2,56 @@ import React,{useState} from 'react'
 import { Table,Button } from 'antd';
 import { axiosURL } from '../../config/axiosURL';
 
-export const TablaKm = ({datos,borrar,setState,state}) => {
+export const TablaKm = ({datos,borrar,setState,state, long}) => {
 
     const columns = [
         {
           title: 'Fecha',
           dataIndex: 'fechaSelect',
+          width:100,
+          render:(state,file) => <h5>{file.fechaSelect} Km</h5>
         },
         {
           title: 'KM INICIAL',
           dataIndex: 'KmI',
-          render:(state,file) => <span>{file.KmI} Km</span>
+          width:100,
+
+          render:(state,file) => <h5>{file.KmI} Km</h5>
 
         },
         {
           title: 'KM FINAL',
           dataIndex: 'kmF',
-          render:(state,file) => <span>{file.KmF} Km</span>
+          width:100,
+
+          render:(state,file) => <h5>{file.KmF} Km</h5>
         },
         {
           title: 'KM RECORRIDOS',
           dataIndex: 'kmRecorridos',
-          render:(state,file) => <span style={{marginLeft:'20px'}}>{file.KmRecorrido} Km</span>
+          width:100,
+
+          render:(state,file) => <h5 style={{marginLeft:'20px'}}>{file.KmRecorrido} Km</h5>
         },
         {
           title: 'TOTAL',
           dataIndex: 'importe',
-          render:(state,file) => <span>${file.importe}</span>
+          width:100,
+
+          render:(state,file) => <h5>${file.importe}</h5>
         },
         {
           title: 'NOTAS',
           dataIndex: 'nota',
-          render:(state,file) => <span>{file.nota}</span>
+          width:100,
+
+          render:(state,file) => <h5>{file.nota}</h5>
         },
         {
           title: '',
           dataIndex: 'acciones',
+          width:100,
+
           render:(state,file) =>( <Button onClick={()=>borrar(file.id)}>Borrar</Button>)
         }
     ]
@@ -54,6 +68,7 @@ export const TablaKm = ({datos,borrar,setState,state}) => {
         columns={columns}
         dataSource={data}
         pagination={false}
+        scroll={{ y:long}}
       />
     )
 }

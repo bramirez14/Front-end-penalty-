@@ -64,6 +64,7 @@ const [columnasGastos,data]=ColumnasGastos();
       expandible={true}
       boton={true}
       paginas={true}
+      bordered={false}
       y={400}
       />
       

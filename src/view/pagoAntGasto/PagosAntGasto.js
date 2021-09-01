@@ -10,7 +10,9 @@ import { columnsant } from "./columnasAntPago";
 
 export const PagosAntGasto = () => {
   const [dataGasto, setDataGasto] = useState([]);
-  const [stateFile, setStateFile] = useState("");
+  const [stateFile, setStateFile] = useState('');
+  const [stateFilefinal, setStateFilefinal] = useState('');
+ 
   const getGastos = async () => {
     const { data } = await axiosURL.get("/gastos");
     setDataGasto(data);
@@ -26,12 +28,14 @@ export const PagosAntGasto = () => {
     {
       title: "Acciones",
       key: "acciones",
+      width:120,
+
       render: (state, file) => (
         <>
           {file.pagoRealizado === "Si" ? (
-            <p>Realizado</p>
+            <h5>Realizado</h5>
           ) : file.pagoRealizado === "En curso" && file.listo!=='Si' ? (
-            <p> En curso...</p>
+            <h5> En curso...</h5>
           ) : (
             <>
               {file.sinAnticipo === "sin" ? (
@@ -40,12 +44,14 @@ export const PagosAntGasto = () => {
                   title={"Rendicion sin Anticipo"}
                   Submit={"Finalizar"}
                   Return={"Salir"}
-                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile)}
+                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile,stateFilefinal,setStateFilefinal)}
                   noclick={() => {}}
                 >
                   <FormularioSinAnt
-                    stateFile={stateFile}
-                    setStateFile={setStateFile}
+                  stateFile={stateFile}
+                  setStateFile={setStateFile}
+                   stateFilefinal={stateFilefinal}
+                    setStateFilefinal={setStateFilefinal}
                     orden={file.norden}
                     importeRendido={file.importerendido}
                   />
@@ -58,12 +64,14 @@ export const PagosAntGasto = () => {
                   title={"Rendicion sin Anticipo"}
                   Submit={"Finalizar"}
                   Return={"Salir"}
-                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile)}
+                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile,stateFilefinal,setStateFilefinal)}
                   noclick={() => {}}
                 >
                   <FormularioConAnt
                     stateFile={stateFile}
+                    stateFilefinal={stateFilefinal}
                     setStateFile={setStateFile}
+                    setStateFilefinal={setStateFilefinal}
                     orden={file.norden}
                     importeRendido={file.importerendido}
                     importe={file.importe}
@@ -105,7 +113,7 @@ export const PagosAntGasto = () => {
       columns={columns}
       dataSource={datos}
       pagination={false}
-      bordered={true}
+      scroll={{y:500}}
     />
   );
 };

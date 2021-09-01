@@ -5,12 +5,13 @@ import { saveAs } from "file-saver";
 import { ModalKm } from '../components/rendicionesKm/ModalKm';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { Archivo } from '../file/Archivo';
+import { BiDownload } from 'react-icons/bi';
 
 export const PagosKm = () => {
-    const [dataKm, setDataKm] = useState([])
-    const [stateFile, setStateFile] = useState({
-  file:''
-    })
+  const [stateFile, setStateFile] = useState('');
+  const [stateFilefinal, setStateFilefinal] = useState('');
+  const [dataKm, setDataKm] = useState([])
+ 
   const getKm = async ()=>{
     const {data} = await axiosURL.get('/todos/kilometros')
     setDataKm(data)
@@ -31,66 +32,100 @@ export const PagosKm = () => {
     console.log(filtroAprobacion);
 
     const finalizar= async (id)=>{
-        console.log(id);
-          if(stateFile.file===''){
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Ingrese un archivo pdf!',
-              
-            })
-          }
-          const obj={
-            procesoPagar:'Si'
-          }
-          const f= new FormData();
-          f.append('file',stateFile.file);
-          f.append('procesoPagar',obj.procesoPagar)
-          await axiosURL.put(`/pago/km/${id}`,f);
-          setStateFile({file:''})
+      if (stateFile === '') {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Ingreses los  archivo pdf!",
+        });
+      }else if (stateFilefinal===''){
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Ingreses los  archivo pdf!",
+        });
+    
+    
+      }else{
+        
+        const obj={
+          procesoPagar:'Si'
+        }
+        const f= new FormData();
+        f.append('file',stateFile);
+        f.append('procesoPagar',obj.procesoPagar)
+        await axiosURL.put(`/pago/km/${id}`,f);
+        await finalizarfinal(id,stateFilefinal)
+        setStateFile('')
+        setStateFilefinal('')
+        getKm()
+         
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'se guardo con exito!!!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
+      }
           
-          getKm()
+        }
+        const finalizarfinal=async (id,statefinal) =>{
+          const final = new FormData();
+          final.append("file",statefinal);
+          const  result= await axiosURL.put(`/pagofinal/kilometros/${id}`, final);
+          console.log(result);
         }
         const handleFileChange = (e)=> {
-            setStateFile({...stateFile,file:e.target.files[0]})
+            setStateFile(e.target.files[0])
         }
+        const handleFileChangeFinal = (e)=> {
+          setStateFilefinal(e.target.files[0])
+      }
   const columns = [
     {
-      title: 'N de Ant Gasto',
+      title: 'N de Ant km',
       dataIndex: 'id',
       key: 'id',
       width:'80px',
-      render:(state,file)=><span>#{file.id}</span>
+      render:(state,file)=><h5>#{file.id}</h5>
     },
     {
       title: 'Nombre',
       dataIndex: 'nombre',
       key: 'nombre',
+      render:(state,file)=><h5>{file.nombre}</h5>
+      
     },
     {
       title: 'Apellido',
       dataIndex: 'apellido',
       key: 'apellido',
+      render:(state,file)=><h5>{file.apellido}</h5>
+
     },
     {
         title: 'Km Total',
         key: 'kmTotal',
         dataIndex: 'kmTotal',
-        width: '100px',
-        render:(state,file)=>(<span style={{marginLeft: "20px"}}> {file.kmTotal} Km</span>)
+        width: 100,
+        render:(state,file)=>(<h5 style={{marginLeft: "20px"}}> {file.kmTotal} Km</h5>)
       },
     
       {
         title: 'Importe Total',
         key: 'importeTotal',
         dataIndex: 'importeTotal',
-        render:(state,file)=>(<span style={{marginLeft: "20px"}}> ${file.importeTotal}</span>)
+        render:(state,file)=>(<h5 style={{marginLeft: "20px"}}> ${file.importeTotal}</h5>)
       },
       
       {
         title: 'N orden',
         dataIndex: 'norden',
         key: 'norden',
+      render:(state,file)=><h5>{file.norden}</h5>
+
       },
       {
         title: 'PDF Proveedores',
@@ -98,8 +133,8 @@ export const PagosKm = () => {
         key: 'pdf',
       render:(state,file)=>{return(
         <>  
-        { file.pdf===null || file.pdf===''?<span>No hay pdf</span>:
-          <Button type='link' onClick={()=>descargarPDF(file.pdf)} >pdf</Button>
+        { file.pdf===null || file.pdf===''?<h5>No hay pdf</h5>:
+          <Button type='link' onClick={()=>descargarPDF(file.pdf)} style={{marginLeft:30}}><BiDownload /></Button>
           }
         </>
         )}
@@ -112,13 +147,32 @@ export const PagosKm = () => {
        
           return(
             <>
-            {file.pdfinal===null || file.pdfinal===''?<span>No hay pdf</span>: 
+            {file.pdfinal===null || file.pdfinal===''?<h5>No hay pdf</h5>: 
             
-          <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} >pdf</Button>
+          <Button type='link' onClick={()=>descargarPDF(file.pdfinal)} ><BiDownload /></Button>
             
             }
             </>
         )}
+      },
+      {
+        title: "  PDF Orden pago final ",
+        dataIndex: "pdfpagoFinal",
+        key: "pdfpagoFinal",
+        width:170,
+        render: (state, file) => {
+          return (
+            <>
+              {file.pdfpagoFinal === null || file.pdfpagoFinal === "" ? (
+                <h5>No hay pdf</h5>
+              ) : (
+                <Button type="link" onClick={() => descargarPDF(file.pdfpagoFinal)} >
+                  <BiDownload />
+                </Button>
+              )}
+            </>
+          );
+        },
       },
       {
         title: 'Acciones',
@@ -127,7 +181,7 @@ export const PagosKm = () => {
           <>
          {
             file.procesoPagar==='Si'?
-            <p>Realizado</p>
+            <h5>Realizado</h5>
             :
           <ModalKm title={'Kilometros'} boton={'Completar'} Return={'Salir'} Submit={'Finalizar'} click={()=>finalizar(file.id)} >
             <Form layout="vertical">
@@ -140,9 +194,13 @@ export const PagosKm = () => {
 </Form.Item>
 
 <Form.Item  >
-    <Archivo change={handleFileChange}/>
+    <Archivo boton='PDF pago' change={handleFileChange}/>
 </Form.Item>
-<Form.Item label={stateFile.file.name}/>
+<p>{stateFile.name}</p>
+<Form.Item  >
+      <Archivo boton='PDF Orden de pago final' change={handleFileChangeFinal}/>
+  </Form.Item>
+  <p>{stateFilefinal.name}</p>
       </Form>
           </ModalKm>
             
