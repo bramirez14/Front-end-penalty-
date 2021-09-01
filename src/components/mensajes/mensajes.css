@@ -5,7 +5,7 @@
   .contenedor-alerta{
     margin:auto;
     margin-top:20px !important;
-    width: 500px;
+    width: 400px;
   
   }
   .lista-alerta-card{
@@ -40,8 +40,6 @@
     color:rgba(75, 73, 73, 0.867);
   }
   .item-alerta{
-    width:400px;
-   height:auto;
    overflow: hidden;
   }
   .item-meta{

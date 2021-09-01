@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, useContext} from 'react'
 import { axiosURL } from '../../config/axiosURL';
 import Swal from "sweetalert2";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -6,31 +6,28 @@ import { BsCheck } from "react-icons/bs";
 import {
     Input,
     Button,
-  } from "antd";
+} from "antd";
 import { HelperMODAL } from '../../helpers/HelperMODAL';
 import { colKm } from './destructuracionCol/colKm';
 import { PeticionGET } from '../../config/PeticionGET';
-import { alerta905, alertaGerencia } from '../helpers/funciones';
+import { alerta902, alerta905, alertaGerencia } from '../helpers/funciones';
+import { SocketContext } from '../../context/SocketContext';
+
 export const ColumnasKm = () => {
+  const {socket} = useContext(SocketContext)
   const id = localStorage.getItem('uid')
-    const N= localStorage.getItem("N");
+  const N= localStorage.getItem("N");
   const [data, setData] = useState([]);
 
     const [mensaje, setMensaje] = useState({
         respMensaje: "",
         estado: "",
       });
-      const datos=PeticionGET(`/${id}`)
-      const usuario905 = PeticionGET(`/allusers`)
-      const filtroUsuario905= usuario905.filter(u=>u.nvendedor === '905')
-      const filtrodata905 = filtroUsuario905.map(f=> 
-      {return{receptor:f.email,emisor:f.gerente.email,
-     nombre:`${f.nombre} ${f.apellido}`,
-     alerta: 'solicitud aprobada',
-     info:'Tenes una operacion de  Km',
-     id,
-     path:'/vista/rendicion/km'
-     }});
+      const datosUsuario=PeticionGET(`/${id}`)
+      const usuarios= PeticionGET(`/allusers`)
+      const filtro902 = usuarios.filter(u=> u.nvendedor==='902')
+      const filtro905 = usuarios.filter(u=> u.nvendedor==='905')
+      const filtro906 = usuarios.filter(u=> u.nvendedor==='906')
       const { TextArea } = Input;
       /** peticion get trae todo los gastos */
       const axiosGet = async () => {
@@ -42,18 +39,58 @@ export const ColumnasKm = () => {
       }, []);
      
       const aprobado = async (file) => {
-         const obj={
-          ...datos,
-          ...file,
-          msj:mensaje.respMensaje,
-          estado:'APROBADO',
-          info:'Respuesta de tu rendicion de Kilometro',
-          path:'/estado/usuario'
+        //envio usuario 902
+        const obj902={
+          alerta:mensaje.respMensaje,
+          info:`Tenes una aprobacion final`,
+          f: new Date().toLocaleString(),
+          nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+          estado:'activa',
+          path:'/aprobacion/km',
+          emisor:datosUsuario.email,
+          usuarioId:datosUsuario.id,
         }
+        //envio usuario quien corresponda
+        const obj={
+          alerta:mensaje.respMensaje,
+          info:`Resolucion de  anticipo de km`,
+          f: new Date().toLocaleString(),
+          msj:mensaje.respMensaje,
+          estado:'activa',
+          path:'/estado/usuario',
+          emisor:datosUsuario.email,
+          receptor:file.usuario.email,
+          usuarioId:datosUsuario.id,
+        }
+        //envio usuarios 905
+        const obj905={
+          alerta:'Aprobado por gerencia',
+          info:`Tenes un anticipo de gasto`,
+          f: new Date().toLocaleString(),
+          estado:'activa',
+          path:'/vista/rendicion/Km',
+          emisor:datosUsuario.email,
+          usuarioId:datosUsuario.id,
+        }
+        //envio usuario 906
+        const obj906={
+          alerta:'Aprobado por gerencia',
+          info:`Tenes un anticipo de km a pagar`,
+          f: new Date().toLocaleString(),
+          estado:'activa',
+          path:'/pagos/km',
+          emisor:datosUsuario.email,
+          usuarioId:datosUsuario.id,
+        }
+      //condicional de  gerentes
         
        if( N === "902"){
-        await alertaGerencia(obj);
-        await alerta905(filtrodata905)
+         socket.emit('alerta-nueva',obj)
+         for (const i of filtro905){
+          const objNew={...obj905,receptor:i.email}
+          socket.emit('alerta-nueva',objNew);
+        }
+
         await axiosURL.put(`/km/aprobado/${file.id}`, {
                     ...mensaje,
                     estadoFinal: "aprobado",
@@ -66,6 +103,7 @@ export const ColumnasKm = () => {
                     ...mensaje,
                     estado: "aprobado",
                   });
+                  await alerta902(obj902)
        }
         setMensaje({ respMensaje: "" });
         axiosGet();
@@ -84,14 +122,17 @@ export const ColumnasKm = () => {
         setMensaje({ respMensaje: "" });
         axiosGet();
         const obj={
-          ...datos,
-          ...file,
+          alerta:mensaje.respMensaje,
+          info:`Resolucion de  anticipo de gasto`,
+          f: new Date().toLocaleString(),
           msj:mensaje.respMensaje,
-          estado:'RECHAZADO',
-          info:'Respuesta de tu rendicion de Kilometro',
-          path:'/estado/usuario'
+          estado:'activa',
+          path:'/estado/usuario',
+          emisor:datosUsuario.email,
+          receptor:file.usuario.email,
+          usuarioId:datosUsuario.id,
         }
-        alertaGerencia(obj);
+        socket.emit('alerta-nueva',obj);
       };
       const handleChange = (e) => {
         // para registrar los cambios del formulario

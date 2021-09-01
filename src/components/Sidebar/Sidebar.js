@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import "./css/sidebar.css";
 import { AvatarImg } from "../img/Avatar";
-import { UserContext } from "../../contexto/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { PeticionJWT } from "../../auth/PeticionJWT";
 import { Row, Col, } from "antd";
 import { axiosURL } from "../../config/axiosURL";
@@ -42,7 +42,7 @@ let useClickOutside = q?
 :()=>{}
 
 
-export const Sidebar = ({ history }) => {
+export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
   let [isOpen, setIsOpen] = useState(false);
   const abrirCerrarHamburguesa = () => setOpen(!open)
   const { setAuth } = useContext(UserContext);
@@ -91,7 +91,7 @@ export const Sidebar = ({ history }) => {
           <div className="navbar">
             <div className='hamburguesa'> <BotomHamburguesa abrirCerrarHamburguesa={abrirCerrarHamburguesa}/></div>
             <div className='nomaler'style={{display:'flex'}}> 
-            <div className='alerta' ><Alerta/></div> 
+            <div className='alerta' ><Alerta alertas={alertas} setAlertas={setAlertas} getAlertas={getAlertas} /></div> 
             <div className='nombreCompleto'><NombreCompleto nombre={nombre} apellido={apellido} handleLogout={handleLogout}/></div>
             
             </div>

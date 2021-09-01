@@ -1,7 +1,7 @@
 import React, { useState,useContext,useRef,useEffect} from "react";
 import "./login.css";
 import {axiosURL} from "../../config/axiosURL";
-import { UserContext } from "../../contexto/UserContext";
+import { UserContext } from "../../context/UserContext";
 
 
 export const Login = ({ history }) => {

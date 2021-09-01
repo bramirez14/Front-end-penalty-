@@ -1,13 +1,14 @@
+
 import { axiosURL } from "../../../config/axiosURL"
+
 
 export const postData= async(url,datos) =>{
 return await  axiosURL.post(url,{km:"100"})
 }
 
 export const alerta = async (obj) =>{
-  console.log(obj);
-        const mailEmpleado = obj.email;
-        const mailGerente = obj.gerente.email;
+        const mailEmpleado = obj?.email;
+        const mailGerente = obj?.gerente?.email;
         const nuevoObj = {
           alerta: obj.msj,
           info: obj.info,
@@ -20,5 +21,6 @@ export const alerta = async (obj) =>{
           usuarioId:obj.id
         };
         const res = await axiosURL.post("/msg/alerta", nuevoObj);
+        
         return res;
 }

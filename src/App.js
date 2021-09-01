@@ -1,14 +1,12 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import "react-pro-sidebar/dist/css/styles.css";
 import "antd/dist/antd.css";
 import "./App.css";
-import  io  from "socket.io-client";
 
 import { Routes } from "./routes/Routes";
-import { UserContext } from "./contexto/UserContext";
+import { UserContext } from "./context/UserContext";
 import { PeticionJWT } from "./auth/PeticionJWT";
-import { SocketProvider } from "./contexto/SocketContext";
-import { useGet } from "./hooks/useGet";
+import { SocketProvider } from "./context/SocketContext";
 
 function App() {
   PeticionJWT();
@@ -17,8 +15,8 @@ function App() {
   const [arrayUsuarios, setArrayUsuarios] = useState()
   const [msj, setMsj] = useState([])
   const [usuarios, setUsuarios] = useState([])
-  const [alertas, nuevasAlertas] = useGet("/msg/alertas");
-console.log(nuevasAlertas);
+const [alertas, setAlertas] = useState([])
+
   return (
     <UserContext.Provider
       value={{
@@ -33,13 +31,14 @@ console.log(nuevasAlertas);
         usuariosIO:usuarios,
         setUsuariosIO:setUsuarios,
         alertas:alertas,
-        nuevasAlertas:nuevasAlertas,
+        setAlertas:setAlertas,
+       
       }}
     >
-{/*       <SocketProvider>
- */}
+      <SocketProvider>
+
           <Routes />
-      {/* </SocketProvider> */}
+      </SocketProvider>
 
     </UserContext.Provider>
   );

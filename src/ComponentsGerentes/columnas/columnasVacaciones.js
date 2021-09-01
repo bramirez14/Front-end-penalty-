@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Input, Button } from "antd";
 import { axiosURL } from "../../config/axiosURL";
 import { BsCheck } from "react-icons/bs";
@@ -7,14 +7,19 @@ import { AiOutlineDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { PeticionGET } from "../../config/PeticionGET";
 import { colVacaciones } from "./destructuracionCol/colVacaciones";
-import { alertaGerencia } from "../helpers/funciones";
+import { alerta902, alertaGerencia } from "../helpers/funciones";
+import { SocketContext } from "../../context/SocketContext";
 
 var numberFormat = new Intl.NumberFormat("es-ES");
 
 export const ColumnasVacaciones = () => {
+const {socket} = useContext(SocketContext);
+
   const N = localStorage.getItem("N");
   const id = localStorage.getItem('uid')
-  const datos= PeticionGET(`/${id}`)
+  const datosUsuario= PeticionGET(`/${id}`)
+  const usuarios= PeticionGET(`/allusers`)
+  const filtro902 = usuarios.filter(u=> u.nvendedor==='902')
   const [data, setData] = useState([]);
   const { TextArea } = Input;
 
@@ -30,16 +35,32 @@ export const ColumnasVacaciones = () => {
     axiosGet();
   }, []);
   const aprobado = async (file) => {
-    const obj={
-      ...datos,
-      ...file,
-      msj:mensaje.respMensaje,
-      estado:'APROBADO',
-      info:'Respuesta de las Vacaciones solicitadas',
-      path:'/estado/usuario'
+    // envio usuario 902
+    const obj902={
+      alerta:mensaje.respMensaje,
+      info:`Tenes una aprobacion final`,
+      f: new Date().toLocaleString(),
+      nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+      estado:'activa',
+      path:'/aprobacion/vacaciones',
+      emisor:datosUsuario.email,
+      usuarioId:datosUsuario.id,
     }
+    //envio usuario quien corresponda
+    const obj={
+      alerta:mensaje.respMensaje,
+      info:`Resolucion  de tus  vacaciones`,
+      f: new Date().toLocaleString(),
+      msj:mensaje.respMensaje,
+      estado:'activa',
+      path:'/estado/usuario',
+      emisor:datosUsuario.email,
+      receptor:file.usuario.email,
+      usuarioId:datosUsuario.id,
+    }
+    //validacion de gerencia
     if(N === "902"){    
-    await alertaGerencia(obj);
+    socket.emit('alerta-nueva',obj);
     await axiosURL.put(`/vacaciones/aprobado/${file.id}`, {
           ...mensaje,
           estadoFinal: "aprobado",
@@ -51,6 +72,10 @@ export const ColumnasVacaciones = () => {
                 ...mensaje,
                 estado: "aprobado",
               });
+              for (const i of filtro902){
+                const objNew={...obj902,receptor:i.email}
+                socket.emit('alerta-nueva',objNew);
+                }
         }
     setMensaje({ respMensaje: "" });
     axiosGet();
@@ -66,14 +91,17 @@ export const ColumnasVacaciones = () => {
     setMensaje({ respMensaje: "" });
     axiosGet();
     const obj={
-      ...datos,
-      ...file,
+      alerta:mensaje.respMensaje,
+      info:`Resolucion de  anticipo de ${file.sueldo} `,
+      f: new Date().toLocaleString(),
       msj:mensaje.respMensaje,
-      estado:'RECHAZADO',
-      info:'Respuesta de las Vacaciones solicitadas',
-      path:'/estado/usuario'
+      estado:'activa',
+      path:'/estado/usuario',
+      emisor:datosUsuario.email,
+      receptor:file.usuario.email,
+      usuarioId:datosUsuario.id,
     }
-    alertaGerencia(obj)
+   socket.emit('alerta-nueva',obj);
 
   };
   const handleChange = (e) => {

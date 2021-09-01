@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Form, Input, Button, Col, Row, DatePicker } from "antd";
 import { Titulo } from "../titulos/Titulo";
 import { axiosURL } from "../../config/axiosURL";
 import Swal from "sweetalert2";
 import { PeticionGET } from "../../config/PeticionGET";
 import { alerta } from "./helpers/funciones";
+import { SocketContext } from "../../context/SocketContext";
 
 export const Vacaciones = ({ history }) => {
+  const {socket} = useContext(SocketContext);
   const id = localStorage.getItem("uid");
   /**useContext***/
   /***iniciamos el estado******/
@@ -107,20 +109,25 @@ export const Vacaciones = ({ history }) => {
   const tipo = localStorage.getItem("type");
 
   const guardarAnticipoDeVacaciones = async () => {
-    const obj = {
-      ...getUsuario,
-      msj: vacaciones.obs,
-      info: "Tenes Vacaciones solicitadas",
-      path: "/aprobacion/vacaciones",
+    const nuevoObj = {
+      alerta: vacaciones.obs,
+      info:`Tenes solicitud de vacaciones`,
+      nombre:`${getUsuario.nombre} ${getUsuario.apellido}`,
+      f: new Date().toLocaleString(),
+      estado:'activa',
+      path:'/aprobacion/vacaciones',
+      usuarioId:getUsuario.id,
+      emisor: getUsuario.email,
+      receptor: getUsuario.gerente.email,
     };
-    const {data} = await alerta(obj);
+    socket.emit('alerta-nueva', nuevoObj);
+   
 
     let result = await axiosURL.post("/vacaciones", {
       ...vacaciones,
       estadoFinal: "pendiente",
       estado: "pendiente",
       f: new Date().toLocaleString(),
-      alertaId: data?.alertaCreada?.id,
     });
     
     if (result.status === 200) {
@@ -129,11 +136,8 @@ export const Vacaciones = ({ history }) => {
   };
 
   let handleSubmit = (e) => {
-    console.log(e);
     handleAlert();
     guardarAnticipoDeVacaciones();
-
-    //enviarMensaje()
   };
 
   const dateFormat = "DD/MM/YYYY";

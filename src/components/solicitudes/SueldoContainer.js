@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Sueldo } from "./Sueldo";
 import Swal from "sweetalert2";
 import "./css/anticipoGasto.css";
 import { alerta } from "./helpers/funciones";
+import { SocketContext } from "../../context/SocketContext";
 
 export const SueldoContainer = ({ history }) => {
+  const {socket,alertas} = useContext(SocketContext)
   const id = localStorage.getItem("uid");
   const [data, setData] = useState([{ id: "", nombre: "" }]);
   const [anticipo, setAnticipo] = useState({
@@ -72,23 +74,28 @@ export const SueldoContainer = ({ history }) => {
   };
   //submit para enviar el formulario
   const handleSubmit = async (v) => {
-    console.log(v);
     if (v.importe >= 30001 && sueldo === "Aguinaldo") {
       alert(" La opcion AGUINALDO , solo cubre un monto inferior a 30000");
     } else {
       handleAlert();
-      const obj={ 
-      ...datosUsuario,
-      msj:v.mensaje,
-      info:`Tenes un anticipo de ${sueldo}`,
-      path:'/aprobacion/sueldo'
-      }
-      const { data } =  await alerta(obj);
-      let u = { ...v, usuarioId, fecha, alertaId: data?.alertaCreada?.id };
-      guardarAnticipo(u);
+      const nuevoObj = {
+        alerta: v.mensaje,
+        info:`Tenes un anticipo de ${sueldo}`,
+        nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+        f: new Date().toLocaleString(),
+        emisor: datosUsuario.email,
+        receptor: datosUsuario.gerente.email,
+        estado:'activa',
+        path:'/aprobacion/sueldo',
+        usuarioId:datosUsuario.id
+      };
+      socket.emit('alerta-nueva', nuevoObj);
+      const pp =socket?.on('alerta-creada', async (data) =>{ console.log(data);})
+      console.log(pp);
+        let u = { ...v, usuarioId, fecha,  };
+        guardarAnticipo(u);
     }
   };
-
 
   return (
     <Sueldo

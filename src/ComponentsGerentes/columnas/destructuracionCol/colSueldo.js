@@ -8,6 +8,26 @@ import { descargarPDF } from "../../helpers/funciones";
 
 export const colSueldo = [
   {
+    title: "Estado",
+    dataIndex: "estado",
+    key: "estado",
+    width:120,
+    lupa: false,
+    render: (estado, file) => {
+      const color = () => {
+        switch (file.estado) {
+          case "pendiente":
+            return <h5 style={{ color: '#F79E0B'  }}> pendiente...</h5>;
+          case "aprobado":
+            return <h5 style={{ color: "green" }}> aprobado </h5>;
+          default:
+            return <h5 style={{ color: "red" }}> rechazado </h5>;
+        }
+      };
+      return <>{color()}</>;
+    },
+  },
+  {
     title: "N° de anticipo",
     dataIndex: "id",
     key: "id",
@@ -135,26 +155,7 @@ export const colSueldo = [
     </>
   )
   },
-  {
-    title: "Estado",
-    dataIndex: "estado",
-    key: "estado",
-    width:120,
-    lupa: false,
-    render: (estado, file) => {
-      const color = () => {
-        switch (file.estado) {
-          case "pendiente":
-            return <h5 style={{ color: '#F79E0B'  }}> pendiente...</h5>;
-          case "aprobado":
-            return <h5 style={{ color: "green" }}> aprobado </h5>;
-          default:
-            return <h5 style={{ color: "red" }}> rechazado </h5>;
-        }
-      };
-      return <>{color()}</>;
-    },
-  },
+  
 
 
 

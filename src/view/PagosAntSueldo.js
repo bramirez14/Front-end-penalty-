@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from 'react'
 import { Table, Button,Form,Input} from 'antd';
-import { PeticionGET } from '../config/PeticionGET';
 import { axiosURL } from '../config/axiosURL';
 import { saveAs } from "file-saver";
 import { ModalKm } from '../components/rendicionesKm/ModalKm';

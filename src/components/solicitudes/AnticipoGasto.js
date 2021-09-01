@@ -1,16 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useState,useContext} from "react";
 import Swal from "sweetalert2";
 import { Form, Input, Button, Select, Col, Row,  } from "antd";
 import "./css/anticipoGasto.css";
-import { UserContext } from "../../contexto/UserContext";
 import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Titulo } from "../titulos/Titulo";
-import { alerta } from "./helpers/funciones";
+import { SocketContext } from "../../context/SocketContext";
 
 
 export const AnticipoGasto = ({ history }) => {
   //Peticion get para saber cuando vence el localStorage
+  const {socket} = useContext(SocketContext);
   const id = localStorage.getItem("uid");
   const { Option } = Select;
 
@@ -22,6 +22,7 @@ export const AnticipoGasto = ({ history }) => {
     categoria: "",
     usuarioId: id,
     formapagoId: "",
+    alertaId:'',
   });
   const { fecha, usuarioId } = gastos;
   /**Petciones get */
@@ -43,30 +44,31 @@ export const AnticipoGasto = ({ history }) => {
 
   const onSubmit = async (values) => {
     handleAlert();
-    const obj={ 
-    ...datosUsuario,
-    msj:values.notas,
-    info:`Tenes un anticipo de Gasto`,
-    path:'/aprobacion/gastos'
-    
-    }
-   const{data} = await alerta(obj)
-
-    let result = await axiosURL.post("/mpago", {
-      ...values,
-      fecha,
-      usuarioId,
-      estado: "pendiente",
-      estadoFinal: "pendiente",
-      f: new Date().toLocaleString(),
-      alertaId: data?.alertaCreada?.id
-    });
-    if (result.status === 200) {
-      history.push("/");
-    }
+   const nuevoObj = {
+     alerta: values.notas,
+     info: `Tenes un anticipo de Gasto`,
+     nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+     f: new Date().toLocaleString(),
+     emisor: datosUsuario.email,
+     receptor: datosUsuario.gerente.email,
+     estado:'activa',
+     path:'/aprobacion/gastos',
+     usuarioId:datosUsuario.id
+   };
+   socket.emit( 'alerta-nueva', nuevoObj);
+      let result = await axiosURL.post("/mpago", {
+        ...values,
+        fecha,
+        usuarioId,
+        estado: "pendiente",
+        estadoFinal: "pendiente",
+        f: new Date().toLocaleString(),
+      });
+      if (result.status === 200) {
+        history.push("/");
+      }
   };
  
-
 
   return (
     <Form className='form container' onFinish={onSubmit} size="large">

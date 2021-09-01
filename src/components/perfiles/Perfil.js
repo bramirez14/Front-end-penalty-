@@ -2,8 +2,9 @@ import React,{useState,useEffect,useContext} from "react";
 import { PerfilEmpleado } from "./PerfilEmpleado";
 import { PerfilGerencia } from "./PerfilGerencia";
 import io from "socket.io-client";
-import { UserContext } from "../../contexto/UserContext";
+import { UserContext } from "../../context/UserContext";
 import "./css/perfiles.css";
+import { Alerta } from "../alertas/Alerta";
 
 export const Perfil = ({ history }) => {
 const {usuariosIO,setUsuariosIO} = useContext(UserContext)

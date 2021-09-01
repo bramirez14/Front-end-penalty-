@@ -14,15 +14,13 @@ import {
 import { EllipsisOutlined } from "@ant-design/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import "./mensajes.css";
-import { UserContext } from "../../contexto/UserContext";
 import { run } from "../helper/funciones";
 import {Link} from "react-router-dom";
 import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
+import CustomScroll from 'react-custom-scroll';
 
-export const Mensajes = () => {
-  const { alertas, nuevasAlertas } = useContext(UserContext);
-console.log(alertas);
+export const Mensajes = ({socket,alertas}) => {
 const id = localStorage.getItem('uid');
 const usuario = PeticionGET(`/${id}`);
  const filtroEmail = alertas.filter( a => a.receptor === usuario?.email );
@@ -31,18 +29,12 @@ const usuario = PeticionGET(`/${id}`);
     message.info("La notificacion se elimino con exito!!!");
     console.log("click", e);
   }
-  const handleCard = async(id) => {
+  const handleCard = async (id) => {
     console.log(id);
-    await axiosURL.put(`/msg/alerta/${id}`)
-    nuevasAlertas();
+    socket.emit('editar-alerta',id)
+    //getAlertas();
   }
- // /vista/rendicion/gasto
- const N = localStorage.getItem('N');
-/*  let filtro905= (N==='905')?
-    filtro.map(f=> {return{
-
-    }})
-   */
+const Listareverse= filtroEmail.reverse();
 
 
 
@@ -61,12 +53,14 @@ const usuario = PeticionGET(`/${id}`);
     <Row>
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <Card title={<h2> <b>Notificaciones</b> </h2>}className="contenedor-alerta" >
+        <div  style={{overflowY:'auto',height:500}}>
           <List
             className="demo-loadmore-list"
             bordered={false}
             itemLayout="horizontal"
-            dataSource={filtroEmail}
+            dataSource={Listareverse}
             renderItem={(item) => (
+              
               <List.Item style={{borderBottom:'none'}}
               className= {item.estado === 'activa'? 'lista-alerta-card':'list-inactiva'}
                 actions={[
@@ -81,25 +75,28 @@ const usuario = PeticionGET(`/${id}`);
                 ]}
               >
                 <Skeleton avatar title={false} loading={item.loading} active>
+               
                   <List.Item.Meta
                     onClick={()=>handleCard(item.id)}
                     className='item-meta'
                     avatar={<Avatar src={item.usuario.imagen} />}
                     title={<Link to={item.path} >{item.info}</Link>}
                     description={
-                      <>
+                      <Link to={item.path}>
                       <div className="item-alerta" style={{ color: "black" }}>
+                              {item.alerta}
+                            <p style={{color:'#46a461'}}> hace {run(item.f)}</p>
+                            </div>
+                      </Link>
                       
-                        {item.alerta}
-                       <p style={{color:'#46a461'}}> hace {run(item.f)}</p>
-                      </div>
-                      </>
+                      
                     }
                   />
                 </Skeleton>
               </List.Item>
-            )}
+            )} 
           />
+         </div>
         </Card>
       </Col>
     </Row>

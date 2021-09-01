@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { Modal, Button,Form,Input} from 'antd';
 import { Archivo } from '../../file/Archivo';
 import { axiosURL } from '../../config/axiosURL';
@@ -6,8 +6,9 @@ import Swal from 'sweetalert2'
 import './full.css'
 
 import { alerta906 } from './funciones';
-export const Modale = ({get,url,archivo,obj}) => {
-  console.log(archivo);
+import { SocketContext } from '../../context/SocketContext';
+export const Modale = ({get,url,archivo,filtro906,newobj}) => {
+  const {socket} = useContext(SocketContext)
   const [state, setState] = useState({
     loading: false,
     visible: false,
@@ -66,8 +67,15 @@ if(norden===''){
 }else{
   
   handleOk();
+  //envio a socket
+  for (const i of filtro906) {
+    const objNew={
+      ...newobj, 
+      receptor:i.email,
+    }
+     socket.emit('alerta-nueva', objNew)
+  }
  
-  await alerta906(obj)
   let f = new FormData();
   f.append("norden",norden);
   f.append("file",file);

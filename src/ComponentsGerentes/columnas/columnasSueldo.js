@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Input, Button } from "antd";
@@ -8,41 +8,63 @@ import { HelperMODAL } from "../../helpers/HelperMODAL";
 import { BsCheck } from "react-icons/bs";
 import { useGet } from "../../hooks/useGet";
 import { colSueldo } from "./destructuracionCol/colSueldo";
-import { alerta905, alertaGerencia } from "../helpers/funciones";
+import { SocketContext } from "../../context/SocketContext";
 
 export const ColumnasSueldo = () => {
+const {socket} = useContext(SocketContext);
   const N = localStorage.getItem("N");
   const id = localStorage.getItem('uid')
-  const datos= PeticionGET(`/${id}`)
+  const datosUsuario= PeticionGET(`/${id}`)
   const [mensaje, setMensaje] = useState({
     respMensaje: "",
     estado: "",
   });
-  const usuario905 = PeticionGET(`/allusers`)
-  
+  const usuarios= PeticionGET(`/allusers`)
+  const filtro902 = usuarios.filter(u=> u.nvendedor==='902')
+  const filtro905 = usuarios.filter(u=> u.nvendedor==='905')
   const { TextArea } = Input;
-const [ data,axiosGet] =useGet('/anticipo')
+  const [ data,axiosGet] =useGet('/anticipo')
   const aprobado = async (file) => {  
-    const obj={
-    ...datos,
-    ...file,
-    msj:mensaje.respMensaje,
-    estado:'APROBADO',
-    info:`Respuesta de tu anticipo de ${file.sueldo}`,
-    path:'/estado/usuario'
+  // envio usuario 902
+    const obj902={
+    alerta:mensaje.respMensaje,
+    info:`Tenes una aprobacion final`,
+    f: new Date().toLocaleString(),
+    nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+    estado:'activa',
+    path:'/aprobacion/sueldo',
+    emisor:datosUsuario.email,
+    usuarioId:datosUsuario.id,
   }
-  const filtroUsuario905 = usuario905.filter(u=>u.nvendedor === '905')
-  const filtrodata905 = filtroUsuario905.map(f=> 
-  {return{receptor:f.email,emisor:f.gerente.email,
- nombre:`${f.nombre} ${f.apellido}`,
- alerta: 'solicitud aprobada',
- info:`Tenes una operacion de ${file.sueldo}`,
- id,
- path:'/vista/anticipo/sueldo'
- }});
+  //envio usuario quien corresponda
+  const obj={
+    alerta:mensaje.respMensaje,
+    info:`Resolucion de  anticipo de ${file.sueldo} `,
+    f: new Date().toLocaleString(),
+    msj:mensaje.respMensaje,
+    estado:'activa',
+    path:'/estado/usuario',
+    emisor:datosUsuario.email,
+    receptor:file.usuario.email,
+    usuarioId:datosUsuario.id,
+  }
+  //envio usuarios 905
+  const obj905={
+    alerta:'Aprobado por gerencia',
+    info:`Tenes un anticipo de ${file.sueldo}`,
+    f: new Date().toLocaleString(),
+    estado:'activa',
+    path:'/vista/anicipo/sueldo',
+    emisor:datosUsuario.email,
+    usuarioId:datosUsuario.id,
+  }
+//condicional de  gerentes
     if (N === "902") {
-      await alertaGerencia(obj);
-      await alerta905(filtrodata905);
+      socket.emit('alerta-nueva',obj);
+      for (const i of filtro905){
+        const objNew={...obj905,receptor:i.email}
+        socket.emit('alerta-nueva',objNew);
+        }
       await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estadoFinal: "aprobado",
@@ -53,20 +75,21 @@ const [ data,axiosGet] =useGet('/anticipo')
       });
      
     } else {
-      console.log("soy usuario distinton de 902");
+      console.log("soy usuario distinto de 902");
       await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estado: "aprobado",
       });
+      for (const i of filtro902){
+      const objNew={...obj902,receptor:i.email}
+      socket.emit('alerta-nueva',objNew);
+      }
     }
-
     setMensaje({ respMensaje: "" });
     axiosGet();
-    
-   
-  
-
   };
+
+  //rechazado
   const rechazado = async (file) => {
     await axiosURL.put(`/anticipo/rechazado/${file.id}`, {
       ...mensaje,
@@ -78,14 +101,17 @@ const [ data,axiosGet] =useGet('/anticipo')
     setMensaje({ respMensaje: "" });
     axiosGet();
     const obj={
-      ...datos,
-      ...file,
+      alerta:mensaje.respMensaje,
+      info:`Resolucion de  anticipo de ${file.sueldo} `,
+      f: new Date().toLocaleString(),
       msj:mensaje.respMensaje,
-      estado:'RECHAZADO',
-      info:`Respuesta de tu anticipo de ${file.sueldo}`,
-      path:'/estado/usuario'
+      estado:'activa',
+      path:'/estado/usuario',
+      emisor:datosUsuario.email,
+      receptor:file.usuario.email,
+      usuarioId:datosUsuario.id,
     }
-    alertaGerencia(obj)
+   socket.emit('alerta-nueva',obj);
 
   };
 
@@ -96,27 +122,6 @@ const [ data,axiosGet] =useGet('/anticipo')
   };
 
   const columnasSueldo = [
-   ...colSueldo,
-    {
-      title: N === "902" ? "Aprobacion Final":'',
-      dataIndex: "estadoFinal",
-      key: "estadoFinal",
-      width:N=== "902"?150:0,
-      lupa:false,
-      render: (estado, file) => {
-        const color = () => {
-          switch (file.estadoFinal) {
-            case "pendiente":
-              return <h5 style={{ color:'#F79E0B'  }}> pendiente...</h5>;
-            case "aprobado":
-              return <h5 style={{ color: "green" }}> aprobado </h5>;
-            default:
-              return <h5 style={{ color: "red" }}> rechazado </h5>;
-          }
-        };
-        return <> {N === "902" && color()}</>;
-      },
-    },
     {
       title: "Acciones",
       dataIndex: "acciones",
@@ -154,6 +159,29 @@ const [ data,axiosGet] =useGet('/anticipo')
         );
       },
     },
+    
+    {
+      title: N === "902" ? "Aprobacion Final":'',
+      dataIndex: "estadoFinal",
+      key: "estadoFinal",
+      width:N=== "902"?150:0,
+      lupa:false,
+      render: (estado, file) => {
+        const color = () => {
+          switch (file.estadoFinal) {
+            case "pendiente":
+              return <h5 style={{ color:'#F79E0B'  }}> pendiente...</h5>;
+            case "aprobado":
+              return <h5 style={{ color: "green" }}> aprobado </h5>;
+            default:
+              return <h5 style={{ color: "red" }}> rechazado </h5>;
+          }
+        };
+        return <> {N === "902" && color()}</>;
+      },
+    },
+    ...colSueldo,
+   
     {
       title: "Borrar ",
       dataIndex: "borrar ",

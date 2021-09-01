@@ -5,26 +5,36 @@ import { CardRendiciones } from "./CardRendiciones";
 import { Link } from "react-router-dom";
 import {axiosURL} from "../../config/axiosURL";
 import { SubEncabezado } from "./SubEncabezado";
-import { UserContext } from "../../contexto/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { saveAs } from "file-saver";
 import { useGet } from "../../hooks/useGet";
 import { alerta905 } from "../../ComponentsGerentes/helpers/funciones";
 import { PeticionGET } from "../../config/PeticionGET";
+import { SocketContext } from "../../context/SocketContext";
 
 export const ListaRendiciones = ({ match, history }) => {
+  const {socket} = useContext(SocketContext)
   const { id } = match.params;
   const [peticionGastoId,axiosGet] = useGet(`/gastos/${id}`);
   const uid = localStorage.getItem('uid')
-  const usuario905 = PeticionGET(`/allusers`)
-  const filtroUsuario905= usuario905.filter(u=>u.nvendedor === '905')
+  const datosUsuario = PeticionGET(`/${uid}`)
+  const usuarios= PeticionGET(`/allusers`)
+  const filtroUsuario905= usuarios.filter(u=>u.nvendedor === '905')
+  const filtroUsuario902= usuarios.filter(u=>u.nvendedor === '902')
+
   const filtrodata905 = filtroUsuario905.map(f=> 
-  {return{receptor:f.email,emisor:f.gerente.email,
+  {return{
+  alerta: 'solicitud aprobada',
+ info:'Tenes una operacion de  Gasto ',
  nombre:`${f.nombre} ${f.apellido}`,
- alerta: 'solicitud aprobada',
- info:'Tenes una operacion de  Gasto',
- uid,
- path:'/vista/rendicion/gasto'
+ usuarioId:uid,
+ f: new Date().toLocaleString(),
+ path:'/vista/rendicion/gasto',
+ estado:'activa',
+ receptor:f.email,
+  emisor:datosUsuario.email,
  }});
+
   // prohibe ingreso por medio de la ruta
   peticionGastoId?.listo==='Si'&& history.push('/perfil')
 
@@ -47,7 +57,6 @@ export const ListaRendiciones = ({ match, history }) => {
       const pdfBlob = await new Blob([ge.data], { type: "application/pdf" });
       saveAs(pdfBlob, "penaltyIntranet.pdf");
     }
-  
   };
   
   const onClick = () => {
@@ -60,8 +69,25 @@ export const ListaRendiciones = ({ match, history }) => {
   };
 
   const listo = async ()=>{
+    const obj={
+       alerta: 'Rendiciones finalizadas',
+    info:'Tenes una operacion de  Gasto ',
+    nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+    usuarioId:uid,
+    f: new Date().toLocaleString(),
+    path:'/aprobacion/gastos',
+    estado:'activa',
+    receptor:datosUsuario.gerente.email,
+     emisor:datosUsuario.email,
+    }
+   
     if(peticionGastoId?.sinAnticipo!=='sin'){
-      await alerta905(filtrodata905);
+      for (const i of filtrodata905) {
+      socket.emit('alerta-nueva',i)
+      }
+      
+        socket.emit('alerta-nueva',obj)
+      
     }
       let res=await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si'});
       res.status===200&& history.push('/gastos')

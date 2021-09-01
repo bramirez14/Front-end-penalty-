@@ -117,3 +117,22 @@ export const alerta905= async (array) =>{
   }
   
 }
+export const alerta902= async(obj) => {
+  console.log(obj);
+  const mailEmpleado = 'cristian.rios@penalty.com.ar';
+  const mailGerente = obj.gerente.email;
+  const nuevoObj = {
+    alerta: `${obj.msj}, Estado: ${obj.estado}`,
+    info: obj.info,
+    nombre:`${obj.nombre} ${obj.apellido}`,
+    f: new Date().toLocaleString(),
+    emisor: mailGerente,
+    receptor: mailEmpleado,
+    estado:'activa',
+    path:obj.path,
+    usuarioId:obj.id
+  };
+  console.log(nuevoObj);
+  const res = await axiosURL.post("/msg/alerta", nuevoObj);
+  return res;
+}

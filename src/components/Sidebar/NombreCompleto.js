@@ -59,7 +59,7 @@ export const NombreCompleto = ({ handleLogout, nombre, apellido, history }) => {
   );
   return (
     <Space wrap>
-      <Dropdown overlay={menu} className="drop">
+      <Dropdown overlay={menu} className="drop" trigger={['click']}>
         <div>
           {nombre} {apellido} <CaretDownOutlined />
         </div>

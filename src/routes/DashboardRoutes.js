@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React,{useState,useEffect,useContext} from "react";
 
 import {
   Switch,
@@ -18,7 +18,7 @@ import {  AprobacionAntcipoSueldo } from "../ComponentsGerentes/AprobacionAntcip
 import { Register } from "../components/login/Register";
 import { Perfil } from "../components/perfiles/Perfil";
 import { AprobacionVacaciones } from "../ComponentsGerentes/AprobacionVacaciones";
-import { UserContext } from "../contexto/UserContext";
+import { UserContext } from "../context/UserContext";
 import { SueldoContainer } from "../components/solicitudes/SueldoContainer";
 import { AprobacionGastos } from "../ComponentsGerentes/AprobacionGastos";
 import { PDF } from "../components/view/PDF";
@@ -51,18 +51,29 @@ import { SCC } from "../components/reportes/scc/SCC";
 import { Remitos } from "../components/reportes/remitos/Remitos";
 import { PrecioKM } from "../components/rendicionesKm/PrecioKM";
 import { Alerta } from "../components/alertas/Alerta";
+import { axiosURL } from "../config/axiosURL";
 
 export const DashboardRoutes = ({ history }) => {
+  const [alertas, setAlertas] = useState([])
   const Text = useContext(UserContext);
-  const { open } = Text;
+  const { open} = Text;
+  
+  const axiosGet = async () => {
+    let {data} = await axiosURL.get('/msg/alertas');
+    setAlertas(data);
+};
+
+useEffect(() => {
+    axiosGet();
+}, []);
+
   return (
     <>
-      <Sidebar history={history} />
+      <Sidebar history={history} alertas={alertas} setAlertas={setAlertas} getAlertas={axiosGet} />
     
       <div className={!open ? "contenedor" : "contenedor-active"}>
       
       <Switch>
-     
       
       <RouteEmpleado exact path="/anticipo/gastos" component={AnticipoGasto} />
       <RouteEmpleado exact path="/sueldos" component={SueldoContainer} />
@@ -72,26 +83,18 @@ export const DashboardRoutes = ({ history }) => {
         <RouteGerente exact path="/aprobacion/vacaciones" component={AprobacionVacaciones}/>
         <RouteGerente exact path="/aprobacion/gastos" component={AprobacionGastos}/>
         <RouteGerente  exact path='/aprobacion/km' component={AprobacionKm}/>
-
         <RouteGerente exact path="/verificaciones" component={Verificacion}/>
-
         <RouteGerente exact path="/pdf/:id" component={PDF}/>
-
         <RouteGerente exact path="/register" component={Register}/>
-        
-      
-       
         <RouteEmpleado exact path="/gastos" component={RendicionGastos} />
         <RouteEmpleado exact path="/editar/rendicion/:id" component={EditarRendicion}/>
         <RouteEmpleado exact path="/crear/rendicion/:id" component={CrearRendicion} />
         <RouteEmpleado exact path="/lista/rendicion/:id" component={ListaRendiciones} />
         <RouteEmpleado exact path="/rendicion" component={RendicionSinAnticipoContainer} />
-
         <RouteEmpleado exact path="/img" component={Uploads} />
         <RouteEmpleado exact path='/mensajes' component={Mensajes}/>
         <RouteEmpleado exact path='/estado/usuario' component={EstadoUsuario}/>
         <RouteEmpleado exact path='/configuraciones/cambiar/contraseña' component={CambiarContraseña}/>
-        
         <RouteEmpleado exact path='/demo' component={Demo}/>
         {/** Km */}
         <RouteEmpleado exact path='/kilometros' component={Kilometros}/>
