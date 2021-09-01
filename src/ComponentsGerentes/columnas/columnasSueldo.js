@@ -122,6 +122,7 @@ const {socket} = useContext(SocketContext);
   };
 
   const columnasSueldo = [
+
     {
       title: "Acciones",
       dataIndex: "acciones",

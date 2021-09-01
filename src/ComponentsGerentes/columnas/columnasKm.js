@@ -140,7 +140,42 @@ export const ColumnasKm = () => {
         setMensaje({ ...mensaje, [name]: value });
       };
       const columnasKm =[
-        ...colKm,
+        {
+          title: "Acciones",
+          dataIndex: "acciones",
+          key: "acciones",
+          width: 100,
+          lupa:false,
+          render: (f, fila) => {
+            return (
+              <>
+              {fila.estadoFinal === "aprobado" ||
+          fila.estadoFinal === "rechazado" ? (
+            ""
+          ) : (
+            <HelperMODAL
+              boton={<BsCheck />}
+              title="Aprobacion Ant Km"
+              Return="Rechazar"
+              Submit="Aprobacion"
+              click={() => aprobado(fila)}
+              noclick={() => rechazado(fila)}
+            >
+              <section>
+                <TextArea
+                  name="respMensaje"
+                  rows={4}
+                  placeholder="Mensaje para el empleado"
+                  onChange={handleChange}
+                  value={mensaje.respMensaje}
+                />
+              </section>
+            </HelperMODAL>
+          )}
+              </>
+            );
+          },
+        }, 
           {
             title: N === "902" && "Aprobacion Final",
             dataIndex: "estadoFinal",
@@ -161,42 +196,8 @@ export const ColumnasKm = () => {
               return <> {N === "902" && color()}</>;
             },
           },
-          {
-            title: "Acciones",
-            dataIndex: "acciones",
-            key: "acciones",
-            width: 100,
-            lupa:false,
-            render: (f, fila) => {
-              return (
-                <>
-                {fila.estadoFinal === "aprobado" ||
-            fila.estadoFinal === "rechazado" ? (
-              ""
-            ) : (
-              <HelperMODAL
-                boton={<BsCheck />}
-                title="Aprobacion Ant Km"
-                Return="Rechazar"
-                Submit="Aprobacion"
-                click={() => aprobado(fila)}
-                noclick={() => rechazado(fila)}
-              >
-                <section>
-                  <TextArea
-                    name="respMensaje"
-                    rows={4}
-                    placeholder="Mensaje para el empleado"
-                    onChange={handleChange}
-                    value={mensaje.respMensaje}
-                  />
-                </section>
-              </HelperMODAL>
-            )}
-                </>
-              );
-            },
-          },
+          
+          ...colKm,
           {
             title: "Borrar ",
             dataIndex: "borrar ",

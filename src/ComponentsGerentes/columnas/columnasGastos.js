@@ -143,7 +143,7 @@ const {socket} = useContext(SocketContext);
   };
  
   const columnasGastos = [
-    ...colGastos,
+
     {
         title: N=== "902"&& 'Aprobacion Final',
         dataIndex: "estadoFinal",
@@ -164,6 +164,7 @@ const {socket} = useContext(SocketContext);
           return <h5 style={{marginLeft:20}}>{N=== "902" && color()}</h5>
         },
       },
+
     {
       title: "Acciones",
       dataIndex: "acciones",
@@ -200,6 +201,8 @@ const {socket} = useContext(SocketContext);
         );
       },
     },
+    ...colGastos,
+
     {
       title: "Borrar ",
       dataIndex: "borrar ",

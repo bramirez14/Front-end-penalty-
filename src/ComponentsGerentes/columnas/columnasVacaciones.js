@@ -109,27 +109,6 @@ const {socket} = useContext(SocketContext);
     setMensaje({ ...mensaje, [name]: value });
   };
   const columnasVacaciones = [
-    ...colVacaciones,
-    {
-      title: N === "902" && "Aprobacion Final",
-      dataIndex: "estadoFinal",
-      key: "estadoFinal",
-      width: N === "902" ? 150 : 0,
-      lupa: false,
-      render: (estado, file) => {
-        const color = () => {
-          switch (file.estadoFinal) {
-            case "pendiente":
-              return <h5 style={{ color: '#F79E0B' }}> pendiente...</h5>;
-            case "aprobado":
-              return <h5 style={{ color: "green" }}> aprobado </h5>;
-            default:
-              return <h5 style={{ color: "red" }}> rechazado </h5>;
-          }
-        };
-        return <> {N === "902" && color()}</>;
-      },
-    },
     {
       title: "Acciones",
       dataIndex: "acciones",
@@ -166,6 +145,28 @@ const {socket} = useContext(SocketContext);
         );
       },
     },
+    {
+      title: N === "902" && "Aprobacion Final",
+      dataIndex: "estadoFinal",
+      key: "estadoFinal",
+      width: N === "902" ? 150 : 0,
+      lupa: false,
+      render: (estado, file) => {
+        const color = () => {
+          switch (file.estadoFinal) {
+            case "pendiente":
+              return <h5 style={{ color: '#F79E0B' }}> pendiente...</h5>;
+            case "aprobado":
+              return <h5 style={{ color: "green" }}> aprobado </h5>;
+            default:
+              return <h5 style={{ color: "red" }}> rechazado </h5>;
+          }
+        };
+        return <> {N === "902" && color()}</>;
+      },
+    },
+  
+    ...colVacaciones,
     {
       title: "Borrar ",
       dataIndex: "borrar ",

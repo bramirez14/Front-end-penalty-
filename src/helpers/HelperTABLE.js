@@ -55,7 +55,7 @@ export const HelperTABLE = ({ columns,data,paginas=false,bordered=false,expandib
   const filtroconLupa= columns?.filter(l=>l.lupa!==false);
   const col = filtroconLupa?.map((d) => {return {...d,...getColumnSearchProps(d.key)};});
   const columna= [...col,...filtrosinLupa]
-  console.log(columna);
+
   return <Table
    columns={columna} 
    dataSource={data}
