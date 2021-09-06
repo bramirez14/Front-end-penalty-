@@ -152,8 +152,33 @@ margin-top:8px
   background-color: rgb(182, 178, 178) !important;
   border-radius: 3px
 }
+.logoo{
+  margin-top:57px;
+}
+.drawer{
+  display:none
+}
+.trigger{
+  display:none;
+
+}
+.nombre-alerta{
+  display: flex;
+  float: right;
+  margin-left: auto;
+  overflow: hidden;
+  margin-bottom: 20px;
+  height:50px;
+  margin-right:10px;
+  margin-top:4px;
+}
+
 /*fin de barra scroll*/
-@media (max-width: 768px) {
+@media (max-width: 748px) {
+  .nombre-alerta{
+  
+    margin-top:30px;
+  }
   .black{
     position: fixed;
     top: 0;
@@ -166,7 +191,30 @@ margin-top:8px
     transition:3s;
   
   }
+.site-layout-sub-header-background{
+  display:flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+  .sidebar{
+    display:none;
+    }
+    .drawer{
+      display:block
+    }
+    .ant-drawer-body{
+      padding:0;
+    }
   
+    .trigger{
+      display:inline-block;
+      color:#fff;
+      font-size: 20px;
+      margin-left: 20px;
+      margin-bottom: 5px;
+    }
+  .svg{color:black}
+
 }
 /*----------------------------------------------Media query celular -----------------------------------------------------------------*/
 @media (max-width: 576px) {

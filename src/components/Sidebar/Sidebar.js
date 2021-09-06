@@ -1,112 +1,119 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState } from "react";
+import { Layout, Menu, Drawer, Space } from "antd";
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  MenuOutlined,
+ 
+} from "@ant-design/icons";
 import "./css/sidebar.css";
-import { AvatarImg } from "../img/Avatar";
-import { UserContext } from "../../context/UserContext";
-import { PeticionJWT } from "../../auth/PeticionJWT";
-import { Row, Col, } from "antd";
-import { axiosURL } from "../../config/axiosURL";
-import { logout } from "../../auth/localStorage";
-
-import * as AiIcons from "react-icons/ai";
-import SubMenu from "./SubMenu";
-import { SidebarItems } from "./SidebarItems";
-import { SidebarItems2 } from "./SidebarItems2";
-import { SidebarItemsEmpleado } from "./SidebarItemsEmpleado";
-import { BotomHamburguesa } from "../botones/BotomHamburguesa";
 import { NombreCompleto } from "./NombreCompleto";
-import io from "socket.io-client";
-import CustomScroll from 'react-custom-scroll';
 import { Alerta } from "../alertas/Alerta";
+import { MenuGerencia } from "./MenuGerencia";
+import { AvatarImg } from "../img/Avatar";
+import { PeticionJWT } from "../../auth/PeticionJWT";
+import { MenuEmpleados } from "./MenuEmpleados";
 
-const mediaqueryList = window.matchMedia("(max-width: 1024px)");
-const q = mediaqueryList.matches;
-let useClickOutside = q?
-   (handler) => {
-    let domNode = useRef();
-    useEffect(() => {
-      let maybeHandler = (event) => {
-        if (!domNode.current.contains(event.target)) {
-          handler();
-        }
-      };
-  
-      document.addEventListener("mousedown", maybeHandler);
-  
-      return () => {
-        document.removeEventListener("mousedown", maybeHandler);
-      };
-    });
-  
-    return domNode;
-  }
-:()=>{}
-
-
-export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
-  let [isOpen, setIsOpen] = useState(false);
-  const abrirCerrarHamburguesa = () => setOpen(!open)
-  const { setAuth } = useContext(UserContext);
-  const id = localStorage.getItem("uid");
-
-  const n = localStorage.getItem("N");
-  const Sidebar = useContext(UserContext);
-  const { open, setOpen } = Sidebar;
+export const Sidebar= ({children,history}) => {
+  const N= localStorage.getItem('N')
   const get = PeticionJWT();
   const { nombre, apellido } = get;
+  const { Header, Content, Footer, Sider } = Layout;
+  const [collapsed, setCollapsed] = useState(false);
+  const [state, setState] = useState({ visible: false, placement: "left" });
 
-
-  let domNode = useClickOutside(() => {
-    setIsOpen(false);
-    setOpen(false)
-
-  });
-
-
-  const handleLogout = async () => {
-    await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
-    logout();
-    history.push("/login");
-    setAuth(false);
-    const socket =  io.connect( "http://localhost:4000",{ 
-      transports: ['websocket'],
-      autoConnect: true,
-      forceNew: true,})
-     console.log(socket);
-      socket?.disconnect();
+  const toggle = () => {
+    setCollapsed(!collapsed);
+    setState({
+      visible: true,
+    });
   };
-
-
-  let reconocerUsuario =
-    n === "901"
-      ? SidebarItems
-      : n === "902"
-      ? SidebarItems2
-      : n === "903"
-      ? SidebarItems2
-      : SidebarItemsEmpleado;
+  const onClose = () => {
+    setState({
+      visible: false,
+    });
+  };
   return (
     <>
-      <Row>
-        <Col>
-          <div className="navbar">
-            <div className='hamburguesa'> <BotomHamburguesa abrirCerrarHamburguesa={abrirCerrarHamburguesa}/></div>
-            <div className='nomaler'style={{display:'flex'}}> 
-            <div className='alerta' ><Alerta alertas={alertas} setAlertas={setAlertas} getAlertas={getAlertas} /></div> 
-            <div className='nombreCompleto'><NombreCompleto nombre={nombre} apellido={apellido} handleLogout={handleLogout}/></div>
-            
+    <Layout>
+      <Header
+        className="site-layout-sub-header-background"
+        style={{ padding: 0, background: "#46a461", height: 50,position: 'fixed', zIndex: 1, width: '100%' }}
+      >
+        <div className= "trigger" onClick= {toggle}>
+        <MenuOutlined className='svg' />
+        </div>
+       
+        <div className="nombre-alerta">
+          <Space>
+            <Alerta />
+            <NombreCompleto nombre={nombre} apellido={apellido} />
+          </Space>
+        </div>
+      </Header>
+
+      {/**Sector escritorio  */}
+      <Layout style={{ height: "100vh",background:"#46a461"}} >
+        <Sider style={{background:"#46a461"}}
+        width={240}
+          className="sidebar"
+          breakpoint="md"
+          collapsedWidth="0"
+          onBreakpoint={(broken) => {
+            console.log(broken);
+            if (broken === true) {
+              setCollapsed(true);
+            } else {
+              setCollapsed(false);
+            }
+          }}
+          onCollapse={(collapsed, type) => {
+            console.log(collapsed, type);
+          }}
+          trigger={null}
+          collapsed={false}
+        >
+          <div className="logoo" >
+          <div className="nav-menu-items">
+        <AvatarImg history={history} />
+        <div style={{ marginTop: "20px" }}>
+          <h4
+            className="title-sidebar"
+            style={{ color: "#fff", marginLeft: "50px" }}
+          >
+            {nombre} {apellido}
+          </h4>
+        </div>
             </div>
           </div>
-        </Col>
-      </Row>
-      <div className={open?'black':''}></div>
+          {
+                  N==='901'|| N==='902'|| N==='903'?
+            <MenuGerencia/>
+              
+              :
+              <MenuEmpleados/>
+              }
+            
+        </Sider>
 
-      <nav className={open ? "nav-menu active" : "nav-menu"} ref={domNode} >
-       
-        <div className="nav-menu-items">
-          <AiIcons.AiOutlineClose
-            onClick={abrirCerrarHamburguesa}
-            className="x"
-          />
+{/**Sector response 768 o menor */}
+        <Drawer
+          placement="left"
+          closable={false}
+          onClose={onClose}
+          visible={state.visible}
+          key={state.placement}
+          className="drawer"
+          width={200}
+        >
+          <Layout style={{ height: "100vh",width:270 }}>
+            <Sider style={{background:"#46a461"}}
+        width={250}
+            
+            >
+              <div className="logoo">
+                  <div className="nav-menu-items">
+        
           <AvatarImg history={history} />
           <div style={{ marginTop: "20px" }}>
             <h4
@@ -116,18 +123,36 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
               {nombre} {apellido}
             </h4>
           </div>
-          <CustomScroll heightRelativeToParent="calc(80% - 100px)">
-          <div  style={{ marginTop: 20,paddingRight:12 }}>
-            {reconocerUsuario.map((item, index) => {
-              return <SubMenu item={item} key={index} 
-              open={open}
-              setOpen={setOpen}
-              />;
-            })}
-          </div>
-          </CustomScroll>
-        </div>
-      </nav>
+              </div>
+              </div>
+              {
+                  N==='901'|| N==='902'|| N==='903'?
+              <MenuGerencia/>
+              :
+              <MenuEmpleados/>
+              }
+            
+           
+            </Sider>
+          </Layout>
+        </Drawer>
+{/** fin del sector response */}
+
+        <Layout>
+          <Content >
+            <div
+              className="site-layout-background"
+              style={{marginTop:50}}
+            >
+              {children}
+            </div>
+          </Content>
+          <Footer style={{ textAlign: "center" }}>
+            Penalty Argentina ©2021 Created by Penalty Corporation
+          </Footer>
+        </Layout>
+      </Layout>
+      </Layout>
     </>
   );
 };

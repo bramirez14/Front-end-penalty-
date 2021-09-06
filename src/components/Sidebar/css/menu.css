@@ -1,0 +1,49 @@
+.submenu{
+    border-right: none;
+    }
+    .submenu:hover{
+        color:#ffff;
+        
+        }
+        .submenu:active{
+            background-color: none;
+        }
+
+.ant-menu-item:active, .ant-menu-submenu-title:focus{
+    background:rgba(0, 0, 0,0.1);
+color:#ffff
+
+    }
+.ant-menu-item:active, .ant-menu-submenu-title:active{
+background:none;
+color:#ffff
+}
+.ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-expand-icon, .ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow{
+    color:#ffff
+}
+.ant-menu-submenu-title{
+    color:black
+}
+.ant-menu-submenu-title:hover{
+    color:#ffff;
+}
+.ant-menu-submenu-title:focus{
+    color:#ffff;
+}
+/*Submenu*/
+.subItem{
+    color:#46a461;
+}
+.subItem:hover{
+    background-color:#7ffaa2;
+    color:#ffff;
+
+
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+    background-color:#7ffaa2;
+    color:#ffff;
+}
+.subItem:active{
+    background-color:#7ffaa2;
+}

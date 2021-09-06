@@ -69,9 +69,9 @@ useEffect(() => {
 
   return (
     <>
-      <Sidebar history={history} alertas={alertas} setAlertas={setAlertas} getAlertas={axiosGet} />
+      <Sidebar history={history} alertas={alertas} setAlertas={setAlertas} getAlertas={axiosGet} >
     
-      <div className={!open ? "contenedor" : "contenedor-active"}>
+    {/*   <div className={!open ? "contenedor" : "contenedor-active"}> */}
       
       <Switch>
       
@@ -128,8 +128,8 @@ useEffect(() => {
 
         <Redirect to="/login" />
       </Switch>
-      </div>
-    
+      {/* </div> */}
+      </Sidebar>
       
     </>
   );
