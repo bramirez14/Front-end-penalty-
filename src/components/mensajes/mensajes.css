@@ -1,15 +1,18 @@
 .demo-loadmore-list {
-    min-height: 350px;
-   
-  }
+ 
+
+}
   .contenedor-alerta{
-    margin:auto;
-    margin-top:20px !important;
     width: 400px;
-  
+   /*  position:fixed;
+    right:100px;
+    top:0;
+    z-index:999; */
+    
   }
   .lista-alerta-card{
     padding:10px;
+
   }
   .lista-alerta-card:hover{
     background-color:#c5fdd3;
@@ -49,7 +52,31 @@
   .ant-card-body{
     padding:4px;
   }
+  .scrollableDiv::-webkit-scrollbar {
+    width: 8px; /* Tamaño del scroll en vertical */
   
+  }
+  .scrollableDiv::-webkit-scrollbar-thumb {
+    background: #8D8888  ;
+    border-radius: 10px;
+  }
+  
+  .scrollableDiv::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    /* box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2); */
+  }
+  
+
+  /* Ponemos un color de fondo y redondeamos las esquinas del track */
+  .scrollableDiv::-webkit-scrollbar-track {
+    background: #f0f2f5;
+   
+  }
+/*drop con agregado de un position:fixed*/
+  .ant-dropdown{
+    position:fixed;
+
+  }
   @media (max-width: 768px){
    .contenedor-alerta{
      width:570px;

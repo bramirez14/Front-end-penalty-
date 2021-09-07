@@ -52,6 +52,7 @@ import { Remitos } from "../components/reportes/remitos/Remitos";
 import { PrecioKM } from "../components/rendicionesKm/PrecioKM";
 import { Alerta } from "../components/alertas/Alerta";
 import { axiosURL } from "../config/axiosURL";
+import { Recibo } from "../components/recibos/Recibo";
 
 export const DashboardRoutes = ({ history }) => {
   const [alertas, setAlertas] = useState([])
@@ -125,6 +126,10 @@ useEffect(() => {
         <RouteEmpleado exact path='/precio/km' component={PrecioKM}/>
         {/**Alertas */}
         <RouteEmpleado exact path='/alerta' component={Alerta}/>
+
+        {/**Cobranzas*/}
+        <RouteEmpleado exact path='/recibos' component={Recibo}/>
+
 
         <Redirect to="/login" />
       </Switch>

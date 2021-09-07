@@ -15,20 +15,24 @@ export const Alerta = () => {
   const filtroEmail = alertas?.filter( a => a.receptor === usuario?.email );
   const filtroActiva = filtroEmail.filter( f => f.estado === 'activa' ) 
   const menu = (
-      <Mensajes alertas={alertas} socket={socket}/>
+   
+       <Mensajes alertas={alertas} socket={socket}/>
+
+     
   );
   const abrirCerrarAlerta=() => setMostrar(!mostrar)
   return (
     <>
-<Dropdown overlay={menu} trigger={['click']} >
+     
+<Dropdown overlay={menu} trigger={['hover']} >
 <Button  className="boton-campana" onClick={abrirCerrarAlerta} >
           <Badge count={filtroActiva?.length}>
             <span className="head-example" />
             <FaBell className="icon-campana" />
           </Badge>
         </Button>
-  </Dropdown>
 
+  </Dropdown>
       </> 
   )
 }

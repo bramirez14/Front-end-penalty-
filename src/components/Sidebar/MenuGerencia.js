@@ -13,6 +13,7 @@ import CustomScroll from "react-custom-scroll";
 import "./css/menu.css";
 import { Link } from "react-router-dom";
 export const MenuGerencia = () => {
+  const N= localStorage.getItem('N');
   const handleClick = (e) => {
     console.log("click ", e);
   };
@@ -28,13 +29,12 @@ export const MenuGerencia = () => {
       >
         <Menu.Item
           key="1"
-          icon={<HomeOutlined />}
           className="submenu"
           style={{ background: "#46a461" }}
         >
-         <Link><span><HomeOutlined /> <span>Home</span></span></Link>
+         <Link to='/perfil'><span><HomeOutlined /> <span>Home</span></span></Link>
         </Menu.Item>
-
+      {N==='901' &&
         <SubMenu
           key="sub1"
           icon={<UserOutlined />}
@@ -45,7 +45,7 @@ export const MenuGerencia = () => {
             <Link to="registro">Registro</Link>
             
           </Menu.Item>
-        </SubMenu>
+        </SubMenu>}
 
         <SubMenu
           key="sub2"

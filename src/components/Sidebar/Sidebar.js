@@ -12,12 +12,15 @@ import { MenuGerencia } from "./MenuGerencia";
 import { AvatarImg } from "../img/Avatar";
 import { PeticionJWT } from "../../auth/PeticionJWT";
 import { MenuEmpleados } from "./MenuEmpleados";
-
+import { axiosURL } from "../../config/axiosURL";
+import { logout } from "../../auth/localStorage";
+import penalty from './logoPenalty.jpg'
 export const Sidebar= ({children,history}) => {
   const N= localStorage.getItem('N')
+  const id = localStorage.getItem("uid");
   const get = PeticionJWT();
   const { nombre, apellido } = get;
-  const { Header, Content, Footer, Sider } = Layout;
+  const { Header, Content, Sider } = Layout;
   const [collapsed, setCollapsed] = useState(false);
   const [state, setState] = useState({ visible: false, placement: "left" });
 
@@ -32,6 +35,22 @@ export const Sidebar= ({children,history}) => {
       visible: false,
     });
   };
+  const handleLogout = async () => {
+    await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
+    logout();
+    history.push("/login");
+  
+  };
+
+
+  /* let reconocerUsuario =
+    n === "901"
+      ? SidebarItems
+      : n === "902"
+      ? SidebarItems2
+      : n === "903"
+      ? SidebarItems2
+      : SidebarItemsEmpleado; */
   return (
     <>
     <Layout  >
@@ -43,10 +62,11 @@ export const Sidebar= ({children,history}) => {
         <MenuOutlined className='svg' />
         </div>
        
-        <div className="nombre-alerta">
+        <div className="nombre-alerta" >
+
           <Space>
             <Alerta />
-            <NombreCompleto nombre={nombre} apellido={apellido} />
+            <NombreCompleto nombre={nombre} apellido={apellido} handleLogout={handleLogout} />
           </Space>
         </div>
       </Header>
@@ -108,15 +128,16 @@ export const Sidebar= ({children,history}) => {
           visible={state.visible}
           key={state.placement}
           className="drawer"
-          width={240}
+          width={245}
         >
-          <Layout style={{ height: "100vh",width:240}}>
+          <Layout style={{ height: "100vh",width:245}}>
             <Sider style={{
         overflow: 'auto',
         height: '100vh',
         position: 'fixed',
         left: 0,background:"#46a461"}}
-            width={270}
+            width={245}
+        
             >
               <div className="logoo">
                   <div className="nav-menu-items">

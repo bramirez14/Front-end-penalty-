@@ -21,6 +21,11 @@ const tailLayout = {
 };
 
 export const Register = ({history}) => {
+  const N = localStorage.getItem("N");
+
+
+  N !== "901" && history.push("/perfil");
+ 
   const [fecha, setFecha] = useState('')
 
   const onFinish = async (values) => {
