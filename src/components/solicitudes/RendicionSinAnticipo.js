@@ -1,11 +1,13 @@
 import React from "react";
-import { Form, Input, Button, Row, Select, Divider,Col, Spin } from "antd";
+import { Form, Input, Button, Row, Select, Divider,Col, Spin,Card} from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Imagen } from "../img/Imagen";
 import { VistaImg } from "../rendiciones/VistaImg";
 import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/BeatLoader";
-
+import {CardImg} from '../rendiciones/CardImg'
+import { CardImgResponse } from '../rendiciones/CardImgResponse'
+import './css/anticipoGasto.css'
 export const RendicionSinAnticipo = ({
   handleSubmit,
   handleChange,
@@ -26,7 +28,9 @@ export const RendicionSinAnticipo = ({
 }) => {
   const override = css`
   display: flex;
-  margin: 280px 300px;
+height:100px
+
+
   
   @media (max-width: 768px) {
     display:flex;
@@ -45,13 +49,19 @@ export const RendicionSinAnticipo = ({
 console.log(data);
   return (
     <>
-      <Row>
-        <Col xs={24} sm={24} md={24} lg={8} xl={8}> 
+    <Card className="formulario-rendicion-crear" style={{padding:20}}>
+      <div style={{border:'solid 1px #ddd',padding:20,borderRadius:10,height:'auto'}}>
+{ !!spinner?
+      <BeatLoader color={'#46a461'}  css={override} size={20} />
+  :
+  <Row gutter={20}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}> 
+      
          <Form
           onFinish={handleSubmit}
           onChange={handleChange}
           layout="vertical"
-          className="formulario-rendicion-crear"
+          className='formulario'
           {...estilo}
           size="large"
         >
@@ -138,25 +148,12 @@ console.log(data);
             {/**imagen modo cel y ipad  */}{
               data.length> 0 &&
           <div className='img-muestra'> 
-{
-                !!spinner?
-                 <BeatLoader color={'#46a461'}   css={override} size={20} />
-                 :
-            <div className="custom-file-preview " >
-              {data?.length === 0 ? (
-                <h2 className='sector'>Imagen</h2>
-              ) : (
-                <div
-                  className="prev-img"
-                >
-                  <span className="prev-img" onClick={handleDelete}>
-                    &times;
-                  </span>
-                  <img src={data[0].src} />
-                </div>
-              )}
-            </div>
-            }
+
+                
+            <CardImgResponse
+            data={data}
+            />
+         
         </div>
   }
 
@@ -166,32 +163,28 @@ console.log(data);
           </Form.Item>
         </Form>
         </Col>
-      <Col xs={16} sm={16} md={16} lg={16} xl={16}>
+
+      <Col xs={12} sm={12} md={12} lg={12} xl={12}>
         
       <div className='vista-muestra'>
-      { 
+  
       
-      !!spinner?
-      <BeatLoader color={'#46a461'}  css={override} size={20} />
-          : 
-        <VistaImg
-          data={data}
-          setData={setData}
-          handleDelete={handleDelete}
-          {...crearRendicion}
-          medio="Medio de pago: "
-          pago={state.children}
-        />
-
-
-
-
-
+     
+       
+        <CardImg data={data}
+        setData={setData}
+        {...crearRendicion}
+        medio="Medio de pago: "
+        pago={state.children}/>
         
-        }</div>
+      
+      
+        
+        </div>
       </Col>
-        
-      </Row>
+      </Row>}  
+      </div>
+    </Card>
     </>
   );
 };

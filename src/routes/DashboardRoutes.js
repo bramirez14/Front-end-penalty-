@@ -71,7 +71,7 @@ useEffect(() => {
     <>
       <Sidebar history={history} alertas={alertas} setAlertas={setAlertas} getAlertas={axiosGet} >
     
-    {/*   <div className={!open ? "contenedor" : "contenedor-active"}> */}
+     <div className={!open && "contenedor-active"}> 
       
       <Switch>
       
@@ -85,7 +85,7 @@ useEffect(() => {
         <RouteGerente  exact path='/aprobacion/km' component={AprobacionKm}/>
         <RouteGerente exact path="/verificaciones" component={Verificacion}/>
         <RouteGerente exact path="/pdf/:id" component={PDF}/>
-        <RouteGerente exact path="/register" component={Register}/>
+        <RouteGerente exact path="/registro" component={Register}/>
         <RouteEmpleado exact path="/gastos" component={RendicionGastos} />
         <RouteEmpleado exact path="/editar/rendicion/:id" component={EditarRendicion}/>
         <RouteEmpleado exact path="/crear/rendicion/:id" component={CrearRendicion} />
@@ -128,7 +128,7 @@ useEffect(() => {
 
         <Redirect to="/login" />
       </Switch>
-      {/* </div> */}
+      </div> 
       </Sidebar>
       
     </>

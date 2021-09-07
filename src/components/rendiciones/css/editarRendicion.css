@@ -10,47 +10,20 @@
  
 }
 .formulario-rendicion-crear{
-  width:320px;
-  box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
+  width:74%;
+height:auto;
+ /*  box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5); */
   /* height: auto; */
   padding: 12px;
   /* overflow-y: scroll; */
-  height: 92.5vh;
   background-color: #fff;
-
+margin:auto;
+margin-top:20px;
  
 }
-.formulario-rendicion::-webkit-scrollbar {
-  width: 7px;     /* Tamaño del scroll en vertical */
- /* height: 8px;     Tamaño del scroll en horizontal */
-}
-.formulario-rendicion::-webkit-scrollbar-thumb {
-  background: #ddd;
-  border-radius: 4px;
-  
-}
 
-.formulario-rendicion::-webkit-scrollbar-thumb:hover {
-  background: #b3b3b3;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-}
 
-/* Cambiamos el fondo cuando esté en active */
-.formulario-rendicion::-webkit-scrollbar-thumb:active {
-  background-color: #999999;
-}
-/* Ponemos un color de fondo y redondeamos las esquinas del track */
-.formulario-rendicion::-webkit-scrollbar-track {
-  background: #bdbdbd;
-  border-radius: 4px;
-}
-
-/* Cambiamos el fondo cuando esté en active o hover */
-.formulario-rendicion::-webkit-scrollbar-track:hover,
-.formulario-rendicion::-webkit-scrollbar-track:active {
-background: #d4d4d4;
-}
-.formulario-rendicion-img{
+/* .formulario-rendicion-img{
    
 
         width: 57%;
@@ -61,7 +34,7 @@ background: #d4d4d4;
         padding: 30px;
       
     
-}
+ }*/
 .h1{
     margin-top:40px;
 }
@@ -124,7 +97,7 @@ a {
   padding-right: 1rem;
   margin-bottom: 1rem;
 }
-.file-upload p {
+/* .file-upload p {
   font-size: 0.875rem;
   color: #ddd;
   margin-bottom: 1rem;
@@ -191,8 +164,8 @@ a {
   color: #3333;
   text-transform: uppercase;
   font-weight: bold;
-}
-.custom-file-drop-area input {
+} */
+/* .custom-file-drop-area input {
   display: none;
 }
 
@@ -201,8 +174,8 @@ a {
 }
 .custom-file-drop-area.highlight label {
   color: blue;
-}
-.custom-file-preview {
+} */
+/* .custom-file-preview {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (minmax(100px, 1fr)) [auto-fill];
@@ -210,10 +183,10 @@ a {
   grid-auto-rows: 100px;
   margin-top: 1rem;
   gap: 10px;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 250px;
 
-}
+} */
 /*Tamano de la imagen  */
 .custom-file-preview .prev-img {
   display: -webkit-box;
@@ -230,8 +203,8 @@ a {
   position: relative;
   border-radius: 5px;
   overflow: hidden;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
 }
 .custom-file-preview .prev-img span {
   position: absolute;
@@ -275,7 +248,7 @@ color:white
   display: -moz-flexbox;
   display: flex;
 }
-.custom-file-preview .prev-img:hover::after {
+/* .custom-file-preview .prev-img:hover::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -312,7 +285,7 @@ color:white
   cursor: pointer;
   -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-} 
+}  */
 .btn-rendicion{
 /* margin-left:25px; */
 border-radius:10px;
@@ -374,6 +347,19 @@ top: 200px !important;
 left: 400px !important;
 } */
 
+.css-11ic106 {
+  
+  margin: 200px 320px !important;
+}
+.css-kfwi1u{
+
+  background-color:#46a461 !important
+
+}
+.css-1s4dfda{
+
+  background-color:#46a461 !important
+}
 /*----------------------------------------------Media query celular -----------------------------------------------------------------*/
 @media (max-width: 768px) {
   .formulario-rendicion{
@@ -384,6 +370,11 @@ left: 400px !important;
     border-radius: 20px;
   }
 
+  .css-11ic106 {
+  
+    margin: 100px 140px !important;
+
+}
 }
 
 @media (max-width: 576px) {
@@ -394,6 +385,11 @@ left: 400px !important;
     margin-top:28px;
     border-radius: 20px;
   }
+  .css-11ic106 {
+  
+    margin: 100px 100px !important;
+
+}
 }
 
 

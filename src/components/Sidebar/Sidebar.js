@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Menu, Drawer, Space } from "antd";
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
+
   MenuOutlined,
  
 } from "@ant-design/icons";
@@ -35,7 +34,7 @@ export const Sidebar= ({children,history}) => {
   };
   return (
     <>
-    <Layout>
+    <Layout  >
       <Header
         className="site-layout-sub-header-background"
         style={{ padding: 0, background: "#46a461", height: 50,position: 'fixed', zIndex: 1, width: '100%' }}
@@ -53,8 +52,13 @@ export const Sidebar= ({children,history}) => {
       </Header>
 
       {/**Sector escritorio  */}
-      <Layout style={{ height: "100vh",background:"#46a461"}} >
-        <Sider style={{background:"#46a461"}}
+      <Layout style={{ background:"#46a461"}} >
+        <Sider style={{background:"#46a461",
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,
+      }}
         width={240}
           className="sidebar"
           breakpoint="md"
@@ -104,12 +108,15 @@ export const Sidebar= ({children,history}) => {
           visible={state.visible}
           key={state.placement}
           className="drawer"
-          width={200}
+          width={240}
         >
-          <Layout style={{ height: "100vh",width:270 }}>
-            <Sider style={{background:"#46a461"}}
-        width={250}
-            
+          <Layout style={{ height: "100vh",width:240}}>
+            <Sider style={{
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,background:"#46a461"}}
+            width={270}
             >
               <div className="logoo">
                   <div className="nav-menu-items">
@@ -140,16 +147,10 @@ export const Sidebar= ({children,history}) => {
 
         <Layout>
           <Content >
-            <div
-              className="site-layout-background"
-              style={{marginTop:50}}
-            >
+            
               {children}
-            </div>
           </Content>
-          <Footer style={{ textAlign: "center" }}>
-            Penalty Argentina ©2021 Created by Penalty Corporation
-          </Footer>
+        
         </Layout>
       </Layout>
       </Layout>

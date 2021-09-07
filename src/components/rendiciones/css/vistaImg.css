@@ -5,8 +5,8 @@
  margin-left: 10px;
   border: solid 1px #ddd;
   border-radius: 14px;
-  height: 340px;
-  width:597px;
+  height: 270px;
+  width:420px;
 }
 .vista-imagenes-active{
   display: flex;
@@ -16,7 +16,7 @@
   border-radius: 14px;
   margin-left: 10px;
   height: 340px;
-  width:597px;
+  width:500px;
   
 }
 .vista-datos {
@@ -41,7 +41,7 @@
 }
 .sector{
   margin-top:100px;
-  margin-left:80px;
+  margin-left:50px;
 }
 @media (min-width: 1500px) {
   .vista-imagenes {

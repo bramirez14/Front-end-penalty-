@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import { UserContext } from "../../context/UserContext";
 import "./css/perfiles.css";
 import { Alerta } from "../alertas/Alerta";
+import { Footer } from "antd/lib/layout/layout";
 
 export const Perfil = ({ history }) => {
 const {usuariosIO,setUsuariosIO} = useContext(UserContext)
@@ -27,9 +28,14 @@ const {usuariosIO,setUsuariosIO} = useContext(UserContext)
 
   const tipo = localStorage.getItem("type");
   return (
+    <>
     <div className='contenedore'>
       {tipo === "Gerente" ? <PerfilGerencia usuarios={usuariosIO}/> : <PerfilEmpleado />}
+     
       </div>
-      
+        <Footer style={{ textAlign: "center"}}>
+        Penalty Argentina ©2021 Created by Penalty Corporation
+      </Footer>
+      </>
   );
 };

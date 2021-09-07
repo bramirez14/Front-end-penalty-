@@ -1,14 +1,22 @@
-.submenu{
-    border-right: none;
-    }
-    .submenu:hover{
-        color:#ffff;
-        
-        }
-        .submenu:active{
-            background-color: none;
-        }
+.contenedor-menu{
+    background-color:#46a461;
+    width:240px;
+    border:#46a461;
+}
 
+        /* Link */
+.ant-menu-item a{
+    color:black
+}
+.ant-menu-item a:hover{
+    color:#ffff
+}
+.ant-menu-item a:active{
+    color:#ffff
+}
+.ant-menu-item a:focus{
+    color:#ffff
+}
 .ant-menu-item:active, .ant-menu-submenu-title:focus{
     background:rgba(0, 0, 0,0.1);
 color:#ffff
@@ -37,8 +45,6 @@ color:#ffff
 .subItem:hover{
     background-color:#7ffaa2;
     color:#ffff;
-
-
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
     background-color:#7ffaa2;
@@ -46,4 +52,17 @@ color:#ffff
 }
 .subItem:active{
     background-color:#7ffaa2;
+}
+/*borrar border rigth*/
+.ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after{
+    border-right: none;
+}
+
+@media (max-width: 768px){
+    .contenedor-menu{
+        background-color:#46a461;
+        border:#46a461;
+        width:245px
+      }
+     
 }

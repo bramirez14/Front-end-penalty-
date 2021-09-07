@@ -51,6 +51,7 @@ export const CardRendiciones = ({data,axiosGet,imagen,categoria,importe,fecha,no
             height={200}
             alt="logo"
             src={item.imagen}
+            style={{borderRadius:20,border:'solid 1px #ddd'}}
           />
             }
       >
