@@ -17,7 +17,9 @@ export const HelperTABLEobj = ({
   x,
   y,
   expandible= false,
-  bordered=true
+  bordered=true,
+  check=false,
+  setDataCheck
 }) => {
   const getColumnSearchProps = (dataIndex) => {
     return {
@@ -76,6 +78,13 @@ export const HelperTABLEobj = ({
   const col = filtroconLupa?.map((d) => {return {...d,...getColumnSearchProps(d.key)};});
   const columna= [...col,...filtrosinLupa]
   
+  //sector check
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+       setDataCheck(selectedRows)
+    },
+
+  };
   return (
     <>
       {boton && (
@@ -92,6 +101,7 @@ export const HelperTABLEobj = ({
       )}
 
       <Table
+      rowSelection={check?rowSelection:''}
         columns={columna}
         dataSource={data}
         pagination={paginas}

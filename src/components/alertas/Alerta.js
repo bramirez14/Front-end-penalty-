@@ -23,7 +23,6 @@ export const Alerta = () => {
   const abrirCerrarAlerta=() => setMostrar(!mostrar)
   return (
     <>
-     
 <Dropdown overlay={menu} trigger={['hover']} >
 <Button  className="boton-campana" onClick={abrirCerrarAlerta} >
           <Badge count={filtroActiva?.length}>
@@ -31,7 +30,6 @@ export const Alerta = () => {
             <FaBell className="icon-campana" />
           </Badge>
         </Button>
-
   </Dropdown>
       </> 
   )

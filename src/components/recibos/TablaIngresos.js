@@ -47,7 +47,7 @@ const EditableCell = ({
   );
 };
 
-export const Tabla = () => {
+export const TablaIngresos = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState('');

@@ -1,13 +1,17 @@
 import React from 'react'
 import { Steps, Button, message } from 'antd';
 import './recibo.css'
-import { Tabla } from './Tabla';
-const { Step } = Steps;
-
+import { TablaIngresos } from './TablaIngresos';
+import { ClienteRecibo } from './ClienteRecibo';
+import { TablaLiquidacion } from './TablaLiquidacion';
 
 
 export const Recibo = () => {
   return( 
-    <Tabla/>
+    <>
+    <ClienteRecibo/>
+    <TablaIngresos/>
+    <TablaLiquidacion/>
+    </>
     );
 }
