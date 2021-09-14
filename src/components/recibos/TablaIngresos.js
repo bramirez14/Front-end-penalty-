@@ -1,194 +1,165 @@
-import React, { useState } from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button } from 'antd';
-const originData = [];
+import React, { useState } from "react";
+import { HelperMODAL } from "../../helpers/HelperMODAL";
+import { HelperTABLEobj } from "../../helpers/HelperTABLEobj";
+import { Form, Input, Select, DatePicker, Card } from "antd";
+import moment from "moment";
+import { DeleteOutlined } from "@ant-design/icons";
+import { numberWithCommas } from "../reportes/helpers/funciones";
 
-for (let i = 0; i <4; i++) {
-  originData.push({
-    key: i.toString(),
-    name: ``,
-    age: '',
-    address: ``,
+const { Option } = Select;
+export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetenciones}) => {
+  const [contador, setContador] = useState(1)
+  const [ingresosData, setIngresosData] = useState({
+    key:'',
+    mpago: "Efectivo",
+    cheque: "No hay!!!",
+    fecha: new Date().toLocaleDateString(),
+    importe: "",
   });
-}
+  const {cheque,importe,mpago}=ingresosData
 
-const EditableCell = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  record,
-  index,
-  children,
-  ...restProps
-}) => {
-  const inputNode = inputType === 'number' ? <Input type='number' placeholder='numero' /> : <Input  placeholder='datos'/>;
-  return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{
-            margin: 0,
-          }}
-          rules={[
-            {
-              required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
-        
-        >
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
-};
-
-export const TablaIngresos = () => {
-  const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
-  const [editingKey, setEditingKey] = useState('');
-
-  const isEditing = (record) => record.key === editingKey;
-
-  const edit = (record) => {
-    console.log(record);//recibe los datos de la fila 
-    form.setFieldsValue({
-      name: '',
-      age: '',
-      address: '',
-      ...record,
-    });
-    setEditingKey(record.key);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setIngresosData({ ...ingresosData, [name]: value });
   };
+  const handleChangePicker = (e, data) =>
+    setIngresosData({ ...ingresosData, fecha: data });
+  const handleChangeSelect = (value) =>
+  value==='Efectivo'||value==='Retenciones'?
+  setIngresosData({ ...ingresosData, mpago: value,cheque:'No hay!!!' })
+  :
+  setIngresosData({ ...ingresosData, mpago: value,cheque:'', })
 
-  const cancel = () => {
-    setEditingKey('');
-  };
-
-  const save = async (key) => {
-    try {
-      const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
-
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, { ...item, ...row });
-        setData(newData);
-        setEditingKey('');
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey('');
-      }
-    } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
+    const handelDelete=(key) => {
+      const filtro= data.filter(a=> a.key!== key)
+      setData(filtro)
     }
-  };
-  const handleAdd = () => {
-  let count= 5
-    const newData = {
-      key: count,
-      name: `Edward King ${count}`,
-      age: '32',
-      address: `London, Park Lane no. ${count}`,
-    };
-    setData([...data, newData]);
-  };
-
+console.log(ingresosData);
   const columns = [
     {
-      title: 'name',
-      dataIndex: 'name',
-      width: '25%',
-      editable: true,
-    },
-    {
-      title: 'age',
-      dataIndex: 'age',
-      width: '15%',
-      editable: true,
-    },
-    {
-      title: 'address',
-      dataIndex: 'address',
-      width: '40%',
-      editable: true,
-    },
-    {
-      title: 'operation',
-      dataIndex: 'operation',
-      render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <a
-              href="javascript:;"
-              onClick={() => save(record.key)}
-              style={{
-                marginRight: 8,
-              }}
-            >
-              Save
-            </a>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
-          </Typography.Link>
-        );
-      },
-    },
-  ];
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
+      title: "MEDIOS DE PAGO",
+      dataIndex: "mpago",
+      key: "mpago",
+      lupa: false,
+      render:(state, file)=><h5>{ file.mpago }</h5>
 
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
+    },
+    {
+      title: "CHEQUES",
+      dataIndex: "cheque",
+      key: "cheque",
+      lupa: false,
+      render:(state, file)=><h5>{ file.cheque }</h5>
+      
+    },
+    {
+      title: "FECHA",
+      dataIndex: "fecha",
+      key: "fecha",
+      lupa: false,
+      render:(state, file)=><h5>{ file.fecha }</h5>
+
+    },
+    {
+      title: "IMPORTE",
+      dataIndex: "importe",
+      key: "importe",
+      lupa: false,
+      render:(state, file)=><h5>${ numberWithCommas(file.importe)}</h5>
+    },
+    {
+      title: "ACCIONES",
+      dataIndex: "acciones",
+      key: "acciones",
+      lupa: false,
+      render:(state,file)=>{
+          return(<DeleteOutlined onClick={()=>handelDelete(file.key)} />)
+      }
+    },
+
+  ];
+  const dataSource= data
+
+  const guardarArr=() => {
+    const datos=[...data,ingresosData]
+    setData([...data,
+      {...ingresosData,key:contador}
+    ])
+    setIngresosData( {
+    mpago: "Efectivo",
+    cheque: "No hay!!!",
+    fecha: new Date().toLocaleDateString(),
+    importe: "",});
+    setContador(contador+1)
+    const efctivo= datos.filter(d => d.mpago ==='Efectivo');
+    const cheques = datos.filter(d => d.mpago === 'Cheque')
+    const retenciones = datos.filter(d => d.mpago === 'Retenciones');
+    setEfectivo(efctivo);
+    setCheques(cheques);
+    setRetenciones(retenciones);
+  
+   
+  }
+ // filtrado de operacion
+
   return (
-    <>
-    <Button
-    onClick={handleAdd}
-    type="primary"
-    style={{
-      marginBottom: 16,
-    }}
-  >
-    Add a row
-  </Button>
-    <Form form={form} component={false}>
-      <Table
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        bordered
-        dataSource={data}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-        pagination={false}
-      />
-    </Form>
-    </>
+    <Card>
+    <HelperTABLEobj
+      title={
+        <h2 style={{ textAlign: "center" }}>
+          <b> INGRESOS </b>
+        </h2>
+      }
+      columns={columns}
+      data={dataSource}
+      bordered={false}
+      footer={
+        <HelperMODAL
+          noclick={() => {}}
+          boton={"Agregar"}
+          title={"Datos"}
+          Return={"Cancelar"}
+          Submit={"Guardar"}
+          longModal={300}
+          click={guardarArr}
+        >
+          <Form onChange={handleChange}>
+            <Form.Item
+            >
+              <Select value={mpago} onChange={handleChangeSelect}>
+                <Option value="Cheque">Cheque</Option>
+                <Option value="Retenciones">Retenciones</Option>
+                <Option value="Efectivo">Efectivo</Option>
+              </Select>
+            </Form.Item>
+              <Form.Item
+              >
+              {
+                  mpago !== 'Cheque'?
+                <Input disabled />:
+                <Input name="cheque" placeholder="N° cheque" value={cheque} />
+              }
+            </Form.Item>
+
+            <Form.Item
+              name="fecha"
+            >
+              <DatePicker
+                style={{ width: 251 }}
+                onChange={handleChangePicker}
+                defaultValue={moment(new Date(), "DD/MM/YYYY")}
+                format={"DD/MM/YYYY"}
+              />
+            </Form.Item>
+            <Form.Item
+            >
+              <Input type="number" name="importe" value={importe} placeholder='Importe' />
+            </Form.Item>
+          </Form>
+        </HelperMODAL>
+      }
+    />
+  </Card>
   );
 };
 

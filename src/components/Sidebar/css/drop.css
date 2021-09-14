@@ -1,13 +1,11 @@
 .drop{
-    background: transparent;
+    background: #46a461;
     border:none;
     border-radius: 20px;
     color: black;
-    height:48px;
-    margin-bottom: 24px;
 }
 .drop:hover{
-    background: transparent;
+    background: #46a461;
     color:#ddd;
     border:none;
 

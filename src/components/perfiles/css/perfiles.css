@@ -5,15 +5,17 @@
 }
 .contenedor{
     transition: 1200ms;
+    padding:20px;
     padding-top:50px;
     height: auto;
 
 
+
 }
 .contenedor-active{
-    padding-left: 250px;
+    padding-left: 265px;
     transition: 700ms;
-    padding-top:54px;
+    padding-top:50px;
     
 }
 

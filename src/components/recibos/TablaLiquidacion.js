@@ -1,11 +1,13 @@
+import { Button, Card } from 'antd';
 import React, { useState } from 'react'
 import { PeticionGETIntranet } from '../../config/PeticionGET';
 import { HelperTABLEobj } from '../../helpers/HelperTABLEobj'
+import { numberWithCommas } from '../reportes/helpers/funciones';
 
-export const TablaLiquidacion = () => {
-    const [dataCheck, setDataCheck] = useState()
-    const ctactes = PeticionGETIntranet('/cuentacorriente');
-console.log(dataCheck,'line 8');
+export const TablaLiquidacion = ({cliente,setCliente,setDataCheck,dataCheck}) => {
+const ctactes = PeticionGETIntranet('/cuentacorriente');
+
+const buscarCliente= ctactes.filter(c=> c.razonsoc === cliente.razonsoc)
 const columns = [
 
     {
@@ -31,6 +33,7 @@ const columns = [
         dataIndex: 'codcabeza',
         key: 'codcabeza',
         lupa:false,
+
         render:(state, file)=> <h5>{file.codcabeza}</h5>
       },
       {
@@ -38,28 +41,32 @@ const columns = [
         dataIndex: 'saldoml',
         key: 'saldoml',
         lupa:false,
-        render:(state, file)=> <h5>{file.saldoml}</h5>
+
+        render:(state, file)=> <h5>${numberWithCommas(file.saldoml)}</h5>
         
       },
 
 
 ]
-const newctactes=ctactes.map((c,i)=> 
+const newctactes=buscarCliente?.map((c,i)=> 
     { 
         return{
 ...c,
 key:(i+1).toString()
 
 }})
-console.log(newctactes);
 
     return (
-        <HelperTABLEobj
-        columns={columns}
-        data={newctactes}
-        check={true}
-        setDataCheck={setDataCheck}
-
-        />
+      <Card>
+      <HelperTABLEobj
+            title={<h2 style={{textAlign:'center'}}><b>LIQUIDACION</b></h2>}
+            columns={columns}
+            data={newctactes}
+            check={true}
+            setDataCheck={setDataCheck}
+          bordered={false}
+            />
+      </Card>
+      
     )
 }

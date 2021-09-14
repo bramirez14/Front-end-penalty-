@@ -19,7 +19,10 @@ export const HelperTABLEobj = ({
   expandible= false,
   bordered=true,
   check=false,
-  setDataCheck
+  setDataCheck,
+  title,
+  footer,
+
 }) => {
   const getColumnSearchProps = (dataIndex) => {
     return {
@@ -101,6 +104,7 @@ export const HelperTABLEobj = ({
       )}
 
       <Table
+      title={()=> title}
       rowSelection={check?rowSelection:''}
         columns={columna}
         dataSource={data}
@@ -110,7 +114,7 @@ export const HelperTABLEobj = ({
           expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
         }:''}
         scroll={{ y: y}}
-        
+        footer={() => (footer)}
       />
     </>
   );

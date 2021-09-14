@@ -9,7 +9,7 @@ export const SocketProvider = ({ children }) => {
   const [alertas, setAlertas] = useState([])
   const { auth, setArrayUsuarios } = useContext(UserContext);//no es este investigar desp 
   const { socket, conectarSocket, desconectarSocket } = useSocket(
-    "http://localhost:4000"
+    "http://intranet.penalty.com.ar:4000"
   );
   
  useEffect(() => {
@@ -33,7 +33,6 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     socket?.on("todas-alertas",(data)=>{
-      console.log(data);
       setAlertas(data);
 
     })

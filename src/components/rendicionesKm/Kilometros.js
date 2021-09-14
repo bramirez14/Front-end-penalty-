@@ -90,6 +90,7 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
       receptor:datosUsuario.gerente.email,
       usuarioId:datosUsuario.id
      }
+     console.log(objs);
 socket.emit('alerta-nueva',objs)
     setLoading(true)
      const f= new FormData();

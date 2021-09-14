@@ -28,7 +28,6 @@ const PeticionGETIntranet =(url) =>{
 
 const PeticionGETIntranetCobranzas=(url) =>{
   const [peticionesIntranetCobranzas, setPeticionesIntranetCobranzas] = useState([]);
-  console.log(peticionesIntranetCobranzas,'line32');
   useEffect(() => {
     const axiosGet = async () => {
       let result = await axiosURLIntranetCobranzas.get(url)

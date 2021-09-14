@@ -2,7 +2,7 @@
     position:relative;
     color: rgb(0, 82, 73);
     background-color: rgb(200, 250, 205);
-    height: 214px;
+    height: 274px;
 }
 .sueldo{
         margin: auto auto 24px;
@@ -24,7 +24,7 @@
 
     color: rgb(4, 41, 122);
     background-color: rgb(208, 242, 255);
-    height: 214px;
+    height: 274px;
 
 }
 .vacaciones{
@@ -46,7 +46,7 @@ color:#04297A
     position:relative;
     color: rgb(122, 79, 1);
     background-color: rgb(255, 247, 205);
-    height: 214px;
+    height: 274px;
 }
 .gasto{
     margin: auto auto 24px;
@@ -67,7 +67,7 @@ color:#04297A
     position:relative;
     color: rgb(122, 12, 46);
     background-color: rgb(255, 231, 217);
-    height: 214px;
+    height: 274px;
 }
 .km{
     margin: auto auto 24px;
