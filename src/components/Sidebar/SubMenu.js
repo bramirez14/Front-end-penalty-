@@ -26,8 +26,8 @@ const SubMenu = ({ open,setOpen,item, }) => {
     <Link to={item?.path}>
       <div className={cambioColor?'color' : 'link' }onClick={item?.subNav ? showSubnav: abrirCerrar}>
         <div>
-          {item.icon}
-          <span className='label'>{item.title}</span>
+          {item?.icon}
+          <span className='label'>{item?.title}</span>
         </div>
         <div >
           {item?.subNav && subnav
@@ -40,12 +40,12 @@ const SubMenu = ({ open,setOpen,item, }) => {
       </Link>
       </div>
       {subnav &&
-        item.subNav?.map((item, index) => {
+        item?.subNav?.map((item, index) => {
           return (
             <Link to={item?.path} >
             <div className='dropdownLink' key={index}>
-              {item.icon}
-              <label className='label'  onClick={q?abrirCerrar:() => {setSubnav(!subnav);}} >{item.title}</label>
+              {item?.icon}
+              <label className='label'  onClick={q?abrirCerrar:() => {setSubnav(!subnav);}} >{item?.title}</label>
             </div>
             </Link>
           );

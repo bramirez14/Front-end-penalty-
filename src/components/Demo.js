@@ -13,7 +13,7 @@ const {SubMenu}=Menu;
           breakpoint="md"
           collapsedWidth="100"
           onBreakpoint={broken => {
-            console.log(broken);
+            console.log(broken,'line 16');
           }}
           onCollapse={(collapsed, type) => {
             console.log(collapsed, type);

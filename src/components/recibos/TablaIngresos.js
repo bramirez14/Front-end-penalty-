@@ -7,7 +7,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { numberWithCommas } from "../reportes/helpers/funciones";
 
 const { Option } = Select;
-export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetenciones}) => {
+export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetenciones,screens}) => {
   const [contador, setContador] = useState(1)
   const [ingresosData, setIngresosData] = useState({
     key:'',
@@ -113,6 +113,7 @@ console.log(ingresosData);
       columns={columns}
       data={dataSource}
       bordered={false}
+    y={screens.xs===false?'':400}
       footer={
         <HelperMODAL
           noclick={() => {}}

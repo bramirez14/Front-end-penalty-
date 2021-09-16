@@ -1,0 +1,8 @@
+.card-clietne-recibo{
+  height:224px;  
+}
+@media (max-width: 768px){
+    .card-clietne-recibo{
+        height:auto;
+    }
+}

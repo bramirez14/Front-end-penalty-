@@ -4,6 +4,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import ReactExport from "react-export-excel";
 import "./botonExcel.css";
 
+
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
@@ -88,6 +89,7 @@ export const HelperTABLEobj = ({
     },
 
   };
+
   return (
     <>
       {boton && (
@@ -104,6 +106,7 @@ export const HelperTABLEobj = ({
       )}
 
       <Table
+      
       title={()=> title}
       rowSelection={check?rowSelection:''}
         columns={columna}
@@ -116,6 +119,7 @@ export const HelperTABLEobj = ({
         scroll={{ y: y}}
         footer={() => (footer)}
       />
+  
     </>
   );
 };

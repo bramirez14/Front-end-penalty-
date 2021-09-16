@@ -4,7 +4,7 @@ import { PeticionGETIntranet } from '../../config/PeticionGET';
 import { HelperTABLEobj } from '../../helpers/HelperTABLEobj'
 import { numberWithCommas } from '../reportes/helpers/funciones';
 
-export const TablaLiquidacion = ({cliente,setCliente,setDataCheck,dataCheck}) => {
+export const TablaLiquidacion = ({cliente,setCliente,setDataCheck,dataCheck,screens}) => {
 const ctactes = PeticionGETIntranet('/cuentacorriente');
 
 const buscarCliente= ctactes.filter(c=> c.razonsoc === cliente.razonsoc)
@@ -65,6 +65,8 @@ key:(i+1).toString()
             check={true}
             setDataCheck={setDataCheck}
           bordered={false}
+    y={screens.xs===false?'':400}
+
             />
       </Card>
       

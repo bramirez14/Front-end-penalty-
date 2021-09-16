@@ -2,7 +2,7 @@ import React from 'react'
 import { Row, Col, Descriptions, Select, Statistic, Card } from 'antd';
 
 import { filtradoPorVendedorCobranzas } from './helpers/funciones';
-
+import './css/clienterecibo.css'
 
 const { Option } = Select;
 export const ClienteRecibo = ({cliente, setCliente}) => {
@@ -19,9 +19,9 @@ export const ClienteRecibo = ({cliente, setCliente}) => {
     return (
         <>
       
-          <Card style={{height:224}} >
+          <Card  className='card-clietne-recibo' >
              <Select
-    showSearch
+    showSearch 
     style={{ width: 300 }}
     placeholder="Select a person"
     optionFilterProp="children"
