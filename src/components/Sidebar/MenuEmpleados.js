@@ -3,21 +3,18 @@ import { Menu, Grid} from 'antd';
 import { CheckOutlined, DollarCircleOutlined, HomeOutlined, MailOutlined, RiseOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 const { SubMenu } = Menu;
-
-export const MenuGerencia = ({ open, setOpen}) => {
-  const N = localStorage.getItem('N');
-  const { useBreakpoint } = Grid;
-const screens = useBreakpoint();
-let handleClick;
-if(screens.md){
-     handleClick= e => {
-         if(e.key){
-             setOpen(!open)
-         }
-      };
-}
-   
-
+export const MenuEmpleados = ({ open, setOpen}) => {
+    const N = localStorage.getItem('N');
+    const { useBreakpoint } = Grid;
+  const screens = useBreakpoint();
+  let handleClick;
+  if(screens.md){
+       handleClick= e => {
+           if(e.key){
+               setOpen(!open)
+           }
+        };
+  }
     return (
         <Menu  mode="inline"
         onClick={handleClick} 
@@ -26,35 +23,6 @@ if(screens.md){
             <Menu.Item key="1" icon={<HomeOutlined />}>
                 <Link to='/perfil' >Home </Link>
             </Menu.Item>
-{ N==='901'&&
-            <SubMenu key="sub1"  title="Usuario" icon={<UserOutlined />} >
-            <Menu.Item key="2">
-                <Link to='/register'>
-                Registro
-                </Link>
-                
-                </Menu.Item>
-        </SubMenu>}
-            <SubMenu key="sub2"  title="Aprobaciones"  icon={<CheckOutlined />}>
-            <Menu.Item key="3">
-                <Link to='/aprobacion/sueldo'>
-                    Sueldo
-                </Link>
-                </Menu.Item>
-            <Menu.Item key="4">
-            <Link to='/aprobacion/vacaciones'> Vacaciones</Link>
-               </Menu.Item>
-            <Menu.Item key="5">
-            <Link to='/aprobacion/gastos'></Link>
-                
-                Gastos</Menu.Item>
-            <Menu.Item key="6">
-            <Link to='/aprobacion/km'></Link>
-                
-                Km</Menu.Item>
-
-        </SubMenu>
-
 
         <SubMenu key="sub3"  title='Rtes de Gestion' icon={<RiseOutlined />} >
             <Menu.Item key="7">

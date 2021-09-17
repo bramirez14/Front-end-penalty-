@@ -258,6 +258,7 @@ margin-top:8px
   background-color: rgb(182, 178, 178) !important;
   border-radius: 3px
 }
+/*----------------------------------------------Media query celular -----------------------------------------------------------------*/
 /*fin de barra scroll*/
 @media (max-width: 768px) {
   .black{
@@ -272,9 +273,9 @@ margin-top:8px
     transition:3s;
   
   }
-  
+  .ant-drawer-mask{display:block;}
 }
-/*----------------------------------------------Media query celular -----------------------------------------------------------------*/
+
 @media (max-width: 576px) {
   .black{
     position: fixed;

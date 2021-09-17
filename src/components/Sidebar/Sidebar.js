@@ -1,5 +1,5 @@
 import React, { useState, useContext, } from "react";
-import { Drawer,Menu, Button, Radio, Space } from 'antd';
+import { Drawer,Menu, Button, Radio, Spacem, Grid } from 'antd';
 /* import SubMenu from "./SubMenu"; */
 import { AvatarImg } from "../img/Avatar";
 import { UserContext } from "../../context/UserContext";
@@ -7,7 +7,6 @@ import { PeticionJWT } from "../../auth/PeticionJWT";
 import { Row, Col, } from "antd";
 import { axiosURL } from "../../config/axiosURL";
 import { logout } from "../../auth/localStorage";
-
 import { SidebarItems } from "./SidebarItems";
 import { SidebarItems2 } from "./SidebarItems2";
 import { SidebarItemsEmpleado } from "./SidebarItemsEmpleado";
@@ -17,13 +16,16 @@ import CustomScroll from 'react-custom-scroll';
 import { Alerta } from "../alertas/Alerta";
 import "./css/sidebar.css";
 import { MenuGerencia } from "./MenuGerencia";
+import { MenuEmpleados } from "./MenuEmpleados";
+
+const { useBreakpoint } = Grid;
 
 export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
   let [isOpen, setIsOpen] = useState(false);
   const abrirCerrarHamburguesa = () => setOpen(!open)
   const id = localStorage.getItem("uid");
 
-  const n = localStorage.getItem("N");
+  const N= localStorage.getItem("N");
   const Sidebar = useContext(UserContext);
   const { open, setOpen } = Sidebar;
   const get = PeticionJWT();
@@ -38,20 +40,15 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
 
 
   let reconocerUsuario =
-    n === "901"
+    N === "901"
       ? SidebarItems
-      : n === "902"
+      : N === "902"
       ? SidebarItems2
-      : n === "903"
+      : N === "903"
       ? SidebarItems2
       : SidebarItemsEmpleado;
     
      const  onClose = () => setOpen(!open);
-     
-    
-    console.log(open,'soy open');
-
-
 
   return (
     <>
@@ -81,9 +78,23 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
       <CustomScroll heightRelativeToParent="calc(80% - 100px)">
         <div style={{width:247}}>
 
-        
+        {
+          N==='901'|| N==='902'|| N==='903'?
+        <MenuGerencia
+                    open={open}
+                    setOpen={setOpen}
+                  
+                    />
+                    : 
+        <MenuEmpleados
+                    open={open}
+                    setOpen={setOpen}
+
+                    />
+        }
           
-            <MenuGerencia/>
+            
+           
           </div>
           </CustomScroll>
       </Drawer>
