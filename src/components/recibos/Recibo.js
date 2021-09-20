@@ -39,6 +39,9 @@ export const Recibo = () => {
       nvendedor: N,
       nombrecompleto: `${usuario.nombre}${usuario.apellido}`,
       numerorecibo: uid,
+      razonsocial:d.razonsoc,
+      fechavencimiento:d.fecvenc.split("T")[0],
+      cliente:d.cliente,
     };
   });
 

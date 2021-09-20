@@ -54,6 +54,8 @@ import { Alerta } from "../components/alertas/Alerta";
 import { Recibo } from "../components/recibos/Recibo";
 
 import { axiosURL } from "../config/axiosURL";
+import { CargaRecibo } from "../components/recibos/CargaRecibo";
+import { ListaRecibo } from "../components/recibos/ListaRecibo";
 
 export const DashboardRoutes = ({ history }) => {
   const [alertas, setAlertas] = useState([])
@@ -130,6 +132,9 @@ console.log(open,'soy opne desde ruter');
 
         {/** Recibos */}
         <RouteEmpleado exact path='/recibo' component={Recibo}/>
+        <RouteEmpleado exact path='/lista/recibo' component={ListaRecibo}/>
+         <RouteEmpleado exact path='/carga/recibo/:id' component={CargaRecibo}/>
+
 
 
         <Redirect to="/login" />

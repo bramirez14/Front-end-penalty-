@@ -106,7 +106,6 @@ export const HelperTABLEobj = ({
       )}
 
       <Table
-      
       title={()=> title}
       rowSelection={check?rowSelection:''}
         columns={columna}

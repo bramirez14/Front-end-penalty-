@@ -34,7 +34,6 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
       const filtro= data.filter(a=> a.key!== key)
       setData(filtro)
     }
-console.log(ingresosData);
   const columns = [
     {
       title: "MEDIOS DE PAGO",
@@ -113,7 +112,7 @@ console.log(ingresosData);
       columns={columns}
       data={dataSource}
       bordered={false}
-    y={screens.xs===false?'':400}
+       y={screens.xs===false?'':400}
       footer={
         <HelperMODAL
           noclick={() => {}}

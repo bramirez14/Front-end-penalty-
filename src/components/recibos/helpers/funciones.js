@@ -2,11 +2,13 @@ import {  PeticionGETIntranetCobranzas } from "../../../config/PeticionGET";
 
 export const filtradoPorVendedorCobranzas = (url) => {
   const N = localStorage.getItem("N");
-  let filtrado;
   const getDB = PeticionGETIntranetCobranzas(url);
- 
-    const filtroVendedor = getDB.filter((t) => t.vendedor === N);
-
+ console.log(getDB);
+ if (getDB?.original?.errno === -4062) {
+   alert('No hay internert')
+ }else{ 
+   const filtroVendedor = getDB?.filter((t) => t.vendedor === N);
+   let filtrado;
     if (
       N === "0000"||
       N === "905" ||
@@ -20,8 +22,11 @@ export const filtradoPorVendedorCobranzas = (url) => {
       filtrado = getDB;
     } else {
       filtrado = filtroVendedor;
+
     }
+    return filtrado;
 
+ }
+    
 
-  return filtrado;
 };

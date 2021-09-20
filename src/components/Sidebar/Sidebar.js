@@ -1,5 +1,5 @@
 import React, { useState, useContext, } from "react";
-import { Drawer,Menu, Button, Radio, Spacem, Grid } from 'antd';
+import { Drawer, Grid } from 'antd';
 /* import SubMenu from "./SubMenu"; */
 import { AvatarImg } from "../img/Avatar";
 import { UserContext } from "../../context/UserContext";
@@ -39,19 +39,12 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
   };
 
 
-  let reconocerUsuario =
-    N === "901"
-      ? SidebarItems
-      : N === "902"
-      ? SidebarItems2
-      : N === "903"
-      ? SidebarItems2
-      : SidebarItemsEmpleado;
-    
      const  onClose = () => setOpen(!open);
-
+  const screens = useBreakpoint();
+  console.log(screens);
   return (
     <>
+
       <Row>
         <Col>
           <div className="navbar">
@@ -72,6 +65,7 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
       visible={open}
       key={'left'}
       width={220}
+      mask={screens.lg?false:true}
 >
       
       <AvatarImg history={history} />
