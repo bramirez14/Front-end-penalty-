@@ -11,7 +11,6 @@ import { Imagen } from "../img/Imagen";
 export const EditarRendicion = ({ match, history }) => {
   const [spinner, setSpinner] = useState(false)
   const { id } = match.params;
-  console.log(id);
   const [data, setData] = useState([]);
   const [img, setImg] = useState({image:''});
   const { Option } = Select;

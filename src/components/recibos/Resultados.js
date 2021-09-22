@@ -2,7 +2,7 @@ import { Card, Col, Row, Statistic } from 'antd'
 import React from 'react'
 import { numberWithCommas } from '../reportes/helpers/funciones';
 
-export const Resultados = ({efectivo,cheques,retenciones,efectivoLiq}) => {
+export const Resultados = ({efectivo,cheques,retenciones,depositos,efectivoLiq}) => {
   console.log(efectivoLiq,'line 5');
     const mpagoefectivo= efectivo.map(ef=> ef.importe )
     const mefectivo= mpagoefectivo.reduce((acumulador, item) => {return parseFloat(acumulador)+ parseFloat(item)},0)
@@ -10,11 +10,13 @@ export const Resultados = ({efectivo,cheques,retenciones,efectivoLiq}) => {
     const mcheques= mpagocheques.reduce((acumulador, item) => {return parseFloat(acumulador)+ parseFloat(item)},0)
     const mpagoretenciones= retenciones.map(ef=> ef.importe )
     const mretenciones= mpagoretenciones.reduce((acumulador, item) => {return parseFloat(acumulador)+ parseFloat(item)},0)
+    const mpagodepositos= depositos.map(d=> d.importe )
+    const mdepositos= mpagodepositos.reduce((acumulador, item) => {return parseFloat(acumulador)+ parseFloat(item)},0)
     const efectivoLiquidacion= efectivoLiq?.map(efliq=> efliq.saldoml )
     const Liq= efectivoLiquidacion.reduce((acumulador, item) => {return parseFloat(acumulador)+ parseFloat(item)},0)
     
     return (
-        <Card style={{height:224}}>
+        <Card style={{height:250}}>
         <Row gutter={[20,20]}>
                     
             <Col span={12}>
@@ -29,6 +31,9 @@ export const Resultados = ({efectivo,cheques,retenciones,efectivoLiq}) => {
             </Col>
             <Col span={12}>
               <Statistic title="Importe Liquidacion"  value={numberWithCommas(Liq)} precision={2}/>
+            </Col>
+            <Col span={12}>
+              <Statistic title="Importe Liquidacion"  value={numberWithCommas(mdepositos)} precision={2}/>
             </Col>
           </Row>
     </Card>

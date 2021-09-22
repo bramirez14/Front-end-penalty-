@@ -7,7 +7,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { numberWithCommas } from "../reportes/helpers/funciones";
 
 const { Option } = Select;
-export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetenciones,screens}) => {
+export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetenciones,setDepositos,screens,ref}) => {
   const [contador, setContador] = useState(1)
   const [ingresosData, setIngresosData] = useState({
     key:'',
@@ -40,6 +40,7 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
       dataIndex: "mpago",
       key: "mpago",
       lupa: false,
+      width:100,
       render:(state, file)=><h5>{ file.mpago }</h5>
 
     },
@@ -48,6 +49,8 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
       dataIndex: "cheque",
       key: "cheque",
       lupa: false,
+      width:100,
+
       render:(state, file)=><h5>{ file.cheque }</h5>
       
     },
@@ -56,6 +59,8 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
       dataIndex: "fecha",
       key: "fecha",
       lupa: false,
+      width:100,
+
       render:(state, file)=><h5>{ file.fecha }</h5>
 
     },
@@ -64,6 +69,8 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
       dataIndex: "importe",
       key: "importe",
       lupa: false,
+      width:100,
+
       render:(state, file)=><h5>${ numberWithCommas(file.importe)}</h5>
     },
     {
@@ -71,6 +78,8 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
       dataIndex: "acciones",
       key: "acciones",
       lupa: false,
+      width:100,
+
       render:(state,file)=>{
           return(<DeleteOutlined onClick={()=>handelDelete(file.key)} />)
       }
@@ -93,9 +102,12 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
     const efctivo= datos.filter(d => d.mpago ==='Efectivo');
     const cheques = datos.filter(d => d.mpago === 'Cheque')
     const retenciones = datos.filter(d => d.mpago === 'Retenciones');
+    const depositos = datos.filter(d => d.mpago === 'Deposito');
+
     setEfectivo(efctivo);
     setCheques(cheques);
     setRetenciones(retenciones);
+    setDepositos(depositos)
   
    
   }
@@ -123,13 +135,16 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
           longModal={300}
           click={guardarArr}
         >
-          <Form onChange={handleChange}>
+         
+          <Form onChange={handleChange} >
             <Form.Item
             >
               <Select value={mpago} onChange={handleChangeSelect}>
                 <Option value="Cheque">Cheque</Option>
                 <Option value="Retenciones">Retenciones</Option>
                 <Option value="Efectivo">Efectivo</Option>
+                <Option value="Deposito">Deposito</Option>
+
               </Select>
             </Form.Item>
               <Form.Item

@@ -3,11 +3,14 @@ import {Row,Col,Grid, Descriptions, Card,Form, Input, Button} from 'antd'
 import { PeticionGETIntranetCobranzas } from '../../config/PeticionGET'
 import { HelperTABLEobj } from '../../helpers/HelperTABLEobj'
 import { numberWithCommas } from '../reportes/helpers/funciones';
-import { FieldNumberOutlined } from '@ant-design/icons';
+import { EnterOutlined, FieldNumberOutlined } from '@ant-design/icons';
 import { axiosURLIntranetCobranzas } from '../../config/axiosURL';
 const { useBreakpoint } = Grid;
 
 export const CargaRecibo = ({match,history}) => {
+ /**evitar que usuari 907 ingresen a la ruta */
+ const N = localStorage.getItem('N');
+ ( N !== "907" && N!== '901' ) && history.push("/perfil");
   const { id } = match.params;
     const getRecibos= PeticionGETIntranetCobranzas(`detalle/recibo/${id}`);
     console.log(getRecibos, 'line9');
@@ -17,6 +20,8 @@ export const CargaRecibo = ({match,history}) => {
           dataIndex: "cliente",
           key: "cliente",
           lupa: false,
+      width:100,
+
           render:(state, file)=><h5>{ file.cliente }</h5>
     
         },
@@ -25,6 +30,8 @@ export const CargaRecibo = ({match,history}) => {
           dataIndex: "razonsocial",
           key: "razonsocial",
           lupa: false,
+      width:100,
+
           render:(state, file)=><h5>{ file.razonsocial}</h5>
           
         },
@@ -33,6 +40,8 @@ export const CargaRecibo = ({match,history}) => {
           dataIndex: "factura",
           key: "factura",
           lupa: false,
+      width:100,
+
           render:(state, file)=><h5>{ file.factura }</h5>
     
         },
@@ -41,6 +50,8 @@ export const CargaRecibo = ({match,history}) => {
           dataIndex: "fecha",
           key: "fecha",
           lupa: false,
+      width:100,
+
           render:(state, file)=><h5>${ numberWithCommas(file.fecha)}</h5>
         },
         {
@@ -48,6 +59,8 @@ export const CargaRecibo = ({match,history}) => {
             dataIndex: "fechavencimiento",
             key: "fechavencimiento",
             lupa: false,
+      width:100,
+
             render:(state, file)=><h5>${ numberWithCommas(file.fechavencimiento)}</h5>
           },
           {
@@ -55,6 +68,8 @@ export const CargaRecibo = ({match,history}) => {
             dataIndex: "importe",
             key: "importe",
             lupa: false,
+      width:100,
+
             render:(state, file)=><h5>${ numberWithCommas(file.importe)}</h5>
           },
       
@@ -76,6 +91,8 @@ export const CargaRecibo = ({match,history}) => {
           dataIndex: "cheque",
           key: "cheque",
           lupa: false,
+          width:100,
+
           render:(state, file)=><h5>{ file.cheque }</h5>
     
         },
@@ -84,6 +101,8 @@ export const CargaRecibo = ({match,history}) => {
           dataIndex: "fecha",
           key: "fecha",
           lupa: false,
+          width:140,
+
           render:(state, file)=><h5>${ file.fecha}</h5>
         },
         
@@ -108,8 +127,8 @@ export const CargaRecibo = ({match,history}) => {
     }
     return (
         <>
-            <Row style={{padding:10}}>
-      <Col xs={24} sm={24} md={12} lg={24} xl={24}>
+            <Row style={{marginTop:20}} >
+      <Col xs={24} sm={24} md={24} lg={24} xl={24}>
       <Card>
         <Descriptions title="Info">
     <Descriptions.Item label="Enviado por">
@@ -137,7 +156,7 @@ export const CargaRecibo = ({match,history}) => {
       </Card>
       </Col>
     </Row>
-        <Row gutter={[20, 20]} style={{padding:10}}>
+        <Row gutter={[20, 20]} style={{marginTop:20}}>
           <Col xs={24} sm={24} md={24} lg={14} xl={14}>
             <Card>
                <HelperTABLEobj
@@ -168,7 +187,7 @@ export const CargaRecibo = ({match,history}) => {
         </Row>
 
 { !!getRecibos[1]?.[0]?.ncomprobante?'':
- <Row style={{padding:10}}>
+ <Row style={{marginTop:20}} >
        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
        <Card>
 
@@ -197,9 +216,11 @@ export const CargaRecibo = ({match,history}) => {
        </Card>
       
       </Col>
+
        </Row>
 
 }
+<Button type='link' onClick={()=>history.push('/lista/recibo')}> atras <EnterOutlined/></Button>
       
 
         

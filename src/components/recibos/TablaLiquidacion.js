@@ -15,6 +15,8 @@ const columns = [
         dataIndex: 'fecemision',
         key: 'fecemision',
         lupa:false,
+      width:100,
+
         render:(state, file)=> {
             const fecha=file.fecemision.split('T')[0]
             return <h5>{fecha}</h5>
@@ -26,6 +28,8 @@ const columns = [
         dataIndex: 'cabeza',
         key: 'cabeza',
         lupa:false,
+      width:100,
+
         render:(state, file)=> <h5>{file.cabeza}</h5>
       },
       {
@@ -33,6 +37,7 @@ const columns = [
         dataIndex: 'codcabeza',
         key: 'codcabeza',
         lupa:false,
+        width:100,
 
         render:(state, file)=> <h5>{file.codcabeza}</h5>
       },
@@ -41,6 +46,7 @@ const columns = [
         dataIndex: 'saldoml',
         key: 'saldoml',
         lupa:false,
+        width:100,
 
         render:(state, file)=> <h5>${numberWithCommas(file.saldoml)}</h5>
         

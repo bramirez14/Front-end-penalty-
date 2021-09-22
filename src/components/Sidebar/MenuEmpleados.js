@@ -1,20 +1,24 @@
 import React from 'react'
 import { Menu, Grid} from 'antd';
-import { CheckOutlined, DollarCircleOutlined, HomeOutlined, MailOutlined, RiseOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { CheckOutlined, DollarCircleOutlined, HomeOutlined, MailOutlined, ReconciliationOutlined, RiseOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { filtroNumVendedores  } from '../../helpers/funcioneshelpers';
 const { SubMenu } = Menu;
 export const MenuEmpleados = ({ open, setOpen}) => {
     const N = localStorage.getItem('N');
     const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
   let handleClick;
-  if(screens.md){
-       handleClick= e => {
-           if(e.key){
-               setOpen(!open)
-           }
-        };
+  if(!screens.md){
+    handleClick= e => {
+            console.log(e);
+            setOpen(false)
+            
+            };
   }
+      
+  
+ 
     return (
         <Menu  mode="inline"
         onClick={handleClick} 
@@ -101,7 +105,25 @@ export const MenuEmpleados = ({ open, setOpen}) => {
         <Link to='/lista/kilometros'>Km </Link>
                  </Menu.Item>
         </SubMenu>
-        
+            { N==='907'&&
+            <SubMenu key="sub8"  title="Cobranzas" icon={<ReconciliationOutlined />}>
+            <Menu.Item key="24"> 
+            <Link to='/lista/recibo'> Recibo </Link>
+
+            </Menu.Item>
+            </SubMenu>
+
+            }
+
+            { filtroNumVendedores (N)?'':
+            <SubMenu key="sub9"  title="Cobranzas" icon={<ReconciliationOutlined />}>
+            <Menu.Item key="25"> 
+            <Link to='/recibo'> Recibo provisorio </Link>
+
+            </Menu.Item>
+            </SubMenu>
+
+            }
         </Menu>
     )
 }

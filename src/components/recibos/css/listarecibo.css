@@ -1,0 +1,33 @@
+.lista-recibo{
+     width:800;
+     background-color:#ffff;
+     margin:auto;
+     margin-top:40px;
+}
+.descripciones-recibo{
+    display:flex;
+    flex-wrap:wrap;
+}
+.item-recibo{
+    margin-left: 20px;
+}
+
+@media (max-width: 768px){
+    .lista-recibo{
+        width:600;
+     background-color:#ffff;
+
+   }
+   .descripciones-recibo{
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction: column;
+}
+}
+@media (max-width: 480px){
+    .lista-recibo{
+     background-color:#ffff;
+
+   }
+
+}

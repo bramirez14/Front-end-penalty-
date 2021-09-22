@@ -9,13 +9,13 @@ export const MenuGerencia = ({ open, setOpen}) => {
   const { useBreakpoint } = Grid;
 const screens = useBreakpoint();
 let handleClick;
-if(screens.md){
-     handleClick= e => {
-         if(e.key){
-             setOpen(!open)
-         }
-      };
-}
+if(!screens.md){
+    handleClick= e => {
+            console.log(e);
+            setOpen(false)
+            
+            };
+  }
    
 
     return (

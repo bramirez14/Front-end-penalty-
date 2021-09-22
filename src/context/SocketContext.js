@@ -9,7 +9,7 @@ export const SocketProvider = ({ children }) => {
   const [alertas, setAlertas] = useState([])
   const { auth, setArrayUsuarios } = useContext(UserContext);//no es este investigar desp 
   const { socket, conectarSocket, desconectarSocket } = useSocket(
-    "http://intranet.penalty.com.ar:4000"
+    "http://localhost:4000"
   );
   
  useEffect(() => {

@@ -5,7 +5,7 @@
 }
 .contenedor{
     transition: 1200ms;
-    padding:10px;
+    padding:20px;
     padding-top:50px;
     height: auto;
 
@@ -13,8 +13,9 @@
 
 }
 .contenedor-active{
-    margin-left: 240px;
-    transition: 700ms;
+    margin-left: 220px;
+    padding:20px;
+    transition: 150ms;
     padding-top:50px;
     
 }
@@ -33,12 +34,12 @@
 }
 @media (max-width: 576px){
     .contenedor{
-        padding:0;
+        padding:10px;
     padding-top:57px;
     }
     .contenedor-active{
         margin-left:0;
-        padding:0;
+        padding:10px;
     padding-top:57px;
 
     }

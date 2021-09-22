@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Row, Col, Button } from "antd";
 import "./css/recibo.css";
 import { TablaIngresos } from "./TablaIngresos";
@@ -9,12 +9,17 @@ import { axiosURLIntranetCobranzas } from "../../config/axiosURL";
 import { uuid } from "uuidv4";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Grid, Tag } from "antd";
+import { SocketContext } from "../../context/SocketContext";
+import './css/listarecibo.css';
 const { useBreakpoint } = Grid;
 
-export const Recibo = () => {
+export const Recibo = ({ history }) => {
+  const {socket} = useContext(SocketContext)
+  console.log(socket,'line17');
   const N = localStorage.getItem("N");
   const id = localStorage.getItem("uid");
   const usuario = PeticionGET(`/${id}`);
+  const todosUsuarios=PeticionGET('/allusers')
   const uid = uuid().split("-")[0];
   const [liquidacionCliente, setLiquidacionCliente] = useState([]);
   const [ingresos, setIngresos] = useState([]); // a la DB
@@ -22,6 +27,7 @@ export const Recibo = () => {
   const [efectivo, setEfectivo] = useState([]);
   const [cheques, setCheques] = useState([]);
   const [retenciones, setRetenciones] = useState([]);
+  const [depositos, setDepositos] = useState([]);
   const newIngresos = ingresos.map((n) => {
     return {
       ...n,
@@ -46,17 +52,36 @@ export const Recibo = () => {
   });
 
   const finalizar = async () => {
-    const res = await axiosURLIntranetCobranzas.post("/recibos", {
+
+  await axiosURLIntranetCobranzas.post("/recibos", {
       newIngresos,
       newDataCheck,
     });
-    console.log(res);
+   const filtrousuarios907= todosUsuarios.filter(t=> t.nvendedor==='907')
+   console.log(filtrousuarios907,'line57');
+    for (const iterator of filtrousuarios907) {
+  const nuevoObj = {
+    alerta:'proceso pendiente' ,
+    info:`Tenes un recibo provisorio`,
+    nombre:`${usuario.nombre}${usuario.apellido}`,
+    f: new Date().toLocaleString(),
+    emisor: usuario.email,
+    receptor: iterator.email,
+    estado:'activa',
+    path:'/lista/recibo',
+    usuarioId:usuario.id
   };
+socket.emit('alerta-nueva', nuevoObj);
+} 
+history.push('/perfil')
+
+};
+
   const screens = useBreakpoint();
 
   return (
     <>
-      <Row gutter={[20, 20]}>
+      <Row gutter={[20, 20]} style={{ marginTop: 20 }}>
         <Col xs={24} sm={24} md={24} lg={14} xl={14}>
           <ClienteRecibo
             cliente={liquidacionCliente}
@@ -68,6 +93,7 @@ export const Recibo = () => {
             efectivo={efectivo}
             cheques={cheques}
             retenciones={retenciones}
+            depositos={depositos}
             efectivoLiq={dataCheck}
           />
         </Col>
@@ -79,6 +105,7 @@ export const Recibo = () => {
             setEfectivo={setEfectivo}
             setCheques={setCheques}
             setRetenciones={setRetenciones}
+            setDepositos={setDepositos}
             screens={screens}
           />
         </Col>
@@ -93,6 +120,7 @@ export const Recibo = () => {
         </Col>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Button onClick={finalizar}>Finalizar</Button>
+
         </Col>
       </Row>
     </>
