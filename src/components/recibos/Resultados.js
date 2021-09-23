@@ -3,7 +3,6 @@ import React from 'react'
 import { numberWithCommas } from '../reportes/helpers/funciones';
 
 export const Resultados = ({efectivo,cheques,retenciones,depositos,efectivoLiq}) => {
-  console.log(efectivoLiq,'line 5');
     const mpagoefectivo= efectivo.map(ef=> ef.importe )
     const mefectivo= mpagoefectivo.reduce((acumulador, item) => {return parseFloat(acumulador)+ parseFloat(item)},0)
     const mpagocheques= cheques.map(c=> c.importe )
@@ -29,11 +28,12 @@ export const Resultados = ({efectivo,cheques,retenciones,depositos,efectivoLiq})
             <Col span={12}>
               <Statistic title="Retenciones" value={numberWithCommas(mretenciones)} precision={2} />
             </Col>
+            
             <Col span={12}>
-              <Statistic title="Importe Liquidacion"  value={numberWithCommas(Liq)} precision={2}/>
+              <Statistic title="Deposito"  value={numberWithCommas(mdepositos)} precision={2}/>
             </Col>
             <Col span={12}>
-              <Statistic title="Importe Liquidacion"  value={numberWithCommas(mdepositos)} precision={2}/>
+              <Statistic title="Importe Liquidacion"  value={numberWithCommas(Liq)} precision={2}/>
             </Col>
           </Row>
     </Card>

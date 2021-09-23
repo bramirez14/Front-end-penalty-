@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Descriptions, Select, Statistic, Card } from 'antd';
+import {  Descriptions, Select, Card } from 'antd';
 
 import { filtradoPorVendedorCobranzas } from './helpers/funciones';
 import './css/clienterecibo.css'

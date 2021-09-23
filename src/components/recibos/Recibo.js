@@ -15,7 +15,6 @@ const { useBreakpoint } = Grid;
 
 export const Recibo = ({ history }) => {
   const {socket} = useContext(SocketContext)
-  console.log(socket,'line17');
   const N = localStorage.getItem("N");
   const id = localStorage.getItem("uid");
   const usuario = PeticionGET(`/${id}`);
@@ -58,7 +57,6 @@ export const Recibo = ({ history }) => {
       newDataCheck,
     });
    const filtrousuarios907= todosUsuarios.filter(t=> t.nvendedor==='907')
-   console.log(filtrousuarios907,'line57');
     for (const iterator of filtrousuarios907) {
   const nuevoObj = {
     alerta:'proceso pendiente' ,

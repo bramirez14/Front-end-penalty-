@@ -13,7 +13,7 @@ export const useGet = (url) => {
     useEffect(() => {
         axiosGet();
       }, []);
-      return [data,axiosGet,state]
+      return [data,axiosGet,state,setData]
       
       
 
