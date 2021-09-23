@@ -33,6 +33,7 @@ const EditableCell = ({
   }, [editing]);
 
   const toggleEdit = () => {
+    console.log(record[dataIndex],36)
     setEditing(!editing);
     form.setFieldsValue({
       [dataIndex]: record[dataIndex],
@@ -40,9 +41,13 @@ const EditableCell = ({
   };
 
   const save = async () => {
+    console.log(record,.44)
     try {
       const values = await form.validateFields();
+      console.log(values,.47)
       toggleEdit();
+      console.log({ ...record, ...values },49)
+      
       handleSave({ ...record, ...values });
     } catch (errInfo) {
       console.log('Save failed:', errInfo);
@@ -83,26 +88,26 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const TableLiq = ({col,datos})=> {
-    const [contenedor, setContenedor] = useState([])
+export const TableLiq = ({col,datos, dataCheck,setDataCheck})=> {
+    const [contenedor, setContenedor] = useState([])//lo dejamos porque influye  el valor de la tabla 
 const [state, setState] = useState({dataSource:datos,
   count: 2,})
 
-  console.log(datos,'datos');
-  console.log(state,'line88');
+  console.log(state,'line 96');
 useEffect(() => {
    setState({dataSource:datos})
 }, [datos])
 
   const handleSave = (row) => {
-      console.log(row,'row');
+      console.log(row,'row101');//aca ya llega cambiado el valor del campo
     const newData = [...state.dataSource];
-    console.log(newData,'99');
+    console.log(newData,'105');
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
-    let importeMod=newData.splice(index, 1, { ...item, ...row });
-    console.log(newData.splice(index, 1, { ...item, ...row }),'104');
-    console.log(contenedor,'line105')
+    console.log(item,.108)
+   
+    console.log(newData.splice(index, 1, { ...item, ...row }),'110');
+    console.log(contenedor,'111')
     let ff=contenedor.map(c=>{ 
     if ( c.key === newData.splice(index, 1, { ...item, ...row })[0].key){
       return{
@@ -115,11 +120,14 @@ useEffect(() => {
     }
     
     )
+    setDataCheck(ff)
     setContenedor(ff)
-    console.log(ff,'ff line108')
+    console.log(ff,'ff line124')
     setState({
       dataSource: newData,
     });
+    //setDataCheck(ff)
+
   };
 
 
@@ -151,22 +159,28 @@ useEffect(() => {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log(selectedRows,'check140');
            setContenedor(selectedRows)
+           setDataCheck(selectedRows)
         },
     
       };
-      console.log(contenedor,'line105')
+      console.log(contenedor,'line164')
     return (
     
        
         <Table
+      title={()=> <h2 style={{ textAlign: "center" }}>
+      <b> LIQUIDACION </b>
+    </h2>}
+
           components={components}
           rowClassName={() => 'editable-row'}
           rowSelection={
           rowSelection
           }
-          bordered
           dataSource={dataSource}
           columns={columns}
+        scroll={{ y: 300}}
+
         />
     
     );

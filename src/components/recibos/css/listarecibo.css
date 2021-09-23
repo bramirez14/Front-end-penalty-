@@ -1,5 +1,5 @@
 .lista-recibo{
-     width:800;
+     width:800px;
      background-color:#ffff;
      margin:auto;
      margin-top:40px;
@@ -12,10 +12,13 @@
     margin-left: 20px;
 }
 
+
 @media (max-width: 768px){
     .lista-recibo{
-        width:600;
+        width:670px;
      background-color:#ffff;
+     margin:auto;
+     margin-top:40px;
 
    }
    .descripciones-recibo{
@@ -26,6 +29,8 @@
 }
 @media (max-width: 480px){
     .lista-recibo{
+        width:340px;
+
      background-color:#ffff;
 
    }

@@ -27,12 +27,15 @@ export const Recibo = ({ history }) => {
   const [cheques, setCheques] = useState([]);
   const [retenciones, setRetenciones] = useState([]);
   const [depositos, setDepositos] = useState([]);
+
   const newIngresos = ingresos.map((n) => {
     return {
       ...n,
       nvendedor: N,
       nombrecompleto: `${usuario.nombre}${usuario.apellido}`,
       numerorecibo: uid,
+      razonsocial:dataCheck[0]?.razonsoc,
+
     };
   });
   const newDataCheck = dataCheck.map((d) => {

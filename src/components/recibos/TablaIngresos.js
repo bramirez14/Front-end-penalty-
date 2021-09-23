@@ -12,7 +12,7 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
   const [ingresosData, setIngresosData] = useState({
     key:'',
     mpago: "Efectivo",
-    cheque: "No hay!!!",
+    cheque: "",
     fecha: new Date().toLocaleDateString(),
     importe: "",
   });
@@ -20,15 +20,15 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(mpago)
     setIngresosData({ ...ingresosData, [name]: value });
   };
   const handleChangePicker = (e, data) =>
     setIngresosData({ ...ingresosData, fecha: data });
-  const handleChangeSelect = (value) =>
-  value==='Efectivo'||value==='Retenciones'?
-  setIngresosData({ ...ingresosData, mpago: value,cheque:'No hay!!!' })
-  :
-  setIngresosData({ ...ingresosData, mpago: value,cheque:'', })
+  
+    const handleChangeSelect = (value) =>setIngresosData({ ...ingresosData, mpago: value,cheque:'',importe:'' });
+
+  
 
     const handelDelete=(key) => {
       const filtro= data.filter(a=> a.key!== key)
@@ -45,11 +45,11 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
 
     },
     {
-      title: "CHEQUES",
+      title: "DESCRIPCION",
       dataIndex: "cheque",
       key: "cheque",
       lupa: false,
-      width:100,
+      width:120,
 
       render:(state, file)=><h5>{ file.cheque }</h5>
       
@@ -74,11 +74,11 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
       render:(state, file)=><h5>${ numberWithCommas(file.importe)}</h5>
     },
     {
-      title: "ACCIONES",
+      title: "",
       dataIndex: "acciones",
       key: "acciones",
       lupa: false,
-      width:100,
+      width:70,
 
       render:(state,file)=>{
           return(<DeleteOutlined onClick={()=>handelDelete(file.key)} />)
@@ -95,7 +95,7 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
     ])
     setIngresosData( {
     mpago: "Efectivo",
-    cheque: "No hay!!!",
+    cheque: "",
     fecha: new Date().toLocaleDateString(),
     importe: "",});
     setContador(contador+1)
@@ -112,7 +112,7 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
    
   }
  // filtrado de operacion
-
+ console.log(ingresosData,'line115')
   return (
     <Card>
     <HelperTABLEobj
@@ -150,9 +150,9 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
               <Form.Item
               >
               {
-                  mpago !== 'Cheque'?
+                  mpago === 'Efectivo'?
                 <Input disabled />:
-                <Input name="cheque" placeholder="N° cheque" value={cheque} />
+                <Input name="cheque" type='text' placeholder="data" value={cheque} />
               }
             </Form.Item>
 
