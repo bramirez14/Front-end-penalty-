@@ -1,6 +1,6 @@
 import {useEffect,useState,useContext} from 'react'
 import {axiosURL} from '../config/axiosURL';
-import { UserContext } from '../contexto/UserContext';
+import { UserContext } from '../context/UserContext';
 import { logout } from './localStorage';
 
 export const PeticionJWT = () => {

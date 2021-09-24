@@ -1,5 +1,5 @@
 import React,{useContext} from "react";
-import { UserContext } from "../../contexto/UserContext";
+import { UserContext } from "../../context/UserContext";
 import "./css/vistaImg.css";
 export const VistaImg = ({
   data,

@@ -1,5 +1,4 @@
 import React, { useState,useEffect } from "react";
-import { PeticionGET } from "../../config/PeticionGET";
 import { Card, Collapse, Button, Avatar, Row, Col } from "antd";
 import { axiosURL } from "../../config/axiosURL";
 

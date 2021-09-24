@@ -1,11 +1,39 @@
 import { PeticionGET } from "../../../config/PeticionGET";
 
 export const colVacaciones=[
+  {
+    title: "Estado",
+    dataIndex: "estado",
+    key: "estado",
+  width:120,
+    lupa: false,
+    render: (estado,file) =>{
+      
+      const color =()=>{
+        switch (file.estado) {
+          case 'pendiente':
+            return(<h5 style={{color:'#F79E0B' }}> pendiente...</h5> )
+            case 'aprobado':
+         return (<h5 style={{color:'green'}}> aprobado </h5>)
+          default: 
+          return(<h5 style={{color:'red'}}> rechazado </h5>)
+        }}
+     return(
+       <>
+       {
+         color()
+       }
+       </>
+     )
+    }
+
+  },
     {
         title: "N° de solicitud",
         dataIndex: "id",
         key: "id",
         width:100,
+        render: (state, file) => <h5>{file.id}</h5>
       },
   
         {
@@ -13,6 +41,8 @@ export const colVacaciones=[
           dataIndex: "nombre",
           key: "nombre",
         width:100,
+        render: (state, file) => <h5>{file.nombre}</h5>
+
 
         },
         {
@@ -20,6 +50,8 @@ export const colVacaciones=[
           dataIndex: "apellido",
           key: "apellido",
         width:100,
+        render: (state, file) => <h5>{file.apellido}</h5>
+
 
         },
         {
@@ -27,12 +59,11 @@ export const colVacaciones=[
           dataIndex: "departamento",
           key: "departamento",
         width:100,
-
           render:  (estado, file) => {
             const dtos= PeticionGET("/departamentos");
             const Dto = dtos.find(d=> d.id===file.usuario?.departamentoId)
             const DtoSelect= Dto?.departamento
-            return( <span style={{marginLeft:'10px'}}>{DtoSelect}</span>)
+            return( <h5 style={{marginLeft:'10px'}}>{DtoSelect}</h5>)
     
           },
         },
@@ -41,6 +72,9 @@ export const colVacaciones=[
         dataIndex: 'periodo',
         key: 'periodo',
         width:100,
+        render: (state, file) => <h5>{file.periodo}</h5>
+
+        
         
       },
       {
@@ -48,6 +82,7 @@ export const colVacaciones=[
         dataIndex: 'fechaSolicitud',
         key: 'fechaSolicitud',
         width:170,
+        render: (state, file) => <h5>{file.fechaSolicitud}</h5>
         
       },
       {
@@ -55,6 +90,7 @@ export const colVacaciones=[
           dataIndex: 'fechaDesde',
           key: 'fechaDesde',
           width:170,
+          render: (state, file) => <h5>{file.fechaDesde}</h5>
 
         },
         {
@@ -62,6 +98,7 @@ export const colVacaciones=[
           dataIndex: 'fechaHasta',
           key: 'fechaHasta',
           width:170,
+          render: (state, file) => <h5>{file.fechaHasta}</h5>
 
         },
         {
@@ -70,6 +107,8 @@ export const colVacaciones=[
           key: 'obs',
           width: 100,
           lupa:false,
+        render: (state, file) => <h5>{file.obs}</h5>
+
         },
         {
           title: 'Faltantes',
@@ -77,33 +116,8 @@ export const colVacaciones=[
           key: 'diasFaltantes',
           width: 100,
           lupa: false,
-        },
-      {
-          title: "Estado",
-          dataIndex: "estado",
-          key: "estado",
-        width:100,
+        render: (state, file) => <h5>{file.diasFaltantes}</h5>
 
-          lupa: false,
-          render: (estado,file) =>{
-            
-            const color =()=>{
-              switch (file.estado) {
-                case 'pendiente':
-                  return(<span style={{color:'#F79E0B' }}> pendiente...</span> )
-                  case 'aprobado':
-               return (<span style={{color:'green'}}> aprobado </span>)
-                default: 
-                return(<span style={{color:'red'}}> rechazado </span>)
-              }}
-           return(
-             <>
-             {
-               color()
-             }
-             </>
-           )
-          }
-    
         },
+    
 ]

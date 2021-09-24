@@ -3,7 +3,6 @@ import { PeticionGET } from '../../../config/PeticionGET';
 
 export const Listo = ({url}) => {
     const get = PeticionGET(url);
-    console.log(get);
     const filtroRendicionTerminada = get.filter((g) => (g.estadoFinal==='aprobado' && g.listo === "Si") && (g.procesoFinalizado!=='Si' ));
     return (
       <>
@@ -40,7 +39,6 @@ export const PagoAntSueldo=()=>{
     
     const getTotalMuestra = getantTotal.filter(d=>d.pagoRealizado!=='Si');
 
-    console.log(getantTotal);
     return(
       <>
        {getTotalMuestra.length > 0 ? (

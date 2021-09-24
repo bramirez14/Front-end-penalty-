@@ -1,40 +1,65 @@
 import {
+  Button,
     Image
   } from "antd";
+import { BiDownload } from "react-icons/bi";
 import { PeticionGET } from "../../../config/PeticionGET";
+import { descargarPDF } from "../../helpers/funciones";
 var numberFormat = new Intl.NumberFormat("es-ES");
 export const colKm=[
+  
+  {
+    title: "Estado",
+    dataIndex: "estado",
+    key: "estado",
+    width: 120,
+    lupa: false,
+    render: (estado, file) => {
+      const color = () => {
+        switch (file.estado) {
+          case "pendiente":
+            return <h5 style={{ color: '#F79E0B'  }}> pendiente...</h5>;
+          case "aprobado":
+            return <h5 style={{ color: "green" }}> aprobado </h5>;
+          default:
+            return <h5 style={{ color: "red" }}> rechazado </h5>;
+        }
+      };
+      return <>{color()}</>;
+    },
+  },
     {
         title: "N° de anticipo",
         dataIndex: "id",
         key: "id",
         width: 100,
+        render: (state, file) => <h5>{file.id}</h5>
+
       },
       {
         title: "Nombre",
         dataIndex: "nombre",
         key: "nombre",
         width: 100,
-
+        render: (state, file) => <h5>{file.nombre}</h5>
       },
       {
         title: "Apellido",
         dataIndex: "apellido",
         key: "apellido",
         width: 100,
-
+        render: (state, file) => <h5>{file.apellido}</h5>
       },
       {
         title: "Departamento",
         dataIndex: "departamento",
         key: "departamento",
         width: 170,
-
         render: (estado, file) => {
             const dtos = PeticionGET("/departamentos")
           const Dto = dtos.find((d) => d.id === file.usuario?.departamentoId);
           const DtoSelect = Dto?.departamento;
-          return <span style={{ marginLeft: "10px" }}>{DtoSelect}</span>;
+          return <h5 style={{ marginLeft: "10px" }}>{DtoSelect}</h5>;
         },
       },
       {
@@ -43,8 +68,7 @@ export const colKm=[
         key: "kmTotal",
         width: 140,
         lupa: false,
-
-        render: (state, file) => <span>{file.kmTotal} Km</span>,
+        render: (state, file) => <h5>{file.kmTotal} Km</h5>,
       },
   
       {
@@ -52,8 +76,7 @@ export const colKm=[
         dataIndex: "importeTotal",
         key: "importeTotal",
         width: 170,
-
-        render:(state,file)=><span > ${numberFormat.format(file.importeTotal)}</span>,
+        render:(state,file)=><h5 > ${numberFormat.format(file.importeTotal)}</h5>,
         
       },
     
@@ -63,7 +86,6 @@ export const colKm=[
         key: "imagen",
         width: 100,
         lupa:false,
-
         render:(state,file)=>{
           return (
               <Image.PreviewGroup>
@@ -76,27 +98,58 @@ export const colKm=[
             );
         }
       },
+      {
+        title: "PDF proveedores",
+        dataIndex: 'pdf',
+        key: "pdf",
+        width: 140,
+        lupa: false,
+        render: (state, file) => (
+          <>
+          {
+            file.pdf === null? <h5>No hay pdf!!!</h5>:
+            <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdf)}>
+                <BiDownload/>
+                </Button>
+          }
+        </>
+      )
+      },
+      {
+        title: "PDF pagos",
+        dataIndex: 'pdfinal',
+        key: "pdfinal",
+        width: 140,
+        lupa: false,
+        render: (state, file) => (
+          <>
+          {
+            file.pdf === null? <h5>No hay pdf!!!</h5>:
+            <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdfinal)}>
+                <BiDownload/>
+                </Button>
+          }
+        </>
+      )
+      },
+      {
+        title: "PDF orden de pago final",
+        dataIndex: 'pdfpagoFinal',
+        key: "pdfpagoFinal",
+        width: 140,
+        lupa: false,
+        render: (state, file) => (
+          <>
+          {
+            file.pdf === null? <h5>No hay pdf!!!</h5>:
+            <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdfpagoFinal)}>
+                <BiDownload/>
+                </Button>
+          }
+        </>
+      )
+      },
      
   
-      {
-        title: "Estado",
-        dataIndex: "estado",
-        key: "estado",
-        width: 100,
-        lupa: false,
-        render: (estado, file) => {
-          const color = () => {
-            switch (file.estado) {
-              case "pendiente":
-                return <span style={{ color: '#F79E0B'  }}> pendiente...</span>;
-              case "aprobado":
-                return <span style={{ color: "green" }}> aprobado </span>;
-              default:
-                return <span style={{ color: "red" }}> rechazado </span>;
-            }
-          };
-          return <>{color()}</>;
-        },
-      },
   
 ]

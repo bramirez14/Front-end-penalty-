@@ -1,11 +1,10 @@
 import React from 'react'
-import { PeticionGETIntranet } from '../../../config/PeticionGET'
-import { HelperTABLE } from '../../../helpers/HelperTABLE'
 import { HelperTABLEobj } from '../../../helpers/HelperTABLEobj'
+import { filtradoPorVendedor } from '../helpers/funciones'
 import { columnasRdo } from './columnasRemitado'
 
 export const Remitado = () => {
- const getRemitado=PeticionGETIntranet('/remmes')
+ const getRemitado=filtradoPorVendedor('/remmes')
  var mediaqueryList = window.matchMedia("(min-width: 1200px)");
     return (
        <HelperTABLEobj

@@ -1,19 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Form, Input, Button, Col, Row, DatePicker, Select } from "antd";
-import { UserContext } from "../../contexto/UserContext";
+import React, { useState, useEffect,useContext } from "react";
+import { Form, Input, Button, Col, Row, DatePicker } from "antd";
 import { Titulo } from "../titulos/Titulo";
-import {axiosURL} from "../../config/axiosURL";
+import { axiosURL } from "../../config/axiosURL";
 import Swal from "sweetalert2";
-import emailjs from "emailjs-com";
-import {PeticionGET }from "../../config/PeticionGET";
+import { PeticionGET } from "../../config/PeticionGET";
+import { alerta } from "./helpers/funciones";
+import { SocketContext } from "../../context/SocketContext";
 
 export const Vacaciones = ({ history }) => {
- const [datoImportante, setDatoImportante] = useState()
+  const {socket} = useContext(SocketContext);
   const id = localStorage.getItem("uid");
-  const { Option } = Select;
   /**useContext***/
-  const Text = useContext(UserContext);
-  const { open } = Text;
   /***iniciamos el estado******/
   const [vacaciones, setVacaciones] = useState({
     periodo: "",
@@ -24,21 +21,10 @@ export const Vacaciones = ({ history }) => {
     obs: "",
     usuarioId: id,
     depto: "",
-    fechaContratacion:'',
-    diasFaltantes:''
+    fechaContratacion: "",
+    diasFaltantes: "",
   });
-  const {
-    diasFaltantes,
-    empleado,
-    dias,
-    fechaDesde,
-    fechaHasta,
-    maximo,
-    periodoo,
-    depto,
-    periodo,
-    fechaContratacion
-  } = vacaciones;
+  const { dias, fechaDesde, maximo, periodo, fechaContratacion } = vacaciones;
   /*****Alertas******/
   const handleAlert = () => {
     let fcha = sumaFecha(dias, fechaDesde);
@@ -56,27 +42,26 @@ export const Vacaciones = ({ history }) => {
   };
 
   /******fx solicitud de usuarios a DB con axios *******/
-const añosTrabajados=(fecha)=>{
-  const añosTrabajados =
-  new Date().getFullYear() - fecha
-  const vacation =
-  añosTrabajados <= 5
-    ? 14
-    : añosTrabajados > 5 && añosTrabajados <= 10
-    ? 21
-    : añosTrabajados > 10 && añosTrabajados <= 20
-    ? 28
-    : añosTrabajados > 20
-    ? 35
-    : "";
-    return vacation
-}
+  const añosTrabajados = (fecha) => {
+    const añosTrabajados = new Date().getFullYear() - fecha;
+    const vacation =
+      añosTrabajados <= 5
+        ? 14
+        : añosTrabajados > 5 && añosTrabajados <= 10
+        ? 21
+        : añosTrabajados > 10 && añosTrabajados <= 20
+        ? 28
+        : añosTrabajados > 20
+        ? 35
+        : "";
+    return vacation;
+  };
   useEffect(() => {
     const fx = async () => {
       if (periodo !== "") {
-       const { data } = await axiosURL.get(`/${id}`);
-       console.log(data);
-       const { fechaContratacion, departamento } = data;
+        const { data } = await axiosURL.get(`/${id}`);
+        console.log(data);
+        const { fechaContratacion, departamento } = data;
         const depto = departamento.departamento;
         const periodoElegido = vacaciones.periodo;
         const listaDeVacaciones = data.vacacion.filter(
@@ -85,23 +70,22 @@ const añosTrabajados=(fecha)=>{
         );
         const ultimaVacacionesTomada =
           listaDeVacaciones[listaDeVacaciones.length - 1]?.diasFaltantes; // vacaciones restantes de la ultima vacacion
-          let fecha= fechaContratacion.split("/")[2]
-          let años = añosTrabajados( fecha)
-          listaDeVacaciones.length === 0?
-          setVacaciones({
+        let fecha = fechaContratacion.split("/")[2];
+        let años = añosTrabajados(fecha);
+        listaDeVacaciones.length === 0
+          ? setVacaciones({
               ...vacaciones,
               dias: años,
               maximo: años,
               depto,
-              fechaContratacion
+              fechaContratacion,
             })
-          : 
-          setVacaciones({
+          : setVacaciones({
               ...vacaciones,
               dias: ultimaVacacionesTomada,
               maximo: ultimaVacacionesTomada,
               depto,
-              fechaContratacion
+              fechaContratacion,
             });
       }
     };
@@ -118,40 +102,44 @@ const añosTrabajados=(fecha)=>{
     const fcha = sumaFecha(dias, dateString);
     setVacaciones({ ...vacaciones, fechaDesde: dateString, fechaHasta: fcha });
   };
-
+  const getUsuario = PeticionGET(`/${id}`);
+  const log = getUsuario.vacacion?.length - "1";
+  const APROBACION = getUsuario.vacacion?.[log]?.estadoFinal;
   /********enviamos el formulario a DB********/
-  const tipo = localStorage.getItem('type')
+  const tipo = localStorage.getItem("type");
 
   const guardarAnticipoDeVacaciones = async () => {
-    let result = await axiosURL.post("/vacaciones", {...vacaciones,estadoFinal:'pendiente',estado:'pendiente', f: new Date().toLocaleString(),});
+    const nuevoObj = {
+      alerta: vacaciones.obs,
+      info:`Tenes solicitud de vacaciones`,
+      nombre:`${getUsuario.nombre} ${getUsuario.apellido}`,
+      f: new Date().toLocaleString(),
+      estado:'activa',
+      path:'/aprobacion/vacaciones',
+      usuarioId:getUsuario.id,
+      emisor: getUsuario.email,
+      receptor: getUsuario.gerente.email,
+    };
+    socket.emit('alerta-nueva', nuevoObj);
+   
+
+    let result = await axiosURL.post("/vacaciones", {
+      ...vacaciones,
+      estadoFinal: "pendiente",
+      estado: "pendiente",
+      f: new Date().toLocaleString(),
+    });
+    
     if (result.status === 200) {
       history.push("/");
     }
   };
 
-  let handleSubmit;
+  let handleSubmit = (e) => {
+    handleAlert();
+    guardarAnticipoDeVacaciones();
+  };
 
-  /*******condicion para envio de mail a cada departamento******* */
-  if (depto === "Sistema" || depto === "Logistica") {
-    handleSubmit = (e) => {
-      handleAlert();
-      guardarAnticipoDeVacaciones();
-
-      //enviarMensaje()
-    };
-  } else if (depto === "Administracion" || depto === "Marketing") {
-    handleSubmit = (e) => {
-      handleAlert();
-      guardarAnticipoDeVacaciones();
-      //enviarMensaje()
-    };
-  } else {
-    handleSubmit = (e) => {
-      handleAlert();
-      guardarAnticipoDeVacaciones();
-      //enviarMensaje()
-    };
-  }
   const dateFormat = "DD/MM/YYYY";
 
   // Función que suma días a la fecha indicada
@@ -178,105 +166,104 @@ const añosTrabajados=(fecha)=>{
     return fechaFinal;
   };
   const formLayout = {
-    labelCol: { span: 5},
+    labelCol: { span: 5 },
     wrapperCol: { span: 18 },
-    
   };
   function handleChangeSelect(date, dateString) {
     setVacaciones({ ...vacaciones, periodo: dateString });
   }
 
-  const diasFalt=()=>{
-
-    let a= añosTrabajados(fechaContratacion.split("/")[2])
-    let d = dias
-   let resta= vacaciones.maximo-d
-    setVacaciones({...vacaciones,diasFaltantes:resta})
-  }
+  const diasFalt = () => {
+    let a = añosTrabajados(fechaContratacion.split("/")[2]);
+    let d = dias;
+    let resta = vacaciones.maximo - d;
+    setVacaciones({ ...vacaciones, diasFaltantes: resta });
+  };
   useEffect(() => {
     diasFalt();
-  }, [dias])
-  const getUsuarios = PeticionGET(`/${id}`)
-  const log=getUsuarios.vacacion?.length-'1'
-const APROBACION = getUsuarios.vacacion?.[log]?.estadoFinal
+  }, [dias]);
+
   return (
     <>
-        <Form
-          {...formLayout}
-          className='form container'
-          onFinish={handleSubmit}
-          onChange={handleChange}
-          size="large"
-        >
-          {APROBACION === "pendiente" && APROBACION !== undefined ? 
-            <h4 >Ya tenes una solicitud pendiente!!!</h4>:
-            <>
-          <Row gutter={10}>
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <Titulo numero={2} titulo=" Vacaciones" />
-              <Form.Item
-                label="Periodo"
-                name="periodo"
-                rules={[
-                  {
-                    required: true,
-                    message: "ingrese una fecha",
-                  },
-                ]}
-              >
-                <DatePicker
-                  picker="year"
-                  style={{ width: "100%" }}
-                  onChange={handleChangeSelect}
-                  placeholder='Ingrese un año'
-                  
-                />
-              </Form.Item>
-              {/*   ************* Condicion por año ******************* */}
+      <Form
+        {...formLayout}
+        className="form container"
+        onFinish={handleSubmit}
+        onChange={handleChange}
+        size="large"
+      >
+        {APROBACION === "pendiente" && APROBACION !== undefined ? (
+          <h4>Ya tenes una solicitud pendiente!!!</h4>
+        ) : (
+          <>
+            <Row gutter={10}>
+              <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                <Titulo numero={2} titulo=" Vacaciones" />
 
-              {dias === 0 ? (
-                <h2>Ya no tenes vacaciones pendientes!!! </h2>
-              ) : (
-                <>
-                  <Form.Item
-                    label="Dias"
-                    
-                  >
-                    <Input
-                      type="number"
-                      name="dias"
-                      value={vacaciones.dias}
-                      min="0"
-                      max={maximo}
-                    />
-                  </Form.Item>
-                  <Form.Item name="fechaDesde" label=" Desde" rules={[
-                  {
-                    required: true,
-                    message: "ingrese una fecha",
-                  },
-                ]}>
-                    <DatePicker
+                <Form.Item
+                  label="Periodo"
+                  rules={[
+                    {
+                      required: true,
+                      message: "ingrese una fecha",
+                    },
+                  ]}
+                >
+                  <DatePicker
+                    picker="year"
+                    name="periodo"
+                    style={{ width: "100%" }}
+                    placeholder="Ingrese un año"
+                    onChange={handleChangeSelect}
+                  />
+                </Form.Item>
+                {/*   ************* Condicion por año ******************* */}
+
+                {dias === 0 ? (
+                  <h2>Ya no tenes vacaciones pendientes!!! </h2>
+                ) : (
+                  <>
+                    <Form.Item label="Dias">
+                      <Input
+                        type="number"
+                        name="dias"
+                        value={vacaciones.dias}
+                        min="0"
+                        max={maximo}
+                      />
+                    </Form.Item>
+                    <Form.Item
                       name="fechaDesde"
-                      placeholder={'Ingrese una fecha'}
-                      format={dateFormat}
-                      onChange={onChange}
-                      style={{ width: "100%" }}
-                    />
-                  </Form.Item>
+                      label=" Desde"
+                      rules={[
+                        {
+                          required: true,
+                          message: "ingrese una fecha",
+                        },
+                      ]}
+                    >
+                      <DatePicker
+                        name="fechaDesde"
+                        placeholder={"Ingrese una fecha"}
+                        format={dateFormat}
+                        onChange={onChange}
+                        style={{ width: "100%" }}
+                      />
+                    </Form.Item>
 
-                  <Form.Item label="Mensaje">
-                    <Input.TextArea name="obs" placeholder="mensaje" />
-                  </Form.Item>
-                </>
-              )}
-            </Col>
-          </Row>
-          <Button className="btn" htmlType="submit" block>
-            Enviar
-          </Button>
-          </>}
-        </Form>
+                    <Form.Item label="Mensaje">
+                      <Input.TextArea name="obs" placeholder="mensaje" />
+                    </Form.Item>
+                  </>
+                )}
+              </Col>
+            </Row>
+            <Button className="btn" htmlType="submit" block>
+              Enviar
+            </Button>
+          </>
+        )}
+      </Form>
     </>
   );
 };

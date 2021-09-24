@@ -1,10 +1,11 @@
 import React from 'react'
-import { Form, Input, Select,Radio} from "antd";
+import { Form, Input,Radio} from "antd";
 
-export const FormAntAguinaldo = ({handleChange,mes,handleChangeCuotas}) => {
+export const FormAntAguinaldo = ({mes}) => {
     return (
         <>
             <Form.Item
+              hasFeedback
                 name="importe"
                 rules={[
                   {
@@ -16,14 +17,12 @@ export const FormAntAguinaldo = ({handleChange,mes,handleChangeCuotas}) => {
                 <Input
                   type="number"
                   placeholder="Importe"
-                  name="importe"
-                  onChange={handleChange}
                 />
               </Form.Item>
 
             {   mes > 0 && mes <= 5 ? (
-                <Form.Item >
-                  <Input name="cuotas" value="1" disabled placeholder='Cuotas' />
+                <Form.Item name="cuotas" >
+                  <Input value="1" disabled placeholder='Cuotas' />
                 </Form.Item>
               ) : (
                 <Form.Item name="cuotas"  rules={[
@@ -32,9 +31,9 @@ export const FormAntAguinaldo = ({handleChange,mes,handleChangeCuotas}) => {
                     message: "seleccione una cuota",
                   },
                 ]}>
-                <Radio.Group name="cuotas" onChange={handleChangeCuotas} value={'1'}>
-                <Radio value={'1'}>1 Cuota</Radio>
-                <Radio value={'2'}>2 Cuotas</Radio>
+                <Radio.Group >
+                <Radio value='1'>1 Cuota</Radio>
+                <Radio value='2'>2 Cuotas</Radio>
               </Radio.Group>
               </Form.Item>
               )}

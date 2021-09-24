@@ -1,7 +1,32 @@
 import { PeticionGET } from "../../../config/PeticionGET";
-var numberFormat = new Intl.NumberFormat("es-ES");
+//var numberFormat = new Intl.NumberFormat("es-ES");
+import { BiDownload } from 'react-icons/bi';
+import { numberWithCommas } from "../../../components/reportes/helpers/funciones";
+import { Button } from "antd/lib/radio";
+import { descargarPDF } from "../../helpers/funciones";
+
 
 export const colSueldo = [
+  {
+    title: "Estado",
+    dataIndex: "estado",
+    key: "estado",
+    width:120,
+    lupa: false,
+    render: (estado, file) => {
+      const color = () => {
+        switch (file.estado) {
+          case "pendiente":
+            return <h5 style={{ color: '#F79E0B'  }}> pendiente...</h5>;
+          case "aprobado":
+            return <h5 style={{ color: "green" }}> aprobado </h5>;
+          default:
+            return <h5 style={{ color: "red" }}> rechazado </h5>;
+        }
+      };
+      return <>{color()}</>;
+    },
+  },
   {
     title: "N° de anticipo",
     dataIndex: "id",
@@ -60,7 +85,7 @@ export const colSueldo = [
     key: "importe",
     width: 100,
     lupa: false,
-    render: (state, file) => <h5>{numberFormat.format(file.importe)}</h5>,
+    render: (state, file) => <h5>{numberWithCommas(file.importe)}</h5>,
   },
   {
     title: "Fecha de Solicitud",
@@ -80,23 +105,63 @@ export const colSueldo = [
     render: (state, file) => <h5>{file.mensaje}</h5>,
   },
   {
-    title: "Estado",
-    dataIndex: "estado",
-    key: "estado",
-    width:100,
+    title: "PDF proveedores",
+    dataIndex: 'pdf',
+    key: "pdf",
+    width: 140,
     lupa: false,
-    render: (estado, file) => {
-      const color = () => {
-        switch (file.estado) {
-          case "pendiente":
-            return <h5 style={{ color: '#F79E0B'  }}> pendiente...</h5>;
-          case "aprobado":
-            return <h5 style={{ color: "green" }}> aprobado </h5>;
-          default:
-            return <h5 style={{ color: "red" }}> rechazado </h5>;
-        }
-      };
-      return <>{color()}</>;
-    },
+    render: (state, file) => (
+      <>
+      {
+        file.pdf === null? <h5>No hay pdf!!!</h5>:
+        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdf)}>
+            <BiDownload/>
+            </Button>
+      }
+    </>
+  )
   },
+  {
+    title: "PDF pagos",
+    dataIndex: 'pdfinal',
+    key: "pdfinal",
+    width: 140,
+    lupa: false,
+    render: (state, file) => (
+      <>
+      {
+        file.pdf === null? <h5>No hay pdf!!!</h5>:
+        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdfinal)}>
+            <BiDownload/>
+            </Button>
+      }
+    </>
+  )
+  },
+  {
+    title: "PDF orden de pago final",
+    dataIndex: 'pdfpagoFinal',
+    key: "pdfpagoFinal",
+    width: 140,
+    lupa: false,
+    render: (state, file) => (
+      <>
+      {
+        file.pdf === null? <h5>No hay pdf!!!</h5>:
+        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdfpagoFinal)}>
+            <BiDownload/>
+            </Button>
+      }
+    </>
+  )
+  },
+  
+
+
+
+
+
+
+
+
 ];

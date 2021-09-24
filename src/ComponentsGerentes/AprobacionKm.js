@@ -24,7 +24,7 @@ export const AprobacionKm = () => {
         <Row gutter={[10, 10]}>
           {f.rendicionKm.map((r) => (
             <>
-              <Col xs={6} sm={4} md={4} lg={6} xl={6}>
+              <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                 <Card
                   style={{
                     width: 200,

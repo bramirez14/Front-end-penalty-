@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { axiosURL } from "../../config/axiosURL";
+import { saveAs } from "file-saver";
+import { PeticionGET } from "../../config/PeticionGET";
 
 export const TodosGastos = (data) => {
   const N = localStorage.getItem("N"); // numero de registro
@@ -69,4 +71,13 @@ export const GetFiltroGerencia = (array) => {
   }
 
   return filtro;
+};
+
+export const descargarPDF = async (pdf) => {
+  let res = await axiosURL.get("/pdf/gastos/rendicion", {
+    headers: { archivo: pdf },
+    responseType: "blob",
+  });
+  const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
+  saveAs(pdfBlob, `${pdf}`);
 };

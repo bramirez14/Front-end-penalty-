@@ -30,9 +30,9 @@ export const useSocket = ( serverPath ) => {
     },[ socket ]);
 
 
-    useEffect(() => {
+ /*    useEffect(() => {
         setOnline( socket?.connected );
-    }, [socket])
+    }, [socket]) */
 
    /*  useEffect(() => {
         socket?.on('connect', () => setOnline( true ));
@@ -44,7 +44,7 @@ export const useSocket = ( serverPath ) => {
 
     return {
         socket,
-        online,
+       /*  online, */
         conectarSocket,
         desconectarSocket
     }

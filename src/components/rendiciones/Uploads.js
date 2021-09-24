@@ -16,7 +16,7 @@ import { FaEnvelope, FaCheck } from "react-icons/fa";
 import './css/a.css'
 import { ProSidebar, SidebarHeader, SidebarFooter, SidebarContent,Menu,SubMenu, MenuItem} from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import { UserContext } from '../../contexto/UserContext';
+import { UserContext } from '../../context/UserContext';
 export  const Uploads  = () => {
 const [abrirCerrar, setAbrirCerrar] = useState(false)
     const collapsed=()=>setAbrirCerrar(!abrirCerrar)

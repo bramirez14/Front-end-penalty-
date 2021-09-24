@@ -4,7 +4,7 @@ body {
 }
 body::-webkit-scrollbar {
   width: 8px; /* Tamaño del scroll en vertical */
-  height: 8px; /*Tamaño del scroll en horizontal */
+  height: 10px; /*Tamaño del scroll en horizontal */
 
 }
 body::-webkit-scrollbar-thumb {

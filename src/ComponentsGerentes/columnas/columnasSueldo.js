@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Input, Button } from "antd";
@@ -8,18 +8,64 @@ import { HelperMODAL } from "../../helpers/HelperMODAL";
 import { BsCheck } from "react-icons/bs";
 import { useGet } from "../../hooks/useGet";
 import { colSueldo } from "./destructuracionCol/colSueldo";
+import { SocketContext } from "../../context/SocketContext";
 
 export const ColumnasSueldo = () => {
+const {socket} = useContext(SocketContext);
   const N = localStorage.getItem("N");
+  const id = localStorage.getItem('uid')
+  const datosUsuario= PeticionGET(`/${id}`)
   const [mensaje, setMensaje] = useState({
     respMensaje: "",
     estado: "",
   });
+  const usuarios= PeticionGET(`/allusers`)
+  const filtro902 = usuarios.filter(u=> u.nvendedor==='902')
+  const filtro905 = usuarios.filter(u=> u.nvendedor==='905')
   const { TextArea } = Input;
-const [ data,axiosGet] =useGet('/anticipo')
-  const aprobado = async (id) => {
+  const [ data,axiosGet] =useGet('/anticipo')
+  const aprobado = async (file) => {  
+  // envio usuario 902
+    const obj902={
+    alerta:mensaje.respMensaje,
+    info:`Tenes una aprobacion final`,
+    f: new Date().toLocaleString(),
+    nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+    estado:'activa',
+    path:'/aprobacion/sueldo',
+    emisor:datosUsuario.email,
+    usuarioId:datosUsuario.id,
+  }
+  //envio usuario quien corresponda
+  const obj={
+    alerta:mensaje.respMensaje,
+    info:`Resolucion de  anticipo de ${file.sueldo} `,
+    f: new Date().toLocaleString(),
+    msj:mensaje.respMensaje,
+    estado:'activa',
+    path:'/estado/usuario',
+    emisor:datosUsuario.email,
+    receptor:file.usuario.email,
+    usuarioId:datosUsuario.id,
+  }
+  //envio usuarios 905
+  const obj905={
+    alerta:'Aprobado por gerencia',
+    info:`Tenes un anticipo de ${file.sueldo}`,
+    f: new Date().toLocaleString(),
+    estado:'activa',
+    path:'/vista/anicipo/sueldo',
+    emisor:datosUsuario.email,
+    usuarioId:datosUsuario.id,
+  }
+//condicional de  gerentes
     if (N === "902") {
-      await axiosURL.put(`/anticipo/aprobado/${id}`, {
+      socket.emit('alerta-nueva',obj);
+      for (const i of filtro905){
+        const objNew={...obj905,receptor:i.email}
+        socket.emit('alerta-nueva',objNew);
+        }
+      await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estadoFinal: "aprobado",
         notificacion: "inactiva",
@@ -27,18 +73,25 @@ const [ data,axiosGet] =useGet('/anticipo')
         listo: "Si",
         fd: new Date().toLocaleString(),
       });
+     
     } else {
-      console.log("soy usuario distiton de 902");
-      await axiosURL.put(`/anticipo/aprobado/${id}`, {
+      console.log("soy usuario distinto de 902");
+      await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estado: "aprobado",
       });
+      for (const i of filtro902){
+      const objNew={...obj902,receptor:i.email}
+      socket.emit('alerta-nueva',objNew);
+      }
     }
     setMensaje({ respMensaje: "" });
     axiosGet();
   };
-  const rechazado = async (id) => {
-    await axiosURL.put(`/anticipo/rechazado/${id}`, {
+
+  //rechazado
+  const rechazado = async (file) => {
+    await axiosURL.put(`/anticipo/rechazado/${file.id}`, {
       ...mensaje,
       estado: "rechazado",
       notificacion: "inactiva",
@@ -47,6 +100,19 @@ const [ data,axiosGet] =useGet('/anticipo')
     });
     setMensaje({ respMensaje: "" });
     axiosGet();
+    const obj={
+      alerta:mensaje.respMensaje,
+      info:`Resolucion de  anticipo de ${file.sueldo} `,
+      f: new Date().toLocaleString(),
+      msj:mensaje.respMensaje,
+      estado:'activa',
+      path:'/estado/usuario',
+      emisor:datosUsuario.email,
+      receptor:file.usuario.email,
+      usuarioId:datosUsuario.id,
+    }
+   socket.emit('alerta-nueva',obj);
+
   };
 
   const handleChange = (e) => {
@@ -56,38 +122,18 @@ const [ data,axiosGet] =useGet('/anticipo')
   };
 
   const columnasSueldo = [
-   ...colSueldo,
-    {
-      title: N === "902" ? "Aprobacion Final":'',
-      dataIndex: "estadoFinal",
-      key: "estadoFinal",
-      width:N=== "902"?150:0,
-      lupa:false,
-      render: (estado, file) => {
-        const color = () => {
-          switch (file.estadoFinal) {
-            case "pendiente":
-              return <h5 style={{ color: "yellow" }}> pendiente...</h5>;
-            case "aprobado":
-              return <h5 style={{ color: "green" }}> aprobado </h5>;
-            default:
-              return <h5 style={{ color: "red" }}> rechazado </h5>;
-          }
-        };
-        return <> {N === "902" && color()}</>;
-      },
-    },
+
     {
       title: "Acciones",
       dataIndex: "acciones",
       key: "acciones",
       lupa:false,
       width:100,
-      render: (f, fila) => {
+      render: (f, file) => {
         return (
           <>
-            {fila.estadoFinal === "aprobado" ||
-            fila.estadoFinal === "rechazado" ? (
+            {file.estadoFinal === "aprobado" ||
+            file.estadoFinal === "rechazado" ? (
               ""
             ) : (
               <HelperMODAL
@@ -95,8 +141,8 @@ const [ data,axiosGet] =useGet('/anticipo')
                 title="Aprobacion Ant Sueldo"
                 Return="Rechazar"
                 Submit="Aprobacion"
-                click={() => aprobado(fila.id)}
-                noclick={() => rechazado(fila.id)}
+                click={() => aprobado(file)}
+                noclick={() => rechazado(file)}
                 className="btn-aprob"
               >
                 <section>
@@ -114,13 +160,36 @@ const [ data,axiosGet] =useGet('/anticipo')
         );
       },
     },
+    
+    {
+      title: N === "902" ? "Aprobacion Final":'',
+      dataIndex: "estadoFinal",
+      key: "estadoFinal",
+      width:N=== "902"?150:0,
+      lupa:false,
+      render: (estado, file) => {
+        const color = () => {
+          switch (file.estadoFinal) {
+            case "pendiente":
+              return <h5 style={{ color:'#F79E0B'  }}> pendiente...</h5>;
+            case "aprobado":
+              return <h5 style={{ color: "green" }}> aprobado </h5>;
+            default:
+              return <h5 style={{ color: "red" }}> rechazado </h5>;
+          }
+        };
+        return <> {N === "902" && color()}</>;
+      },
+    },
+    ...colSueldo,
+   
     {
       title: "Borrar ",
       dataIndex: "borrar ",
       key: "borrar",
       lupa:false,
       width:100,
-      render: (f, fila) => {
+      render: (f, file) => {
         const handleDelete = async () => {
           console.log("me clickeaste para borrar");
           let resultado = await Swal.fire({
@@ -133,7 +202,7 @@ const [ data,axiosGet] =useGet('/anticipo')
             confirmButtonText: "Borrar",
           });
           if (resultado.isConfirmed) {
-            await axiosURL.delete(`/anticipo/borrar/${fila.id}`);
+            await axiosURL.delete(`/anticipo/borrar/${file.id}`);
             Swal.fire("Borrado!", "Su archivo se borró con exito.", "success");
             axiosGet();
           }

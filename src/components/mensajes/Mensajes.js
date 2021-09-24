@@ -1,27 +1,104 @@
-import React from "react";
-import { MensajesGerencia } from "./MensajesGerencia";
-import { Mensaje905 } from "./Mensaje905";
-import { Mensajes906 } from "./Mensajes906";
-import { Mensajes0000 } from "./Mensajes0000";
+import React, { useContext } from "react";
+import {
+  Row,
+  Col,
+  Card,
+  List,
+  Avatar,
+  Button,
+  Menu,
+  Dropdown,
+  message,
+  Skeleton,
+} from "antd";
+import { EllipsisOutlined } from "@ant-design/icons";
+import { AiOutlineDelete } from "react-icons/ai";
 import "./mensajes.css";
+import { run } from "../helper/funciones";
+import {Link} from "react-router-dom";
+import { axiosURL } from "../../config/axiosURL";
+import { PeticionGET } from "../../config/PeticionGET";
+import CustomScroll from 'react-custom-scroll';
 
-export const Mensajes = () => {
-const N = localStorage.getItem('N')
+export const Mensajes = ({socket,alertas}) => {
+const id = localStorage.getItem('uid');
+const usuario = PeticionGET(`/${id}`);
+ const filtroEmail = alertas.filter( a => a.receptor === usuario?.email );
+
+  function handleMenuClick(e) {
+    message.info("La notificacion se elimino con exito!!!");
+    console.log("click", e);
+  }
+  const handleCard = async (id) => {
+    console.log(id);
+    socket.emit('editar-alerta',id)
+    //getAlertas();
+  }
+const Listareverse= filtroEmail.reverse();
+
+
+
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item
+        key="1"
+        icon={<AiOutlineDelete style={{ fontSize: 17 }} />}
+        style={{ fontSize: 17 }}
+      >
+        <span style={{ marginLeft: 10 }}>Elimnar</span>
+      </Menu.Item>
+    </Menu>
+  );
   return (
-    <>
-    {
-      N === '901' || N === '902' || N === '903'?
-      <MensajesGerencia/>
-      :
-      N === '905'?
-      <Mensaje905/>
-      :
-      N === '906'?
-      <Mensajes906/>
-      :
-      <Mensajes0000/>
-    
-    }
-    </>
+    <Row>
+      <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+        <Card title={<h2> <b>Notificaciones</b> </h2>}className="contenedor-alerta" >
+        <div  style={{overflowY:'auto',height:500}}>
+          <List
+            className="demo-loadmore-list"
+            bordered={false}
+            itemLayout="horizontal"
+            dataSource={Listareverse}
+            renderItem={(item) => (
+              
+              <List.Item style={{borderBottom:'none'}}
+              className= {item.estado === 'activa'? 'lista-alerta-card':'list-inactiva'}
+                actions={[
+                  <Dropdown overlay={menu}>
+                    <Button
+                      shape="circle"
+                      icon={<EllipsisOutlined style={{ fontSize: 28 }} />}
+                      size="large"
+                      className="boton-alerta"
+                    />
+                  </Dropdown>,
+                ]}
+              >
+                <Skeleton avatar title={false} loading={item.loading} active>
+               
+                  <List.Item.Meta
+                    onClick={()=>handleCard(item.id)}
+                    className='item-meta'
+                    avatar={<Avatar src={item.usuario.imagen} />}
+                    title={<Link to={item.path} >{item.info}</Link>}
+                    description={
+                      <Link to={item.path}>
+                      <div className="item-alerta" style={{ color: "black" }}>
+                              {item.alerta}
+                            <p style={{color:'#46a461'}}> hace {run(item.f)}</p>
+                            </div>
+                      </Link>
+                      
+                      
+                    }
+                  />
+                </Skeleton>
+              </List.Item>
+            )} 
+          />
+         </div>
+        </Card>
+      </Col>
+    </Row>
   );
 };

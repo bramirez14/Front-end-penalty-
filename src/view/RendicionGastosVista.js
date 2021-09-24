@@ -5,10 +5,11 @@ import { Modale } from "./helpers/Modale";
 import { saveAs } from "file-saver";
 import { BiDownload } from "react-icons/bi";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
+import { PeticionGET } from "../config/PeticionGET";
 
 export const RendicionGastosVista = ({ history }) => {
   const N = localStorage.getItem("N");
-
+  const id = localStorage.getItem('uid')
   const [gasto, setGasto] = useState([]);
 
   /**evitar que usuari 905 ingresen a la ruta */
@@ -149,20 +150,39 @@ result.status===200 && history.push('/perfil')
       dataIndex: "acciones",
       key: "acciones",
       width: 170,
-      render: (state, file) => (
+      render: (state, file) => {
+        const gtes= PeticionGET("/gerentes")
+        const gerente=gtes.filter( g=> g.id === file.usuario.gerenteId)
+
+        const datosUsuario= PeticionGET(`/${id}`)
+        const usuarios=PeticionGET('/allusers')
+        const filtro906= usuarios.filter(u=> u.nvendedor ==='906')
+      const obj={
+        alerta:'Se cargo el numero de orden y pdf proveedores',
+        info:'Tenes un aprobacion de gasto',
+        f: new Date().toLocaleString(),
+        nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+        estado:'activa',
+        path:'/pagos/gasto',
+        emisor:datosUsuario.email,          
+        usuarioId:id,
+    }
+        return(
         <>
           {file.procesoFinalizado === "Si" ? (
             <h5>Completado</h5>
           ) : (
             <Modale
-              id={file.id}
-              orden={file.norden}
+            newobj={obj}
+            archivo={file}
               get={get}
               url={"/archivo/pdf"}
+              filtro906={filtro906}
+
             />
           )}
         </>
-      ),
+      );}
     },
   ];
 

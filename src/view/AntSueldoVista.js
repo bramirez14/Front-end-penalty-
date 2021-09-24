@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { axiosURL } from "../config/axiosURL";
-import { Card, Collapse, Button, Row, Col, Table } from "antd";
+import {  Button, Table } from "antd";
 import { Modale } from "./helpers/Modale";
 import { saveAs } from "file-saver";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
 import { BiDownload } from "react-icons/bi";
+import { PeticionGET } from "../config/PeticionGET";
+import { SocketContext } from "../context/SocketContext";
 
 export const AntSueldoVista = ({ history }) => {
+  const {socket} = useContext(SocketContext)
   const N = localStorage.getItem("N");
   const [sueldo, setSueldo] = useState([]);
   /**evitar que usuari 905 ingresen a la ruta */
@@ -34,7 +37,7 @@ result.status===200 && history.push('/perfil')
     const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
     saveAs(pdfBlob, `${pdf}`);
   };
-  console.log(filtroListo);
+
   const columns = [
     {
       title: "Numero de Anticipo",
@@ -108,20 +111,44 @@ result.status===200 && history.push('/perfil')
       dataIndex: "acciones",
       key: "acciones",
       width: 100,
-      render: (state, file) => (
+      render: (state, file) => {
+        const id= localStorage.getItem('uid')
+        const datosUsuario= PeticionGET(`/${id}`)
+        const gtes= PeticionGET("/gerentes")
+        const usuario906=PeticionGET('/allusers')
+        const filtro906= usuario906.filter(u=> u.nvendedor ==='906')
+
+        const gerente=gtes.filter( g=> g.id === file.usuario.gerenteId)
+       
+        
+        const obj={
+          alerta:'Se cargo el numero de orden y pdf proveedores',
+          info:`Tenes un aprobacion de ${file.sueldo}`,
+          f: new Date().toLocaleString(),
+          nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+          estado:'activa',
+          path:'/pagos/anticipo',
+          emisor:datosUsuario.email,          
+          usuarioId:id,
+      }
+
+    
+        return (
         <>
           {file.procesoFinalizado === "Si" ? (
             <h5 y>Completado</h5>
           ) : (
             <Modale
-              id={file.id}
-              orden={file.norden}
+             newobj={obj}
+              archivo={file}
               get={get}
               url={"/sueldo/pdf"}
+              filtro906={filtro906}
             />
           )}
         </>
-      ),
+      );
+    }
     },
   ];
 

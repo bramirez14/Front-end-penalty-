@@ -1,27 +1,19 @@
 import React from "react";
-import { Form, Input, Button, Select, Col, Row,Radio, Divider } from "antd";
-import { SelectAnt } from "../inputs/SelectAnt";
+import {  Row,Col, Form, Input, Button, Radio,} from "antd";
 import { Titulo } from "../titulos/Titulo";
 import { FormAntAguinaldo } from "./helpers/FormAntAguinaldo";
 import { FormAntSueldo } from "./helpers/FormAntSueldo";
-import { Typography } from 'antd';
 
-const { Title } = Typography;
 export const Sueldo = ({
-  open,
   handleSubmit,
   APROBACION,
   handleChange,
-  importe,
   sueldo,
-  handleChangeDev,
   data,
   handleChangeCuotas,
   cuotas,
   mes,
 }) => {
-  const { Option } = Select;
-
   return (
     <Form
       className='form container'
@@ -34,14 +26,11 @@ export const Sueldo = ({
           (<Row gutter={10}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <Titulo numero={2} titulo='Anticipo de Sueldo'/>
-
             <>  
             <Radio.Group name="sueldo" onChange={handleChange} value={sueldo} style={{marginBottom:10}}>
             <Radio value={'Sueldo'}>Anticipo de Sueldo</Radio>
             <Radio value={'Aguinaldo'}>Anticipo de Aguinaldo</Radio>
           </Radio.Group>
-
-            
 
             {
               sueldo==='Sueldo'?
@@ -60,9 +49,9 @@ export const Sueldo = ({
                 </Button>
               </Form.Item>
             </>
-            
         </Col>
-      </Row>)}
+      </Row>
+      )}
     </Form>
   );
 };

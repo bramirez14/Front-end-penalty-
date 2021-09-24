@@ -1,10 +1,10 @@
 import React from 'react'
-import { PeticionGETIntranet } from '../../../config/PeticionGET'
 import { HelperTABLEobj } from '../../../helpers/HelperTABLEobj'
+import { filtradoPorVendedor } from '../helpers/funciones'
 import { columnasCobranzasAnno } from './columnasCobranzaAnno'
 
 export const CobranzaAnno = () => {
-    const getCobranzas=PeticionGETIntranet('/cobranza/anno')
+    const getCobranzas=filtradoPorVendedor('/cobranza/anno')
     var mediaqueryList = window.matchMedia("(min-width: 1200px)");
     
     return (

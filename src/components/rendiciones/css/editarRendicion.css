@@ -369,10 +369,10 @@ color: red
 }
 /**spinner*/
 
-.ant-spin-spinning {
+/* .ant-spin-spinning {
 top: 200px !important;
 left: 400px !important;
-}
+} */
 
 /*----------------------------------------------Media query celular -----------------------------------------------------------------*/
 @media (max-width: 768px) {

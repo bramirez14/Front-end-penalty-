@@ -71,10 +71,11 @@ export const HelperTABLEobj = ({
   };
   const handleSearch = (selectedKeys, confirm, dataIndex) => confirm();
   const handleReset = (clearFilters) => clearFilters();
- 
-  const col = columns?.map((d) => {
-    return { ...d, ...getColumnSearchProps(d.key) };
-  });
+  const filtrosinLupa= columns?.filter(l=>l.lupa===false);
+  const filtroconLupa= columns?.filter(l=>l.lupa!==false);
+  const col = filtroconLupa?.map((d) => {return {...d,...getColumnSearchProps(d.key)};});
+  const columna= [...col,...filtrosinLupa]
+  
   return (
     <>
       {boton && (
@@ -83,7 +84,7 @@ export const HelperTABLEobj = ({
           filename={namefile}
         >
           <ExcelSheet data={data} name={hoja}>
-            {col.map((c) => (
+            {columna.map((c) => (
               <ExcelColumn label={c.title} value={c.dataIndex} />
             ))}
           </ExcelSheet>
@@ -91,7 +92,7 @@ export const HelperTABLEobj = ({
       )}
 
       <Table
-        columns={col}
+        columns={columna}
         dataSource={data}
         pagination={paginas}
         bordered={bordered}

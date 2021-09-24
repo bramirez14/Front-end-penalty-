@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Form, Input, DatePicker, Button, Divider } from "antd";
 import { useForm } from "../../hooks/useForm";
 import { axiosURL } from "../../config/axiosURL";
@@ -12,14 +12,19 @@ import './css/kilometros.css'
 
 import Swal from 'sweetalert2'
 import { PeticionGET } from "../../config/PeticionGET";
+import { alerta } from "../solicitudes/helpers/funciones";
+import { SocketContext } from "../../context/SocketContext";
 
 export const Kilometros = ({history}) => {
+const {socket} = useContext(SocketContext)
+
   const dateFormat = 'DD/MM/YYYY';
   const [loading, setLoading] = useState(false)
   const [stateKm, setStateKm] = useState([]);
   const [datosKm, setDatosKm] = useState([]);
   const [datePicker, setDatePicker] = useState('')
   const id = localStorage.getItem('uid')
+  const datosUsuario= PeticionGET(`/${id}`)
   const [values, handleInputChange,reset] =useForm({
     KmI:'',
     KmF:'',
@@ -58,11 +63,35 @@ return  (acumulador =(acumulador) + (item));
 const importeTotalDB= importeDB.reduce((acumulador, item) => {
   return  (acumulador =(acumulador) + (item));
   },0);
-  
+  const handleSubmit= async() =>{
+    if(parseFloat(KmF)< parseFloat(KmI)){
+      Swal.fire(
+        ' Km final debe ser mayor a  Km inicial',
+      )
+    }else{
+      await axiosURL.post('/kilometros',{...values,KmRecorrido:restaKm,importe:totalImporte,fechaSelect:datePicker})
+      peticionGet();
+        reset()
+    }
+
+ }
    const handleConfirm= async() => {
      const obj={
       f: new Date().toLocaleString(),
      }
+     const objs={
+      alerta:'Se visiualizaran en la descripcion',
+      info:'Tenes un Rendicion de Kilometro',
+     nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+     f: new Date().toLocaleString(),
+     estado:'activa',
+      path:'/aprobacion/km',
+      emisor:datosUsuario.email,
+      receptor:datosUsuario.gerente.email,
+      usuarioId:datosUsuario.id
+     }
+     console.log(objs);
+socket.emit('alerta-nueva',objs)
     setLoading(true)
      const f= new FormData();
      f.append('imagen',km.imagen)
@@ -73,6 +102,7 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
      f.append('importeTotal',importeTotalDB)
      f.append('usuarioId',id)
      f.append('f',obj.f)
+
     const resp= await axiosURL.post('/km',f);
     console.log(resp);
     
@@ -82,21 +112,7 @@ const importeTotalDB= importeDB.reduce((acumulador, item) => {
     }
      
    }
-   const handleSubmit= async() =>{
-    if(parseFloat(KmF)< parseFloat(KmI)){
-      Swal.fire(
-        ' Km final debe ser mayor a  Km inicial',
-        
-      )
-    }else{
-      console.log(values);
-      await axiosURL.post('/kilometros',{...values,KmRecorrido:restaKm,importe:totalImporte,fechaSelect:datePicker})
-      peticionGet();
-        reset()
-    }
- 
 
- }
  const borrar = async (id) => {
   await axiosURL.delete(`/borrar/rendicionKm/${id}`);
   peticionGet();

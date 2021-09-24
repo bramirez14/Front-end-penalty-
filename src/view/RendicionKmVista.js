@@ -5,8 +5,10 @@ import { Card, Collapse, Button, Row, Col, Table } from "antd";
 import { Modale } from "./helpers/Modale";
 import { BiDownload } from "react-icons/bi";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
+import { PeticionGET } from "../config/PeticionGET";
 
 export const RendicionKmVista = ({ history }) => {
+  const id= localStorage.getItem('uid')
   const N = localStorage.getItem("N");
   const [km, setKm] = useState([]);
   /**evitar que usuari 905 ingresen a la ruta */
@@ -92,20 +94,39 @@ export const RendicionKmVista = ({ history }) => {
       dataIndex: "acciones",
       key: "acciones",
       width: 100,
-      render: (state, file) => (
+      render: (state, file) => {
+        const gtes= PeticionGET("/gerentes")
+        const gerente=gtes.filter( g=> g.id === file.usuario.gerenteId)
+        const datosUsuario= PeticionGET(`/${id}`)
+        const usuarios=PeticionGET('/allusers')
+        const filtro906= usuarios.filter(u=> u.nvendedor ==='906')
+      const obj={
+        alerta:'Se cargo el numero de orden y pdf proveedores',
+        info:'Tenes un aprobacion de gasto',
+        f: new Date().toLocaleString(),
+        nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+        estado:'activa',
+        path:'/pagos/km',
+        emisor:datosUsuario.email,          
+        usuarioId:id,
+      }
+        
+        return(
         <>
           {file.procesoFinalizado === "Si" ? (
             <h5 y>Completado</h5>
           ) : (
             <Modale
-              id={file.id}
-              orden={file.norden}
+              newobj={obj}
+              archivo={file}
               get={get}
               url={"/km/pdf"}
+              filtro906={filtro906}
             />
           )}
         </>
-      ),
+      );
+    }
     },
   ];
   const datos = filtroListo?.map((f) => {

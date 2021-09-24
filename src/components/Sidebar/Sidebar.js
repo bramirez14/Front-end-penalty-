@@ -1,20 +1,14 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import "./css/sidebar.css";
 import { AvatarImg } from "../img/Avatar";
-import { UserContext } from "../../contexto/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { PeticionJWT } from "../../auth/PeticionJWT";
-import { Alerta } from "../alertas/Alerta";
 import { Row, Col, } from "antd";
-import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
 import { axiosURL } from "../../config/axiosURL";
 import { logout } from "../../auth/localStorage";
 
-import { Link } from "react-router-dom";
-import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import SubMenu from "./SubMenu";
-import { IconContext } from "react-icons/lib";
-import { FaBars, FaSearch } from "react-icons/fa";
 import { SidebarItems } from "./SidebarItems";
 import { SidebarItems2 } from "./SidebarItems2";
 import { SidebarItemsEmpleado } from "./SidebarItemsEmpleado";
@@ -22,10 +16,10 @@ import { BotomHamburguesa } from "../botones/BotomHamburguesa";
 import { NombreCompleto } from "./NombreCompleto";
 import io from "socket.io-client";
 import CustomScroll from 'react-custom-scroll';
+import { Alerta } from "../alertas/Alerta";
 
 const mediaqueryList = window.matchMedia("(max-width: 1024px)");
 const q = mediaqueryList.matches;
-console.log(q);
 let useClickOutside = q?
    (handler) => {
     let domNode = useRef();
@@ -48,7 +42,7 @@ let useClickOutside = q?
 :()=>{}
 
 
-export const Sidebar = ({ history }) => {
+export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
   let [isOpen, setIsOpen] = useState(false);
   const abrirCerrarHamburguesa = () => setOpen(!open)
   const { setAuth } = useContext(UserContext);
@@ -67,7 +61,6 @@ export const Sidebar = ({ history }) => {
 
   });
 
-console.log(open);
 
   const handleLogout = async () => {
     await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
@@ -98,7 +91,7 @@ console.log(open);
           <div className="navbar">
             <div className='hamburguesa'> <BotomHamburguesa abrirCerrarHamburguesa={abrirCerrarHamburguesa}/></div>
             <div className='nomaler'style={{display:'flex'}}> 
-            {/* <div className='alerta' ><Alerta/></div>  */}
+            <div className='alerta' ><Alerta alertas={alertas} setAlertas={setAlertas} getAlertas={getAlertas} /></div> 
             <div className='nombreCompleto'><NombreCompleto nombre={nombre} apellido={apellido} handleLogout={handleLogout}/></div>
             
             </div>

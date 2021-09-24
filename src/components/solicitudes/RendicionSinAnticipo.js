@@ -3,6 +3,8 @@ import { Form, Input, Button, Row, Select, Divider,Col, Spin } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Imagen } from "../img/Imagen";
 import { VistaImg } from "../rendiciones/VistaImg";
+import { css } from "@emotion/react";
+import BeatLoader from "react-spinners/BeatLoader";
 
 export const RendicionSinAnticipo = ({
   handleSubmit,
@@ -22,6 +24,23 @@ export const RendicionSinAnticipo = ({
   state,
   spinner
 }) => {
+  const override = css`
+  display: flex;
+  margin: 280px 300px;
+  
+  @media (max-width: 768px) {
+    display:flex;
+    margin: 70px 220px;
+    width:70px;
+    
+  }
+  @media (max-width: 480px) {
+    display:flex;
+    margin: 100px 120px;
+    width:70px;
+  }
+}
+`;
   const { Option } = Select;
 console.log(data);
   return (
@@ -39,7 +58,7 @@ console.log(data);
           <h3 style={{ textAlign: "center", marginLeft: "40px" }}>
             Agregar Rendicion
             <Button className="btn-rendicion" onClick={handleBack} style={{marginLeft:20}}>
-              X
+             X
             </Button>
           </h3>
           <Divider />
@@ -119,21 +138,27 @@ console.log(data);
             {/**imagen modo cel y ipad  */}{
               data.length> 0 &&
           <div className='img-muestra'> 
-        <div className="custom-file-preview " >
-          {data?.length === 0 ? (
-            <h2 className='sector'>Imagen</h2>
-          ) : (
-            <div
-              className="prev-img"
-            >
-              <span className="prev-img" onClick={handleDelete}>
-                &times;
-              </span>
-              <img src={data[0].src} />
+{
+                !!spinner?
+                 <BeatLoader color={'#46a461'}   css={override} size={20} />
+                 :
+            <div className="custom-file-preview " >
+              {data?.length === 0 ? (
+                <h2 className='sector'>Imagen</h2>
+              ) : (
+                <div
+                  className="prev-img"
+                >
+                  <span className="prev-img" onClick={handleDelete}>
+                    &times;
+                  </span>
+                  <img src={data[0].src} />
+                </div>
+              )}
             </div>
-          )}
+            }
         </div>
-    </div>}
+  }
 
             <Button className="btn" htmlType="submit" block>
               Guardar
@@ -142,10 +167,13 @@ console.log(data);
         </Form>
         </Col>
       <Col xs={16} sm={16} md={16} lg={16} xl={16}>
-      { !!spinner?
-       <Spin size="large" /> 
-          : 
+        
       <div className='vista-muestra'>
+      { 
+      
+      !!spinner?
+      <BeatLoader color={'#46a461'}  css={override} size={20} />
+          : 
         <VistaImg
           data={data}
           setData={setData}
@@ -154,8 +182,13 @@ console.log(data);
           medio="Medio de pago: "
           pago={state.children}
         />
-        </div>
-        }
+
+
+
+
+
+        
+        }</div>
       </Col>
         
       </Row>
