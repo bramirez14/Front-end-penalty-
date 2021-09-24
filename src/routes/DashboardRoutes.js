@@ -51,7 +51,11 @@ import { SCC } from "../components/reportes/scc/SCC";
 import { Remitos } from "../components/reportes/remitos/Remitos";
 import { PrecioKM } from "../components/rendicionesKm/PrecioKM";
 import { Alerta } from "../components/alertas/Alerta";
+import { Recibo } from "../components/recibos/Recibo";
+
 import { axiosURL } from "../config/axiosURL";
+import { CargaRecibo } from "../components/recibos/CargaRecibo";
+import { ListaRecibo } from "../components/recibos/ListaRecibo";
 
 export const DashboardRoutes = ({ history }) => {
   const [alertas, setAlertas] = useState([])
@@ -66,7 +70,7 @@ export const DashboardRoutes = ({ history }) => {
 useEffect(() => {
     axiosGet();
 }, []);
-
+console.log(open,'soy opne desde ruter');
   return (
     <>
       <Sidebar history={history} alertas={alertas} setAlertas={setAlertas} getAlertas={axiosGet} />
@@ -125,6 +129,13 @@ useEffect(() => {
         <RouteEmpleado exact path='/precio/km' component={PrecioKM}/>
         {/**Alertas */}
         <RouteEmpleado exact path='/alerta' component={Alerta}/>
+
+        {/** Recibos */}
+        <RouteEmpleado exact path='/recibo' component={Recibo}/>
+        <RouteEmpleado exact path='/lista/recibo' component={ListaRecibo}/>
+         <RouteEmpleado exact path='/carga/recibo/:id' component={CargaRecibo}/>
+
+
 
         <Redirect to="/login" />
       </Switch>

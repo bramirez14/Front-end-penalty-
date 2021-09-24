@@ -4,6 +4,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import ReactExport from "react-export-excel";
 import "./botonExcel.css";
 
+
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
@@ -17,7 +18,12 @@ export const HelperTABLEobj = ({
   x,
   y,
   expandible= false,
-  bordered=true
+  bordered=true,
+  check=false,
+  setDataCheck,
+  title,
+  footer,
+
 }) => {
   const getColumnSearchProps = (dataIndex) => {
     return {
@@ -76,6 +82,14 @@ export const HelperTABLEobj = ({
   const col = filtroconLupa?.map((d) => {return {...d,...getColumnSearchProps(d.key)};});
   const columna= [...col,...filtrosinLupa]
   
+  //sector check
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+       setDataCheck(selectedRows)
+    },
+
+  };
+
   return (
     <>
       {boton && (
@@ -92,6 +106,8 @@ export const HelperTABLEobj = ({
       )}
 
       <Table
+      title={()=> title}
+      rowSelection={check?rowSelection:''}
         columns={columna}
         dataSource={data}
         pagination={paginas}
@@ -100,8 +116,9 @@ export const HelperTABLEobj = ({
           expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
         }:''}
         scroll={{ y: y}}
-        
+        footer={() => (footer)}
       />
+  
     </>
   );
 };

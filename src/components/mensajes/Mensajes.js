@@ -19,6 +19,7 @@ import {Link} from "react-router-dom";
 import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import CustomScroll from 'react-custom-scroll';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export const Mensajes = ({socket,alertas}) => {
 const id = localStorage.getItem('uid');
@@ -52,10 +53,27 @@ const Listareverse= filtroEmail.reverse();
   return (
     <Row>
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+        
         <Card title={<h2> <b>Notificaciones</b> </h2>}className="contenedor-alerta" >
-        <div  style={{overflowY:'auto',height:500}}>
+        <div
+  id="scrollableDiv"
+  className='scrollableDiv'
+  style={{
+    height: 400,
+    overflow: 'auto',
+  }}
+>
+        <InfiniteScroll
+         dataLength={Listareverse.length}
+         hasMore={true}
+         scrollableTarget="scrollableDiv"
+         >
+ 
+
+          
           <List
             className="demo-loadmore-list"
+           
             bordered={false}
             itemLayout="horizontal"
             dataSource={Listareverse}
@@ -96,7 +114,9 @@ const Listareverse= filtroEmail.reverse();
               </List.Item>
             )} 
           />
-         </div>
+           
+        </InfiniteScroll>
+        </div>
         </Card>
       </Col>
     </Row>

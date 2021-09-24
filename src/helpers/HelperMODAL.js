@@ -42,7 +42,7 @@ export const HelperMODAL = ({
           <Button key="back" onClick={handleCancel}>
             {Return}
           </Button>,
-          <Button key="submit" type="primary" onClick={handleOk}>
+          <Button key="submit" type="primary" onClick={handleOk} style={{backgroundColor:'#46a461',boxShadow:'#46a461',border:'#46a461'}}>
             {Submit}
           </Button>,
         ]}

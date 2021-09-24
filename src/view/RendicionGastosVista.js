@@ -13,7 +13,7 @@ export const RendicionGastosVista = ({ history }) => {
   const [gasto, setGasto] = useState([]);
 
   /**evitar que usuari 905 ingresen a la ruta */
-  N !== "905" && history.push("/perfil");
+  ( N !== "905" && N!== '901' ) && history.push("/perfil");
 
   /* const finalizar= async (id)=>{
 let result = await axiosURL.post(`/finalizar/gasto/${id}`,{procesoFinalizado:'Si'})

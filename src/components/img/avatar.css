@@ -42,7 +42,8 @@ body::-webkit-scrollbar-track:active {
   width: 100px;
   height: 100px;
   position: relative;
-  left: 70px;
+  left: 47px;
+  bottom: 27px;
   background: #fff;
   margin-top: 40px;
 }

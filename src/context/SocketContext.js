@@ -33,7 +33,6 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     socket?.on("todas-alertas",(data)=>{
-      console.log(data);
       setAlertas(data);
 
     })

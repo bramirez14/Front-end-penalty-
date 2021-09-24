@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from "react";
 import{ axiosURL} from "../../config/axiosURL";
-import { Form, Input, Button, Row, Select, Divider,Col,Spin } from "antd";
+import { Form, Input, Button, Row, Select, Divider,Col,Card } from "antd";
 import "./css/editarRendicion.css";
 import "../solicitudes/css/anticipoGasto.css";
 
@@ -11,9 +11,12 @@ import { VistaImg } from "./VistaImg";
 import { Imagen } from "../img/Imagen";
 import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/BeatLoader";
+import {CardImgResponse} from './CardImgResponse'
+import {CardImg} from './CardImg'
+
 const override = css`
   display: flex;
-  margin: 280px 300px;
+  margin: 700px 300px;
   
   @media (max-width: 768px) {
     display:flex;
@@ -53,7 +56,7 @@ export const CrearRendicion = ({ match, history }) => {
     gastoId,
   } = crearRendicion;
 
-  console.log(spinner);
+  console.log(spinner,'soy el spinner');
   
   const agregar = async () => {
    setSpinner(true)
@@ -143,14 +146,22 @@ export const CrearRendicion = ({ match, history }) => {
   /**Fin Submit */
   return (
     <>
-      <Row>
-      <Col xs={24} sm={24} md={24} lg={8} xl={8}> 
+<Card className="formulario-rendicion-crear" style={{padding:20}}>
+<div style={{border:'solid 1px #ddd',padding:20,borderRadius:10,height:'auto'}}>
+<>{
+  
+  !!spinner?
+ <BeatLoader olor={color}  css={override} size={20}  />
+ :
+      <Row gutter={20}>
+      <Col xs={24} sm={24} md={24} lg={12} xl={12}> 
 
         <Form
           onFinish={handleSubmit}
           onChange={handleChange}
+          className='formulario'
           layout="vertical"
-          className="formulario-rendicion-crear"
+          
           {...estilo}
           size='large'
         >
@@ -193,25 +204,10 @@ export const CrearRendicion = ({ match, history }) => {
               data.length> 0 &&
               <div className='img-muestra'> 
 
-              {
-                !!spinner?
-                 <BeatLoader color={color}   css={override} size={20} />
-                 :
-            <div className="custom-file-preview " >
-              {data?.length === 0 ? (
-                <h2 className='sector'>Imagen</h2>
-              ) : (
-                <div
-                  className="prev-img"
-                >
-                  <span className="prev-img" onClick={handleDelete}>
-                    &times;
-                  </span>
-                  <img src={data[0].src} />
-                </div>
-              )}
-            </div>
-            }
+          
+                 <CardImgResponse
+                 data={data}
+                 />
         </div>}
 
           
@@ -223,26 +219,32 @@ export const CrearRendicion = ({ match, history }) => {
         </Form>
         </Col>
       
-        <Col xs={16} sm={16} md={16} lg={16} xl={16}>
-         
+        <Col xs={12} sm={12} md={12} lg={12} xl={12}>
       <div className='vista-muestra'>
-      { !!spinner?
-         <BeatLoader color={color}  css={override} size={20} />
-          : 
-            <VistaImg
-          data={data}
-          setData={setData}
-          handleDelete={handleDelete}
-          {...crearRendicion} />
-        }
+        
+            <CardImg  data={data}
+            setData={setData}
+            handleDelete={handleDelete}
+            {...crearRendicion
+         } />
+        
       
         </div>
         
         </Col>
-      
-       
 
       </Row>
+     
+     
+     }</>
+      </div>
+      
+      
+      
+      
+
+</Card>
+
     </>
   );
 };
