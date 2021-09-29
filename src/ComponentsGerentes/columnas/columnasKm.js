@@ -96,9 +96,8 @@ export const ColumnasKm = () => {
         await axiosURL.put(`/km/aprobado/${file.id}`, {
                     ...mensaje,
                     estadoFinal: "aprobado",
-                    notificacion: "inactiva",
                     estado: "aprobado",
-                    fd: new Date().toLocaleString(),
+                    
                   })
        }else{
         await axiosURL.put(`/km/aprobado/${file.id}`, {
@@ -120,9 +119,8 @@ export const ColumnasKm = () => {
         await axiosURL.put(`/km/rechazado/${file.id}`, {
           ...mensaje,
           estado: "rechazado",
-          notificacion: "inactiva",
           estadoFinal: "rechazado",
-          fd: new Date().toLocaleString(),
+          
         });
         setMensaje({ respMensaje: "" });
         axiosGet();
@@ -248,7 +246,7 @@ export const ColumnasKm = () => {
                   <Row gutter={[10, 10]}>
                   {file.rendicionKm.map((r) => (
             <>
-              <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+              <Col xs={24} sm={24} md={12} lg={6} xl={6}>
                 <Card
                   style={{
                     width: 200,

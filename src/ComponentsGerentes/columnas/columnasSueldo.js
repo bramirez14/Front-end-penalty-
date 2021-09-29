@@ -42,22 +42,25 @@ const {socket} = useContext(SocketContext);
     info:`Resolucion de  anticipo de ${file.sueldo} `,
     f: new Date().toLocaleString(),
     msj:mensaje.respMensaje,
+    nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
     estado:'activa',
     path:'/estado/usuario',
     emisor:datosUsuario.email,
     receptor:file.usuario.email,
     usuarioId:datosUsuario.id,
   }
-  //envio usuarios 905
+  //envio usuarios 906
   const obj906={
     alerta:'Aprobado por gerencia',
     info:`Tenes un anticipo de ${file.sueldo}`,
     f: new Date().toLocaleString(),
     estado:'activa',
-    path:'/vista/anicipo/sueldo',
+    nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
+    path:'/pagos/anticipo',
     emisor:datosUsuario.email,
     usuarioId:datosUsuario.id,
   }
+  console.log(obj906,61);
 //condicional de  gerentes
     if (N === "902") {
       socket.emit('alerta-nueva',obj);
@@ -68,10 +71,8 @@ const {socket} = useContext(SocketContext);
       await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estadoFinal: "aprobado",
-        notificacion: "inactiva",
         estado: "aprobado",
         listo: "Si",
-        fd: new Date().toLocaleString(),
       });
      
     } else {
@@ -94,9 +95,7 @@ const {socket} = useContext(SocketContext);
     await axiosURL.put(`/anticipo/rechazado/${file.id}`, {
       ...mensaje,
       estado: "rechazado",
-      notificacion: "inactiva",
       estadoFinal: "rechazado",
-      fd: new Date().toLocaleString(),
     });
     setMensaje({ respMensaje: "" });
     axiosGet();

@@ -55,15 +55,15 @@ const modoRendicion=( modo) => {
         </Descriptions.Item>
         <Descriptions.Item label="PDF pagos">
         {
-        f.pdf === null? <h5>No hay pdf!!!</h5>:
-        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdFinal)}>
+        f.pdfinal === null? <h5>No hay pdf!!!</h5>:
+        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdfinal)}>
             <BiDownload/>
             </Button>
       }
         </Descriptions.Item>
         <Descriptions.Item label="PDF orden de pago final">
         {
-        f.pdf === null? <h5>No hay pdf!!!</h5>:
+        f.pdfpagoFinal === null? <h5>No hay pdf!!!</h5>:
         <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdfpagoFinal)}>
             <BiDownload/>
             </Button>

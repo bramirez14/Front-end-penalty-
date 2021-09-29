@@ -7,7 +7,7 @@ import './css/clienterecibo.css'
 const { Option } = Select;
 export const ClienteRecibo = ({cliente, setCliente}) => {
     const  ctesRecibos= filtradoPorVendedorCobranzas('/recibos')
-    console.log(ctesRecibos,'line10');
+  
     
     function onChange(value) {
         const buscarCte= ctesRecibos.find(c=> value=== c.razonsoc)

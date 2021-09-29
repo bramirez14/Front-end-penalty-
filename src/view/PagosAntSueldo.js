@@ -222,6 +222,6 @@ export const PagosAntSueldo = ({history}) => {
         };
       });
     return (
-        <Table dataSource={datos} columns={columns} />
+        <Table dataSource={datos.reverse()} columns={columns} />
     )
 }

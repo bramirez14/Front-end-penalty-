@@ -116,9 +116,7 @@ useEffect(() => {
       }
     }
     return c
-    
     }
-    
     )
     setDataCheck(ff)
     setContenedor(ff)
@@ -129,7 +127,6 @@ useEffect(() => {
     //setDataCheck(ff)
 
   };
-
 
     const { dataSource } = state;
     const components = {
@@ -157,7 +154,6 @@ useEffect(() => {
     });
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log(selectedRows,'check140');
            setContenedor(selectedRows)
            setDataCheck(selectedRows)
         },

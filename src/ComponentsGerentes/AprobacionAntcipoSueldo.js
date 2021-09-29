@@ -8,12 +8,8 @@ import { colSueldoExcel } from "./columnas/columnasExcel/columnasSueldoExcel";
 import {  CheckOutlined } from '@ant-design/icons'
 
 export const AprobacionAntcipoSueldo = () => {
-  const N = localStorage.getItem('N')
-  const [state, setState] = useState({
-    estado:true,
-    estadoFinal:true,
-    
-  })
+const N = localStorage.getItem('N')
+const [state, setState] = useState(false)
  const[columnasSueldo,data]=ColumnasSueldo();
 //filtro generencia viene de los helpers
   const datos = GetFiltroGerencia(data)?.map((f) => {
@@ -27,27 +23,20 @@ export const AprobacionAntcipoSueldo = () => {
         <Descriptions.Item label="Fecha de Solicitud"><b>{f.fecha}</b></Descriptions.Item>
         <Descriptions.Item label="Devolucion"><b>{f.sueldo}</b></Descriptions.Item>
         <Descriptions.Item label="Importe"><b>{f.importe}</b></Descriptions.Item>
+        <Descriptions.Item label="Cuotas"><b>{f.cuotas}</b></Descriptions.Item>
         <Descriptions.Item label="Mensaje"><b>{f.mensaje}</b></Descriptions.Item>
-
-        <Descriptions.Item label="PDF proveedores">
-        {
-        f.pdf === null? <h5>No hay pdf!!!</h5>:
-        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdf)}>
-            <BiDownload/>
-            </Button>
-      }
-        </Descriptions.Item>
+       
         <Descriptions.Item label="PDF pagos">
         {
-        f.pdf === null? <h5>No hay pdf!!!</h5>:
-        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdFinal)}>
+        f.pdfinal === null? <h5>No hay pdf!!!</h5>:
+        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdfinal)}>
             <BiDownload/>
             </Button>
       }
         </Descriptions.Item>
         <Descriptions.Item label="PDF orden de pago final">
         {
-        f.pdf === null? <h5>No hay pdf!!!</h5>:
+        f.pdfpagoFinal === null? <h5>No hay pdf!!!</h5>:
         <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdfpagoFinal)}>
             <BiDownload/>
             </Button>
@@ -58,39 +47,23 @@ export const AprobacionAntcipoSueldo = () => {
       )
     };
   });
-  function onChange(checked) {
-    setState({...state,estado:checked});
+  let filtrofinalizados;
+  let filtropendientes;
+  if(N === '902'){
+    filtropendientes = datos.filter(d=>d.estadoFinal==='pendiente')
+    
+    filtrofinalizados = datos.filter(d=>d.estadoFinal==='aprobado' || d.estadoFinal === 'rechazado')
+  }else{
+  filtropendientes = datos.filter(d=>d.estado==='pendiente');
+  filtrofinalizados = datos.filter(d=>d.estado==='aprobado' || d.estado === 'rechazado');
   }
-  function onChangeF(checked) {
-    setState({...state,estadoFinal:checked});
-  }
-  const filtroSeleccion=(data)=> {
-    const rev= data?.reverse()
-   
-    if(state.estado===true){
-      return rev?.filter(r=> r.estado==='pendiente');
-    }else{
-      return rev?.filter(r=> r.estado==='aprobado');
-      
-    }
-  }
-  const filtroSeleccion902=(data)=> {
 
-    const rev= data?.reverse()
-   
-    if(state.estadoFinal===true){
-      return rev?.filter(r=> r.estadoFinal==='pendiente');
-    }else{
-      return rev?.filter(r=> r.estadoFinal==='aprobado' || r.estadoFinal==='rechazado' );
-      
-    }
-  }
-  useEffect(() => filtroSeleccion(),[state])
+
+console.log(state,61);
   return (
     <>
     <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
-       {N==='902'?'':<Switch checkedChildren="Pendentes" unCheckedChildren="Listos" defaultChecked onChange={onChange} style={{marginRight:10}}/>}
-       <Switch checkedChildren="Pendientes" unCheckedChildren={<CheckOutlined />} defaultChecked  onChange={onChangeF} />
+    <Switch checkedChildren="Pendentes" unCheckedChildren="Listos" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}}/>
 
     </Col>
     </Row>
@@ -99,7 +72,7 @@ export const AprobacionAntcipoSueldo = () => {
     hoja={"Aprobaciones de Sueldos"}
     namefile={"Aprobaciones de Sueldos"}
     columns={columnasSueldo}
-    data={N==='902'?filtroSeleccion902(datos):filtroSeleccion(datos)}
+    data={state?filtrofinalizados:filtropendientes}
     paginas={true}
     boton={true}
     bordered={true}

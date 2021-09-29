@@ -20,7 +20,7 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(mpago)
+   
     setIngresosData({ ...ingresosData, [name]: value });
   };
   const handleChangePicker = (e, data) =>

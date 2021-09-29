@@ -34,7 +34,7 @@ export const colGastos = [
     key: "departamento",
     width: 100,
     render: (estado, file) => {
-      const dtos = PeticionGET("/departamentos"); // peticion get para traer todos los departamentos
+      const dtos = PeticionGET("/departamentos");
       const Dto = dtos.find((d) => d.id === file.usuario?.departamentoId);
       const DtoSelect = Dto?.departamento;
       return <h5>{DtoSelect}</h5>;

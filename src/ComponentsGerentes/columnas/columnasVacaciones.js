@@ -7,10 +7,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { PeticionGET } from "../../config/PeticionGET";
 import { colVacaciones } from "./destructuracionCol/colVacaciones";
-import { alerta902, alertaGerencia } from "../helpers/funciones";
 import { SocketContext } from "../../context/SocketContext";
 
-var numberFormat = new Intl.NumberFormat("es-ES");
 
 export const ColumnasVacaciones = () => {
 const {socket} = useContext(SocketContext);
@@ -64,9 +62,7 @@ const {socket} = useContext(SocketContext);
     await axiosURL.put(`/vacaciones/aprobado/${file.id}`, {
           ...mensaje,
           estadoFinal: "aprobado",
-          notificacion: "inactiva",
           estado: "aprobado",
-          fd: new Date().toLocaleString(),
         })}else{
       await axiosURL.put(`/vacaciones/aprobado/${file.id}`, {
                 ...mensaje,
@@ -84,9 +80,7 @@ const {socket} = useContext(SocketContext);
     await axiosURL.put(`/vacaciones/rechazado/${file.id}`, {
       ...mensaje,
       estado: "rechazado",
-      notificacion: "inactiva",
       estadoFinal: "rechazado",
-      fd: new Date().toLocaleString(),
     }); // trabajando
     setMensaje({ respMensaje: "" });
     axiosGet();

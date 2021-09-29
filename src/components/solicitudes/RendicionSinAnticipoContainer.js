@@ -53,9 +53,6 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       sinAnticipo: "sin",
       estado: "pendiente",
       estadoFinal: "pendiente",
-      notificacion: "activa",
-      f: new Date().toLocaleString(),
-      alertaId: data?.alertaCreada?.id
 
     };
     let f = new FormData();
@@ -70,7 +67,6 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
     f.append("sinAnticipo", obj.sinAnticipo);
     f.append("estado", obj.estado);
     f.append("estadoFinal", obj.estadoFinal);
-    f.append('f',obj.f)
     let result = await axiosURL.post("/gasto/rendicion", f);
     if(result.data?.error?.errno===-3008){
       alert('Compruebe su connexion!!!')
