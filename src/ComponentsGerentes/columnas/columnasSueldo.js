@@ -21,7 +21,7 @@ const {socket} = useContext(SocketContext);
   });
   const usuarios= PeticionGET(`/allusers`)
   const filtro902 = usuarios.filter(u=> u.nvendedor==='902')
-  const filtro905 = usuarios.filter(u=> u.nvendedor==='905')
+  const filtro906 = usuarios.filter(u=> u.nvendedor==='906')
   const { TextArea } = Input;
   const [ data,axiosGet] =useGet('/anticipo')
   const aprobado = async (file) => {  
@@ -49,7 +49,7 @@ const {socket} = useContext(SocketContext);
     usuarioId:datosUsuario.id,
   }
   //envio usuarios 905
-  const obj905={
+  const obj906={
     alerta:'Aprobado por gerencia',
     info:`Tenes un anticipo de ${file.sueldo}`,
     f: new Date().toLocaleString(),
@@ -61,8 +61,8 @@ const {socket} = useContext(SocketContext);
 //condicional de  gerentes
     if (N === "902") {
       socket.emit('alerta-nueva',obj);
-      for (const i of filtro905){
-        const objNew={...obj905,receptor:i.email}
+      for (const i of filtro906){
+        const objNew={...obj906,receptor:i.email}
         socket.emit('alerta-nueva',objNew);
         }
       await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
@@ -122,7 +122,27 @@ const {socket} = useContext(SocketContext);
   };
 
   const columnasSueldo = [
-
+    ...colSueldo,
+    {
+      title: N === "902" ? "Aprobacion Final":'',
+      dataIndex: "estadoFinal",
+      key: "estadoFinal",
+      width:N=== "902"?120:0,
+      lupa:false,
+      render: (estado, file) => {
+        const color = () => {
+          switch (file.estadoFinal) {
+            case "pendiente":
+              return <h5 style={{ color:'#F79E0B'  }}> pendiente...</h5>;
+            case "aprobado":
+              return <h5 style={{ color: "green" }}> aprobado </h5>;
+            default:
+              return <h5 style={{ color: "red" }}> rechazado </h5>;
+          }
+        };
+        return <> {N === "902" && color()}</>;
+      },
+    },
     {
       title: "Acciones",
       dataIndex: "acciones",
@@ -160,29 +180,6 @@ const {socket} = useContext(SocketContext);
         );
       },
     },
-    
-    {
-      title: N === "902" ? "Aprobacion Final":'',
-      dataIndex: "estadoFinal",
-      key: "estadoFinal",
-      width:N=== "902"?150:0,
-      lupa:false,
-      render: (estado, file) => {
-        const color = () => {
-          switch (file.estadoFinal) {
-            case "pendiente":
-              return <h5 style={{ color:'#F79E0B'  }}> pendiente...</h5>;
-            case "aprobado":
-              return <h5 style={{ color: "green" }}> aprobado </h5>;
-            default:
-              return <h5 style={{ color: "red" }}> rechazado </h5>;
-          }
-        };
-        return <> {N === "902" && color()}</>;
-      },
-    },
-    ...colSueldo,
-   
     {
       title: "Borrar ",
       dataIndex: "borrar ",

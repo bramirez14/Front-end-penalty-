@@ -109,42 +109,8 @@ const {socket} = useContext(SocketContext);
     setMensaje({ ...mensaje, [name]: value });
   };
   const columnasVacaciones = [
-    {
-      title: "Acciones",
-      dataIndex: "acciones",
-      key: "acciones",
-      width: 100,
-      lupa: false,
-      render: (f, file) => {
-        return (
-          <>
-            {file.estadoFinal === "aprobado" ||
-            file.estadoFinal === "rechazado" ? (
-              ""
-            ) : (
-              <HelperMODAL
-                boton={<BsCheck />}
-                title="Aprobacion Ant Vacaciones"
-                Return="Rechazar"
-                Submit="Aprobacion"
-                click={() => aprobado(file)}
-                noclick={() => rechazado(file)}
-              >
-                <section>
-                  <TextArea
-                    name="respMensaje"
-                    rows={4}
-                    placeholder="Mensaje para el empleado"
-                    onChange={handleChange}
-                    value={mensaje.respMensaje}
-                  />
-                </section>
-              </HelperMODAL>
-            )}
-          </>
-        );
-      },
-    },
+    ...colVacaciones,
+  
     {
       title: N === "902" && "Aprobacion Final",
       dataIndex: "estadoFinal",
@@ -165,8 +131,43 @@ const {socket} = useContext(SocketContext);
         return <> {N === "902" && color()}</>;
       },
     },
-  
-    ...colVacaciones,
+      {
+        title: "Acciones",
+        dataIndex: "acciones",
+        key: "acciones",
+        width: 100,
+        lupa: false,
+        render: (f, file) => {
+          return (
+            <>
+              {file.estadoFinal === "aprobado" ||
+              file.estadoFinal === "rechazado" ? (
+                ""
+              ) : (
+                <HelperMODAL
+                  boton={<BsCheck />}
+                  title="Aprobacion Ant Vacaciones"
+                  Return="Rechazar"
+                  Submit="Aprobacion"
+                  click={() => aprobado(file)}
+                  noclick={() => rechazado(file)}
+                >
+                  <section>
+                    <TextArea
+                      name="respMensaje"
+                      rows={4}
+                      placeholder="Mensaje para el empleado"
+                      onChange={handleChange}
+                      value={mensaje.respMensaje}
+                    />
+                  </section>
+                </HelperMODAL>
+              )}
+            </>
+          );
+        },
+      },
+    
     {
       title: "Borrar ",
       dataIndex: "borrar ",

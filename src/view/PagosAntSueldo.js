@@ -13,8 +13,7 @@ export const PagosAntSueldo = ({history}) => {
   const [dataSueldo, setDataSueldo] = useState([]);
   const [stateFile, setStateFile] = useState('');
   const [stateFilefinal, setStateFilefinal] = useState('');
-console.log(stateFile);
-console.log(stateFilefinal);
+
 
     const getSueldo= async ()=>{
       const {data} = await axiosURL.get('/anticipo')
@@ -32,9 +31,7 @@ console.log(stateFilefinal);
       const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
       saveAs(pdfBlob, `${pdf}`);
     }
-    const filtroAprobacion= dataSueldo.filter(q=> q.estadoFinal==='aprobado' && q.procesoFinalizado==='Si' );
-
-      
+    const filtroAprobacion= dataSueldo.filter(q=> q.estadoFinal==='aprobado'  );
         
       const finalizar= async (id)=>{
         if (stateFile === '') {
@@ -144,18 +141,7 @@ console.log(stateFilefinal);
           render: (state, file) => <h5>{file.estadoFinal}</h5>
 
         },
-        {
-          title: 'PDF Proveedores',
-          dataIndex: 'pdf',
-          key: 'pdf',
-        render:(state,file)=>{return(
-          <>  
-          { file.pdf===null || file.pdf===''?<h5>No hay pdf</h5>:
-            <Button type='link' onClick={()=>descargarPDF(file.pdf)} ><BiDownload /></Button>
-            }
-          </>
-          )}
-        },
+      
         {
           title: 'PDF Pagos',
           dataIndex: 'pdfinal',

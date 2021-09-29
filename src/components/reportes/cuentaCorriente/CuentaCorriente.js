@@ -22,6 +22,7 @@ export const CuentaCorriente = () => {
           boton={true}
           paginas={true}
           y={mediaqueryList.matches ? 350 : 500}
+          colExcel={columnasCtaCte}
         />
       )}
     </>

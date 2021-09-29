@@ -20,6 +20,7 @@ export const FuturosIngresos = () => {
        boton={true}
        paginas={true}
        y={mediaqueryList.matches?400:500}
+       colExcel={columnasFutIngresos}
        
        />
         }</>

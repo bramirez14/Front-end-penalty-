@@ -163,13 +163,10 @@ useEffect(() => {
         },
     
       };
-      console.log(contenedor,'line164')
     return (
-    
-       
         <Table
       title={()=> <h2 style={{ textAlign: "center" }}>
-      <b> LIQUIDACION </b>
+      <b> FACTURACION </b>
     </h2>}
 
           components={components}

@@ -21,6 +21,7 @@ export const SCC = () => {
           boton={true}
           paginas={true}
           y={mediaqueryList.matches ? 350 : 500}
+          colExcel={columnasSCC}
         />
       )}
     </>

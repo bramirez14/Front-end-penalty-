@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useContext } from "react";
-import { Input, Button } from "antd";
+import { Input, Button, Row, Col, Card, Image } from "antd";
 import { axiosURL } from "../../config/axiosURL";
 import { BsCheck } from "react-icons/bs";
 import { HelperMODAL } from "../../helpers/HelperMODAL";
@@ -144,12 +144,12 @@ const {socket} = useContext(SocketContext);
   };
  
   const columnasGastos = [
-
+        ...colGastos,
     {
         title: N=== "902"&& 'Aprobacion Final',
         dataIndex: "estadoFinal",
         key: "estadoFinal",
-        width:N=== "902"?170:0,
+        width:N=== "902"?140:0,
         lupa:false,
         render: (estado, file) => {
           const color = () => {
@@ -170,7 +170,7 @@ const {socket} = useContext(SocketContext);
       title: "Acciones",
       dataIndex: "acciones",
       key: "acciones",
-      width: 100,
+      width: 80,
       lupa:false,
       render: (f, file) => {
         return (
@@ -202,7 +202,7 @@ const {socket} = useContext(SocketContext);
         );
       },
     },
-    ...colGastos,
+    
 
     {
       title: "Borrar ",
@@ -234,6 +234,52 @@ const {socket} = useContext(SocketContext);
           </Button>
         );
       },
+    },
+    {
+      dataIndex: "rendiciones ",
+      key: "rendiciones",
+      lupa:false,
+      width:140,
+      render: (f, file) => {
+        
+        
+        return (
+         <HelperMODAL boton='Rendiciones' longModal='1000px'>
+            <Row gutter={[10, 10]}>
+          {file?.rendicion?.map((r) => (
+            <>
+              <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+                <Card
+                  style={{
+                    width: 200,
+                    border: "solid 2px #ddd",
+                    height: "auto",
+                  }}
+                >
+                  <Image style={{ width: 100, height: 100 }}
+                    alt="example"
+                    src={r.imagen}
+                  />
+                  <p>
+                    <b>Fecha:</b> {r.fecha}
+                  </p>
+                  <p>
+                    <b>Categoria:</b> {r.categoria}
+                  </p>
+                  <p>
+                    <b>Importe:</b> ${r.importe}
+                  </p>
+                  <p>
+                    <b>Nota:</b> {r.notas}
+                  </p>
+                </Card>
+              </Col>
+            </>
+          ))}
+        </Row>
+         </HelperMODAL>        );
+      },
+
     },
   ];
   

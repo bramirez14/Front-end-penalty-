@@ -21,6 +21,7 @@ export const ClientesInhabilitados = () => {
           paginas={true}
           boton={true}
         y={mediaqueryList.matches?400:500}
+        colExcel={columnasCliInhab}
           
         />
       )}

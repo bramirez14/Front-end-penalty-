@@ -22,6 +22,7 @@ export const FacturacionMes = () => {
           boton={true}
           paginas={true}
           y={mediaqueryList.matches ? 200 : 300}
+          colExcel={columnasMes}
         />
       )}
     </>

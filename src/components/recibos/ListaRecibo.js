@@ -83,7 +83,7 @@ const { useBreakpoint } = Grid;
 title={<h2 style={{textAlign:'center'}}> <b> Recibos </b> </h2>}
 columns={columns}
 data={reducido?.reverse()}
-y={screens.md===false?300:''}
+y={screens.md===false?300:400}
 bordered={false}
 />
      </Card>  

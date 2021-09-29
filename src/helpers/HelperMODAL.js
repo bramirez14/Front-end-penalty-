@@ -5,7 +5,7 @@ export const HelperMODAL = ({
   state,
   setState,
   click,
-  noclick,
+  noclick =()=>{},
   children,
   boton,
   block,

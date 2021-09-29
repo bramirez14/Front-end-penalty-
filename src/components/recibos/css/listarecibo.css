@@ -29,8 +29,7 @@
 }
 @media (max-width: 480px){
     .lista-recibo{
-        width:340px;
-
+        width:300px;
      background-color:#ffff;
 
    }

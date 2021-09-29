@@ -18,6 +18,7 @@ export const FacturacionDetalladata = () => {
             paginas={true}
             boton={true}
             y={mediaqueryList.matches?400:500}
+            colExcel={columnasFactDet}
             />
            
            }</>

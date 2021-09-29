@@ -11,6 +11,7 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { Grid, Tag } from "antd";
 import { SocketContext } from "../../context/SocketContext";
 import './css/listarecibo.css';
+import Swal from 'sweetalert2'
 const { useBreakpoint } = Grid;
 
 export const Recibo = ({ history }) => {
@@ -55,7 +56,7 @@ export const Recibo = ({ history }) => {
 
   const finalizar = async () => {
 
-  await axiosURLIntranetCobranzas.post("/recibos", {
+ const res = await axiosURLIntranetCobranzas.post("/recibos", {
       newIngresos,
       newDataCheck,
     });
@@ -74,6 +75,17 @@ export const Recibo = ({ history }) => {
   };
 socket.emit('alerta-nueva', nuevoObj);
 } 
+if(res.data.status=== 200){
+Swal.fire({
+  position: 'center',
+  icon: 'success',
+  title: 'El recibo se guardo con exito!!!',
+  showConfirmButton: false,
+  timer: 1500
+})
+
+}
+
 history.push('/perfil')
 
 };

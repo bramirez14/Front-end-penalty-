@@ -72,14 +72,7 @@ const newctactes=buscarCliente?.map((c,i)=>
 key:(i+1).toString()
 
 }})
-const handelChange=(e,value)=>{
-console.log(e,value);
-}
-console.log(data,'line84');
-const editar=()=>{
-  const one=data[0]
-setData([...data,{one,saldoml:200}])
-  }
+
     return (
       <>
    

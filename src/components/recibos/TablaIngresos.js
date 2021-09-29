@@ -33,6 +33,10 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
     const handelDelete=(key) => {
       const filtro= data.filter(a=> a.key!== key)
       setData(filtro)
+      setEfectivo([]);
+      setRetenciones([]);
+      setDepositos([]);
+      setCheques([]);
     }
   const columns = [
     {
