@@ -83,8 +83,11 @@ Swal.fire({
   showConfirmButton: false,
   timer: 1500
 })
+
 }
+
 history.push('/perfil')
+
 };
 
   const screens = useBreakpoint();

@@ -6,6 +6,9 @@ import { BsCheck } from "react-icons/bs";
 import {
     Input,
     Button,
+    Row,
+    Col,
+    Card,
 } from "antd";
 import { HelperMODAL } from '../../helpers/HelperMODAL';
 import { colKm } from './destructuracionCol/colKm';
@@ -142,7 +145,30 @@ export const ColumnasKm = () => {
         setMensaje({ ...mensaje, [name]: value });
       };
       const columnasKm =[
-        {
+        ...colKm,
+         
+          {
+            title: N === "902" && "Aprobacion Final",
+            dataIndex: "estadoFinal",
+            key: "estadoFinal",
+            width:N=== "902"?170:0,
+              lupa:false,
+            render: (estado, file) => {
+              const color = () => {
+                switch (file.estadoFinal) {
+                  case "pendiente":
+                    return <h5 style={{ color: '#F79E0B'  }}> pendiente...</h5>;
+                  case "aprobado":
+                    return <h5 style={{ color: "green" }}> aprobado </h5>;
+                  default:
+                    return <h5 style={{ color: "red" }}> rechazado </h5>;
+                }
+              };
+              return <> {N === "902" && color()}</>;
+            },
+          },
+          
+          {
           title: "Acciones",
           dataIndex: "acciones",
           key: "acciones",
@@ -177,29 +203,7 @@ export const ColumnasKm = () => {
               </>
             );
           },
-        }, 
-          {
-            title: N === "902" && "Aprobacion Final",
-            dataIndex: "estadoFinal",
-            key: "estadoFinal",
-            width:N=== "902"?170:0,
-              lupa:false,
-            render: (estado, file) => {
-              const color = () => {
-                switch (file.estadoFinal) {
-                  case "pendiente":
-                    return <h5 style={{ color: '#F79E0B'  }}> pendiente...</h5>;
-                  case "aprobado":
-                    return <h5 style={{ color: "green" }}> aprobado </h5>;
-                  default:
-                    return <h5 style={{ color: "red" }}> rechazado </h5>;
-                }
-              };
-              return <> {N === "902" && color()}</>;
-            },
-          },
-          
-          ...colKm,
+        },
           {
             title: "Borrar ",
             dataIndex: "borrar ",
@@ -230,6 +234,55 @@ export const ColumnasKm = () => {
                 </Button>
               );
             },
+          },
+          {
+            dataIndex: "rendiciones ",
+            key: "rendiciones",
+            lupa:false,
+            width:140,
+            render: (f, file) => {
+              
+              
+              return (
+               <HelperMODAL boton='Rendiciones' longModal='1000px'>
+                  <Row gutter={[10, 10]}>
+                  {file.rendicionKm.map((r) => (
+            <>
+              <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+                <Card
+                  style={{
+                    width: 200,
+                    border: "solid 2px #ddd",
+                    height: "auto",
+                  }}
+                >
+                  <p>
+                    <b>Fecha:</b> {r.fechaSelect}
+                  </p>
+                  <p>
+                    <b> Km Inicial:</b> {r.KmI}
+                  </p>
+                  
+                  <p>
+                    <b>Km Final:</b> {r.KmF}
+                  </p>
+                  <p>
+                    <b>Km Recorrido :</b> {r.KmRecorrido}
+                  </p>
+                  <p>
+                    <b>Nota :</b> {r.nota}
+                  </p>
+                  <p>
+                    <b>Importe :</b> ${r.importe}
+                  </p>
+                </Card>
+              </Col>
+            </>
+          ))}
+              </Row>
+               </HelperMODAL>        );
+            },
+      
           },
       ]
     return[columnasKm,data]

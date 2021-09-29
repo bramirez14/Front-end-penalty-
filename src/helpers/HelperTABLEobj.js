@@ -23,6 +23,7 @@ export const HelperTABLEobj = ({
   setDataCheck,
   title,
   footer,
+  colExcel,
 
 }) => {
   const getColumnSearchProps = (dataIndex) => {
@@ -90,6 +91,11 @@ export const HelperTABLEobj = ({
 
   };
 
+  
+
+
+  
+  
   return (
     <>
       {boton && (
@@ -98,8 +104,9 @@ export const HelperTABLEobj = ({
           filename={namefile}
         >
           <ExcelSheet data={data} name={hoja}>
-            {columna.map((c) => (
-              <ExcelColumn label={c.title} value={c.dataIndex} />
+            {colExcel.map((c) => (
+               
+              <ExcelColumn label={ c.title} value={c.dataIndex} />
             ))}
           </ExcelSheet>
         </ExcelFile>
@@ -113,7 +120,7 @@ export const HelperTABLEobj = ({
         pagination={paginas}
         bordered={bordered}
         expandable={expandible?{
-          expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+          expandedRowRender: record => <>{record.description}</>,
         }:''}
         scroll={{ y: y}}
         footer={() => (footer)}

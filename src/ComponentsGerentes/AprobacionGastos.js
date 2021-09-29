@@ -1,17 +1,33 @@
 import React from "react";
 import {
-
-  Row,
-  Col,
+  Descriptions,
+  Button,
 } from "antd";
-import { Card, } from "antd";
 import "./css/aprob.css";
-import { TodosGastos } from "./helpers/funciones";
+import { descargarPDF, TodosGastos } from "./helpers/funciones";
 import { ColumnasGastos } from "./columnas/columnasGastos";
 import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
+import { colGastosExcel } from "./columnas/columnasExcel/columnasGastosExcel";
+import { BiDownload } from "react-icons/bi";
+import { PeticionGET } from "../config/PeticionGET";
 export const AprobacionGastos = () => {
 const [columnasGastos,data]=ColumnasGastos();
-
+const formaDepago = PeticionGET("/mpagos");
+const formaPago= (idpago) => {
+const op= formaDepago.find(
+          (f) => f.id === idpago
+        );
+  return op?.pago
+        
+}
+const modoRendicion=( modo) => {
+ if(modo==='sin'){
+   return 'Sin Anticipo'
+ }else{
+   return 'Con Anticipo'
+ }
+   
+}
 // TodosGastos viene de helpers
   const datos = TodosGastos(data)?.map((f) => {
     return {
@@ -19,53 +35,58 @@ const [columnasGastos,data]=ColumnasGastos();
       key: f.id,
       nombre: f.usuario.nombre,
       apellido: f.usuario.apellido,
-      description: (
-        <Row gutter={[10, 10]}>
-          {f.rendicion.map((r) => (
-            <>
-              <Col xs={4} sm={4} md={4} lg={4} xl={4}>
-                <Card
-                  style={{
-                    width: 200,
-                    border: "solid 2px #ddd",
-                    height: "auto",
-                  }}
-                >
-                  <img
-                    style={{ width: 100, height: 100 }}
-                    alt="example"
-                    src={r.imagen}
-                  />
-                  <p>
-                    <b>Fecha:</b> {r.fecha}
-                  </p>
-                  <p>
-                    <b>Categoria:</b> {r.categoria}
-                  </p>
-                  <p>
-                    <b>Importe:</b> ${r.importe}
-                  </p>
-                  <p>
-                    <b>Nota:</b> {r.notas}
-                  </p>
-                </Card>
-              </Col>
-            </>
-          ))}
-        </Row>
-      ),
+      
+      
+      description:  (
+        <Descriptions title={`Info ${f.id}`} style={{border:' solid 2px #ddd', padding:20}}>
+        <Descriptions.Item label="Fecha de Solicitud"><b>{f.fecha}</b></Descriptions.Item>
+        <Descriptions.Item label="Forma de pago"><b>{formaPago(f.formapagoId)}</b></Descriptions.Item>
+        <Descriptions.Item label="Rendicion"><b>{modoRendicion(f.sinAnticipo)}</b></Descriptions.Item>
+        <Descriptions.Item label="Importe"><b>{f.importe}</b></Descriptions.Item>
+        <Descriptions.Item label="Mensaje"><b>{f.notas}</b></Descriptions.Item>
+
+        <Descriptions.Item label="PDF proveedores">
+        {
+        f.pdf === null? <h5>No hay pdf!!!</h5>:
+        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdf)}>
+            <BiDownload/>
+            </Button>
+      }
+        </Descriptions.Item>
+        <Descriptions.Item label="PDF pagos">
+        {
+        f.pdf === null? <h5>No hay pdf!!!</h5>:
+        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdFinal)}>
+            <BiDownload/>
+            </Button>
+      }
+        </Descriptions.Item>
+        <Descriptions.Item label="PDF orden de pago final">
+        {
+        f.pdf === null? <h5>No hay pdf!!!</h5>:
+        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdfpagoFinal)}>
+            <BiDownload/>
+            </Button>
+      }
+        </Descriptions.Item>
+      </Descriptions>
+
+      )
+      
+
+
     };
   });
   return <HelperTABLEobj
       hoja={"Aprobaciones de Gastos"}
       namefile={"Aprobaciones de Gastos"}
       columns={columnasGastos}
-      data={datos}
+      data={datos.reverse()}
       expandible={true}
       boton={true}
       paginas={true}
-      bordered={false}
       y={400}
+      colExcel={colGastosExcel}
       />
       
       

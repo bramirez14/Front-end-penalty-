@@ -16,7 +16,9 @@ useEffect(() => {
     axiosGet();
   }, []);
 
+  console.log(data,'line 21');
 const buscarCliente= data.filter(c=> c.razonsoc === cliente.razonsoc);
+console.log(dataCheck,'line 23');
 const columns = [
 
     {
@@ -71,10 +73,6 @@ key:(i+1).toString()
 
 }})
 
-const editar=()=>{
-  const one=data[0]
-setData([...data,{one,saldoml:200}])
-  }
     return (
       <>
    

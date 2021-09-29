@@ -22,6 +22,7 @@ export const Remitos = () => {
           paginas={true}
           boton={true}
           y={mediaqueryList.matches ? 350 : 500}
+          colExcel={remitos}
         />
       )}
     </>

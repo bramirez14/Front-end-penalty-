@@ -20,6 +20,7 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+   
     setIngresosData({ ...ingresosData, [name]: value });
   };
   const handleChangePicker = (e, data) =>
@@ -31,7 +32,6 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
 
     const handelDelete=(key) => {
       const filtro= data.filter(a=> a.key!== key)
-      setData(filtro)
       setData(filtro)
       setEfectivo([]);
       setRetenciones([]);
@@ -116,6 +116,7 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
    
   }
  // filtrado de operacion
+ console.log(ingresosData,'line115')
   return (
     <Card>
     <HelperTABLEobj

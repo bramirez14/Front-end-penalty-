@@ -15,7 +15,7 @@ export const Resultados = ({efectivo,cheques,retenciones,depositos,efectivoLiq})
     const Liq= efectivoLiquidacion.reduce((acumulador, item) => {return parseFloat(acumulador)+ parseFloat(item)},0)
     
     return (
-        <Card style={{height:250}}>
+        <Card style={{height:260}}>
         <Row gutter={[20,20]}>
                     
             <Col span={12}>
@@ -33,7 +33,7 @@ export const Resultados = ({efectivo,cheques,retenciones,depositos,efectivoLiq})
               <Statistic title="Deposito"  value={numberWithCommas(mdepositos)} precision={2}/>
             </Col>
             <Col span={12}>
-              <Statistic title="Importe Liquidacion"  value={numberWithCommas(Liq)} precision={2}/>
+              <Statistic title="Facturas"  value={numberWithCommas(Liq)} precision={2}/>
             </Col>
           </Row>
     </Card>

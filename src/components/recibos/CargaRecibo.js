@@ -160,7 +160,7 @@ export const CargaRecibo = ({match,history}) => {
           <Col xs={24} sm={24} md={24} lg={14} xl={14}>
             <Card>
                <HelperTABLEobj
-        title={<h2 style={{textAlign:'center'}}>  <b> Ingreso de Liquidacion </b> </h2>}
+        title={<h2 style={{textAlign:'center'}}>  <b> Ingreso de Facturacion </b> </h2>}
         columns={columns}
         data={getRecibos[1]}
         y={350}

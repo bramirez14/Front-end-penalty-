@@ -4,26 +4,7 @@ import { PeticionGET } from "../../../config/PeticionGET";
 import { descargarPDF } from "../../helpers/funciones";
 var numberFormat = new Intl.NumberFormat("es-ES");
 export const colGastos = [
-  {
-    title: "Estado",
-    dataIndex: "estado",
-    key: "estado",
-    width: 120,
-    lupa: false,
-    render: (estado, file) => {
-      const color = () => {
-        switch (file.estado) {
-          case "pendiente":
-            return <h5 style={{ color: '#F79E0B' }}> pendiente...</h5>;
-          case "aprobado":
-            return <h5 style={{ color: "green" }}> aprobado </h5>;
-          default:
-            return <h5 style={{ color: "red" }}> rechazado </h5>;
-        }
-      };
-      return <>{color()}</>;
-    },
-  },
+  
   {
     title: "N° de anticipo",
     dataIndex: "id",
@@ -52,7 +33,6 @@ export const colGastos = [
     dataIndex: "departamento",
     key: "departamento",
     width: 100,
-
     render: (estado, file) => {
       const dtos = PeticionGET("/departamentos"); // peticion get para traer todos los departamentos
       const Dto = dtos.find((d) => d.id === file.usuario?.departamentoId);
@@ -60,143 +40,26 @@ export const colGastos = [
       return <h5>{DtoSelect}</h5>;
     },
   },
-  {
-    title: "Forma de Pago",
-    dataIndex: "formapagoId",
-    width: 200,
-    key: "formapagoId",
-    render: (state, file) => {
-      const formaDepago = PeticionGET("/mpagos");
 
-      const buscarMediodePago = formaDepago.find(
-        (f) => f.id === file.formapagoId
-      );
-      const pago = buscarMediodePago?.pago;
-      return <h5>{pago}</h5>;
+{
+    title: "Estado",
+    dataIndex: "estado",
+    key: "estado",
+    width: 90,
+    lupa: false,
+    render: (estado, file) => {
+      const color = () => {
+        switch (file.estado) {
+          case "pendiente":
+            return <h5 style={{ color: '#F79E0B' }}> pendiente...</h5>;
+          case "aprobado":
+            return <h5 style={{ color: "green" }}> aprobado </h5>;
+          default:
+            return <h5 style={{ color: "red" }}> rechazado </h5>;
+        }
+      };
+      return <>{color()}</>;
     },
   },
-  {
-    title: "Rendicion",
-    dataIndex: "sinAnticipo",
-    key: "sinAnticipo",
-    width: 140,
-
-    render: (state, file) => (
-      <>
-        {file.sinAnticipo === "sin" ? (
-          <h5> Sin Anticipo </h5>
-        ) : (
-          <h5> Con Anticipo </h5>
-        )}
-      </>
-    ),
-  },
-
-  {
-    title: "Importe",
-    dataIndex: "importe",
-    key: "importe",
-    width: 100,
-    lupa: false,
-    render: (state, file) => (
-      <>
-        {file.sinAnticipo === "sin" ? (
-          <h5>${numberFormat.format(file.importerendido)}</h5>
-        ) : (
-          <h5>${numberFormat.format(file.importe)}</h5>
-        )}
-      </>
-    ),
-  },
-  {
-    title: "Devolucion",
-    dataIndex: "importerendido",
-    key: "importerendido",
-    width: 140,
-    lupa: false,
-    render: (state, file) => (
-      <>
-        {file.sinAnticipo === "sin" ? (
-          ""
-        ) : file.importe < file.importerendido ? (
-          <h5 style={{ color: "red" }}>
-            {" "}
-            ${numberFormat.format(file.importerendido)}{" "}
-          </h5>
-        ) : (
-          <h5 style={{ color: "green" }}>
-            ${numberFormat.format(file.importerendido)}{" "}
-          </h5>
-        )}
-      </>
-    ),
-  },
-  {
-    title: "Fecha de Solicitud",
-    dataIndex: "fecha",
-    key: "fecha",
-    width: 200,
-    render: (state, file) => <h5>{file.fecha}</h5>,
-  },
-  {
-    title: "Mensaje",
-    dataIndex: "notas",
-    key: "notas",
-    width: 100,
-    lupa: false,
-    render: (state, file) => <h5>{file.notas}</h5>,
-  },
-  {
-    title: "PDF proveedores",
-    dataIndex: 'pdf',
-    key: "pdf",
-    width: 140,
-    lupa: false,
-    render: (state, file) => (
-      <>
-      {
-        file.pdf === null? <h5>No hay pdf!!!</h5>:
-        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdf)}>
-            <BiDownload/>
-            </Button>
-      }
-    </>
-  )
-  },
-  {
-    title: "PDF pagos",
-    dataIndex: 'pdfinal',
-    key: "pdfinal",
-    width: 140,
-    lupa: false,
-    render: (state, file) => (
-      <>
-      {
-        file.pdf === null? <h5>No hay pdf!!!</h5>:
-        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdfinal)}>
-            <BiDownload/>
-            </Button>
-      }
-    </>
-  )
-  },
-  {
-    title: "PDF orden de pago final",
-    dataIndex: 'pdfpagoFinal',
-    key: "pdfpagoFinal",
-    width: 140,
-    lupa: false,
-    render: (state, file) => (
-      <>
-      {
-        file.pdf === null? <h5>No hay pdf!!!</h5>:
-        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(file.pdfpagoFinal)}>
-            <BiDownload/>
-            </Button>
-      }
-    </>
-  )
-  },
-
  
 ];

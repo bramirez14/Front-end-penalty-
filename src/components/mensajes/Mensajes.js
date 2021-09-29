@@ -80,7 +80,7 @@ const Listareverse= filtroEmail.reverse();
             renderItem={(item) => (
               
               <List.Item style={{borderBottom:'none'}}
-              className= {item.estado === 'activa'? 'lista-alerta-card':'list-inactiva'}
+              className= 'lista-alerta-card'
                 actions={[
                   <Dropdown overlay={menu}>
                     <Button

@@ -21,6 +21,7 @@ export const CargaPedidos = () => {
           boton={true}
           paginas={true}
           y={mediaqueryList.matches ? 370 : 400}
+          colExcel={columnasCargaPedidos }
         />
       )}
     </>

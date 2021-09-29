@@ -33,6 +33,7 @@ const EditableCell = ({
   }, [editing]);
 
   const toggleEdit = () => {
+    console.log(record[dataIndex],36)
     setEditing(!editing);
     form.setFieldsValue({
       [dataIndex]: record[dataIndex],
@@ -40,9 +41,12 @@ const EditableCell = ({
   };
 
   const save = async () => {
+    console.log(record,.44)
     try {
       const values = await form.validateFields();
+      console.log(values,.47)
       toggleEdit();
+      console.log({ ...record, ...values },49)
       
       handleSave({ ...record, ...values });
     } catch (errInfo) {
@@ -89,15 +93,21 @@ export const TableLiq = ({col,datos, dataCheck,setDataCheck})=> {
 const [state, setState] = useState({dataSource:datos,
   count: 2,})
 
+  console.log(state,'line 96');
 useEffect(() => {
    setState({dataSource:datos})
 }, [datos])
 
   const handleSave = (row) => {
+      console.log(row,'row101');//aca ya llega cambiado el valor del campo
     const newData = [...state.dataSource];
+    console.log(newData,'105');
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
-
+    console.log(item,.108)
+   
+    console.log(newData.splice(index, 1, { ...item, ...row }),'110');
+    console.log(contenedor,'111')
     let ff=contenedor.map(c=>{ 
     if ( c.key === newData.splice(index, 1, { ...item, ...row })[0].key){
       return{
@@ -106,18 +116,17 @@ useEffect(() => {
       }
     }
     return c
-    
     }
-    
     )
     setDataCheck(ff)
     setContenedor(ff)
+    console.log(ff,'ff line124')
     setState({
       dataSource: newData,
     });
+    //setDataCheck(ff)
 
   };
-
 
     const { dataSource } = state;
     const components = {
@@ -151,11 +160,9 @@ useEffect(() => {
     
       };
     return (
-    
-       
         <Table
       title={()=> <h2 style={{ textAlign: "center" }}>
-      <b> LIQUIDACION </b>
+      <b> FACTURACION </b>
     </h2>}
 
           components={components}
