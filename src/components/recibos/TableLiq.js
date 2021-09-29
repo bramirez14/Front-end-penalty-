@@ -43,6 +43,7 @@ const EditableCell = ({
     try {
       const values = await form.validateFields();
       toggleEdit();
+      
       handleSave({ ...record, ...values });
     } catch (errInfo) {
       console.log('Save failed:', errInfo);
@@ -83,26 +84,20 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const TableLiq = ({col,datos})=> {
-    const [contenedor, setContenedor] = useState([])
+export const TableLiq = ({col,datos, dataCheck,setDataCheck})=> {
+    const [contenedor, setContenedor] = useState([])//lo dejamos porque influye  el valor de la tabla 
 const [state, setState] = useState({dataSource:datos,
   count: 2,})
 
-  console.log(datos,'datos');
-  console.log(state,'line88');
 useEffect(() => {
    setState({dataSource:datos})
 }, [datos])
 
   const handleSave = (row) => {
-      console.log(row,'row');
     const newData = [...state.dataSource];
-    console.log(newData,'99');
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
-    let importeMod=newData.splice(index, 1, { ...item, ...row });
-    console.log(newData.splice(index, 1, { ...item, ...row }),'104');
-    console.log(contenedor,'line105')
+
     let ff=contenedor.map(c=>{ 
     if ( c.key === newData.splice(index, 1, { ...item, ...row })[0].key){
       return{
@@ -115,11 +110,12 @@ useEffect(() => {
     }
     
     )
+    setDataCheck(ff)
     setContenedor(ff)
-    console.log(ff,'ff line108')
     setState({
       dataSource: newData,
     });
+
   };
 
 
@@ -149,24 +145,28 @@ useEffect(() => {
     });
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log(selectedRows,'check140');
            setContenedor(selectedRows)
+           setDataCheck(selectedRows)
         },
     
       };
-      console.log(contenedor,'line105')
     return (
     
        
         <Table
+      title={()=> <h2 style={{ textAlign: "center" }}>
+      <b> LIQUIDACION </b>
+    </h2>}
+
           components={components}
           rowClassName={() => 'editable-row'}
           rowSelection={
           rowSelection
           }
-          bordered
           dataSource={dataSource}
           columns={columns}
+        scroll={{ y: 300}}
+
         />
     
     );

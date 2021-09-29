@@ -70,7 +70,6 @@ export const DashboardRoutes = ({ history }) => {
 useEffect(() => {
     axiosGet();
 }, []);
-console.log(open,'soy opne desde ruter');
   return (
     <>
       <Sidebar history={history} alertas={alertas} setAlertas={setAlertas} getAlertas={axiosGet} />

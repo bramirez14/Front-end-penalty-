@@ -1,6 +1,9 @@
 import React from 'react'
-import { List, Button } from 'antd';
+import { List, Button, Grid, Tag, Card  } from 'antd';
 import { PeticionGETIntranetCobranzas } from '../../config/PeticionGET';
+import { HelperTABLEobj } from '../../helpers/HelperTABLEobj';
+import { DownloadOutlined } from '@ant-design/icons';
+const { useBreakpoint } = Grid;
 
   export const ListaRecibo = ({ history}) => {
  /**evitar que usuari 907 ingresen a la ruta */
@@ -9,33 +12,80 @@ import { PeticionGETIntranetCobranzas } from '../../config/PeticionGET';
     const getRecibos= PeticionGETIntranetCobranzas('/ingresos/recibos');
     const numerorecibo=getRecibos[0]?.map(g=>g.numerorecibo);
     const nreciboSinRecibo= [...new Set(numerorecibo)]
-    const handleNrecibo=(item)=> {
-    history.push(`/carga/recibo/${item}`)
+    const handleNrecibo=(file)=> {
+    history.push(`/carga/recibo/${file.numerorecibo}`)
  }
+
+
+
+ const reducido= getRecibos[0]?.reduce((acum,elemet)=>{
+  if( !acum.find(d=> d.numerorecibo == elemet.numerorecibo)){
+    acum.push(elemet)
+  }
+  return acum
+ },[])
+ console.log(reducido,26);
+ const screens = useBreakpoint();
+
+ const columns = [
+  {
+    title: 'N de recibo',
+    dataIndex: 'numerorecibo',
+    key: 'numerorecibo',
+    lupa:false,
+    width:100,
+  },
+  {
+    title: 'Razon Social',
+    dataIndex: 'razonsocial',
+    key: 'razonsocial',
+    lupa:false,
+    width:100,
+
+
+  },
+  {
+    title: 'N comprobante',
+    dataIndex: 'ncomprobante',
+    key: 'ncomprobante',
+    lupa:false,
+    width:100,
+
+
+  },
+  {
+    title: 'Pdf',
+    dataIndex: 'pdf',
+    key: 'pdf',
+    lupa:false,
+    width:100,
+
+
+    render:(state, file)=> <DownloadOutlined />
+  },
+  {
+    title: '',
+    dataIndex: 'ingresar',
+    key: 'ingresar',
+    lupa:false,
+    width:100,
+
+
+    render:(state, file)=> <Button onClick={() => handleNrecibo(file)}>Ingresar</Button>
+  },
+
+
+ ]
+ console.log(screens,'line 70 lista recibo');
     return (
-        <>
-        <List
-        className='lista-recibo'
-      header={<h2>Listas de Recibos</h2>}
-      footer={<div></div>}
-      bordered
-      dataSource={nreciboSinRecibo.reverse()}
-      renderItem={item =>{
-        const filtro=getRecibos[1].filter(g=>g.numerorecibo===item)
-        return(
-        <List.Item
-        actions={[<Button onClick={() => handleNrecibo(item)}>Ingresar</Button>]}
-        >
-      <div className='descripciones-recibo'>
-       <span className='item-recibo' >  N° de recibo: </span> <b className='item-recibo'> {item} </b> 
-       <span className='item-recibo' >{filtro[0]?.razonsocial}</span>
-       <span className='item-recibo' >N de comprobante: <b >{filtro[0]?.ncomprobante}</b></span>
-       </div>
-        </List.Item>
-      )}
-    
-    }
-    />  
-        </>
+        <Card className='lista-recibo'>
+<HelperTABLEobj
+title={<h2 style={{textAlign:'center'}}> <b> Recibos </b> </h2>}
+columns={columns}
+data={reducido?.reverse()}
+y={screens.md===false?300:400}
+bordered={false}
+/>
+     </Card>  
     )
 }

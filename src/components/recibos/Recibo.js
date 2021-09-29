@@ -11,6 +11,7 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { Grid, Tag } from "antd";
 import { SocketContext } from "../../context/SocketContext";
 import './css/listarecibo.css';
+import Swal from 'sweetalert2'
 const { useBreakpoint } = Grid;
 
 export const Recibo = ({ history }) => {
@@ -27,12 +28,15 @@ export const Recibo = ({ history }) => {
   const [cheques, setCheques] = useState([]);
   const [retenciones, setRetenciones] = useState([]);
   const [depositos, setDepositos] = useState([]);
+
   const newIngresos = ingresos.map((n) => {
     return {
       ...n,
       nvendedor: N,
       nombrecompleto: `${usuario.nombre}${usuario.apellido}`,
       numerorecibo: uid,
+      razonsocial:dataCheck[0]?.razonsoc,
+
     };
   });
   const newDataCheck = dataCheck.map((d) => {
@@ -52,7 +56,7 @@ export const Recibo = ({ history }) => {
 
   const finalizar = async () => {
 
-  await axiosURLIntranetCobranzas.post("/recibos", {
+ const res = await axiosURLIntranetCobranzas.post("/recibos", {
       newIngresos,
       newDataCheck,
     });
@@ -71,8 +75,16 @@ export const Recibo = ({ history }) => {
   };
 socket.emit('alerta-nueva', nuevoObj);
 } 
+if(res.data.status=== 200){
+Swal.fire({
+  position: 'center',
+  icon: 'success',
+  title: 'El recibo se guardo con exito!!!',
+  showConfirmButton: false,
+  timer: 1500
+})
+}
 history.push('/perfil')
-
 };
 
   const screens = useBreakpoint();
