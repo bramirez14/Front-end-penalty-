@@ -1,24 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect,  } from "react";
 import { axiosURL } from "../config/axiosURL";
-import {  Button, Table } from "antd";
-import { Modale } from "./helpers/Modale";
-import { saveAs } from "file-saver";
+import {  Button, Table, Switch, Row, Col} from "antd";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
-import { BiDownload } from "react-icons/bi";
-import { PeticionGET } from "../config/PeticionGET";
-import { SocketContext } from "../context/SocketContext";
 
 export const AntSueldoVista = ({ history }) => {
-  const {socket} = useContext(SocketContext)
+  const [state, setState] = useState(false)
   const N = localStorage.getItem("N");
   const [sueldo, setSueldo] = useState([]);
   /**evitar que usuari 905 ingresen a la ruta */
   N !== "905" && history.push("/perfil");
 
-  /* const finalizar= async (id)=>{
-let result = await axiosURL.post(`/finalizar/gasto/${id}`,{procesoFinalizado:'Si'})
-result.status===200 && history.push('/perfil')
-} */
 
   const get = async () => {
     const { data } = await axiosURL.get("/anticipo");
@@ -27,16 +18,12 @@ result.status===200 && history.push('/perfil')
   useEffect(() => {
     get();
   }, []);
-
+  function onChange(checked) {
+    console.log(`switch to ${checked}`);
+  }
+  
   const filtroListo = sueldo.filter((f) => f.estadoFinal === "aprobado");
-  const descargarPDF = async (pdf) => {
-    let res = await axiosURL.get("/pdf/gastos/rendicion", {
-      headers: { archivo: pdf },
-      responseType: "blob",
-    });
-    const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
-    saveAs(pdfBlob, `${pdf}`);
-  };
+
 
   const columns = [
     {
@@ -82,13 +69,7 @@ result.status===200 && history.push('/perfil')
       width: 140,
       render: (state, file) => <h5>${numberWithCommas(file.importe)}</h5>,
     },
-    {
-      title: "N° orden",
-      dataIndex: "norden",
-      key: "norden",
-      width: 100,
-      render: (state, file) => <h5>{file.norden}</h5>,
-    },
+
    
   
   ];
@@ -102,9 +83,11 @@ result.status===200 && history.push('/perfil')
     };
   });
 
+
   return (
     <>
-      <Table columns={columns} dataSource={datos} />
+  
+      <Table columns={columns} dataSource={datos.reverse()} />
     </>
   );
 };

@@ -102,8 +102,9 @@ const {socket} = useContext(SocketContext);
       await axiosURL.put(`/gasto/aprobado/${file.id}`, {
           ...mensaje,
           estadoFinal: "aprobado",
+          notificacion: "inactiva",
           estado: "aprobado",
-          
+          fd: new Date().toLocaleString(),
        })}
        else{
         await axiosURL.put(`/gasto/aprobado/${file.id}`, {
@@ -122,8 +123,9 @@ const {socket} = useContext(SocketContext);
     await axiosURL.put(`/gasto/rechazado/${file.id}`, {
       ...mensaje,
       estado: "rechazado",
+      notificacion: "inactiva",
       estadoFinal: "rechazado",
-      
+      fd: new Date().toLocaleString(),
     });
     setMensaje({ respMensaje: "" });
     axiosGet();
@@ -148,7 +150,6 @@ const {socket} = useContext(SocketContext);
         dataIndex: "estadoFinal",
         key: "estadoFinal",
         width:N=== "902"?140:0,
-        lupa:false,
         render: (estado, file) => {
           const color = () => {
             switch (file.estadoFinal) {
@@ -169,7 +170,6 @@ const {socket} = useContext(SocketContext);
       dataIndex: "acciones",
       key: "acciones",
       width: 80,
-      lupa:false,
       render: (f, file) => {
         return (
           <>
@@ -206,7 +206,6 @@ const {socket} = useContext(SocketContext);
       title: "Borrar ",
       dataIndex: "borrar ",
       key: "borrar",
-      lupa:false,
       width:100,
       render: (f, file) => {
         const handleDelete = async () => {
@@ -236,7 +235,6 @@ const {socket} = useContext(SocketContext);
     {
       dataIndex: "rendiciones ",
       key: "rendiciones",
-      lupa:false,
       width:140,
       render: (f, file) => {
         
@@ -246,7 +244,7 @@ const {socket} = useContext(SocketContext);
             <Row gutter={[10, 10]}>
           {file?.rendicion?.map((r) => (
             <>
-              <Col xs={24} sm={24} md={12} lg={6} xl={6}>
+              <Col xs={6} sm={6} md={6} lg={6} xl={6}>
                 <Card
                   style={{
                     width: 200,

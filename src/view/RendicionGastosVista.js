@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { axiosURL } from "../config/axiosURL";
-import { Card, Button, Row, Col, Table, Image } from "antd";
+import { Card, Button, Row, Col, Table, Image, Switch } from "antd";
 import { Modale } from "./helpers/Modale";
 import { saveAs } from "file-saver";
 import { BiDownload } from "react-icons/bi";
@@ -8,17 +8,13 @@ import { numberWithCommas } from "../components/reportes/helpers/funciones";
 import { PeticionGET } from "../config/PeticionGET";
 
 export const RendicionGastosVista = ({ history }) => {
+  const [state, setState] = useState(false)
   const N = localStorage.getItem("N");
   const id = localStorage.getItem('uid')
   const [gasto, setGasto] = useState([]);
 
   /**evitar que usuari 905 ingresen a la ruta */
   ( N !== "905" && N!== '901' ) && history.push("/perfil");
-
-  /* const finalizar= async (id)=>{
-let result = await axiosURL.post(`/finalizar/gasto/${id}`,{procesoFinalizado:'Si'})
-result.status===200 && history.push('/perfil')
-} */
 
   const get = async () => {
     const { data } = await axiosURL.get("/gastos");
@@ -39,7 +35,7 @@ result.status===200 && history.push('/perfil')
     const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
     saveAs(pdfBlob, `${pdf}`);
   };
-  console.log(filtroListo);
+
   const columns = [
     {
       title: "Numero de Anticipo",
@@ -182,7 +178,8 @@ result.status===200 && history.push('/perfil')
             />
           )}
         </>
-      );}
+      );
+    }
     },
   ];
 
@@ -229,9 +226,17 @@ result.status===200 && history.push('/perfil')
       ),
     };
   });
+  const filterProcesoFinalizado= datos.filter(d=>d.procesoFinalizado === 'Si');
+  const filterIncompletos=datos.filter(d=>d.procesoFinalizado !== 'Si');
+
+  
 
   return (
     <>
+    <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
+  <Switch checkedChildren="Pendientes" unCheckedChildren="Finalizados" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}} />
+    </Col>
+    </Row>
       <Table
         columns={columns}
         expandable={{
@@ -239,7 +244,7 @@ result.status===200 && history.push('/perfil')
             <p style={{ margin: 0 }}>{record.description}</p>
           ),
         }}
-        dataSource={datos}
+        dataSource={state? filterProcesoFinalizado.reverse():filterIncompletos.reverse()}
         scroll={{ y: 500 }}
       />
     </>

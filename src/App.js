@@ -8,6 +8,11 @@ import { UserContext } from "./context/UserContext";
 import { PeticionJWT } from "./auth/PeticionJWT";
 import { SocketProvider } from "./context/SocketContext";
 
+
+import {Provider} from 'react-redux'
+import { store } from "./store/store";
+
+
 function App() {
   PeticionJWT();
   const [openn, setOpen] = useState(false);
@@ -18,6 +23,8 @@ function App() {
 const [alertas, setAlertas] = useState([])
 
   return (
+  
+  <Provider store={store}>
     <UserContext.Provider
       value={{
         open: openn,
@@ -35,12 +42,14 @@ const [alertas, setAlertas] = useState([])
        
       }}
     >
-      <SocketProvider>
+   <SocketProvider>
 
           <Routes />
       </SocketProvider>
 
     </UserContext.Provider>
+</Provider>
+     
   );
 }
 

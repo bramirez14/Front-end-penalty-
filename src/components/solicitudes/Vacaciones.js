@@ -127,6 +127,7 @@ export const Vacaciones = ({ history }) => {
       ...vacaciones,
       estadoFinal: "pendiente",
       estado: "pendiente",
+      f: new Date().toLocaleString(),
     });
     
     if (result.status === 200) {

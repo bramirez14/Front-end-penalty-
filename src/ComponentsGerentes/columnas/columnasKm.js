@@ -96,8 +96,9 @@ export const ColumnasKm = () => {
         await axiosURL.put(`/km/aprobado/${file.id}`, {
                     ...mensaje,
                     estadoFinal: "aprobado",
+                    notificacion: "inactiva",
                     estado: "aprobado",
-                    
+                    fd: new Date().toLocaleString(),
                   })
        }else{
         await axiosURL.put(`/km/aprobado/${file.id}`, {
@@ -119,8 +120,9 @@ export const ColumnasKm = () => {
         await axiosURL.put(`/km/rechazado/${file.id}`, {
           ...mensaje,
           estado: "rechazado",
+          notificacion: "inactiva",
           estadoFinal: "rechazado",
-          
+          fd: new Date().toLocaleString(),
         });
         setMensaje({ respMensaje: "" });
         axiosGet();
@@ -150,7 +152,6 @@ export const ColumnasKm = () => {
             dataIndex: "estadoFinal",
             key: "estadoFinal",
             width:N=== "902"?170:0,
-              lupa:false,
             render: (estado, file) => {
               const color = () => {
                 switch (file.estadoFinal) {
@@ -171,7 +172,6 @@ export const ColumnasKm = () => {
           dataIndex: "acciones",
           key: "acciones",
           width: 100,
-          lupa:false,
           render: (f, fila) => {
             return (
               <>
@@ -207,7 +207,6 @@ export const ColumnasKm = () => {
             dataIndex: "borrar ",
             key: "borrar",
             width: 100,
-            lupa:false,
             render: (f, fila) => {
               const handleDelete = async () => {
                 console.log("me clickeaste para borrar");
@@ -236,7 +235,6 @@ export const ColumnasKm = () => {
           {
             dataIndex: "rendiciones ",
             key: "rendiciones",
-            lupa:false,
             width:140,
             render: (f, file) => {
               
@@ -246,7 +244,7 @@ export const ColumnasKm = () => {
                   <Row gutter={[10, 10]}>
                   {file.rendicionKm.map((r) => (
             <>
-              <Col xs={24} sm={24} md={12} lg={6} xl={6}>
+              <Col xs={6} sm={6} md={6} lg={6} xl={6}>
                 <Card
                   style={{
                     width: 200,

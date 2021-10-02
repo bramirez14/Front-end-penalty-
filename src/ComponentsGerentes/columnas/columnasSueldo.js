@@ -71,8 +71,10 @@ const {socket} = useContext(SocketContext);
       await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estadoFinal: "aprobado",
+        notificacion: "inactiva",
         estado: "aprobado",
         listo: "Si",
+        fd: new Date().toLocaleString(),
       });
      
     } else {
@@ -95,7 +97,9 @@ const {socket} = useContext(SocketContext);
     await axiosURL.put(`/anticipo/rechazado/${file.id}`, {
       ...mensaje,
       estado: "rechazado",
+      notificacion: "inactiva",
       estadoFinal: "rechazado",
+      fd: new Date().toLocaleString(),
     });
     setMensaje({ respMensaje: "" });
     axiosGet();
@@ -127,7 +131,6 @@ const {socket} = useContext(SocketContext);
       dataIndex: "estadoFinal",
       key: "estadoFinal",
       width:N=== "902"?120:0,
-      lupa:false,
       render: (estado, file) => {
         const color = () => {
           switch (file.estadoFinal) {
@@ -146,7 +149,6 @@ const {socket} = useContext(SocketContext);
       title: "Acciones",
       dataIndex: "acciones",
       key: "acciones",
-      lupa:false,
       width:100,
       render: (f, file) => {
         return (
@@ -183,7 +185,6 @@ const {socket} = useContext(SocketContext);
       title: "Borrar ",
       dataIndex: "borrar ",
       key: "borrar",
-      lupa:false,
       width:100,
       render: (f, file) => {
         const handleDelete = async () => {

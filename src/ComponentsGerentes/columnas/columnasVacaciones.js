@@ -7,8 +7,10 @@ import { AiOutlineDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { PeticionGET } from "../../config/PeticionGET";
 import { colVacaciones } from "./destructuracionCol/colVacaciones";
+import { alerta902, alertaGerencia } from "../helpers/funciones";
 import { SocketContext } from "../../context/SocketContext";
 
+var numberFormat = new Intl.NumberFormat("es-ES");
 
 export const ColumnasVacaciones = () => {
 const {socket} = useContext(SocketContext);
@@ -62,7 +64,9 @@ const {socket} = useContext(SocketContext);
     await axiosURL.put(`/vacaciones/aprobado/${file.id}`, {
           ...mensaje,
           estadoFinal: "aprobado",
+          notificacion: "inactiva",
           estado: "aprobado",
+          fd: new Date().toLocaleString(),
         })}else{
       await axiosURL.put(`/vacaciones/aprobado/${file.id}`, {
                 ...mensaje,
@@ -80,7 +84,9 @@ const {socket} = useContext(SocketContext);
     await axiosURL.put(`/vacaciones/rechazado/${file.id}`, {
       ...mensaje,
       estado: "rechazado",
+      notificacion: "inactiva",
       estadoFinal: "rechazado",
+      fd: new Date().toLocaleString(),
     }); // trabajando
     setMensaje({ respMensaje: "" });
     axiosGet();
@@ -110,7 +116,6 @@ const {socket} = useContext(SocketContext);
       dataIndex: "estadoFinal",
       key: "estadoFinal",
       width: N === "902" ? 150 : 0,
-      lupa: false,
       render: (estado, file) => {
         const color = () => {
           switch (file.estadoFinal) {
@@ -130,7 +135,6 @@ const {socket} = useContext(SocketContext);
         dataIndex: "acciones",
         key: "acciones",
         width: 100,
-        lupa: false,
         render: (f, file) => {
           return (
             <>
@@ -167,7 +171,6 @@ const {socket} = useContext(SocketContext);
       dataIndex: "borrar ",
       key: "borrar",
       width: 100,
-      lupa: false,
       render: (f, file) => {
         const handleDelete = async () => {
           console.log("me clickeaste para borrar");

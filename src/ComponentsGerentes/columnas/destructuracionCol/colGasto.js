@@ -10,6 +10,7 @@ export const colGastos = [
     dataIndex: "id",
     key: "id",
     width: 100,
+    lupa: true,
     render: (state, file) => <h5>{file.id}</h5>,
   },
   {
@@ -17,7 +18,7 @@ export const colGastos = [
     dataIndex: "nombre",
     key: "nombre",
     width: 100,
-
+    lupa: true,
     render: (state, file) => <h5>{file.nombre}</h5>,
   },
   {
@@ -25,7 +26,7 @@ export const colGastos = [
     dataIndex: "apellido",
     key: "apellido",
     width: 100,
-
+    lupa: true,
     render: (state, file) => <h5>{file.apellido}</h5>,
   },
   {
@@ -33,8 +34,9 @@ export const colGastos = [
     dataIndex: "departamento",
     key: "departamento",
     width: 100,
+    lupa: true,
     render: (estado, file) => {
-      const dtos = PeticionGET("/departamentos");
+      const dtos = PeticionGET("/departamentos"); // peticion get para traer todos los departamentos
       const Dto = dtos.find((d) => d.id === file.usuario?.departamentoId);
       const DtoSelect = Dto?.departamento;
       return <h5>{DtoSelect}</h5>;
@@ -46,7 +48,6 @@ export const colGastos = [
     dataIndex: "estado",
     key: "estado",
     width: 90,
-    lupa: false,
     render: (estado, file) => {
       const color = () => {
         switch (file.estado) {

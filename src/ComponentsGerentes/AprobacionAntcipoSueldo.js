@@ -6,10 +6,12 @@ import { Button, Descriptions, Switch, Row, Col} from "antd";
 import { BiDownload } from "react-icons/bi";
 import { colSueldoExcel } from "./columnas/columnasExcel/columnasSueldoExcel";
 import {  CheckOutlined } from '@ant-design/icons'
+import { SwitchComponet } from "../components/botones/Switch";
 
 export const AprobacionAntcipoSueldo = () => {
-const N = localStorage.getItem('N')
-const [state, setState] = useState(false)
+  const N = localStorage.getItem('N');
+  const [state, setState] = useState(false);
+
  const[columnasSueldo,data]=ColumnasSueldo();
 //filtro generencia viene de los helpers
   const datos = GetFiltroGerencia(data)?.map((f) => {
@@ -25,18 +27,19 @@ const [state, setState] = useState(false)
         <Descriptions.Item label="Importe"><b>{f.importe}</b></Descriptions.Item>
         <Descriptions.Item label="Cuotas"><b>{f.cuotas}</b></Descriptions.Item>
         <Descriptions.Item label="Mensaje"><b>{f.mensaje}</b></Descriptions.Item>
-       
+
+      
         <Descriptions.Item label="PDF pagos">
         {
-        f.pdfinal === null? <h5>No hay pdf!!!</h5>:
-        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdfinal)}>
+        f.pdf === null? <h5>No hay pdf!!!</h5>:
+        <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdFinal)}>
             <BiDownload/>
             </Button>
       }
         </Descriptions.Item>
         <Descriptions.Item label="PDF orden de pago final">
         {
-        f.pdfpagoFinal === null? <h5>No hay pdf!!!</h5>:
+        f.pdf === null? <h5>No hay pdf!!!</h5>:
         <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdfpagoFinal)}>
             <BiDownload/>
             </Button>
@@ -58,21 +61,17 @@ const [state, setState] = useState(false)
   filtrofinalizados = datos.filter(d=>d.estado==='aprobado' || d.estado === 'rechazado');
   }
 
-
-console.log(state,61);
-  return (
+ return (
     <>
-    <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
-    <Switch checkedChildren="Pendentes" unCheckedChildren="Listos" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}}/>
-
+     <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
+    <Switch checkedChildren="Pendientes" unCheckedChildren="Listos" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}}/>
     </Col>
     </Row>
-  
     <HelperTABLEobj
     hoja={"Aprobaciones de Sueldos"}
     namefile={"Aprobaciones de Sueldos"}
     columns={columnasSueldo}
-    data={state?filtrofinalizados:filtropendientes}
+    data={state?filtrofinalizados.reverse():filtropendientes.reverse()}
     paginas={true}
     boton={true}
     bordered={true}

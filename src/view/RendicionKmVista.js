@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { axiosURL } from "../config/axiosURL";
 import { saveAs } from "file-saver";
-import { Card, Collapse, Button, Row, Col, Table } from "antd";
+import { Card, Collapse, Button, Row, Col, Table, Switch } from "antd";
 import { Modale } from "./helpers/Modale";
 import { BiDownload } from "react-icons/bi";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
 import { PeticionGET } from "../config/PeticionGET";
 
 export const RendicionKmVista = ({ history }) => {
+  const [state, setState] = useState(false)
   const id= localStorage.getItem('uid')
   const N = localStorage.getItem("N");
   const [km, setKm] = useState([]);
@@ -174,9 +175,14 @@ export const RendicionKmVista = ({ history }) => {
       ),
     };
   });
-
+  const filterProcesoFinalizado= datos.filter(d=>d.procesoFinalizado === 'Si');
+  const filterIncompletos=datos.filter(d=>d.procesoFinalizado !== 'Si');
   return (
     <>
+    <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
+      <Switch checkedChildren="Pendientes" unCheckedChildren="Finalizados" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}} />
+    </Col>
+    </Row>
       <Table
         columns={columns}
         expandable={{
@@ -184,7 +190,8 @@ export const RendicionKmVista = ({ history }) => {
             <p style={{ margin: 0 }}>{record.description}</p>
           ),
         }}
-        dataSource={datos}
+        dataSource={state? filterProcesoFinalizado.reverse():filterIncompletos.reverse()}
+
       />
     </>
   );

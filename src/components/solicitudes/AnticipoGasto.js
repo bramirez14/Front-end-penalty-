@@ -62,6 +62,7 @@ export const AnticipoGasto = ({ history }) => {
         usuarioId,
         estado: "pendiente",
         estadoFinal: "pendiente",
+        f: new Date().toLocaleString(),
       });
       if (result.status === 200) {
         history.push("/");

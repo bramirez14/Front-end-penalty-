@@ -78,8 +78,8 @@ export const HelperTABLEobj = ({
   };
   const handleSearch = (selectedKeys, confirm, dataIndex) => confirm();
   const handleReset = (clearFilters) => clearFilters();
-  const filtrosinLupa= columns?.filter(l=>l.lupa===false);
-  const filtroconLupa= columns?.filter(l=>l.lupa!==false);
+  const filtrosinLupa= columns?.filter(l=>l.lupa !== true);
+  const filtroconLupa= columns?.filter(l=>l.lupa === true);
   const col = filtroconLupa?.map((d) => {return {...d,...getColumnSearchProps(d.key)};});
   const columna= [...col,...filtrosinLupa]
   

@@ -1,9 +1,10 @@
-{
+ {
   "name": "frontend-penalty",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
+    "@emotion/react": "^11.4.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
@@ -26,12 +27,16 @@
     "react-html-table-to-excel": "^2.0.0",
     "react-icons": "^4.2.0",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-infinite-scroller": "^1.2.4",
     "react-pro-sidebar": "^0.6.0",
+    "react-redux": "^7.2.5",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-spinners": "^0.11.0",
     "react-to-pdf": "0.0.13",
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0",
     "socket.io-client": "^4.1.2",
     "sweetalert2": "^10.15.5",
     "uuidv4": "^6.2.12",

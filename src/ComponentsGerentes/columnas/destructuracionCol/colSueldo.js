@@ -6,6 +6,7 @@ export const colSueldo = [
     dataIndex: "id",
     key: "id",
     width: 100,
+    lupa: true,
     render: (state, file) => <h5>{file.id}</h5>,
   },
   {
@@ -13,6 +14,7 @@ export const colSueldo = [
     dataIndex: "nombre",
     key: "nombre",
     width: 100,
+    lupa: true,
     render: (state, file) => <h5>{file.nombre}</h5>,
   },
   {
@@ -20,6 +22,7 @@ export const colSueldo = [
     dataIndex: "apellido",
     key: "apellido",
     width: 100,
+    lupa: true,
     render: (state, file) => <h5>{file.apellido}</h5>,
   },
   {
@@ -27,6 +30,7 @@ export const colSueldo = [
     dataIndex: "departamento",
     key: "departamento",
     width: 100,
+    lupa: true,
     render: (estado, file) => {
       const dtos = PeticionGET("/departamentos");
       const Dto = dtos.find((d) => d.id === file.usuario?.departamentoId);
@@ -39,7 +43,6 @@ export const colSueldo = [
     dataIndex: "estado",
     key: "estado",
     width:100,
-    lupa: false,
     render: (estado, file) => {
       const color = () => {
         switch (file.estado) {

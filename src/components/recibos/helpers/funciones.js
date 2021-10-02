@@ -3,7 +3,6 @@ import {  PeticionGETIntranetCobranzas } from "../../../config/PeticionGET";
 export const filtradoPorVendedorCobranzas = (url) => {
   const N = localStorage.getItem("N");
   const getDB = PeticionGETIntranetCobranzas(url);
- console.log(getDB,'peticion get');
  if (getDB?.parent?.fatal===true) {
    alert('No hay internert')
  }else{ 

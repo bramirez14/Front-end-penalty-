@@ -1,14 +1,16 @@
-import React from "react";
+import React,{useState} from "react";
 import {PeticionGET} from "../config/PeticionGET";
 import { descargarPDF, GetFiltroGerencia } from "./helpers/funciones";
 import { ColumnasVacaciones } from "./columnas/columnasVacaciones";
 import "./css/aprob.css";
 import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
-import { Button, Descriptions } from "antd";
+import { Button, Col, Descriptions, Row, Switch } from "antd";
 import { BiDownload } from "react-icons/bi";
 import { colVacaExcel } from "./columnas/columnasExcel/columnasVacacionesExcel";
 
 export const AprobacionVacaciones = () => {
+  const [state, setState] = useState(false);
+  const N = localStorage.getItem("N");
 const [columnasVacaciones,data]=ColumnasVacaciones()
   const dtos = PeticionGET("/departamentos");// peticion get para traer todos los departamentos 
 //filtro generencia viene de los helpers
@@ -35,24 +37,29 @@ const [columnasVacaciones,data]=ColumnasVacaciones()
     
   });
 
-  const prueba= datos.map(d=>  Object.values(d) )
-  console.log(prueba,'line 37');
-  const colunaExcel=
-  datos.map(d=>{return{
+  let filtrofinalizados;
+  let filtropendientes;
+  if(N === '902'){
+    filtropendientes = datos.filter(d=>d.estadoFinal==='pendiente')
     
-        title:Object.values(d),
-        dataIndex: Object.keys(d),
-
-  }})  
-  console.log(colunaExcel,'line 46');
+    filtrofinalizados = datos.filter(d=>d.estadoFinal==='aprobado' || d.estadoFinal === 'rechazado')
+  }else{
+  filtropendientes = datos.filter(d=>d.estado==='pendiente');
+  filtrofinalizados = datos.filter(d=>d.estado==='aprobado' || d.estado === 'rechazado');
+  }
 
 
     return (
+      <>
+        <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
+    <Switch checkedChildren="Pendientes" unCheckedChildren="Listos" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}}/>
+    </Col>
+    </Row>
     <HelperTABLEobj
     hoja={"Aprobaciones de Vacaciones"}
     namefile={"Aprobaciones de Vacaciones"}
     columns={columnasVacaciones}
-    data={datos.reverse()}
+    data={state?filtrofinalizados.reverse():filtropendientes.reverse()}
     paginas={true}
     boton={true}
     bordered={true}
@@ -60,5 +67,6 @@ const [columnasVacaciones,data]=ColumnasVacaciones()
     y={400}
     colExcel={colVacaExcel}
     />
+    </>
     )
 }

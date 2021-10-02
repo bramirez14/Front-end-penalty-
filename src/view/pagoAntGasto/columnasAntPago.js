@@ -39,56 +39,7 @@ export const columnsant = [
 
       },
   
-      {
-        title: "Fecha",
-        dataIndex: "fecha",
-        key: "fecha",
-        width:120,
-        render: (state, file) =><h5>{file.fecha}</h5>
-
-      },
-  
    
-      {
-        title: "Rendicion",
-        key: "sinAnticipo",
-        dataIndex: "sinAnticipo",
-        width:120,
-
-        render: (state, file) => (
-          <>
-            {file.sinAnticipo === "sin" ? (
-              <h5>Sin Anticipo </h5>
-            ) : (
-              <h5>Con Anticipo</h5>
-            )}
-          </>
-        ),
-      },
-      {
-        title: "Importe solicitado",
-        dataIndex: "importerendido",
-        key: "importerendido",
-        width: 170,
-        render: (state, file) => (
-            <>
-          {file.sinAnticipo === "sin" ? 
-           <h5 style={{color:'orange'}}>Sin importe</h5>
-         :
-            <h5>${numberWithCommas(file.importe)}</h5>
-          }
-          </>
-        ),
-      },
-      {
-        title: "Importe rendido",
-        dataIndex: "importerendido",
-        key: "importerendido",
-        width: 170,
-        lupa: false,
-        render: (state, file) => <h5> ${numberWithCommas(file.importerendido)} </h5>
-      },
-  
       {
         title: "Estado",
         dataIndex: "estadoFinal",

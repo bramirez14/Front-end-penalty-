@@ -57,6 +57,8 @@ import { axiosURL } from "../config/axiosURL";
 import { CargaRecibo } from "../components/recibos/CargaRecibo";
 import { ListaRecibo } from "../components/recibos/ListaRecibo";
 
+import { RegisterP } from "../registerprueba/Register";
+
 export const DashboardRoutes = ({ history }) => {
   const [alertas, setAlertas] = useState([])
   const Text = useContext(UserContext);
@@ -70,7 +72,6 @@ export const DashboardRoutes = ({ history }) => {
 useEffect(() => {
     axiosGet();
 }, []);
-console.log(open,'soy opne desde ruter');
   return (
     <>
       <Sidebar history={history} alertas={alertas} setAlertas={setAlertas} getAlertas={axiosGet} />
@@ -134,6 +135,9 @@ console.log(open,'soy opne desde ruter');
         <RouteEmpleado exact path='/recibo' component={Recibo}/>
         <RouteEmpleado exact path='/lista/recibo' component={ListaRecibo}/>
          <RouteEmpleado exact path='/carga/recibo/:id' component={CargaRecibo}/>
+
+         <RouteEmpleado exact path='/p' component={RegisterP}/>
+
 
 
 

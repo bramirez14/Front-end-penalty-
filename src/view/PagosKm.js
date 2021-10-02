@@ -1,13 +1,17 @@
 import React,{useState,useEffect} from 'react'
-import { Table, Button,Form,Input} from 'antd';
+import { Button,Form,Input,Row, Col, Switch} from 'antd';
 import { axiosURL } from '../config/axiosURL';
 import { saveAs } from "file-saver";
 import { ModalKm } from '../components/rendicionesKm/ModalKm';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { Archivo } from '../file/Archivo';
 import { BiDownload } from 'react-icons/bi';
+import { HelperTABLEobj } from '../helpers/HelperTABLEobj';
+
+
 
 export const PagosKm = () => {
+  const [state, setState] = useState(false)
   const [stateFile, setStateFile] = useState('');
   const [stateFilefinal, setStateFilefinal] = useState('');
   const [dataKm, setDataKm] = useState([])
@@ -218,7 +222,17 @@ export const PagosKm = () => {
           apellido: f.usuario.apellido,
         };
       });
-    return (
-        <Table dataSource={datos} columns={columns} />
+      const filtroPagoRealizado = datos.filter(d=>d.procesoPagar === 'Si');
+      const filtroPagoIncompleto = datos.filter(d=>d.procesoPagar   !== 'Si');
+    return  (  
+       <>
+        <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
+      <Switch checkedChildren="Pendientes" unCheckedChildren="Finalizados" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}} />
+    </Col>
+    </Row>
+        <HelperTABLEobj  
+        data={state?filtroPagoRealizado.reverse():filtroPagoIncompleto.reverse()}
+        columns={columns} />
+        </>
     )
 }

@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   Row,
   Col,
   Descriptions,
   Button,
   Image,
+  Switch,
 } from "antd";
 import { descargarPDF, TodosGastos } from "./helpers/funciones";
 import { ColumnasKm } from "./columnas/columnasKm";
@@ -12,8 +13,12 @@ import "./css/aprob.css";
 import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
 import { colKmExcel } from "./columnas/columnasExcel/columnasKmExcel";
 import { BiDownload } from "react-icons/bi";
+import { SwitchComponet } from "../components/botones/Switch";
 
 export const AprobacionKm = () => {
+  const N = localStorage.getItem('N')
+  const [state, setState] = useState(false)
+
  const [columnasKm,data] = ColumnasKm();
 // TodosGastos viene de helpers
   const datos = TodosGastos(data)?.map((f) => {
@@ -43,15 +48,15 @@ export const AprobacionKm = () => {
       </Descriptions.Item>
       <Descriptions.Item label="PDF pagos">
       {
-      f.pdfinal === null? <h5>No hay pdf!!!</h5>:
-      <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdfinal)}>
+      f.pdf === null? <h5>No hay pdf!!!</h5>:
+      <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdFinal)}>
           <BiDownload/>
           </Button>
     }
       </Descriptions.Item>
       <Descriptions.Item label="PDF orden de pago final">
       {
-      f.pdfpagoFinal === null? <h5>No hay pdf!!!</h5>:
+      f.pdf === null? <h5>No hay pdf!!!</h5>:
       <Button type="link" style={{border:'none',backgroundColor:'transparent'}} onClick={() => descargarPDF(f.pdfpagoFinal)}>
           <BiDownload/>
           </Button>
@@ -62,18 +67,36 @@ export const AprobacionKm = () => {
     )
     };
   });
+  let filtrofinalizados;
+  let filtropendientes;
+  if(N === '902'){
+    filtropendientes = datos.filter(d=>d.estadoFinal==='pendiente')
+    
+    filtrofinalizados = datos.filter(d=>d.estadoFinal==='aprobado' || d.estadoFinal === 'rechazado')
+  }else{
+  filtropendientes = datos.filter(d=>d.estado==='pendiente');
+  filtrofinalizados = datos.filter(d=>d.estado==='aprobado' || d.estado === 'rechazado');
+  }
 
- return  <HelperTABLEobj
+
+
+ return  (
+ <>
+  <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
+    <Switch checkedChildren="Pendientes" unCheckedChildren="Listos" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}}/>
+    </Col>
+    </Row>
+ <HelperTABLEobj
  hoja={"Aprobaciones de Kilometros"}
     namefile={"Aprobaciones de Kilometros"}
  columns={columnasKm}
-    data={datos.reverse()}
+ data={state?filtrofinalizados.reverse():filtropendientes.reverse()}
     paginas={true}
     expandible={true}
     bordered={false}
     y={400}
     colExcel={colKmExcel}
- />
+ /></>)
        
       
 };

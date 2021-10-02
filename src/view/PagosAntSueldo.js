@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { Table, Button,Form,Input} from 'antd';
+import { Table, Button,Form,Input, Row, Col, Switch, Descriptions} from 'antd';
 import { axiosURL } from '../config/axiosURL';
 import { saveAs } from "file-saver";
 import { ModalKm } from '../components/rendicionesKm/ModalKm';
@@ -7,9 +7,11 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { Archivo } from '../file/Archivo';
 import { BiDownload } from 'react-icons/bi';
 import { numberWithCommas } from '../components/reportes/helpers/funciones';
+import { HelperTABLEobj } from '../helpers/HelperTABLEobj';
 
 
 export const PagosAntSueldo = ({history}) => {
+  const [state, setState] = useState(false)
   const [dataSueldo, setDataSueldo] = useState([]);
   const [stateFile, setStateFile] = useState('');
   const [stateFilefinal, setStateFilefinal] = useState('');
@@ -106,34 +108,7 @@ export const PagosAntSueldo = ({history}) => {
           render: (state, file) => <h5>{file.apellido}</h5>
 
         },
-        {
-          title: 'Fecha',
-          dataIndex: 'fecha',
-          key: 'fecha',
-          render: (state, file) => <h5>{file.fecha}</h5>
-
-        },
-        {
-          title: 'Devolucion',
-          dataIndex: 'sueldo',
-          key: 'sueldo',
-          render: (state, file) => <h5>{file.sueldo}</h5>
-
-        },
-        {
-          title: 'Cuotas',
-          dataIndex: 'cuotas',
-          key: 'cuotas',
-          render: (state, file) => <h5>{file.cuotas}</h5>
-
-        },
-      
-        {
-          title: 'Importe',
-          key: 'importe',
-          dataIndex: 'importe',
-          render: (state, file) => <h5> ${numberWithCommas(file.importe)}</h5>,
-        },
+       
         {
           title: 'Estado',
           dataIndex: 'estadoFinal',
@@ -219,9 +194,30 @@ export const PagosAntSueldo = ({history}) => {
           key: f.id,
           nombre: f.usuario.nombre,
           apellido: f.usuario.apellido,
+          description: (  <Descriptions title={`Info ${f.id}`} style={{border:' solid 2px #ddd', padding:20}}>
+      <Descriptions.Item label="Fecha"><b>{f.fecha}</b></Descriptions.Item>
+      <Descriptions.Item label="Devolucion"><b>{f.sueldo}</b></Descriptions.Item>
+      <Descriptions.Item label="Cuotas"><b>{f.cuotas}</b></Descriptions.Item>
+      <Descriptions.Item label="Importe"><b>{f.importe}</b></Descriptions.Item>
+
+
+      
+      </Descriptions>)
         };
       });
+      const filtroPagoRealizado = datos.filter(d=>d.pagoRealizado==='Si')
+      const filtroPagoIncompleto = datos.filter(d=>d.pagoRealizado !=='Si')
     return (
-        <Table dataSource={datos.reverse()} columns={columns} />
+      <>
+       <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
+      <Switch
+      checkedChildren="Pendientes" unCheckedChildren="Finalizados" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}} />
+    </Col>
+    </Row>
+        <HelperTABLEobj
+         data={state?filtroPagoRealizado.reverse():filtroPagoIncompleto.reverse()}
+          columns={columns} 
+          expandible={true} />
+      </>
     )
 }

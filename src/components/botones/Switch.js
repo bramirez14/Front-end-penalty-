@@ -1,33 +1,35 @@
-import React,{ useState,useEffect } from 'react'
+import React,{useState,useEffect} from 'react'
 import { Switch } from 'antd';
-import { CheckOutlined } from '@ant-design/icons';
-
-export const SwitchCompent = ({listo,nolisto}) => {
-    const N = localStorage.getItem('N')
-    const [state, setState] = useState({
-        estado:true,
-        estadoFinal:true,
+export const SwitchComponet = ({datos,data,setData}) => {
+    const N = localStorage.getItem('N');
+    const [state, setState] = useState(true);
+    
+    const retorno=async() =>{
+        let filtroPendientes;
+        let filtroFinalizados
+    if(N=== '902'){
         
-      })
-      function onChange(checked) {
-        setState({...state,estado:checked});
-      }
-     
-      const filtroSeleccion=(data)=> {
-        const rev= data?.reverse()
-       
-        if(state.estado===true){
-          return rev?.filter(r=> r.estado===nolisto);
+        filtroPendientes= datos.filter( d=> d.estadoFinal==='pendiente');
+        filtroFinalizados= datos.filter( d=> d.estadoFinal==='aprobado' ||  d.estado==='rechazado');
+            if(state===true){
+           setData(filtroFinalizados)
+           
+            }else{
+             setData(filtroPendientes)
+            }
+    }else{
+    filtroPendientes= datos.filter( d=> d.estado==='pendiente');
+    filtroFinalizados= datos.filter( d=> d.estado==='aprobado' ||  d.estado==='rechazado');
+    if(state===true){
+        setData(filtroFinalizados)
         }else{
-          return rev?.filter(r=> r.estado===listo);
-          
+        setData(filtroPendientes)
         }
-      }
- 
-      useEffect(() => filtroSeleccion(),[state])
+    }
+}
+useEffect(() => retorno(),[state])
+    
     return (
-        <>
-        <Switch checkedChildren="Pendentes" unCheckedChildren={<CheckOutlined />} defaultChecked onChange={onChange} style={{marginRight:10}}/>
-        </>
+        <Switch checkedChildren="pendientes" unCheckedChildren="finalizados" defaultChecked onChange={()=> setState(!state)} />
     )
 }
