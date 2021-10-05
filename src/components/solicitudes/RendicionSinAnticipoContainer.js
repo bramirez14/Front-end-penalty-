@@ -81,6 +81,7 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       history.push("/gastos");
     }
   };
+  console.log(imagen);
   /**Fin Submit */
   /**peticio get de forma de pago */
   let getFpago = PeticionGET("/mpagos");

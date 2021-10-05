@@ -132,7 +132,13 @@ if(!screens.md){
             <Menu.Item key="23">
         <Link to='/lista/kilometros'>Km </Link>
                  </Menu.Item>
+                 <Menu.Item key="24">
+        <Link to='/tarjeta/credito'> Gasto con Tarjeta</Link>
+                 </Menu.Item>
         </SubMenu>
+       
+    
+
         
         </Menu>
     )
