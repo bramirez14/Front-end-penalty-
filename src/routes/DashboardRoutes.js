@@ -59,6 +59,7 @@ import { ListaRecibo } from "../components/recibos/ListaRecibo";
 
 import { RegisterP } from "../registerprueba/Register";
 import { TarjetaCredito } from "../components/rendiciones/TarjetaCredito";
+import { Prueba } from "../components/Prueba";
 export const DashboardRoutes = ({ history }) => {
   const [alertas, setAlertas] = useState([])
   const Text = useContext(UserContext);
@@ -137,6 +138,8 @@ useEffect(() => {
          <RouteEmpleado exact path='/carga/recibo/:id' component={CargaRecibo}/>
         { /* Tarjeta de credito */}
          <RouteGerente exact path='/tarjeta/credito' component={ TarjetaCredito }/>
+         <RouteGerente exact path='/pru' component={ Prueba }/>
+
 
 
          <RouteEmpleado exact path='/p' component={RegisterP}/>
