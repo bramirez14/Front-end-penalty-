@@ -10,10 +10,9 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
   const [data, setData] = useState([]);
   const [state, setState] = useState({});
   const [crearRendicion, setCrearRendicion] = useState({
-    notas: "",
-    imagen: "",
+   categoria:'',
+
   });
-  const { notas, imagen } = crearRendicion;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCrearRendicion({
@@ -37,15 +36,10 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       imagen: "",
     });
   };
-  const datosUsuario = PeticionGET(`/${id}`)
   const handleSubmit = async (values) => {
+    console.log(values);
     setSpinner(true)
-    const objs={ 
-    ...datosUsuario,
-    msj:values.notas,
-    nombre:'Tenes una Rendicion Sin Anticipo',
-    path:'/aprobacion/gastos'
-    }
+    
 //   const {data} = await alerta(objs)
     let obj = {
       fecha: new Date().toLocaleDateString(),
@@ -54,12 +48,11 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       estado: "pendiente",
       estadoFinal: "pendiente",
       notificacion: "activa",
-      f: new Date().toLocaleString(),
       alertaId: data?.alertaCreada?.id
 
     };
     let f = new FormData();
-    f.append("imagen", imagen);
+    f.append("file", values.file?.[0]?.originFileObj);
     f.append("importe", values.importe);
     f.append("importerendido", values.importe);
     f.append("categoria", values.categoria);
@@ -76,12 +69,13 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       alert('Compruebe su connexion!!!')
       setSpinner(false)
     }
-
+console.log(result);
     if (result.data.status === 200) {
-      history.push("/gastos");
+     // history.push("/gastos");
     }
   };
-  console.log(imagen);
+  console.log(crearRendicion);
+
   /**Fin Submit */
   /**peticio get de forma de pago */
   let getFpago = PeticionGET("/mpagos");
@@ -97,7 +91,6 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       categorias={categorias}
       selectChangePago={selectChangePago}
       getFpago={getFpago}
-      notas={notas}
       estilo={estilo}
       data={data}
       crearRendicion={crearRendicion}
@@ -106,6 +99,7 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       setCrearRendicion={setCrearRendicion}
       handleDelete={handleDelete}
       spinner={spinner}
+      
     />
   );
 };

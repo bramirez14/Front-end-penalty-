@@ -16,7 +16,7 @@ export const Sueldo = ({
 }) => {
   return (
     <Form
-      className='form container'
+    className='container-form'
       onFinish={handleSubmit}
       size="large"
     >
