@@ -1,5 +1,5 @@
 import React from "react";
-import {  Row,Col, Form, Input, Button, Radio,} from "antd";
+import {  Row,Col, Form, Input, Button, Radio, Divider} from "antd";
 import { Titulo } from "../titulos/Titulo";
 import { FormAntAguinaldo } from "./helpers/FormAntAguinaldo";
 import { FormAntSueldo } from "./helpers/FormAntSueldo";
@@ -16,7 +16,7 @@ export const Sueldo = ({
 }) => {
   return (
     <Form
-    className='container-form'
+    className='form-complete'
       onFinish={handleSubmit}
       size="large"
     >
@@ -25,7 +25,12 @@ export const Sueldo = ({
           ) :
           (<Row gutter={10}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-        <Titulo numero={2} titulo='Anticipo de Sueldo'/>
+      {/*   <h3>
+        Anticipo de Sueldo
+          
+          </h3> */}
+          <Titulo titulo='Anticipo de Sueldo' />
+          <Divider/>
             <>  
             <Radio.Group name="sueldo" onChange={handleChange} value={sueldo} style={{marginBottom:10}}>
             <Radio value={'Sueldo'}>Anticipo de Sueldo</Radio>

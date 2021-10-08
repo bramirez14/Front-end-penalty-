@@ -9,12 +9,12 @@ export const Rendicion = ({ history }) => {
   <>
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-          <Titulo numero={2} titulo='Rendicion de Gastos'/>
+          <Titulo  titulo='Rendicion de Gastos'/>
           
          
         </Col>
       </Row>
-
+<Divider/>
       <Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Tabla />

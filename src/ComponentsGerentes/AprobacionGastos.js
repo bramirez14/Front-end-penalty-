@@ -26,6 +26,7 @@ const op= formaDepago.find(
   return op?.pago
         
 }
+console.log(data);
 const modoRendicion=( modo) => {
  if(modo==='sin'){
    return 'Sin Anticipo'
@@ -80,7 +81,6 @@ const modoRendicion=( modo) => {
       )
     };
   });
-
   let filtrofinalizados;
   let filtropendientes;
   if(N === '902'){

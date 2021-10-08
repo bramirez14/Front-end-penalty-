@@ -1,13 +1,11 @@
-import { Row, Col, Card, Tooltip } from "antd";
 import React from "react";
+import { Row, Col, Card, Tooltip } from "antd";
 import { PeticionJWT } from "../../auth/PeticionJWT";
 import { PeticionGET } from "../../config/PeticionGET";
 import { GiReceiveMoney, GiCheckMark, GiCancel } from "react-icons/gi";
 import { BiTimeFive} from "react-icons/bi";
 import { FaUmbrellaBeach, FaRegMoneyBillAlt } from "react-icons/fa";
 import { AiFillCar} from "react-icons/ai";
-
-
 
 import "./css/cardEstado.css";
 export const CardEstado = () => {
@@ -74,7 +72,7 @@ export const CardEstado = () => {
  }
  </Card>
             
-         
+        
         </Col>
 {/**Vacaciones */}
         <Col xs={24} sm={12} md={12} lg={6} xl={6}>

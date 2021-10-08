@@ -112,7 +112,6 @@ height:100px
               >
                 <Select
                   placeholder=" Medio de pago"
-                  name="formapagoId"
                   onChange={selectChangePago}
                 >
                   {getFpago.map((g) => (
@@ -134,12 +133,10 @@ height:100px
                   },
                 ]}
               >
-                <Input name="importe" placeholder="Importe" type="number" />
+                <Input  placeholder="Importe" type="number" />
               </Form.Item>
-              <Form.Item name="notas" hasFeedback>
+              <Form.Item name="nota" hasFeedback>
                 <TextArea
-                  name="notas"
-                  value={notas}
                   placeholder="Nota"
                   autoSize={{ minRows: 2, maxRows: 6 }}
                 />

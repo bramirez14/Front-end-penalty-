@@ -21,7 +21,7 @@ if(!screens.md){
     return (
         <Menu  mode="inline"
         onClick={handleClick} 
-      style={{backgroundColor:'#46a461',width:214}}
+      style={{backgroundColor:'#46a461'}}
       >
             <Menu.Item key="1" icon={<HomeOutlined />}>
                 <Link to='/perfil' >Home </Link>

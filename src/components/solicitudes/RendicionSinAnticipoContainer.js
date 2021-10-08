@@ -48,7 +48,6 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       estado: "pendiente",
       estadoFinal: "pendiente",
       notificacion: "activa",
-      alertaId: data?.alertaCreada?.id
 
     };
     let f = new FormData();
@@ -56,22 +55,20 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
     f.append("importe", values.importe);
     f.append("importerendido", values.importe);
     f.append("categoria", values.categoria);
-    f.append("notas", values.notas);
+    f.append("nota", values.nota);
     f.append("fecha", obj.fecha);
     f.append("usuarioId", obj.usuarioId);
     f.append("formapagoId", values.formapagoId);
     f.append("sinAnticipo", obj.sinAnticipo);
     f.append("estado", obj.estado);
     f.append("estadoFinal", obj.estadoFinal);
-    f.append('f',obj.f)
     let result = await axiosURL.post("/gasto/rendicion", f);
     if(result.data?.error?.errno===-3008){
       alert('Compruebe su connexion!!!')
       setSpinner(false)
     }
-console.log(result);
     if (result.data.status === 200) {
-     // history.push("/gastos");
+      history.push("/gastos");
     }
   };
   console.log(crearRendicion);

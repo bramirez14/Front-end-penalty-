@@ -1,8 +1,6 @@
 import React from "react";
-import { Typography } from 'antd';
 import "./css/titulo.css";
 
-const { Title } = Typography;
-export const Titulo = ({ titulo, style,numero }) => (
- <Title className="titulo" style={style} level={numero}>{titulo}</Title>
+export const Titulo = ({ titulo, style }) => (
+ <h1 className="titulo" style={style} >{titulo}</h1>
 )

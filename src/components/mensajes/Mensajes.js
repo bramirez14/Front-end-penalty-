@@ -25,13 +25,12 @@ export const Mensajes = ({socket,alertas}) => {
 const id = localStorage.getItem('uid');
 const usuario = PeticionGET(`/${id}`);
  const filtroEmail = alertas.filter( a => a.receptor === usuario?.email );
-
+ 
   function handleMenuClick(e) {
     message.info("La notificacion se elimino con exito!!!");
     console.log("click", e);
   }
   const handleCard = async (id) => {
-    console.log(id);
     socket.emit('editar-alerta',id)
     //getAlertas();
   }
@@ -98,7 +97,7 @@ const Listareverse= filtroEmail.reverse();
                     onClick={()=>handleCard(item.id)}
                     className='item-meta'
                     avatar={<Avatar src={item.usuario.imagen} />}
-                    title={<Link to={item.path} >{item.info}</Link>}
+                    title={<Link style={{color:'#7D7D7D'}} to={item.path} >{item.estado==='activa'? <b style={{color:'#000000'}} >{item.info}</b> : item.info}</Link>}
                     description={
                       <Link to={item.path}>
                       <div className="item-alerta" style={{ color: "black" }}>

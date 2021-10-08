@@ -1,12 +1,28 @@
-.ant-drawer-content{
+/* .ant-drawer-content{
   background-color: #46a461 !important;
 }
 .ant-drawer-header{
   background-color: #46a461 !important;
+}*/
+
+
+.sider::-webkit-scrollbar {
+  width: 8px; /* Tamaño del scroll en vertical */
+  height: 10px; /*Tamaño del scroll en horizontal */
+}
+
+.sider::-webkit-scrollbar-thumb {
+  background: #8D8888;
+  border-radius: 10px;
+}
+
+.sider::-webkit-scrollbar-thumb:hover{
+  background: #b3b3b3;
 }
 .ant-drawer-body{
-  padding:0;
-}
+ padding:0px;
+
+} 
 /**Menu*/
 .ant-menu-item{color:#ffff}
 .ant-menu-item:hover{
@@ -78,7 +94,7 @@
   line-height: 40px;
   margin-left: 7px;
   border-radius: 8px;
-  width: 200px;
+  width: 207px;
 }
 .ant-menu-item a{
   color:#ffff;
@@ -101,9 +117,7 @@
 
 /* .ant-drawer-mask{display:none;} */
 /*para cerra con la x modo escritorio*/
-.ant-drawer-close{
-  top:-4px;
-}
+
 .navbar {
   background-color: #46a461;
   height: 47px;

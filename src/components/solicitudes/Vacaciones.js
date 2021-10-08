@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useContext } from "react";
-import { Form, Input, Button, Col, Row, DatePicker } from "antd";
+import { Form, Input, Button, Col, Row, DatePicker, Divider } from "antd";
 import { Titulo } from "../titulos/Titulo";
 import { axiosURL } from "../../config/axiosURL";
 import Swal from "sweetalert2";
@@ -187,7 +187,7 @@ export const Vacaciones = ({ history }) => {
     <>
       <Form
         {...formLayout}
-        className="form container"
+        className="form-complete"
         onFinish={handleSubmit}
         onChange={handleChange}
         size="large"
@@ -198,8 +198,8 @@ export const Vacaciones = ({ history }) => {
           <>
             <Row gutter={10}>
               <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                <Titulo numero={2} titulo=" Vacaciones" />
-
+                <Titulo titulo=" Vacaciones" />
+              <Divider/>
                 <Form.Item
                   label="Periodo"
                   rules={[

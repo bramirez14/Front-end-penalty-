@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import { Tarjetas } from './Tarjetas';
 import { TarjetaEmpleado905 } from './TarjetaEmpleado905';
 import { TarjetaEmpleado906 } from './TarjetaEmpleado906';
-import { TarjetaEmpleado0000 } from './TarjetaEmpleado0000';
 export const CardAprobaciones = (array,url) => {
   const N = localStorage.getItem('N')
     return (

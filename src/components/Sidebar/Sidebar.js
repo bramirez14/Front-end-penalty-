@@ -1,5 +1,5 @@
 import React, { useState, useContext, } from "react";
-import { Drawer, Grid } from 'antd';
+import { Avatar, Drawer, Grid, Layout,  } from 'antd';
 /* import SubMenu from "./SubMenu"; */
 import { AvatarImg } from "../img/Avatar";
 import { UserContext } from "../../context/UserContext";
@@ -17,14 +17,15 @@ import { Alerta } from "../alertas/Alerta";
 import "./css/sidebar.css";
 import { MenuGerencia } from "./MenuGerencia";
 import { MenuEmpleados } from "./MenuEmpleados";
-
+import { PeticionGET } from "../../config/PeticionGET";
+const {  Sider } = Layout;
 const { useBreakpoint } = Grid;
 
 export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
   let [isOpen, setIsOpen] = useState(false);
   const abrirCerrarHamburguesa = () => setOpen(!open)
   const id = localStorage.getItem("uid");
-
+ const datos= PeticionGET(`/${id}`)
   const N= localStorage.getItem("N");
   const Sidebar = useContext(UserContext);
   const { open, setOpen } = Sidebar;
@@ -56,20 +57,43 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
           </div>
         </Col>
       </Row>
-      <Drawer  
-      title={<h3 style={{color:'#ffff'}}><b>PENALTY</b></h3>}
+
+   { open===false?'':  <Drawer  
+      
       placement={'left'}
       /* closable={false} */
       onClose={onClose}
       visible={open}
       key={'left'}
-      width={220}
       mask={screens.lg?false:true}
+      width={227}
 >
+ 
+{/*   <AvatarImg history={history} /> */}
+<div style={{height:100, padding:10, backgroundColor:'#46a461',borderBottom:'solid 1px #ffff',width:227}}>
+  <Avatar size={64} src={datos.imagen} /> 
+  <span>{datos.nombre}{datos.apellido} </span>
+  <h5>{datos.email} </h5>
+  </div>
+    <Sider
+    className='sider'
+       style={
+        open===false?{
+        display:"none",
+
+        }:
+        {
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left:0,
+        backgroundColor:'#46a461'
+
+      }}
       
-      <AvatarImg history={history} />
-      <CustomScroll heightRelativeToParent="calc(80% - 100px)">
-        <div style={{width:247}}>
+      width={227}
+
+    >
 
         {
           N==='901'|| N==='902'|| N==='903'?
@@ -88,9 +112,11 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
           
             
            
-          </div>
-          </CustomScroll>
-      </Drawer>
+          
+
+          
+    </Sider>
+      </Drawer>}
     </>
   );
 };

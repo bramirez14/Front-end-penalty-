@@ -63,7 +63,7 @@ export const ListaUsuarios = ({ lista }) => {
   return (
     <>
       <Row gutter={[20,20]} style={{ marginTop: 20 }}>
-      <CardAprobaciones/>
+      {/* <CardAprobaciones/> */}
         <Col xs={24} sm={24} md={24} lg={15} xl={15}>
           <Card title='Usuarios'>
           <div className='lista-usuarios'>
@@ -109,6 +109,8 @@ export const ListaUsuarios = ({ lista }) => {
         gasto={gasto}
         sueldo={sueldo}
         vacaciones={vacaciones}
+      style={{ backgroundColor:'#ffff'}}
+        
       />
     </>
   );
