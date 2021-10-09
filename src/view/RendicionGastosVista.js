@@ -6,6 +6,7 @@ import { saveAs } from "file-saver";
 import { BiDownload } from "react-icons/bi";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
 import { PeticionGET } from "../config/PeticionGET";
+import { PdfoImg } from "../helpers/PdfoImg";
 
 export const RendicionGastosVista = ({ history }) => {
   const [state, setState] = useState(false)
@@ -201,11 +202,7 @@ export const RendicionGastosVista = ({ history }) => {
                     height: "auto",
                   }}
                 >
-                  <Image
-                    style={{ width: 100, height: 100 }}
-                    alt="example"
-                    src={r.imagen}
-                  />
+                 <PdfoImg file={r.archivo}/>
                   <p>
                     <b>Fecha:</b> {r.fecha}
                   </p>
