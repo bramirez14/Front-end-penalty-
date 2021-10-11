@@ -4,11 +4,28 @@ import { Button, Card } from "antd";
 import {Link} from 'react-router-dom'
 import { List,  } from 'antd';
 import { axiosURL } from "../../config/axiosURL";
+import Swal from 'sweetalert2'
 
 export const CardRendiciones = ({data,axiosGet,imagen,categoria,importe,fecha,notas,uid}) => {
  const handleDeleteRendicion = async (id)=> {
-   await axiosURL.delete(`/delete/rendicion/gasto/${id}`)
-   axiosGet();
+ 
+   const result= await Swal.fire({
+  title: 'Estas seguro?',
+  text: "¡No podrás revertir esto!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Borrar!'
+})
+console.log(result);
+  if (result.isConfirmed) {
+    await axiosURL.delete(`/delete/rendicion/gasto/${id}`)
+    Swal.fire("Borrado!", "Su archivo se borró con exito.", "success");
+    axiosGet();
+  }
+
+   
   
  }
   return (
@@ -50,7 +67,7 @@ export const CardRendiciones = ({data,axiosGet,imagen,categoria,importe,fecha,no
             width={272}
             height={200}
             alt="logo"
-            src={item.imagen}
+            src={item.archivo}
             style={{borderRadius:20,border:'solid 1px #ddd'}}
           />
             }
@@ -62,7 +79,7 @@ export const CardRendiciones = ({data,axiosGet,imagen,categoria,importe,fecha,no
              <h2> <b> Categoria:</b> {item.categoria}</h2>
              <h2> <b>Importe:</b> $  {item.importe}</h2>
              <h2> <b>fecha de ingreso:</b>  {item.fecha} </h2>
-            <h2> <b>Descripcion:</b> {item.notas} </h2 > 
+            <h2> <b>Descripcion:</b> {item.nota} </h2 > 
             </div>
       </List.Item>
     )}

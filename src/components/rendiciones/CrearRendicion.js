@@ -1,18 +1,15 @@
 import React, { useEffect, useState} from "react";
 import{ axiosURL} from "../../config/axiosURL";
-import { Form, Input, Button, Row, Select, Divider,Col,Card } from "antd";
+import { Form, Input, Button,  Select, Divider,} from "antd";
 import "./css/editarRendicion.css";
 import "../solicitudes/css/anticipoGasto.css";
 
 import TextArea from "antd/lib/input/TextArea";
 import {PeticionGET} from "../../config/PeticionGET";
 import { categorias } from "./categorias";
-import { VistaImg } from "./VistaImg";
-import { Imagen } from "../img/Imagen";
 import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/BeatLoader";
-import {CardImgResponse} from './CardImgResponse'
-import {CardImg} from './CardImg'
+import { Files } from "../../helpers/Files";
 
 const override = css`
   display: flex;
@@ -40,52 +37,17 @@ export const CrearRendicion = ({ match, history }) => {
   const [data, setData] = useState([]);
   const [crearRendicion, setCrearRendicion] = useState({
     fecha: new Date().toLocaleDateString(),
-    notas: "",
-    importe: "",
-    imagen:"",
     categoria: "",
-    gastoId: id,
   });
   
   const {
-    notas,
     importe,
-    imagen,
-    categoria,
     fecha,
-    gastoId,
   } = crearRendicion;
 
   console.log(spinner,'soy el spinner');
   
-  const agregar = async () => {
-   setSpinner(true)
-  const obj={
-    f: new Date().toLocaleString(),
-  }
-      let f = new FormData();
-     
-      f.append("imagen", imagen);
-      f.append("importe", importe);
-      f.append("categoria", categoria);
-      f.append("notas", notas);
-      f.append("fecha", fecha);
-      f.append("gastoId", gastoId);
-      f.append("total",total);
-      f.append('f',obj.f)
-
-      let result = await axiosURL.post("/rendicion", f);
-   console.log(result.data);
-      if(result.data?.error?.errno===-3008){
-        alert('Compruebe su connexion!!!')
-        setSpinner(false)
-      }
-      
-      if (result.data.status===200) {
-       history.push(`/lista/rendicion/${id}`);
-      }
-   
-  };
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCrearRendicion({
@@ -99,14 +61,7 @@ export const CrearRendicion = ({ match, history }) => {
     })
   }
  
-  /**Delte img del draw drop */
-  const handleDelete = (e) => {
-    setData([]);
-    setCrearRendicion({
-      ...crearRendicion,
-      imagen: "",
-    });
-  };
+
   /****fin imagenn  */
 
   /**peticio get de forma de pago */
@@ -138,34 +93,51 @@ export const CrearRendicion = ({ match, history }) => {
 
 
   /**Submit */
-  const handleSubmit = () => {
-    if(peticionGastoId?.sinAnticipo!=='sin'){
-      agregar(); 
-    }else{agregar()}
+  const handleSubmit = async (values) => {
+    console.log(values);
+    setSpinner(true)
+  
+      let f = new FormData();
+      f.append("file", values.file?.[0]?.originFileObj);
+      f.append("importe", values.importe);
+      f.append("categoria", values.categoria);
+      f.append("nota", values.nota);
+      f.append("fecha", fecha);
+      f.append("gastoId", id);
+      f.append("total",total);
+
+      let result = await axiosURL.post("/rendicion", f);
+   console.log(result);
+      if(result.data?.error?.errno===-3008){
+        alert('Compruebe su connexion!!!')
+        setSpinner(false)
+      }
+      
+      if (result.data.status===200) {
+       history.push(`/lista/rendicion/${id}`);
+      }
+   
   };
   /**Fin Submit */
+  console.log(crearRendicion);
   return (
     <>
-<Card className="formulario-rendicion-crear" style={{padding:20}}>
-<div style={{border:'solid 1px #ddd',padding:20,borderRadius:10,height:'auto'}}>
 <>{
   
   !!spinner?
  <BeatLoader olor={color}  css={override} size={20}  />
  :
-      <Row gutter={20}>
-      <Col xs={24} sm={24} md={24} lg={12} xl={12}> 
 
         <Form
           onFinish={handleSubmit}
           onChange={handleChange}
-          className='formulario'
+          className='form-complete'
           layout="vertical"
           
           {...estilo}
           size='large'
         >
-          <h4 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendicion 
+          <h4 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendiciones 
           <Button className='btn-rendicion' onClick={handleBack} style={{marginLeft:20}}> X </Button></h4>
           <Divider />
           <Form.Item name="categoria"
@@ -185,30 +157,13 @@ export const CrearRendicion = ({ match, history }) => {
             <Input name="importe" placeholder="Importe" type='number'/>
           </Form.Item>
 
-          <Form.Item name="notas"
+          <Form.Item name="nota"
           hasFeedback
           >
-            <TextArea name="notas" value={notas} placeholder="Nota" autoSize={{ minRows: 2, maxRows: 6 }} />
+            <TextArea  placeholder="Nota" autoSize={{ minRows: 2, maxRows: 6 }} />
           </Form.Item>
         
-         
-        <Imagen 
-            setData={setData}
-            setState={setCrearRendicion}
-            state={crearRendicion}
-          />
-         
-         {/**imagen modo cel y ipad  */}
-             
-            {
-              data.length> 0 &&
-              <div className='img-muestra'> 
-
-          
-                 <CardImgResponse
-                 data={data}
-                 />
-        </div>}
+         <Files obli={crearRendicion.categoria==='Peajes'?true:false}/>     
 
           
           <Form.Item>
@@ -217,33 +172,18 @@ export const CrearRendicion = ({ match, history }) => {
             </Button>
           </Form.Item>
         </Form>
-        </Col>
       
-        <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-      <div className='vista-muestra'>
+       
         
-            <CardImg  data={data}
-            setData={setData}
-            handleDelete={handleDelete}
-            {...crearRendicion
-         } />
-        
-      
-        </div>
-        
-        </Col>
-
-      </Row>
+       
      
      
      }</>
-      </div>
       
       
       
       
 
-</Card>
 
     </>
   );

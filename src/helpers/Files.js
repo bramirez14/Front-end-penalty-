@@ -11,7 +11,6 @@ export const Files = ({obli}) => {
   
     return e && e.fileList;
   };
- 
   return (
       <Form.Item
         name="file"

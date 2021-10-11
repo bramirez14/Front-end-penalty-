@@ -1,9 +1,16 @@
-.form-complete{
-    width:470px;
+
+    .form-complete{width:470px;
     margin:auto;
     margin-top: 20px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(92, 99, 105, 0.5);
    padding:20px;
    background-color: #fff;
+}
+@media (max-width: 768px){
+
+}
+@media (max-width: 480px){
+    .form-complete{width:340px;
+    }
 }

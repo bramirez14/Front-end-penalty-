@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { axiosURL } from "../../config/axiosURL";
-import { Form, Input, Button, Col, Row, Select, Divider, Spin } from "antd";
+import { Form, Input, Button, Col, Row, Select, Divider, DatePicker } from "antd";
 import "./css/editarRendicion.css";
 import TextArea from "antd/lib/input/TextArea";
 import { categorias } from "./categorias";
-import { VistaImg } from "./VistaImg";
 import { PeticionGET } from "../../config/PeticionGET";
-import { Imagen } from "../img/Imagen";
-
+import { Files } from "../../helpers/Files"
+import moment from 'moment';
+const dateFormat = 'DD/MM/YYYY';
 export const EditarRendicion = ({ match, history }) => {
-  const [spinner, setSpinner] = useState(false)
   const { id } = match.params;
-  const [data, setData] = useState([]);
-  const [img, setImg] = useState({image:''});
   const { Option } = Select;
 
   const [rendicionEditar, setRendicionEditar] = useState({
-    notas: "",
+    nota: "",
     importe: "",
     categoria: "",
   });
-  const { notas, importe, categoria, fecha, gastoId } = rendicionEditar;
+  const { nota, importe, categoria, fecha, gastoId } = rendicionEditar;
   useEffect(() => {
     const peticionID = async () => {
       let res = await axiosURL.get(`/rendicion/${id}`);
@@ -29,21 +26,19 @@ export const EditarRendicion = ({ match, history }) => {
     peticionID();
   }, [id]);
 
-  const crearImg = async () => {
-    setSpinner(true)
+  const crearImg = async (values) => {
     editarRendicion();
     let f = new FormData();
-    f.append("imagen", img.imagen);
+      f.append("file", values.file?.[0]?.originFileObj);
     let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f);
     console.log(result);
 
     if(result.data?.error?.errno===-3008){
       alert('Compruebe su connexion!!!')
-      setSpinner(false)
     }
     
     if (result.data.status===200) {
-      history.push(`/lista/rendicion/${gastoId}`);
+     history.push(`/lista/rendicion/${gastoId}`);
     }
   };
   const editarRendicion = async () => {
@@ -66,12 +61,7 @@ export const EditarRendicion = ({ match, history }) => {
     });
   };
 
-  /**Delte img del draw drop */
-  const handleDelete = (e) => {
-    setData([]);
-    setImg({imagen:''});
-  };
-  /****fin imagenn  */
+
   /** Boton para volver atras */
   console.log(gastoId);
   const handleBack = () => history.push(`/lista/rendicion/${gastoId}`);
@@ -85,29 +75,32 @@ export const EditarRendicion = ({ match, history }) => {
   const peticionRendicion = PeticionGET(`/rendicion/${id}`);
   const resta = totalDeImporte - parseFloat(peticionRendicion.importe); //Es para verificar
   const total = resta + parseFloat(importe); //Declarado en el estado
-  const handleSubmit = (e) => {
-    crearImg();
+  const handleSubmit = (values) => {
+    console.log(values);
+    crearImg(values);
   };
+  console.log(rendicionEditar);
+  console.log();
   return (
     <>
-      <Row>
-      <Col xs={24} sm={24} md={24} lg={8} xl={8}>
+      
          <Form
           onFinish={handleSubmit}
           onChange={handleChange}
           layout="vertical"
-          className="formulario-rendicion"
-        >
-          <h4 style={{ textAlign: "center", marginLeft: "32px" ,marginTop:20}}>
+          className="form-complete"
+          size='large'
+          >
+          <h3 style={{ textAlign: "center", marginLeft: "32px" ,marginTop:20}}>
             
             Editar Rendicion
             <Button className="btn-rendicion" onClick={handleBack} style={{marginLeft:20}}>
               
               X
             </Button>
-          </h4>
+          </h3>
           <Divider />
-          <Form.Item label="Categoria">
+          <Form.Item>
             <Select value={categoria} onChange={onChange}>
               {categorias.map((c) => (
                 <Option key={c.id} name="categoria" value={c.categoria}>
@@ -116,71 +109,33 @@ export const EditarRendicion = ({ match, history }) => {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item label="Importe" >
-            <Input name="importe" value={importe} type='number' />
+          <Form.Item   >
+            <Input name="importe" value={importe} type='number' placeholder='Importe' />
           </Form.Item>
-          <Form.Item label="Fecha">
-            <Input name="fecha" value={fecha} />
-          </Form.Item>
-          <Form.Item label="Notas">
+
+          <Form.Item   >
+        <DatePicker name="fecha"  value={moment(fecha, dateFormat)} format={dateFormat} />
+      </Form.Item>
+
+          <Form.Item >
             <TextArea
-              name="notas"
-              value={notas}
+              name="nota"
+            placeholder="Nota"
+
+              value={nota}
               autoSize={{ minRows: 2, maxRows: 6 }}
             />
           </Form.Item>
-          
-          <Imagen
-            setData={setData}
-            setState={setImg}
-            state={img}
-          />
-            {/**imagen modo cel y ipad  */}{
-              data.length> 0 &&
-              <div className='img-muestra'> 
-            <div className="custom-file-preview " >
-              {data?.length === 0 ? (
-                <h2 className='sector'>Imagen</h2>
-              ) : (
-                <div
-                  className="prev-img"
-                >
-                  <span className="prev-img" onClick={handleDelete}>
-                    &times;
-                  </span>
-                  <img src={data[0].src} />
-                </div>
-              )}
-            </div>
-        </div>}
-
+                    <Files  obli={categoria==='Peajes'?true:false}/>     
           <Form.Item>
             <Button className="btn" htmlType="submit" block>
               Guardar
             </Button>
           </Form.Item>
         </Form>
-      </Col>
-
-      <Col xs={16} sm={16} md={16} lg={16} xl={16}>
-        {!!spinner?
-       <Spin size="large" /> 
-        : 
-        <div className='vista-muestra'>
-        <VistaImg
-          data={data}
-          setData={setData}
-          handleDelete={handleDelete}
-          {...rendicionEditar}
-        />
-      </div>
-        }
       
-        </Col>
-       
+      
 
-        
-      </Row>
     </>
   );
 };
