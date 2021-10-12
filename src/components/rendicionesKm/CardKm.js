@@ -20,7 +20,7 @@ export const CardKm = () => {
         <List
         itemLayout="vertical"
         size="large"
-        dataSource={filtroIdUsuario}
+        dataSource={filtroIdUsuario.reverse()}
         style={{backgroundColor:'#fff', marginTop:20}}
         pagination={{
    

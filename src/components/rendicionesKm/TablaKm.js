@@ -2,9 +2,9 @@ import React,{useState} from 'react'
 import { Table,Button } from 'antd';
 import { axiosURL } from '../../config/axiosURL';
 
-export const TablaKm = ({datos,borrar,setState,state, long}) => {
+ export const TablaKm = (callBack) => {
 
-    const columns = [
+    return [
         {
           title: 'Fecha',
           dataIndex: 'fechaSelect',
@@ -52,23 +52,31 @@ export const TablaKm = ({datos,borrar,setState,state, long}) => {
           dataIndex: 'acciones',
           width:100,
 
-          render:(state,file) =>( <Button onClick={()=>borrar(file.id)}>Borrar</Button>)
+          render:(state,file) =>{
+            const borrar = async (id) => {
+              await axiosURL.delete(`/borrar/rendicionKm/${id}`);
+              callBack();
+          }
+            return( <Button onClick={()=>borrar(file.id)}>Borrar</Button>)}
         }
     ]
-      const data= datos.map(m=> {
+ 
+}
+
+
+   
+      /* const data= datos.map(m=> {
         return{
         ...m,
         key: m.id,
        
       }
-    })
-    return (
+    }) */
+  /*   return (
       <Table
-        style={{margin:'auto'}}
         columns={columns}
         dataSource={data}
         pagination={false}
         scroll={{ y:long}}
       />
-    )
-}
+    ) */

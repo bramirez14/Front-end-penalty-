@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button, Form} from "antd";
 
 export const HelperMODAL = ({
   state,
   setState,
-  click,
+  click=()=>{},
   noclick =()=>{},
   children,
   boton,
@@ -42,9 +42,10 @@ export const HelperMODAL = ({
           <Button key="back" onClick={handleCancel}>
             {Return}
           </Button>,
-          <Button key="submit" type="primary" onClick={handleOk} style={{backgroundColor:'#46a461',boxShadow:'#46a461',border:'#46a461'}}>
+            <Form.Item >
+          <Button key="submit" type="primary" onClick={handleOk} style={{backgroundColor:'#46a461',boxShadow:'#46a461',border:'#46a461'}} htmlType="submit">
             {Submit}
-          </Button>,
+          </Button></Form.Item>,
         ]}
       >
         {children}

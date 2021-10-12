@@ -70,10 +70,10 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
 >
  
 {/*   <AvatarImg history={history} /> */}
-<div style={{height:100, padding:10, backgroundColor:'#46a461',borderBottom:'solid 1px #ffff',width:227}}>
+<div style={{height:120, padding:10, backgroundColor:'#46a461',borderBottom:'solid 1px #ffff',width:227}}>
   <Avatar size={64} src={datos.imagen} /> 
-  <span>{datos.nombre}{datos.apellido} </span>
-  <h5>{datos.email} </h5>
+  <h4 style={{color:'#ffff'}}><b>{datos.nombre}{datos.apellido}</b> </h4>
+  <h5 style={{color:'#ffff'}}>{datos.email} </h5>
   </div>
     <Sider
     className='sider'
