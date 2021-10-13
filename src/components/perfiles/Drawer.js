@@ -21,10 +21,11 @@ export const Drawers = ({onClose,visible,DatosPersonales,gasto,sueldo,vacaciones
         closable={false}
         onClose={onClose}
         visible={visible}
+        
       >
+        <div style={{padding: 40}}>
         <p
           className="site-description-item-profile-p"
-          style={{ marginTop: 40 }}
         >
           Datos del Usuario
         </p>
@@ -100,8 +101,9 @@ export const Drawers = ({onClose,visible,DatosPersonales,gasto,sueldo,vacaciones
             </p>
           </Col>
         </Row>
-        <Divider orientation="left">Solicitudes Realizadas </Divider>
-       <CardTitle gasto={gasto} sueldo={sueldo} vacaciones={vacaciones}/>
+     {/*    <Divider orientation="left">Solicitudes Realizadas </Divider> */}
+       {/* <CardTitle gasto={gasto} sueldo={sueldo} vacaciones={vacaciones}/> */}
+       </div>
       </Drawer>
       </>
     )
