@@ -68,6 +68,7 @@ export const SueldoContainer = ({ history }) => {
       f: new Date().toLocaleString(),
       finpago:finpago(values.cuotas)
     });
+    console.log(result);
     if (result.status === 200) {
       history.push("/");
     }
