@@ -11,6 +11,7 @@ export const  tarjetaCredito=(values,history)=> async (dispatch,getState)=>{
         f.append("apellido", datosUsuario.apellido);
         f.append('tarjeta',values.tarjeta);
         f.append('importe',values.importe);
+        f.append('nota',values.nota)
         const response = await axiosURL.post('/tarjeta/credito',f);
         const data= response.data;
         dispatch({ type:types.tarjeta_credito,payload: data})
