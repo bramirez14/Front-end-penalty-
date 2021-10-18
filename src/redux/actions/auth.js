@@ -30,9 +30,11 @@ export const login = (uid,displayName)=>({
         uid,
         displayName
     }
+    
 })
 
-export const fetchThunk = () => async (dispatch) => {
+export const fetchThunk = () => async (dispatch,getState) => {
+    console.log(getState().auth);
     try {
       const response = await axios.get('https://jsonplaceholder.typicode.com/todos')
       const datas = await response.data

@@ -109,7 +109,6 @@ export const ListaUsuarios = ({ lista }) => {
         gasto={gasto}
         sueldo={sueldo}
         vacaciones={vacaciones}
-      style={{ backgroundColor:'#ffff'}}
         
       />
     </>

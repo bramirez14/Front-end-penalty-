@@ -10,9 +10,8 @@ import { AiFillCar} from "react-icons/ai";
 import "./css/cardEstado.css";
 export const CardEstado = () => {
   const id = localStorage.getItem("uid");
-  const getjwt = PeticionJWT();
-  const { nombre, apellido } = getjwt;
   const datosUsuarios = PeticionGET(`/${id}`);
+  console.log(datosUsuarios);
   const anticipo = datosUsuarios?.anticipo;
   const vacacion = datosUsuarios?.vacacion;
   const km = datosUsuarios?.kilometro;

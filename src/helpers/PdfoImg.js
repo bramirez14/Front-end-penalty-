@@ -6,7 +6,10 @@ import { saveAs } from "file-saver";
 import { DownloadOutlined } from '@ant-design/icons';
 
 export const PdfoImg = ({file}) => {
- const extension = file?.split('.');
+ if (file===undefined) {
+    return 'No hay archivo'
+  }else{
+    const extension = file?.split('.');
  console.log(extension);
      const descargarPDF = async (pdf) => {
     let res = await axiosURL.get("/descarga/pdf", {
@@ -16,13 +19,9 @@ export const PdfoImg = ({file}) => {
     const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
     saveAs(pdfBlob, `${pdf}`);   
   };
- 
-
- 
-
-    return (
+     return (
         <>{
-        extension[1] === 'pdf'?
+        extension?.[1] === 'pdf'?
         <Button type="link" onClick={() => descargarPDF(file)} >
         <DownloadOutlined /> 
         </Button>
@@ -33,10 +32,16 @@ export const PdfoImg = ({file}) => {
   src={file}
 />
 }
+ </> )}
+ 
+
+ 
+
+
 
                
-</>
-    )
+
+    
 }
 
 

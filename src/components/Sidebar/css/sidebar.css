@@ -1,11 +1,15 @@
-/* .ant-drawer-content{
-  background-color: #46a461 !important;
+/* .ant-drawer {
+  position: fixed;
+  z-index: 1000;
+  width: 0%;
+  height: 100%;
+  transition: width 200000s; 
+
 }
-.ant-drawer-header{
-  background-color: #46a461 !important;
-}*/
-
-
+.ant-drawer-left.ant-drawer-open, .ant-drawer-right.ant-drawer-open {
+  width: 100%;
+  transition: width 200000s; 
+} */
 .sider::-webkit-scrollbar {
   width: 8px; /* Tamaño del scroll en vertical */
   height: 10px; /*Tamaño del scroll en horizontal */

@@ -57,10 +57,14 @@ import { axiosURL } from "../config/axiosURL";
 import { CargaRecibo } from "../components/recibos/CargaRecibo";
 import { ListaRecibo } from "../components/recibos/ListaRecibo";
 
-import { RegisterP } from "../registerprueba/Register";
 import { TarjetaCredito } from "../components/rendiciones/TarjetaCredito";
 import { Prueba } from "../components/Prueba";
+import { Gastos } from "../components/comprobantes/Gastos";
+import { getState } from "../redux/auth/getState";
+import {useDispatch,useSelector} from 'react-redux'
+
 export const DashboardRoutes = ({ history }) => {
+  const dispatch = useDispatch();
   const [alertas, setAlertas] = useState([])
   const Text = useContext(UserContext);
   const { open} = Text;
@@ -71,9 +75,14 @@ export const DashboardRoutes = ({ history }) => {
 };
 
 useEffect(() => {
-    axiosGet();
+  axiosGet();
 }, []);
+useEffect(() => {
+  getState(dispatch);
+}, [dispatch])
+
   return (
+
     <>
       <Sidebar history={history} alertas={alertas} setAlertas={setAlertas} getAlertas={axiosGet} />
     
@@ -138,11 +147,12 @@ useEffect(() => {
          <RouteEmpleado exact path='/carga/recibo/:id' component={CargaRecibo}/>
         { /* Tarjeta de credito */}
          <RouteGerente exact path='/tarjeta/credito' component={ TarjetaCredito }/>
-         <RouteGerente exact path='/pru' component={ Prueba }/>
+         <RouteGerente exact path='/pru' component={ Prueba }/> 
+
+         { /* Comprobantes */}
+         <RouteGerente exact path='/comprobantes' component={ Gastos }/> 
 
 
-
-         <RouteEmpleado exact path='/p' component={RegisterP}/>
 
 
 

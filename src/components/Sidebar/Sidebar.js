@@ -36,8 +36,10 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
     await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
     logout();
     history.push("/login");
-
+    setOpen(false)
+    
   };
+  console.log(open);
 
 
      const  onClose = () => setOpen(!open);
@@ -63,39 +65,33 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
       placement={'left'}
       /* closable={false} */
       onClose={onClose}
-      visible={open}
+      visible={true}
       key={'left'}
       mask={screens.lg?false:true}
       width={227}
+      height='100vh'
+      push={{ distance: 400 }}
 >
- 
+   <Layout>
+    <Sider  className='sider'
+     style={{
+      overflow: 'auto',
+      height: '100vh',
+      position: 'fixed',
+      left: 0,
+      
+      backgroundColor:'#46a461'}}
+      
+      width={227}>
 {/*   <AvatarImg history={history} /> */}
-<div style={{height:120, padding:10, backgroundColor:'#46a461',borderBottom:'solid 1px #ffff',width:227}}>
+<div className='loggo' style={{ padding:10, backgroundColor:'#46a461',borderBottom:'solid 1px #ffff',width:227}}>
   <Avatar size={64} src={datos.imagen} /> 
   <h4 style={{color:'#ffff'}}><b>{datos.nombre}{datos.apellido}</b> </h4>
   <h5 style={{color:'#ffff'}}>{datos.email} </h5>
   </div>
-    <Sider
-    className='sider'
-       style={
-        open===false?{
-        display:"none",
-
-        }:
-        {
-        overflow: 'auto',
-        height: '100vh',
-        position: 'fixed',
-        left:0,
-        backgroundColor:'#46a461'
-
-      }}
-      
-      width={227}
-
-    >
-
-        {
+  <CustomScroll heightRelativeToParent="calc(87% - 100px)">
+        {/* <div }> */}
+     {
           N==='901'|| N==='902'|| N==='903'?
         <MenuGerencia
                     open={open}
@@ -109,13 +105,19 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
 
                     />
         }
+
+   </CustomScroll>
+
+ 
+
+     
           
             
            
           
 
           
-    </Sider>
+    </Sider></Layout>
       </Drawer>}
     </>
   );

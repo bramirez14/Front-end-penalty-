@@ -124,6 +124,14 @@ export const MenuEmpleados = ({ open, setOpen}) => {
             </SubMenu>
 
             }
+            
+            <SubMenu key="sub10"  title="Comprobante" icon={<ReconciliationOutlined />}>
+            <Menu.Item key="26"> 
+            <Link to='/comprobantes'> comprobantes </Link>
+            </Menu.Item>
+            </SubMenu>
+
+            
         </Menu>
     )
 }

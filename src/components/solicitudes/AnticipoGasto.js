@@ -55,6 +55,7 @@ export const AnticipoGasto = ({ history }) => {
      path:'/aprobacion/gastos',
      usuarioId:datosUsuario.id
    };
+   console.log(nuevoObj);
    socket.emit( 'alerta-nueva', nuevoObj);
       let result = await axiosURL.post("/mpago", {
         ...values,
@@ -65,7 +66,7 @@ export const AnticipoGasto = ({ history }) => {
         f: new Date().toLocaleString(),
       });
       if (result.status === 200) {
-        history.push("/");
+       history.push("/");
       }
   };
  

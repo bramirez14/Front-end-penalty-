@@ -1,39 +1,43 @@
-import React,{ useState } from 'react'
-import {Button, Form, Row, Col} from 'antd'
-import { Files } from '../../helpers/Files'
-import { axiosURL } from '../../config/axiosURL'
-import { PeticionGET } from '../../config/PeticionGET'
-export const TarjetaCredito = ({ history}) => {
-    const id= localStorage.getItem('uid')
-    const get = PeticionGET(`/${id}`)
+import React, { useState } from "react";
+import {useDispatch,useSelector} from "react-redux"
+import { Button, Form, Row, Col,Input,Select } from "antd";
+import { Files } from "../../helpers/Files";
+import { axiosURL } from "../../config/axiosURL";
+import { PeticionGET } from "../../config/PeticionGET";
+import '../css/boton.css'
+import { tarjetaCredito } from "../../redux/actions/rendicionAction";
+const { Option } = Select;
+export const TarjetaCredito = ({ history }) => {
+  const id = localStorage.getItem("uid");
+  const get = PeticionGET(`/${id}`);
+const   dispatch= useDispatch();
+  const onFinish = async (values) => {
+    console.log("Success:", values);
+   const resp= dispatch(tarjetaCredito(values,history))
+    console.log(await resp);
+  
 
-    const onFinish = async(values) => {
-    console.log('Success:', values.file[0].originFileObj);
-    let f = new FormData();
-    f.append("file",values.file[0].originFileObj);
-    f.append('nombre',get.nombre);
-    f.append('apellido',get.apellido);
-    let res =  await axiosURL.post('/tarjeta/credito',f)
-    console.log(res);
-   if (res.data.status === 200) {history.push('/perfil')}
-     
   };
-    return (
-        <Form
-        
-        name="validate_other"
-        onFinish={onFinish}
-        >
-        <Files />
+  return (
+    <Form  name="validate_other" onFinish={onFinish} className='form-complete' >
+      <Form.Item name='importe'>
+      <Input type='text' placeholder='Importe'/>
+        </Form.Item>
+      <Form.Item name='tarjeta'>
+      <Select placeholder="Seleccione una tarjeta">
+          <Option value="visa">Visa</Option>
+          <Option value="American Express">American Express</Option>
+          <Option value="otra">Otra</Option>
+        </Select>
+      </Form.Item>
 
-            <Form.Item
-        
-      >
-        <Button type="primary" htmlType="submit">
+      <Files />
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className='boton'>
           Guardar
         </Button>
       </Form.Item>
-        </Form>
-    
-    )
-}
+    </Form>
+  );
+};
