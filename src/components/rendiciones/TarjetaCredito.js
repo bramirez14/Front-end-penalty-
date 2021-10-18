@@ -1,27 +1,22 @@
 import React, { useState } from "react";
 import {useDispatch,useSelector} from "react-redux"
-import { Button, Form, Row, Col,Input,Select } from "antd";
+import { Button, Form, Input,Select,Divider } from "antd";
 import { Files } from "../../helpers/Files";
-import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import '../css/boton.css'
 import { tarjetaCredito } from "../../redux/actions/rendicionAction";
+import { Titulo } from "../titulos/Titulo";
 const { Option } = Select;
 export const TarjetaCredito = ({ history }) => {
-  const id = localStorage.getItem("uid");
-  const get = PeticionGET(`/${id}`);
 const   dispatch= useDispatch();
-  const onFinish = async (values) => {
-    console.log("Success:", values);
-   const resp= dispatch(tarjetaCredito(values,history))
-    console.log(await resp);
-  
+  const onFinish =  (values) =>  dispatch(tarjetaCredito(values,history))
 
-  };
   return (
     <Form  name="validate_other" onFinish={onFinish} className='form-complete' >
+    <Titulo titulo=' Tarjeta de credito' />
+    <Divider/>
       <Form.Item name='importe'>
-      <Input type='text' placeholder='Importe'/>
+      <Input type='number' placeholder='Importe'/>
         </Form.Item>
       <Form.Item name='tarjeta'>
       <Select placeholder="Seleccione una tarjeta">

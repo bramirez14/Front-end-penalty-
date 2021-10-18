@@ -1,8 +1,9 @@
 import React, { useEffect, useState} from "react";
 import{ axiosURL} from "../../config/axiosURL";
-import { Form, Input, Button,  Select, Divider,} from "antd";
+import { Form, Input, Button,  Select, Divider,Spin} from "antd";
 import "./css/editarRendicion.css";
 import "../solicitudes/css/anticipoGasto.css";
+import '../css/spin.css'
 
 import TextArea from "antd/lib/input/TextArea";
 import {PeticionGET} from "../../config/PeticionGET";
@@ -11,23 +12,6 @@ import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/BeatLoader";
 import { Files } from "../../helpers/Files";
 
-const override = css`
-  display: flex;
-  margin: 700px 300px;
-  
-  @media (max-width: 768px) {
-    display:flex;
-    margin: 70px 220px;
-    width:70px;
-    
-  }
-  @media (max-width: 480px) {
-    display:flex;
-    margin: 100px 120px;
-    width:70px;
-  }
-}
-`;
 export const CrearRendicion = ({ match, history }) => {
   let [color, setColor] = useState('#46a461');
   const [spinner, setSpinner] = useState(false)
@@ -122,12 +106,7 @@ export const CrearRendicion = ({ match, history }) => {
   console.log(crearRendicion);
   return (
     <>
-<>{
-  
-  !!spinner?
- <BeatLoader olor={color}  css={override} size={20}  />
- :
-
+  <Spin tip="Cargando..." spinning={spinner}  className='spinner'>
         <Form
           onFinish={handleSubmit}
           onChange={handleChange}
@@ -137,8 +116,8 @@ export const CrearRendicion = ({ match, history }) => {
           {...estilo}
           size='large'
         >
-          <h4 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendiciones 
-          <Button className='btn-rendicion' onClick={handleBack} style={{marginLeft:20}}> X </Button></h4>
+          <h3 style={{ textAlign: "center", marginLeft:'40px' }}> Agregar Rendiciones 
+          <Button className='btn-rendicion' onClick={handleBack} style={{marginLeft:20}}> X </Button></h3>
           <Divider />
           <Form.Item name="categoria"
           hasFeedback
@@ -173,16 +152,7 @@ export const CrearRendicion = ({ match, history }) => {
           </Form.Item>
         </Form>
       
-       
-        
-       
-     
-     
-     }</>
-      
-      
-      
-      
+        </Spin>
 
 
     </>

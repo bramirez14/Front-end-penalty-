@@ -8,7 +8,7 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 
 const reducers = combineReducers({
 auth:authReducer,
-peticionesGET:getReducer,
+peticiones_GET:getReducer,
 rendiciones:rendicionesReducer
 })
 

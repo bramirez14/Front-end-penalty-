@@ -21,7 +21,7 @@ export const Gastos = () => {
     setVisible(true);
   };
   const onClose = () => setVisible(false);
-  const GET_gastos = useSelector((state) => state.peticionesGET.gastos); //viene de  redux
+  const GET_gastos = useSelector((state) => state.peticiones_GET.gastos); //viene de  redux
 
   return (
     <>

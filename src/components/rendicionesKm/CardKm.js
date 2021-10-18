@@ -37,6 +37,7 @@ export const CardKm = () => {
                 height={200}
                 alt="logo"
                 src={item.imagen}
+                style={{borderRadius:20}}
               />
             }
           >

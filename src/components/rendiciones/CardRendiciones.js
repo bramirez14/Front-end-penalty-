@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import { List,  } from 'antd';
 import { axiosURL } from "../../config/axiosURL";
 import Swal from 'sweetalert2'
+import { PdfoImg } from "../../helpers/PdfoImg";
 
 export const CardRendiciones = ({data,axiosGet,imagen,categoria,importe,fecha,notas,uid}) => {
  const handleDeleteRendicion = async (id)=> {
@@ -63,12 +64,8 @@ console.log(result);
           </div>
           ]}
           extra={
-            <img
-            width={272}
-            height={200}
-            alt="logo"
-            src={item.archivo}
-            style={{borderRadius:20,border:'solid 1px #ddd'}}
+            <PdfoImg file={item.archivo} style={{fontSize:40}} height={200} width={200}
+          
           />
             }
       >

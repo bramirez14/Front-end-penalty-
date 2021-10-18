@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { axiosURL } from "../../config/axiosURL";
-import { Form, Input, Button, Col, Row, Select, Divider, DatePicker } from "antd";
+import { Form, Input, Button, Col, Row, Select, Divider, DatePicker,Spin } from "antd";
 import "./css/editarRendicion.css";
 import TextArea from "antd/lib/input/TextArea";
 import { categorias } from "./categorias";
@@ -11,7 +11,7 @@ const dateFormat = 'DD/MM/YYYY';
 export const EditarRendicion = ({ match, history }) => {
   const { id } = match.params;
   const { Option } = Select;
-
+ const [spinner, setSpinner] = useState(false)
   const [rendicionEditar, setRendicionEditar] = useState({
     nota: "",
     importe: "",
@@ -26,10 +26,13 @@ export const EditarRendicion = ({ match, history }) => {
     peticionID();
   }, [id]);
 
-  const crearImg = async (values) => {
-    editarRendicion();
+  const editarGasto = async (values) => {
+    setSpinner(true);
     let f = new FormData();
       f.append("file", values.file?.[0]?.originFileObj);
+      f.append('nota',nota);
+      f.append('importe',importe);
+      f.append('categoria',categoria);
     let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f);
     console.log(result);
 
@@ -40,6 +43,7 @@ export const EditarRendicion = ({ match, history }) => {
     if (result.data.status===200) {
      history.push(`/lista/rendicion/${gastoId}`);
     }
+    setSpinner(false)
   };
   const editarRendicion = async () => {
     await axiosURL.put(`/rendicion/gastos/${id}`, {
@@ -61,9 +65,8 @@ export const EditarRendicion = ({ match, history }) => {
     });
   };
 
-
   /** Boton para volver atras */
-  console.log(gastoId);
+
   const handleBack = () => history.push(`/lista/rendicion/${gastoId}`);
   const peticionGastoId = PeticionGET(`/gastos/${gastoId}`);
   const todasLasRendicones = peticionGastoId?.rendicion;
@@ -75,17 +78,12 @@ export const EditarRendicion = ({ match, history }) => {
   const peticionRendicion = PeticionGET(`/rendicion/${id}`);
   const resta = totalDeImporte - parseFloat(peticionRendicion.importe); //Es para verificar
   const total = resta + parseFloat(importe); //Declarado en el estado
-  const handleSubmit = (values) => {
-    console.log(values);
-    crearImg(values);
-  };
-  console.log(rendicionEditar);
-  console.log();
+
   return (
     <>
-      
+  <Spin tip="Cargando..." spinning={spinner}  className='spinner'>
          <Form
-          onFinish={handleSubmit}
+          onFinish={editarGasto}
           onChange={handleChange}
           layout="vertical"
           className="form-complete"
@@ -95,7 +93,6 @@ export const EditarRendicion = ({ match, history }) => {
             
             Editar Rendicion
             <Button className="btn-rendicion" onClick={handleBack} style={{marginLeft:20}}>
-              
               X
             </Button>
           </h3>
@@ -113,29 +110,22 @@ export const EditarRendicion = ({ match, history }) => {
             <Input name="importe" value={importe} type='number' placeholder='Importe' />
           </Form.Item>
 
-          <Form.Item   >
-        <DatePicker name="fecha"  value={moment(fecha, dateFormat)} format={dateFormat} />
-      </Form.Item>
-
           <Form.Item >
             <TextArea
               name="nota"
             placeholder="Nota"
-
               value={nota}
               autoSize={{ minRows: 2, maxRows: 6 }}
             />
           </Form.Item>
-                    <Files  obli={categoria==='Peajes'?true:false}/>     
+                    <Files  obli={categoria?true:false}/>     
           <Form.Item>
             <Button className="btn" htmlType="submit" block>
               Guardar
             </Button>
           </Form.Item>
         </Form>
-      
-      
-
+      </Spin>
     </>
   );
 };

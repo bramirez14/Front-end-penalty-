@@ -65,6 +65,7 @@ export const FormKm = ({ history, get }) => {
         Ingresar
       </Button>
       <Modal
+      style={{ top: 10 }}
         visible={visible}
         title="Kilometros"
         okText="Guardar"
@@ -102,7 +103,7 @@ export const FormKm = ({ history, get }) => {
                   format={dateFormat}
                 />
               </Form.Item>
-            </Col>
+            
 
             <Form.Item name="KmI">
               <Input
@@ -124,6 +125,7 @@ export const FormKm = ({ history, get }) => {
             <Form.Item name="nota">
               <Input.TextArea placeholder="Nota" />
             </Form.Item>
+            </Col>
           </Row>
         </Form>
       </Modal>

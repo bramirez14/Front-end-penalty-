@@ -5,7 +5,7 @@ import { axiosURL } from '../config/axiosURL';
 import { saveAs } from "file-saver";
 import { DownloadOutlined } from '@ant-design/icons';
 
-export const PdfoImg = ({file}) => {
+export const PdfoImg = ({file,style,width=100,height=100}) => {
  if (file===undefined) {
     return 'No hay archivo'
   }else{
@@ -23,13 +23,14 @@ export const PdfoImg = ({file}) => {
         <>{
         extension?.[1] === 'pdf'?
         <Button type="link" onClick={() => descargarPDF(file)} >
-        <DownloadOutlined /> 
+        <DownloadOutlined style={style}/> 
         </Button>
         :
     <Image
-  style={{ width: 100, height: 100 }}
+  style={{ width: width, height: height, borderRadius:20 }}
   alt="example"
   src={file}
+
 />
 }
  </> )}

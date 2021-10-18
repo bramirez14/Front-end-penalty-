@@ -137,11 +137,13 @@ if(!screens.md){
                  </Menu.Item>
         </SubMenu>
         <SubMenu key="sub10"  title="Comprobante" icon={<DollarCircleOutlined />}>
+            <Menu.Item key="25"> 
+            <Link to='/comprobantes/gastos'> gastos</Link>
+            </Menu.Item>
             <Menu.Item key="26"> 
-            <Link to='/comprobantes'> comprobantes </Link>
+            <Link to='/comprobantes/tarjeta-credito'> tarje de credito </Link>
             </Menu.Item>
             </SubMenu>
-    
 
         
         </Menu>

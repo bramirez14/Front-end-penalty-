@@ -5,7 +5,7 @@ import { SocketContext } from "../../context/SocketContext";
 import { PeticionGET } from '../../config/PeticionGET';
 import { axiosURL } from '../../config/axiosURL';
 
-export const FilesKm = ({idDB,totalKmDB,importeTotalDB,history}) => {
+export const FilesKm = ({idDB,totalKmDB,importeTotalDB,history,setSpinner}) => {
     const { socket } = useContext(SocketContext);
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
@@ -13,7 +13,8 @@ export const FilesKm = ({idDB,totalKmDB,importeTotalDB,history}) => {
  const datosUsuario = PeticionGET(`/${id}`);
 
   const handleSubmit = async (values) => {
-    setVisible(false)
+    setSpinner(true);
+    setVisible(false);
     const objs={
         alerta:'Se visiualizaran en la descripcion',
         info:'Tenes un Rendicion de Kilometro',
@@ -42,7 +43,7 @@ const f= new FormData();
     if(resp.data.status===200){
       history.push('/lista/kilometros')
     }
-     
+     setSpinner(false);
   }
     return (
         <>

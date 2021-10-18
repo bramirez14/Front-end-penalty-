@@ -4,7 +4,6 @@ import './files.css'
 export const Files = ({obli}) => {
   console.log(obli);
   const normFile =  (e) => {
-    console.log('Upload event:', e);
     if (Array.isArray(e)) {
       return e;
     }

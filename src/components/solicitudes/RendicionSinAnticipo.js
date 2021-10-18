@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState} from "react";
 import {
   Form,
   Input,
@@ -7,6 +7,7 @@ import {
   Select,
   Divider,
   Col,
+  Spin
 } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { css } from "@emotion/react";
@@ -32,32 +33,10 @@ export const RendicionSinAnticipo = ({
   state,
   spinner,
 }) => {
-  const override = css`
-  display: flex;
-height:100px
-
-
-  
-  @media (max-width: 768px) {
-    display:flex;
-    margin: 70px 220px;
-    width:70px;
-    
-  }
-  @media (max-width: 480px) {
-    display:flex;
-    margin: 100px 120px;
-    width:70px;
-  }
-}
-`;
   const { Option } = Select;
-  console.log(crearRendicion);
   return (
     <>
-      {!!spinner ? (
-        <BeatLoader color={"#46a461"} css={override} size={20} />
-      ) : (
+   <Spin tip="Cargando..." spinning={spinner} className='spinner'>
         <Form
           onFinish={handleSubmit}
           onChange={handleChange}
@@ -151,7 +130,8 @@ height:100px
             </Col>
           </Row>
         </Form>
-      )}
+        </Spin>
+      
     </>
   );
 };

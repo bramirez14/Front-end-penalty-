@@ -3,9 +3,7 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { types } from "../types/type";
 
 export const  tarjetaCredito=(values,history)=> async (dispatch,getState)=>{
-    
-    const id = localStorage.getItem('uid');
-    const datosUsuario= PeticionGET(`/${id}`)
+    const datosUsuario = getState().peticiones_GET.usuario;
     try {
         let f = new FormData();
         f.append("file", values.file[0].originFileObj);

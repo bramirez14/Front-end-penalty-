@@ -62,6 +62,7 @@ import { Prueba } from "../components/Prueba";
 import { Gastos } from "../components/comprobantes/Gastos";
 import { getState } from "../redux/auth/getState";
 import {useDispatch,useSelector} from 'react-redux'
+import { TarjetaCreditoComp } from "../components/comprobantes/TarjetaCreditoComp";
 
 export const DashboardRoutes = ({ history }) => {
   const dispatch = useDispatch();
@@ -150,7 +151,9 @@ useEffect(() => {
          <RouteGerente exact path='/pru' component={ Prueba }/> 
 
          { /* Comprobantes */}
-         <RouteGerente exact path='/comprobantes' component={ Gastos }/> 
+         <RouteEmpleado exact path='/comprobantes/gastos' component={ Gastos }/> 
+         <RouteEmpleado exact path='/comprobantes/tarjeta-credito' component={ TarjetaCreditoComp }/> 
+
 
 
 

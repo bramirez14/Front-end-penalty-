@@ -34,7 +34,12 @@ export const getReducer = (state={},action) => {
           return {
             error: action.error,
           };
-    
+          case types.tjc:
+            return {
+              ...state,
+              tarjeta_credito: action.payload
+            };
+      
         default:
           return state;
       }

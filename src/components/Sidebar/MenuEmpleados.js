@@ -124,14 +124,17 @@ export const MenuEmpleados = ({ open, setOpen}) => {
             </SubMenu>
 
             }
-            
+            {N==='905'&&
             <SubMenu key="sub10"  title="Comprobante" icon={<ReconciliationOutlined />}>
             <Menu.Item key="26"> 
-            <Link to='/comprobantes'> comprobantes </Link>
+            <Link to='/comprobantes/gastos'> comprobantes </Link>
+            </Menu.Item>
+            <Menu.Item key="27"> 
+            <Link to='/comprobantes/tarjeta-credito'> comprobantes </Link>
             </Menu.Item>
             </SubMenu>
 
-            
+            }
         </Menu>
     )
 }

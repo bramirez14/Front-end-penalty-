@@ -1,12 +1,19 @@
-import { getKm, getSueldo, getVacaciones,getGastos, getUsuario } from '../actions/states';
+import {
+  getKm,
+  getSueldo,
+  getVacaciones,
+  getGastos,
+  getUsuario,
+  getTarjetaCredito,
+} from "../actions/states";
 
 export const getState = (dispatch) => {
-    const id = localStorage.getItem('uid')
- 
-         dispatch( getSueldo());
-          dispatch(getVacaciones());
-            dispatch(getGastos());
-            dispatch(getKm());
-           dispatch( getUsuario(id))  
-            console.log('hi hola calabza ');
-}
+  const id = localStorage.getItem("uid");
+
+  dispatch(getSueldo());
+  dispatch(getVacaciones());
+  dispatch(getGastos());
+  dispatch(getKm());
+  dispatch(getUsuario(id));
+  dispatch(getTarjetaCredito());
+};
