@@ -58,11 +58,12 @@ import { CargaRecibo } from "../components/recibos/CargaRecibo";
 import { ListaRecibo } from "../components/recibos/ListaRecibo";
 
 import { TarjetaCredito } from "../components/rendiciones/TarjetaCredito";
-import { Prueba } from "../components/Prueba";
+//import { Prueba } from "../components/ModalPDF";
 import { Gastos } from "../components/comprobantes/Gastos";
 import { getState } from "../redux/auth/getState";
 import {useDispatch,useSelector} from 'react-redux'
 import { TarjetaCreditoComp } from "../components/comprobantes/TarjetaCreditoComp";
+import { ModalPDF } from "../helpers/ModalPDF";
 
 export const DashboardRoutes = ({ history }) => {
   const dispatch = useDispatch();
@@ -148,7 +149,7 @@ useEffect(() => {
          <RouteEmpleado exact path='/carga/recibo/:id' component={CargaRecibo}/>
         { /* Tarjeta de credito */}
          <RouteGerente exact path='/tarjeta/credito' component={ TarjetaCredito }/>
-         <RouteGerente exact path='/pru' component={ Prueba }/> 
+         <RouteEmpleado exact path='/pru' component={ ModalPDF }/> 
 
          { /* Comprobantes */}
          <RouteEmpleado exact path='/comprobantes/gastos' component={ Gastos }/> 

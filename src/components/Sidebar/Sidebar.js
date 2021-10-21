@@ -39,8 +39,6 @@ export const Sidebar = ({ history,alertas,setAlertas,getAlertas }) => {
     setOpen(false)
     
   };
-  console.log(open);
-
 
      const  onClose = () => setOpen(!open);
   const screens = useBreakpoint();

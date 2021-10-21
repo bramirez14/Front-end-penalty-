@@ -116,7 +116,6 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
    
   }
  // filtrado de operacion
- console.log(ingresosData,'line115')
   return (
     <Card>
     <HelperTABLEobj
@@ -134,9 +133,8 @@ export const TablaIngresos = ({data,setData,setEfectivo,setCheques,setRetencione
           noclick={() => {}}
           boton={"Agregar"}
           title={"Datos"}
-          Return={"Cancelar"}
           Submit={"Guardar"}
-          longModal={300}
+          longModal={400}
           click={guardarArr}
         >
          

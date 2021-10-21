@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Button, Form, Input, Select, Divider,Spin } from "antd";
 import { Files } from "../../helpers/Files";
 import "../css/boton.css";
@@ -12,7 +12,6 @@ export const TarjetaCredito = ({ history }) => {
   const onFinish = (values) =>{ 
     setSpinner(true)
     dispatch(tarjetaCredito(values, history));
-  
   }
 
   return (

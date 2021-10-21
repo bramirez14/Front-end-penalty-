@@ -16,9 +16,7 @@ useEffect(() => {
     axiosGet();
   }, []);
 
-  console.log(data,'line 21');
 const buscarCliente= data.filter(c=> c.razonsoc === cliente.razonsoc);
-console.log(dataCheck,'line 23');
 const columns = [
 
     {
