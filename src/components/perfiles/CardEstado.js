@@ -11,7 +11,6 @@ import "./css/cardEstado.css";
 export const CardEstado = () => {
   const id = localStorage.getItem("uid");
   const datosUsuarios = PeticionGET(`/${id}`);
-  console.log(datosUsuarios);
   const anticipo = datosUsuarios?.anticipo;
   const vacacion = datosUsuarios?.vacacion;
   const km = datosUsuarios?.kilometro;

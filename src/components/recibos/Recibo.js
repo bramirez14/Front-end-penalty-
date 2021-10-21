@@ -1,20 +1,24 @@
-import React, { useState,useContext } from "react";
+import React, { useState,useContext,useRef } from "react";
 import { Row, Col, Button } from "antd";
 import "./css/recibo.css";
 import { TablaIngresos } from "./TablaIngresos";
 import { ClienteRecibo } from "./ClienteRecibo";
 import { TablaLiquidacion } from "./TablaLiquidacion";
 import { Resultados } from "./Resultados";
-import { axiosURLIntranetCobranzas } from "../../config/axiosURL";
+import { axiosURL, axiosURLIntranetCobranzas } from "../../config/axiosURL";
 import { uuid } from "uuidv4";
 import { PeticionGET } from "../../config/PeticionGET";
-import { Grid, Tag } from "antd";
+import { Grid, Spin } from "antd";
 import { SocketContext } from "../../context/SocketContext";
 import './css/listarecibo.css';
 import Swal from 'sweetalert2'
+import { ModalPDF } from "../../helpers/ModalPDF";
+import Pdf from "react-to-pdf";
+import { saveAs } from "file-saver";
 const { useBreakpoint } = Grid;
 
 export const Recibo = ({ history }) => {
+  
   const {socket} = useContext(SocketContext)
   const N = localStorage.getItem("N");
   const id = localStorage.getItem("uid");
@@ -28,7 +32,8 @@ export const Recibo = ({ history }) => {
   const [cheques, setCheques] = useState([]);
   const [retenciones, setRetenciones] = useState([]);
   const [depositos, setDepositos] = useState([]);
-
+  const [spinner, setSpinner] = useState(false)
+  const datos = [{ingresos:ingresos},{cliente:liquidacionCliente},{facturacion:dataCheck}]
   const newIngresos = ingresos.map((n) => {
     return {
       ...n,
@@ -55,6 +60,16 @@ export const Recibo = ({ history }) => {
   });
 
   const finalizar = async () => {
+setSpinner(true)
+const response= await axiosURL.post('/generar/pdf/recibo',datos);
+console.log(response.data.status);
+
+   if (response.data.status === 200) {
+     setSpinner(false)
+      let ge = await axiosURL.get("peticion/pdf/recibo", { responseType: "blob" });
+      const pdfBlob = await new Blob([ge.data], { type: "application/pdf" });
+      saveAs(pdfBlob, `recibo${uuid().split("-")[0]}.pdf`);
+    }
 
  const res = await axiosURLIntranetCobranzas.post("/recibos", {
       newIngresos,
@@ -94,6 +109,7 @@ history.push('/perfil')
 
   return (
     <>
+     <Spin tip="Cargando..." spinning={spinner}  className='spinner'>
       <Row gutter={[20, 20]} style={{ marginTop: 20 }}>
         <Col xs={24} sm={24} md={24} lg={14} xl={14}>
           <ClienteRecibo
@@ -135,7 +151,9 @@ history.push('/perfil')
           <Button onClick={finalizar}>Finalizar</Button>
 
         </Col>
+     
       </Row>
+   </Spin>
     </>
   );
 };

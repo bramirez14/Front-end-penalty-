@@ -5,7 +5,6 @@ import { types } from "../types/type"
 export const getSueldo=()=> async(dispatch) =>{
 try {
     const response = await axiosURL.get('/anticipo');
-    console.log(response);
     const datos = await response.data 
     dispatch({ type:types.sueldo, payload: datos })
 } catch (e) {
@@ -60,8 +59,7 @@ export const getTarjetaCredito=() => async (dispatch)=>{
     try {
         const response = await axiosURL.get('/tarjeta/credito');
         const datos = response.data 
-        console.log(datos);
-        dispatch({ type:types.tjc, payload: datos })
+        dispatch({ type:types.tjc, payload: datos });
 
     } catch (e) {
         dispatch({ type:'error',error:e.message})
