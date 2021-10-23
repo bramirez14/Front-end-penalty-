@@ -11,12 +11,13 @@ const axiosGet = async () => {
     let  res = await axiosURLIntranet.get('/cuentacorriente');
     setData(res.data)
 };
-
+console.log(data);
 useEffect(() => {
     axiosGet();
   }, []);
 
 const buscarCliente= data.filter(c=> c.razonsoc === cliente.razonsoc);
+console.log(buscarCliente);
 const columns = [
 
     {
@@ -75,9 +76,11 @@ key:(i+1).toString()
       <>
    
       <Card>
-       <TableLiq col={columns} datos={newctactes}
+       <TableLiq col={columns} 
+       datos={newctactes}
     setDataCheck={setDataCheck}
     dataCheck={dataCheck}
+    setDatos={setData}
     />
       </Card> 
       </>

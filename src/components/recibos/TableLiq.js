@@ -88,17 +88,15 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const TableLiq = ({col,datos, dataCheck,setDataCheck})=> {
+export const TableLiq = ({col,datos, dataCheck,setDataCheck,setDatos})=> {
+  console.log(datos);
     const [contenedor, setContenedor] = useState([])//lo dejamos porque influye  el valor de la tabla 
-const [state, setState] = useState({dataSource:datos,
-  count: 2,})
 
-useEffect(() => {
-   setState({dataSource:datos})
-}, [datos])
+
+
 
   const handleSave = (row) => {
-    const newData = [...state.dataSource];
+    const newData = datos;
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
     let ff=contenedor.map(c=>{ 
@@ -113,14 +111,10 @@ useEffect(() => {
     )
     setDataCheck(ff)
     setContenedor(ff)
-    setState({
-      dataSource: newData,
-    });
-    //setDataCheck(ff)
 
+    setDatos(newData)
   };
 
-    const { dataSource } = state;
     const components = {
       body: {
         row: EditableRow,
@@ -146,6 +140,7 @@ useEffect(() => {
     });
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
+          console.log(selectedRows);
            setContenedor(selectedRows)
            setDataCheck(selectedRows)
         },
@@ -162,7 +157,7 @@ useEffect(() => {
           rowSelection={
           rowSelection
           }
-          dataSource={dataSource}
+          dataSource={datos}
           columns={columns}
         scroll={{ y: 300}}
 
