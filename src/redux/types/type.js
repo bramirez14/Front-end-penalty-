@@ -7,11 +7,11 @@ export const types= {
     gastos: '[GET] gastos',
     km:'[GET] km',
     vacaciones:'[GET] vacaciones',
-    tjc:'[GET] TJC',
 
     //Tarjeta de credito
-    tarjeta_credito:'[POST] tarjeta_credito',
-
+    todastc:'[TC]  todas gastos de tarjetas de credito',
+    tarjeta_credito:'[TC] Post tarjeta de credito',
+  
     //manejo de errores
     error:'Error!!!'
 

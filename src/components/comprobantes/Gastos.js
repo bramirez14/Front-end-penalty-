@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import {
   Drawer,
   List,
@@ -12,6 +11,7 @@ import {
 
 import { PdfoImg } from "../../helpers/PdfoImg";
 import { numeroConComa } from "../../helpers/funcioneshelpers";
+import { PeticionGET } from "../config/PeticionGET";
 const { Title } = Typography;
 export const Gastos = () => {
   const [gasto, setGasto] = useState([]);
@@ -21,13 +21,13 @@ export const Gastos = () => {
     setVisible(true);
   };
   const onClose = () => setVisible(false);
-  const GET_gastos = useSelector((state) => state.peticiones_GET.gastos); //viene de  redux
-
+  const GET_gastos= PeticionGET('/gastos')
+  
   return (
     <>
       <List
-        style={{ margin: "auto", width: 700 }}
-        dataSource={GET_gastos}
+        style={{ margin: "auto", width: 700, backgroundColor:'#ffff',borderRadius:20, }}
+        dataSource={GET_gastos?.reverse()}
         bordered
         renderItem={(item) => (
           <List.Item
@@ -41,11 +41,15 @@ export const Gastos = () => {
             <List.Item.Meta
               avatar={<Avatar src={item.usuario.imagen} />}
               title={
-                <h4>
+                <>
+                 <h3>
                   {item.usuario.nombre} {item.usuario.apellido}
-                </h4>
+                </h3>
+                <h3>Rendicion n°: <b>{item.id}</b></h3>
+               
+                </>
               }
-              description={<h4>fecha: {item.fecha}</h4>}
+              description={<h4>fecha: <b>{item.fecha}</b></h4>}
             />
           </List.Item>
         )}

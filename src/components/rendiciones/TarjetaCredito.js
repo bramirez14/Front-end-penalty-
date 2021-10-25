@@ -10,7 +10,7 @@ export const TarjetaCredito = ({ history }) => {
   const [spinner, setSpinner] = useState(false)
   const dispatch = useDispatch();
   const onFinish = (values) =>{ 
-    setSpinner(true)
+    //setSpinner(true)
     dispatch(tarjetaCredito(values, history));
   }
 

@@ -1,10 +1,11 @@
+import { getTarjetaCredito } from "../actions/rendicionAction";
 import {
   getKm,
   getSueldo,
   getVacaciones,
   getGastos,
   getUsuario,
-  getTarjetaCredito,
+ 
 } from "../actions/states";
 
 export const getState = (dispatch) => {
@@ -15,5 +16,6 @@ export const getState = (dispatch) => {
   dispatch(getGastos());
   dispatch(getKm());
   dispatch(getUsuario(id));
+  
   dispatch(getTarjetaCredito());
 };
