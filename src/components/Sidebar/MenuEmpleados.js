@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu, Grid} from 'antd';
-import { CheckOutlined, DollarCircleOutlined, HomeOutlined, MailOutlined, ReconciliationOutlined, RiseOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { CheckOutlined, DollarCircleOutlined, FileDoneOutlined, HomeOutlined, MailOutlined, ReconciliationOutlined, RiseOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { filtroNumVendedores  } from '../../helpers/funcioneshelpers';
 const { SubMenu } = Menu;
@@ -125,12 +125,12 @@ export const MenuEmpleados = ({ open, setOpen}) => {
 
             }
             {N==='905'&&
-            <SubMenu key="sub10"  title="Comprobante" icon={<ReconciliationOutlined />}>
+            <SubMenu key="sub10"  title="Comprobante" icon={<FileDoneOutlined />}>
             <Menu.Item key="26"> 
-            <Link to='/comprobantes/gastos'> comprobantes </Link>
+            <Link to='/comprobantes/gastos'> gastos </Link>
             </Menu.Item>
             <Menu.Item key="27"> 
-            <Link to='/comprobantes/tarjeta-credito'> comprobantes </Link>
+            <Link to='/comprobantes/tarjeta-credito'> tarjeta de credito</Link>
             </Menu.Item>
             </SubMenu>
 

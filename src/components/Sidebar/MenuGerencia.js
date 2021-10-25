@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu, Grid} from 'antd';
-import { CheckOutlined, DollarCircleOutlined, HomeOutlined, MailOutlined, RiseOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { CheckOutlined, DollarCircleOutlined, FileDoneOutlined, HomeOutlined, MailOutlined, RiseOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 const { SubMenu } = Menu;
 
@@ -136,7 +136,7 @@ if(!screens.md){
         <Link to='/tarjeta/credito'> Gasto con Tarjeta</Link>
                  </Menu.Item>
         </SubMenu>
-        <SubMenu key="sub10"  title="Comprobante" icon={<DollarCircleOutlined />}>
+        <SubMenu key="sub10"  title="Comprobante" icon={<FileDoneOutlined/>}>
             <Menu.Item key="25"> 
             <Link to='/comprobantes/gastos'> gastos</Link>
             </Menu.Item>
