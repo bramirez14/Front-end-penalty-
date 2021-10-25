@@ -2,7 +2,7 @@ import React from 'react'
 import { types } from '../types/type';
 
 export const getReducer = (state={},action) => {
-
+console.log(state);
     switch (action.type) {
         case types.sueldo:
             return{ 

@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import { useSelector } from 'react-redux';
 import { PdfoImg } from '../../helpers/PdfoImg';
 export const TarjetaCreditoComp = () => {
-    const dataSource= useSelector(state=>state.peticiones_GET.tarjeta_credito);
+    const dataSource= useSelector(state=>state.rendiciones.tc);
 const columns=[
     {
         title: 'Nombre',
@@ -33,6 +33,6 @@ const columns=[
       },
 ]
     return (
-        <Table dataSource={dataSource} columns={columns} />
+        <Table dataSource={dataSource?.reverse()} columns={columns} />
     )
 }

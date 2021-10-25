@@ -55,13 +55,4 @@ export const getUsuario =(id) => async (dispatch)=>{
         dispatch({ type:'error',error:e.message})
     }
 }
-export const getTarjetaCredito=() => async (dispatch)=>{
-    try {
-        const response = await axiosURL.get('/tarjeta/credito');
-        const datos = response.data 
-        dispatch({ type:types.tjc, payload: datos });
 
-    } catch (e) {
-        dispatch({ type:'error',error:e.message})
-    }
-}

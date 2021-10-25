@@ -1,7 +1,17 @@
 import { axiosURL } from "../../config/axiosURL";
-import { PeticionGET } from "../../config/PeticionGET";
 import { types } from "../types/type";
 
+
+export const getTarjetaCredito=() => async (dispatch)=>{
+    try {
+        const response = await axiosURL.get('/tarjeta/credito');
+        const datos = response.data 
+        dispatch({ type:types.todastc, payload: datos });
+
+    } catch (e) {
+        dispatch({ type:'error',error:e.message})
+    }
+}
 export const  tarjetaCredito=(values,history)=> async (dispatch,getState)=>{
     const datosUsuario = getState().peticiones_GET.usuario;
     try {
@@ -16,11 +26,17 @@ export const  tarjetaCredito=(values,history)=> async (dispatch,getState)=>{
         const data= response.data;
         dispatch({ type:types.tarjeta_credito,payload: data})
             if (response.data.status === 200) {
-          history.push("/perfil");
+         // history.push("/perfil");
         }
+     
         
     } 
     catch (e) {
     dispatch({ type:'error',error:e.message})
 }
 }
+
+/* export const todaslasTC = (  tc ) => ({
+    type:types.solicitudTC,
+    payload: tc
+}); */
