@@ -41,11 +41,15 @@ export const Gastos = () => {
             <List.Item.Meta
               avatar={<Avatar src={item.usuario.imagen} />}
               title={
-                <h4>
+                <>
+                 <h3>
                   {item.usuario.nombre} {item.usuario.apellido}
-                </h4>
+                </h3>
+                <h3>Rendicion n°: <b>{item.id}</b></h3>
+               
+                </>
               }
-              description={<h4>fecha: {item.fecha}</h4>}
+              description={<h4>fecha: <b>{item.fecha}</b></h4>}
             />
           </List.Item>
         )}
