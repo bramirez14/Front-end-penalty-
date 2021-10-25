@@ -141,7 +141,7 @@ if(!screens.md){
             <Link to='/comprobantes/gastos'> gastos</Link>
             </Menu.Item>
             <Menu.Item key="26"> 
-            <Link to='/comprobantes/tarjeta-credito'> tarje de credito </Link>
+            <Link to='/comprobantes/tarjeta-credito'> tarjeta de credito </Link>
             </Menu.Item>
             </SubMenu>
 
