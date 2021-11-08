@@ -24,9 +24,14 @@ export const  tarjetaCredito=(values,history)=> async (dispatch,getState)=>{
         f.append('nota',values.nota)
         const response = await axiosURL.post('/tarjeta/credito',f);
         const data= response.data;
+        console.log(data)
         dispatch({ type:types.tarjeta_credito,payload: data})
             if (response.data.status === 200) {
+<<<<<<< HEAD
           history.push("/perfil");
+=======
+         history.push("/perfil");
+>>>>>>> f9970d4b884251bc92994b2a5f3e8dd412ffe8af
         }
      
         
@@ -35,8 +40,3 @@ export const  tarjetaCredito=(values,history)=> async (dispatch,getState)=>{
     dispatch({ type:'error',error:e.message})
 }
 }
-
-/* export const todaslasTC = (  tc ) => ({
-    type:types.solicitudTC,
-    payload: tc
-}); */

@@ -2,7 +2,6 @@ import React from 'react'
 import { types } from '../types/type';
 
 export const getReducer = (state={},action) => {
-console.log(state);
     switch (action.type) {
         case types.sueldo:
             return{ 
@@ -22,7 +21,7 @@ console.log(state);
         case types.vacaciones:
           return{ 
             ...state,
-            vacaciones: action.payload
+            vaca: action.payload
         };
         case types.usuario:
           return{ 

@@ -11,7 +11,6 @@ export const MenuEmpleados = ({ open, setOpen}) => {
   let handleClick;
   if(!screens.md){
     handleClick= e => {
-            console.log(e);
             setOpen(false)
             
             };
