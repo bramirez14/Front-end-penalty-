@@ -116,7 +116,7 @@ export const MenuEmpleados = ({ open, setOpen}) => {
 
             }
 
-            {!N!=='0000' && filtroNumVendedores (N)?'':
+            {N==='0000'?'': filtroNumVendedores (N)?'':
             <SubMenu key="sub9"  title="Cobranzas" icon={<ReconciliationOutlined />}>
             <Menu.Item key="25"> 
             <Link to='/recibo'> Recibo provisorio </Link>
