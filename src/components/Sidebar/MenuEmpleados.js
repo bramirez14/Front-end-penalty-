@@ -6,6 +6,7 @@ import { filtroNumVendedores  } from '../../helpers/funcioneshelpers';
 const { SubMenu } = Menu;
 export const MenuEmpleados = ({ open, setOpen}) => {
     const N = localStorage.getItem('N');
+    console.log(filtroNumVendedores(N));
     const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
   let handleClick;
@@ -15,8 +16,7 @@ export const MenuEmpleados = ({ open, setOpen}) => {
             
             };
   }
-      
-  
+    
  
     return (
         <Menu  mode="inline"
@@ -26,6 +26,8 @@ export const MenuEmpleados = ({ open, setOpen}) => {
             <Menu.Item key="1" icon={<HomeOutlined />}>
                 <Link to='/perfil' >Home </Link>
             </Menu.Item>
+{N!=='0000' &&
+
 
         <SubMenu key="sub3"  title='Rtes de Gestion' icon={<RiseOutlined />} >
             <Menu.Item key="7">
@@ -83,7 +85,7 @@ export const MenuEmpleados = ({ open, setOpen}) => {
 
 
         </SubMenu>
-
+}
         <SubMenu key="sub6"  title="Solicitudes" icon={<MailOutlined />}>
             <Menu.Item key="19"> 
         <Link to='/sueldos'>Sueldo</Link>
@@ -114,7 +116,7 @@ export const MenuEmpleados = ({ open, setOpen}) => {
 
             }
 
-            { filtroNumVendedores (N)?'':
+            {!N!=='0000' && filtroNumVendedores (N)?'':
             <SubMenu key="sub9"  title="Cobranzas" icon={<ReconciliationOutlined />}>
             <Menu.Item key="25"> 
             <Link to='/recibo'> Recibo provisorio </Link>
