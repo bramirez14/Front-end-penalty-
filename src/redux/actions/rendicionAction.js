@@ -26,7 +26,7 @@ export const  tarjetaCredito=(values,history)=> async (dispatch,getState)=>{
         const data= response.data;
         dispatch({ type:types.tarjeta_credito,payload: data})
             if (response.data.status === 200) {
-         // history.push("/perfil");
+          history.push("/perfil");
         }
      
         

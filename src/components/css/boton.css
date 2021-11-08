@@ -7,5 +7,10 @@
     background-color: #ffff;
     color:#46a461;
     border-color:#46a461;
-
+}
+.boton:focus{
+    color: #fff;
+    background: #53ce76;
+    border-color: #53ce76;;
+ 
 }
