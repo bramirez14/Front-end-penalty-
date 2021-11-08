@@ -5,6 +5,7 @@ import { HelperTABLEobj } from '../../helpers/HelperTABLEobj'
 import { numberWithCommas } from '../reportes/helpers/funciones';
 import { EnterOutlined, FieldNumberOutlined } from '@ant-design/icons';
 import { axiosURLIntranetCobranzas } from '../../config/axiosURL';
+import {Spinner} from '../spin/Spinner'
 const { useBreakpoint } = Grid;
 
 export const CargaRecibo = ({match,history}) => {
@@ -125,9 +126,13 @@ export const CargaRecibo = ({match,history}) => {
      //agregar una alerta 
       history.push('/lista/recibo')
     }
+    console.log(getRecibos===[ ])
     return (
         <>
-            <Row style={{marginTop:20}} >
+          { getRecibos.length===0 ?
+          <Spinner/>:
+          <>
+          <Row style={{marginTop:20}} >
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
       <Card>
         <Descriptions title="Info">
@@ -221,8 +226,8 @@ export const CargaRecibo = ({match,history}) => {
 
 }
 <Button type='link' onClick={()=>history.push('/lista/recibo')}> atras <EnterOutlined/></Button>
-      
-
+  </>    
+}
         
         </>
     )

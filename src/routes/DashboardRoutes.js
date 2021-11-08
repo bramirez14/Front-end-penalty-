@@ -64,6 +64,8 @@ import { getState } from "../redux/auth/getState";
 import {useDispatch,useSelector} from 'react-redux'
 import { TarjetaCreditoComp } from "../components/comprobantes/TarjetaCreditoComp";
 import { ModalPDF } from "../helpers/ModalPDF";
+import { Calendario } from "../components/calendario/Calendario";
+
 
 export const DashboardRoutes = ({ history }) => {
   const dispatch = useDispatch();
@@ -155,7 +157,8 @@ useEffect(() => {
          <RouteEmpleado exact path='/comprobantes/gastos' component={ Gastos }/> 
          <RouteEmpleado exact path='/comprobantes/tarjeta-credito' component={ TarjetaCreditoComp }/> 
 
-
+         {/** Calendario */}
+         <RouteGerente exact path='/calendario' component={ Calendario }/> 
 
 
 

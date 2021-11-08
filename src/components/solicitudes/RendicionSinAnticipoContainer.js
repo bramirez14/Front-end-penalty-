@@ -62,7 +62,7 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
     f.append("sinAnticipo", obj.sinAnticipo);
     f.append("estado", obj.estado);
     f.append("estadoFinal", obj.estadoFinal);
-    let result = await axiosURL.post("/gasto/rendicion", f);
+    let result = await axiosURL.post("/gasto/rendicion/sinanticipo", f);
     console.log(result);
     if(result.data?.error?.errno===-3008){
       alert('Compruebe su connexion!!!')

@@ -1,13 +1,17 @@
+import React from 'react'
 import { Spin } from 'antd';
- import React from 'react'
+ import { LoadingOutlined } from '@ant-design/icons';
  import '../css/spin.css'
  export const Spinner = () => {
+  const antIcon = <LoadingOutlined style={{ fontSize: 40,color:'#46a461' }} spin />
+
    return (
-        <Spin tip={<h3 className='spinner'>Cargando...</h3>} spinning={true}  size='large' >
-   
-  </Spin>
+    <div className="example" style={{textAlign:'center',marginTop:240}} >
+    <Spin  indicator={antIcon} tip={<h2 style={{color:'#46a461'}}>Wait...</h2>} />
+  </div>
    )
  }
+
  
 
  

@@ -1,8 +1,9 @@
 import React from "react";
-import {  Row,Col, Form, Input, Button, Radio, Divider} from "antd";
+import {  Row,Col, Form, Input, Button, Radio, Divider, Spin, Alert} from "antd";
 import { Titulo } from "../titulos/Titulo";
 import { FormAntAguinaldo } from "./helpers/FormAntAguinaldo";
 import { FormAntSueldo } from "./helpers/FormAntSueldo";
+import { Spinner } from "../spin/Spinner";
 
 export const Sueldo = ({
   handleSubmit,
@@ -15,20 +16,23 @@ export const Sueldo = ({
   mes,
 }) => {
   return (
-    <Form
+  <>  {
+APROBACION===undefined? 
+      <Spinner/> :  
+<Form
     className='form-complete'
       onFinish={handleSubmit}
       size="large"
     >
-      {APROBACION === "pendiente" && APROBACION !== undefined ? (
+      {
+       
+      
+      APROBACION === "pendiente"  ? (
             <h4>Ya tenes un anticipo pendiente!!!</h4>
           ) :
           (<Row gutter={10}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-      {/*   <h3>
-        Anticipo de Sueldo
-          
-          </h3> */}
+     
           <Titulo titulo='Anticipo de Sueldo' />
           <Divider/>
             <>  
@@ -58,5 +62,10 @@ export const Sueldo = ({
       </Row>
       )}
     </Form>
+
+
+
+    }</>
+    
   );
 };
