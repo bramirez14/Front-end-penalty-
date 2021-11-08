@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu, Grid} from 'antd';
-import { CheckOutlined, DollarCircleOutlined, FileDoneOutlined, HomeOutlined, MailOutlined, RiseOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { CheckOutlined, DollarCircleOutlined, FileDoneOutlined, HomeOutlined, MailOutlined, ReconciliationOutlined, RiseOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 const { SubMenu } = Menu;
 
@@ -145,6 +145,16 @@ if(!screens.md){
             </Menu.Item>
             </SubMenu>
 
+            <SubMenu key="sub11"  title="Cobranzas" icon={<ReconciliationOutlined />}>
+            <Menu.Item key="27"> 
+            <Link to='/recibo'> Recibo provisorio </Link>
+
+            </Menu.Item>
+            <Menu.Item key="28"> 
+            <Link to='/lista/recibo'> Recibo </Link>
+
+            </Menu.Item>
+            </SubMenu>
         
         </Menu>
     )
