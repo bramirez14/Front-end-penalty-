@@ -1,137 +1,106 @@
 import React, { useState, useEffect } from "react";
 import "./avatar.css";
-import { TiUserAdd } from "react-icons/ti";
+import { AntDesignOutlined, CameraOutlined,  LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { PeticionJWT } from "../../auth/PeticionJWT";
 import {axiosURL }from "../../config/axiosURL";
 
-import { Form,  Button, Modal, } from "antd";
+import { Form,  Button, Modal, Avatar,Input,Radio  } from "antd";
+import { SubirImagen } from "./SubirImagen";
 
+
+const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
+  const [form] = Form.useForm();
+  return (
+    <Modal
+    
+      visible={visible}
+      title="Create a new collection"
+      okText="Create"
+      cancelText="Cancel"
+      onCancel={onCancel}
+      onOk={() => {
+        form
+          .validateFields()
+          .then((values) => {
+            form.resetFields();
+            onCreate(values);
+          })
+          .catch((info) => {
+            console.log('Validate Failed:', info);
+          });
+      }}
+    >
+      <Form
+        form={form}
+        layout="vertical"
+        name="form_in_modal"
+        initialValues={{
+          modifier: 'public',
+        }}
+      >
+       <SubirImagen/>
+      </Form>
+    </Modal>
+  );
+};
 
 
 export const AvatarImg = () => {
- const id = localStorage.getItem('uid')
-  const [state, setState] = useState({ loading: false, visible: false });
-const [imgDB, setImgDB] = useState()
-  const { visible, loading } = state;
+ const id = localStorage.getItem('uid');
+
+ const [visible, setVisible] = useState(false);
+
+ 
+const [imgDB, setImgDB] = useState();
 /**Llamando la img del usuario si es que  hay  */
 const peticionDeUsuario=async()=>{
 let res=await axiosURL.get(`/${id}`)
  setImgDB(res.data.imagen)
+ console.log('hola me llamaron');
 }
 useEffect(() => {
   peticionDeUsuario()
 }, [])
 
-  const showModal = () => {
-    setState({ ...state, visible: true });
-  };
+  const onCreate = async (values) => {
 
-  const handleOk = () => {
-    setState({ ...state, loading: true });
-    setTimeout(() => {
-      setState({ ...state, visible: false, loading: false });
-    }, 3000);
-  };
-  const handleCancel = () => {
-    setState({ visible: false });
-  };
-
-  const [avatar, setAvatar] = useState([]);
-  const [img, setImg] = useState();
-  const peticion = PeticionJWT();
-  const { nombre, apellido } = peticion;
-  const handleFileChange = (e) => {
-    let file = e.target.files[0];
-    handFiles(file);
-  };
-  const handFiles = (file) => {
-    let imageArr = [];
-
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileObj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      imageArr.push(fileObj);
-      setAvatar(imageArr);
-      setImg(file); //guardamos el archivo imagen
-    });
-  };
-
-  const crearImg = async () => {
-    handleOk();
-    let d = new FormData();
-    d.append("imagen", img);
-    let res = await axiosURL.put(`/${id}`, d);
-    peticionDeUsuario()
-    
-    
-  };
+   console.log('Received values of form: ', values.file[0].originFileObj);
+   let d = new FormData();
+   d.append("imagen", values.file[0].originFileObj);
+const response = await axiosURL.put(`/${id}`, d);
+console.log(response);
+   setVisible(false);
+   peticionDeUsuario();
+ };
+  
+  
   return (
-    <>
-      <Form  >
-        <div className="div-img"  >
-        <img className="div-img2"  src={imgDB} alt=""  />
-          <TiUserAdd className="avatar" onClick={showModal} />
-        </div>
-        <Modal
-          style={{ marginleft: "100px" }}
-          visible={visible}
-          title="Subi aca  tu imagen Favorita "
-          onOk={handleOk}
-          onCancel={handleCancel}
-          footer={[
-            <Button key="back" onClick={handleCancel}>
-              Salir
-            </Button>,
-            <Button
-              key="submit"
-              type="primary"
-              loading={loading}
-              onClick={crearImg}
-            >
-              Subir
-            </Button>,
-          ]}
-        >
-          <div className="contendor-modal">
-            <div className="button-wrapper-modal">
-              <span className="label">Upload File</span>
-              <input
-                type="file"
-                name="upload"
-                id="upload"
-                class="upload-box"
-                placeholder="Upload File"
-                onChange={handleFileChange}
-              />
-            </div>
-            <div
-              style={{
-                border: "solid 1px #ddd",
-                width: "200px",
-                height: "200px",
-                margin: "auto",
-              }}
-            >
-              <img
-                style={{
-                  width: "200px",
-                  height: "200px",
-                  margin: "auto",
-                  padding: "20px",
-                }}
-                src={avatar[0]?.src}
-                alt=""
-              />
-            </div>
-          </div>
-        </Modal>
-      </Form>
-    </>
+ 
+        <div style={{position:'relative'}}>
+        <Avatar src={imgDB}
+    size={{
+      xs: 100,
+      sm: 100,
+      md: 200,
+      lg: 300,
+      xl: 300,
+      xxl: 400,
+    }}
+    icon={<AntDesignOutlined  />}
+    style={{ 
+    boxShadow:' 0px 10px 10px  rgba(92, 99, 105, 0.5)'
+  }}
+  />
+        <CameraOutlined className="avatar" onClick={() => {
+      setVisible(true);
+    }} />
+      <CollectionCreateForm
+        visible={visible}
+        onCreate={onCreate}
+        onCancel={() => {
+          setVisible(false);
+        }}
+      />
+    </div>
   );
 };
