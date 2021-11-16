@@ -16,6 +16,10 @@ export const types = {
   guardar: "[Vaca] guardar vacacion",
   editar: "[Vaca] editar vacacion",
   eliminar: "[Vaca] eliminar vacacion",
+
+  //scc
+  scc:"[SCC] todas las scc",
+
   //manejo de errores
   error: "Error!!!",
 };

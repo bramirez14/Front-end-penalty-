@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { getReducer } from '../reducers/getReducer';
 import { rendicionesReducer } from '../reducers/rendicionesReducer';
 import { vacacionesReducer } from '../reducers/vacacionesReducer';
+import { sccReducer } from '../reducers/sccReducer';
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
@@ -12,6 +13,7 @@ auth:authReducer,
 peticiones_GET:getReducer,
 rendiciones:rendicionesReducer,
 vacaciones:vacacionesReducer,
+solicitudControlCalidad:sccReducer,
 })
 
 

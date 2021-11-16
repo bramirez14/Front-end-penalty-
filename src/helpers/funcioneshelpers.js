@@ -8,3 +8,8 @@ export const numeroConComa = (x) =>{
   const valor= valorNumerico.replace('.', ',');
   return valor.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
+export const fecha=(fechaLarga)=>{
+  const separamosFecha= fechaLarga.split('T');
+  const soloFecha= separamosFecha[0];
+  return soloFecha
+}

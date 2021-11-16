@@ -107,7 +107,7 @@ export const Vacaciones = ({ history }) => {
   const APROBACION = getUsuario.vacacion?.[log]?.estadoFinal;
   /********enviamos el formulario a DB********/
   const tipo = localStorage.getItem("type");
-
+console.log(getUsuario);
   const guardarAnticipoDeVacaciones = async () => {
     const nuevoObj = {
       alerta: vacaciones.obs,
