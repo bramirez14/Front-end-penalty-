@@ -11,3 +11,14 @@ export const todasLasSCC =() => async (dispatch)=>{
         dispatch({ type:'error',error:e.message})
     }
 }
+export const todosLosArticulos = () => async (dispatch)=>{
+    try {
+        const response = await axiosURL.get('/scc/todos/articulos');
+        const datos = await response.data 
+        console.log(datos);
+        dispatch({ type:types.art, payload: datos[0] })
+    } catch (e) {
+        dispatch({ type:'error',error:e.message})
+        
+    }
+}

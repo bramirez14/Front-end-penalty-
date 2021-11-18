@@ -1,12 +1,12 @@
 import { types } from "../types/type";
 
-export const sccReducer =(state={},action)=>{
-
+export const articulosReducer =(state={},action)=>{
+console.log(action);
     switch (action.type) {
-        case types.scc:
+        case types.art:
             return{
                ...state,
-               scc: action.payload
+               art: action.payload
             }
             
         default:

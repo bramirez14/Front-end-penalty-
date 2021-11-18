@@ -43,6 +43,7 @@ const data = [
 ]; // rowSelection object indicates the need for row selection
 
 const rowSelection = {
+
   onChange: (selectedRowKeys, selectedRows) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
   },
@@ -52,7 +53,12 @@ const rowSelection = {
     name: record.name,
   }),
 };
+const rowSelection2= {
+  onChange: (selectedRowKeys, selectedRows) => {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  },
 
+};
 export const Demo = () => {
   const [selectionType, setSelectionType] = useState('checkbox');
   return (
@@ -70,10 +76,10 @@ export const Demo = () => {
       <Divider />
 
       <Table
-        rowSelection={{
-          type: selectionType,
-          ...rowSelection,
-        }}
+        rowSelection={{rowSelection,rowSelection,rowSelection}}
+        
+        
+      
         columns={columns}
         dataSource={data}
       />

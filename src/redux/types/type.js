@@ -19,7 +19,8 @@ export const types = {
 
   //scc
   scc:"[SCC] todas las scc",
-
+  //articulos
+  art:"[ART] todos los articulos",
   //manejo de errores
   error: "Error!!!",
 };
