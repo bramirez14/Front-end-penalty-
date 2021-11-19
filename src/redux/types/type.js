@@ -19,8 +19,12 @@ export const types = {
 
   //scc
   scc:"[SCC] todas las scc",
+  abrirModal:'[SCC] abrir o cerrar modal',
+  dataSEL:'[SCC] traer el dato seleccionado',
   //articulos
   art:"[ART] todos los articulos",
+  //talles
+  talles:"[TALLES] todas las talles",
   //manejo de errores
   error: "Error!!!",
 };

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import { fecha } from "../../../helpers/funcioneshelpers";
 import { useDispatch, useSelector } from "react-redux";
+import{ abrirCerrarModal,datoSelec} from '../../../redux/actions/scc'
 import {
   Row,
   Col,
@@ -13,28 +14,40 @@ import {
   Checkbox,
 } from "antd";
 
-export const ColumnaSCC = (setState,state) => {
+export const ColumnaSCC = (setState) => {
+  const dispatch = useDispatch();
+  const { articulos, listaTalles } = useSelector((state) => state);
   function onChange(e) {
-    setState({...state,state:e.target.checked});
-    
+    //setState({...state,state:e.target.checked});
+    dispatch(abrirCerrarModal(e.target.checked))
   }
-const click=(file)=>{
-setState({...state,curva:file})
+ // console.log(data)
+ const buscarNombrePorArt=(art)=>{
+  const buscarNomArt= articulos.art?.find(t=> t.NUMERO === art  )
+  const numTalle= buscarNomArt?.CODTALLE
+  const curvaTalles= listaTalles?.talle?.find(l=> l.TRANSPORTISTA === numTalle)
+  return curvaTalles
 }
-
-
+//falta agregar  file + la curva de talle en un solo array 
+const click=(file)=>{
+  dispatch(abrirCerrarModal(true))
+  const curva= buscarNombrePorArt(file.ARTICULO);
+  const newFile = {...file,...curva}
+  console.log(newFile)
+  dispatch(datoSelec(newFile));
+  
+}
   return [
     {
       title: "Dep",
       dataIndex: "Dep",
-      key: "1",
       render: (state, file) => {
         // console.log(file);
 
         return (
           <>
           
-            <Button type='link' onClick={()=>click(file)} ><Checkbox onChange={onChange} /></Button>
+            <Button type='link' onClick={()=>click(file)} ><Checkbox /* onChange={onChange} */ /></Button>
           </>
         );
       }, 
@@ -42,7 +55,6 @@ setState({...state,curva:file})
     {
       title: "Cre",
       dataIndex: "Cre",
-      key: "1",
       render: (state, file) => <Checkbox onChange={onChange} />,
     },
     {
@@ -67,6 +79,10 @@ setState({...state,curva:file})
     {
       title: "Articulo",
       dataIndex: "ARTICULO",
+    },
+    { 
+      title:'Descrip',
+      dataIndex:'Descrip'
     },
     {
       title: "Precio Lista",

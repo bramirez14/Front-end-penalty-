@@ -4,8 +4,10 @@ import thunk from 'redux-thunk';
 import { getReducer } from '../reducers/getReducer';
 import { rendicionesReducer } from '../reducers/rendicionesReducer';
 import { vacacionesReducer } from '../reducers/vacacionesReducer';
-import { sccReducer } from '../reducers/sccReducer';
+import { sccReducer, } from '../reducers/sccReducer';
 import { articulosReducer } from '../reducers/articulosReducer';
+import { tallesReducer } from '../reducers/tallesReducer';
+
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
@@ -16,6 +18,7 @@ rendiciones:rendicionesReducer,
 vacaciones:vacacionesReducer,
 solicitudControlCalidad:sccReducer,
 articulos:articulosReducer,
+listaTalles:tallesReducer,
 })
 
 
