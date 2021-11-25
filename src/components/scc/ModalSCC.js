@@ -41,9 +41,7 @@ export const ModalSCC = ({ visible, onCreate, onCancel }) => {
           form={form}
           layout="inline"
           name="form_in_modal"
-          initialValues={{
-            modifier: "public",
-          }}
+       
         >
           <Row gutter={[20, 20]}>
             <Form.Item name="title" label="S.C.C Nro">

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { fecha } from "../../../helpers/funcioneshelpers";
 import { useDispatch, useSelector } from "react-redux";
-import{ abrirCerrarModal,datoSelec} from '../../../redux/actions/scc'
+import{ abrirModal,datoSelec} from '../../../redux/actions/scc'
 import {
   Row,
   Col,
@@ -19,9 +19,8 @@ export const ColumnaSCC = (setState) => {
   const { articulos, listaTalles } = useSelector((state) => state);
   function onChange(e) {
     //setState({...state,state:e.target.checked});
-    dispatch(abrirCerrarModal(e.target.checked))
+   // dispatch(abrirCerrarModal(e.target.checked))
   }
- // console.log(data)
  const buscarNombrePorArt=(art)=>{
   const buscarNomArt= articulos.art?.find(t=> t.NUMERO === art  )
   const numTalle= buscarNomArt?.CODTALLE
@@ -30,14 +29,13 @@ export const ColumnaSCC = (setState) => {
 }
 //falta agregar  file + la curva de talle en un solo array 
 const click=(file)=>{
-  dispatch(abrirCerrarModal(true))
+  dispatch(abrirModal())
   const curva= buscarNombrePorArt(file.ARTICULO);
   const newFile = {...file,...curva}
-  console.log(newFile)
   dispatch(datoSelec(newFile));
   
 }
-  return [
+  return [ 
     {
       title: "Dep",
       dataIndex: "Dep",
@@ -47,7 +45,7 @@ const click=(file)=>{
         return (
           <>
           
-            <Button type='link' onClick={()=>click(file)} ><Checkbox /* onChange={onChange} */ /></Button>
+            <Button type='link' onClick={()=>click(file)} ><Checkbox onChange={onChange} /></Button>
           </>
         );
       }, 
@@ -101,65 +99,66 @@ const click=(file)=>{
       title: "Total",
       dataIndex: "CANTPED",
     },
+    
     {
       title: "T1",
-      dataIndex: "CANTPEDT01",
+      dataIndex: "CANTPEDT00",
     },
     {
       title: "T2",
-      dataIndex: "CANTPEDT02",
+      dataIndex: "CANTPEDT01",
     },
     {
       title: "T3",
-      dataIndex: "CANTPEDT03",
+      dataIndex: "CANTPEDT02",
     },
     {
       title: "T4",
-      dataIndex: "CANTPEDT04",
+      dataIndex: "CANTPEDT03",
     },
     {
       title: "T5",
-      dataIndex: "CANTPEDT05",
+      dataIndex: "CANTPEDT04",
     },
     {
       title: "T6",
-      dataIndex: "CANTPEDT06",
+      dataIndex: "CANTPEDT05",
     },
     {
       title: "T7",
-      dataIndex: "CANTPEDT07",
+      dataIndex: "CANTPEDT06",
     },
     {
       title: "T8",
-      dataIndex: "CANTPEDT08",
+      dataIndex: "CANTPEDT07",
     },
     {
       title: "T9",
-      dataIndex: "CANTPEDT09",
+      dataIndex: "CANTPEDT08",
     },
     {
       title: "T10",
-      dataIndex: "CANTPEDT10",
+      dataIndex: "CANTPEDT09",
     },
     {
       title: "T11",
-      dataIndex: "CANTPEDT11",
+      dataIndex: "CANTPEDT10",
     },
     {
       title: "T12",
-      dataIndex: "CANTPEDT12",
+      dataIndex: "CANTPEDT11",
     },
     {
       title: "T13",
-      dataIndex: "CANTPEDT13",
+      dataIndex: "CANTPEDT12",
     },
     {
       title: "T14",
-      dataIndex: "CANTPEDT14",
+      dataIndex: "CANTPEDT13",
     },
     {
       title: "T15",
-      dataIndex: "CANTPEDT15",
+      dataIndex: "CANTPEDT14",
     },
     {
       title: "Precio",
