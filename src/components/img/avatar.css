@@ -58,13 +58,13 @@ body::-webkit-scrollbar-track:active {
 
 .avatar {
   border-radius: 50%;
-  font-size: 30px;
+  font-size: 37px;
   position: absolute;
-  top: 70px;
-  left: 64px;
+  bottom: 10px;
+  left: 210px;
   color: rgba(0, 0, 0, 0.7);
   background-color: rgb(223, 219, 219);
-  padding: 2px;
+  padding: 10px;
 }
 
 .persona {
@@ -102,4 +102,31 @@ body::-webkit-scrollbar-track:active {
   border:solid 1px #ddd;
   margin:auto;
   border-radius: 10px;
+}
+@media (max-width: 768px){
+  .avatar {
+  
+    position: absolute;
+    bottom: 10px;
+    left: 142px;
+    ;
+  }
+}
+@media (max-width: 480px){
+.avatar{
+   position: absolute;
+    bottom: 2px;
+    left: 68px;
+    font-size: 16px;
+}
+}
+@media (min-width: 1700px){
+  .avatar {
+  
+    position: absolute;
+    bottom: 10px;
+    left: 281px;
+    ;
+  }
+
 }

@@ -16,6 +16,20 @@ export const types = {
   guardar: "[Vaca] guardar vacacion",
   editar: "[Vaca] editar vacacion",
   eliminar: "[Vaca] eliminar vacacion",
+
+  //scc
+  scc:"[SCC] todas las scc",
+  dataSEL:'[SCC] traer el dato seleccionado',
+   active: '[SCC] Set active ',
+   editscc:"[SCC] editamos un scc",
+  //articulos
+  art:"[ART] todos los articulos",
+  //talles
+  talles:"[TALLES] todas las talles",
+  
+  //abrirCerrarModal
+  openModal:'[MODAL] abrir modal',
+  closeModal:'[MODAL] cerrar modal',
   //manejo de errores
   error: "Error!!!",
 };

@@ -1,62 +1,88 @@
-import React,{ useState } from 'react'
-import { Layout, Menu } from 'antd';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
-import './css/demo.css'
-const { Header, Sider, Content } = Layout;
+import React, { useState } from 'react';
+import { Table, Radio, Divider } from 'antd';
+const columns = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    render: (text) => <a>{text}</a>,
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+  },
+];
+const data = [
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park',
+  },
+  {
+    key: '4',
+    name: 'Disabled User',
+    age: 99,
+    address: 'Sidney No. 1 Lake Park',
+  },
+]; // rowSelection object indicates the need for row selection
 
-export  const Demo =()=> {
-  const [collapsed, setCollapsed] = useState(false)
-  const toggle = () => {
-    setCollapsed(!collapsed)}
+const rowSelection = {
+  onChange: (selectedRowKeys, selectedRows) => {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  },
+  getCheckboxProps: (record) => ({
+    disabled: record.name === 'Disabled User',
+    // Column configuration not to be checked
+    name: record.name,
+  }),
+  columnTitle:()=>(<h1>hi mund</h1>),
+
+};
+const rowSelection2 = {
+  onChange: (selectedRowKeys, selectedRows) => {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  },
+  getCheckboxProps: (record) => ({
+    disabled: record.name === 'Disabled User',
+    // Column configuration not to be checked
+    name: record.name,
+  }),
+
+};
+export const Demo = () => {
+  const [selectionType, setSelectionType] = useState('checkbox');
+  return (
+    <div>
     
- 
-console.log(collapsed);
 
-    return (
-      <>
-      <Layout>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="logos" style={{height:200}} >
-            sadsadsa
-          </div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              nav 1
-            </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              nav 2
-            </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              nav 3
-            </Menu.Item>
-          </Menu>
-        </Sider>
-        <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-              className: 'trigger',
-              onClick: toggle,
-            })}
-          </Header>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              minHeight: 280,
-            }}
-          >
-            Content
-          </Content>
-        </Layout>
-      </Layout>
-      </>
-    );
-  
-}
+      <Divider />
+
+      <Table
+        rowSelection={{
+          ...rowSelection,
+          rowSelection2,
+
+
+        }}
+        columns={columns}
+        dataSource={data}
+      />
+    </div>
+  );
+};

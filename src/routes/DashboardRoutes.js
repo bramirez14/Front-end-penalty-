@@ -65,6 +65,8 @@ import {useDispatch,useSelector} from 'react-redux'
 import { TarjetaCreditoComp } from "../components/comprobantes/TarjetaCreditoComp";
 import { ModalPDF } from "../helpers/ModalPDF";
 import { Calendario } from "../components/calendario/Calendario";
+import { AprobacionSCC } from "../components/scc/AprobacionSCC";
+
 
 
 export const DashboardRoutes = ({ history }) => {
@@ -158,7 +160,13 @@ useEffect(() => {
          <RouteEmpleado exact path='/comprobantes/tarjeta-credito' component={ TarjetaCreditoComp }/> 
 
          {/** Calendario */}
-         <RouteGerente exact path='/calendario' component={ Calendario }/> 
+         <RouteGerente exact path='/calendario' component={ Calendario }/>
+         
+         {/** SCC */}
+         <RouteGerente exact path='/aprobacion/scc' component={ AprobacionSCC }/> 
+
+
+
 
 
 
