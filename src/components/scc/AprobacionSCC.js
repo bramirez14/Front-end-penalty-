@@ -8,6 +8,7 @@ import {
   abrirModal,
   cerrarModal,
   inputCambio,
+  editarSCC,
 } from "../../redux/actions/scc";
 import { ColumnaSCC } from "./columnas/ColumnaSCC";
 import { axiosURL } from "../../config/axiosURL";
@@ -20,14 +21,18 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
 
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.solicitudControlCalidad);
+  const total= (data.CANTPEDT00+data.CANTPEDT01+data.CANTPEDT02+data.CANTPEDT03+data.CANTPEDT04+data.CANTPEDT05+data.CANTPEDT06+data.CANTPEDT07+data.CANTPEDT08+data.CANTPEDT09+data.CANTPEDT10+data.CANTPEDT11+data.CANTPEDT12+data.CANTPEDT13+data.CANTPEDT14)
 
   const change = (e) => {
     const { value, name } = e.target;
-    console.log(name + "=" + value);
-    const newObj = { ...data, [name]: parseInt(value) };
+    console.log([name] + "=" + value);
+    const newObj = { ...data, [name]: parseInt(value)};
     dispatch(inputCambio(newObj));
   };
-  const total= (data.CANTPEDT00+data.CANTPEDT01+data.CANTPEDT02+data.CANTPEDT03+data.CANTPEDT04+data.CANTPEDT05+data.CANTPEDT06+data.CANTPEDT07+data.CANTPEDT08+data.CANTPEDT09+data.CANTPEDT10+data.CANTPEDT11+data.CANTPEDT12+data.CANTPEDT13+data.CANTPEDT14)
+  useEffect(() => {
+    const newData= {...data,CANTPED:total}
+    dispatch(inputCambio(newData));
+  }, [total])
   const [form] = Form.useForm();
   return (
     <Modal
@@ -49,7 +54,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           });
       }}
     >
-      <Form form={form} layout="inline" name="form_in_modal" onChange={change}>
+      <Form form={form} layout="inline"  onChange={change}>
         <Row gutter={[20, 20]}>
           <Form.Item label="S.C.C Nro">
             <Input value={data.NROSCC} />
@@ -58,23 +63,24 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
             <Input  value={data.CLIENTE} />
           </Form.Item>
           <Form.Item label="Art">
-            <Input  value={data.CLIENTE} name="cambio" />
+            <Input  value={data.CLIENTE}  />
           </Form.Item>
 
           <Form.Item
             label="Precio"
             className="collection-create-form_last-form-item"
+            name='PRECIO'
           >
-            <Radio.Group>
-              <Radio value='list'>{data.PRECIOLIST}  <Tag color="magenta"> Lista </Tag> </Radio>
-              <Radio value='fact'>{data.PRECFACT}    <Tag color="gold"> Facturado </Tag></Radio>
+            <Radio.Group >
+              <Radio value={data.PRECIOLIST}>{data.PRECIOLIST}  <Tag color="magenta"> Lista </Tag> </Radio>
+              <Radio value={data.PRECFACT}>{data.PRECFACT}    <Tag color="gold"> Facturado </Tag></Radio>
             </Radio.Group>
           </Form.Item>
 
          
 
           <Col span={24}>
-            <Form.Item name="Descrip" label="Obs">
+            <Form.Item name="COMENTARIO" label="Obs">
               <TextArea rows={2} />
             </Form.Item>
           </Col>
@@ -155,8 +161,8 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
             </Form.Item>
           </Col>
           <Col span={4}>
-            <Form.Item label="Total">
-              <Input value={total} name="CANTPED"  min={0} />
+            <Form.Item  label="Total">
+              <Input value={total} min={0} />
             </Form.Item>
           </Col>
         </Row>
@@ -165,10 +171,6 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   );
 };
 export const AprobacionSCC = () => {
-  /*  const onCreate = (values) => {
-    console.log('Received values of form: ', values);
-    //setVisible(false);
-  }; */
 
   const dispatch = useDispatch();
   const { solicitudControlCalidad, articulos, modal } = useSelector(
@@ -192,9 +194,14 @@ export const AprobacionSCC = () => {
     const buscarNomArt = todosLosArt?.find((t) => t.NUMERO === art);
     return buscarNomArt?.DESCRIP;
   };
-  const onCreate = (values) => {
+  const onCreate =(values) => {
+    console.log(values);
+  dispatch(editarSCC(data.NROSCC,{...data,...values}));
     dispatch(cerrarModal());
-  console.log({...data,...values}) };
+  console.log({...data,...values}) 
+  //console.log(data.NROSCC);
+    
+};
 
   const todos = (array) => {
     return array?.map((t) => ({

@@ -1,83 +1,87 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form, Input, Radio } from 'antd';
+import { Table, Radio, Divider } from 'antd';
+const columns = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    render: (text) => <a>{text}</a>,
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+  },
+];
+const data = [
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park',
+  },
+  {
+    key: '4',
+    name: 'Disabled User',
+    age: 99,
+    address: 'Sidney No. 1 Lake Park',
+  },
+]; // rowSelection object indicates the need for row selection
 
-const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
-  const [form] = Form.useForm();
-  return (
-    <Modal
-      visible={visible}
-      title="Create a new collection"
-      okText="Create"
-      cancelText="Cancel"
-      onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log('Validate Failed:', info);
-          });
-      }}
-    >
-      <Form
-        form={form}
-        layout="vertical"
-        name="form_in_modal"
-        initialValues={{
-          modifier: 'public',
-        }}
-      >
-        <Form.Item
-          name="title"
-          label="Title"
-          rules={[
-            {
-              required: true,
-              message: 'Please input the title of collection!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item name="description" label="Description">
-          <Input type="textarea" />
-        </Form.Item>
-        <Form.Item name="modifier" className="collection-create-form_last-form-item">
-          <Radio.Group>
-            <Radio value="public">Public</Radio>
-            <Radio value="private">Private</Radio>
-          </Radio.Group>
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
+const rowSelection = {
+  onChange: (selectedRowKeys, selectedRows) => {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  },
+  getCheckboxProps: (record) => ({
+    disabled: record.name === 'Disabled User',
+    // Column configuration not to be checked
+    name: record.name,
+  }),
+  columnTitle:()=>(<h1>hi mund</h1>),
+
+};
+const rowSelection2 = {
+  onChange: (selectedRowKeys, selectedRows) => {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  },
+  getCheckboxProps: (record) => ({
+    disabled: record.name === 'Disabled User',
+    // Column configuration not to be checked
+    name: record.name,
+  }),
+
 };
 export const Demo = () => {
-  const [visible, setVisible] = useState(false);
-console.log(visible);
-  const onCreate = (values) => {
-    console.log('Received values of form: ', values);
-    setVisible(false);
-  };
+  const [selectionType, setSelectionType] = useState('checkbox');
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => {
-          setVisible(true);
+    
+
+      <Divider />
+
+      <Table
+        rowSelection={{
+          ...rowSelection,
+          rowSelection2,
+
+
         }}
-      >
-        New Collection
-      </Button>
-      <CollectionCreateForm
-        visible={visible}
-        onCreate={onCreate}
-        onCancel={() => {
-          setVisible(false);
-        }}
+        columns={columns}
+        dataSource={data}
       />
     </div>
   );

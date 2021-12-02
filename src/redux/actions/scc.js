@@ -31,19 +31,21 @@ export const todasLasTalles = () => async (dispatch) => {
 export const abrirModal = () => ({ type: types.openModal });
 export const cerrarModal = () => ({ type: types.closeModal });
 
-export const inputCambio = ( value ) =>{
-  return ({
-  type: types.active,
-  payload:value
-})};
+export const inputCambio = (value) => {
+  return {
+    type: types.active,
+    payload: value,
+  };
+};
 export const datoSelec = (file) => ({ type: types.dataSEL, payload: file });
-export const editarSCC= (id) => async (dispatch) => {
+
+export const editarSCC = (id, data) => async (dispatch) => {
   try {
-    const response = await axiosURL.put(`/scc/${id}`);
+    const response = await axiosURL.put(`/scc/${id}`, data);
+    console.log(response);
     const datos = await response.data;
-    console.log(datos);
     dispatch({ type: types.editscc, payload: datos });
   } catch (e) {
-    res.send(e)
+    dispatch({ type: "error", error: e.message });
   }
-}
+};
