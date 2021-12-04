@@ -5,6 +5,8 @@ const inicialState={
     active:null
 }
 export const sccReducer =(state=inicialState,action)=>{
+    
+    console.log(state);
     switch (action.type) {
         case types.scc:
             return{
@@ -23,11 +25,15 @@ export const sccReducer =(state=inicialState,action)=>{
                         data:action.payload
                     }
                     case types.editscc:
+                        console.log(action);
+                        let busq =state.scc.map(
+                            e => ( e.NROSCC ==action.payload.NROSCC) ? action.payload
+                            : e 
+                        )
+                        console.log(busq);
                         return{
                             ...state,
-                            scc:state.scc.map(
-                                e => ( e.NROSCC === action.payload.NROSCC) ? action.payload : e // modificar para editar 
-                            )
+                            scc:busq
                         }
         default:
             return state;

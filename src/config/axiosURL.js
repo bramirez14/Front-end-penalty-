@@ -3,7 +3,7 @@ import axios from 'axios';
  const axiosURL= axios.create({
 
  baseURL:'http://localhost:4000/api'
-
+ //baseURL:"http://intranet.penalty.com.ar:4000/api"
  })
  
 const axiosURLIntranet = axios.create({

@@ -44,7 +44,7 @@ export const editarSCC = (id, data) => async (dispatch) => {
     const response = await axiosURL.put(`/scc/${id}`, data);
     console.log(response);
     const datos = await response.data;
-    dispatch({ type: types.editscc, payload: datos });
+    dispatch({ type: types.editscc, payload: datos});
   } catch (e) {
     dispatch({ type: "error", error: e.message });
   }

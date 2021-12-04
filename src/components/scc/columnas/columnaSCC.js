@@ -18,6 +18,7 @@ export const ColumnaSCC = (setState) => {
   const dispatch = useDispatch();
   const { articulos, listaTalles } = useSelector((state) => state);
   function onChange(e) {
+    console.log(e);
     //setState({...state,state:e.target.checked});
    // dispatch(abrirCerrarModal(e.target.checked))
   }

@@ -25,7 +25,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
 
   const change = (e) => {
     const { value, name } = e.target;
-    console.log([name] + "=" + value);
+      //    console.log([name] + "=" + value);
     const newObj = { ...data, [name]: parseInt(value)};
     dispatch(inputCambio(newObj));
   };
@@ -177,6 +177,7 @@ export const AprobacionSCC = () => {
     (state) => state
   );
   const todasLasSolicitudes = solicitudControlCalidad.scc;
+//  console.log(todasLasSolicitudes);
   const visible = modal.openModal;
   const todosLosArt = articulos.art;
   const data= solicitudControlCalidad.data
