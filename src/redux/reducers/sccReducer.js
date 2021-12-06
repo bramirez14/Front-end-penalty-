@@ -30,11 +30,18 @@ export const sccReducer =(state=inicialState,action)=>{
                             e => ( e.NROSCC ==action.payload.NROSCC) ? action.payload
                             : e 
                         )
+                       
                         console.log(busq);
                         return{
                             ...state,
                             scc:busq
                         }
+                        case types.status:
+                            console.log({...state.data,...action.payload});
+                            return{
+                                ...state,
+                                data:{...state.data,...action.payload}
+                            }
         default:
             return state;
 

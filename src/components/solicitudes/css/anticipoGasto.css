@@ -49,13 +49,13 @@
 .ant-input:hover {
   border: solid 2px var(--border-color);
 }
-/*--------Button-------*/
+/* /*--------Button-------*/
 .btn{
   background-color: var(--border-color);
   border-color: var(--border-color);
   color: #fff;
   border-radius: 10px;
-}
+} */
 
 .btn:active {
   color: #fff;

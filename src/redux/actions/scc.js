@@ -45,7 +45,17 @@ export const editarSCC = (id, data) => async (dispatch) => {
     console.log(response);
     const datos = await response.data;
     dispatch({ type: types.editscc, payload: datos});
+    dispatch({type: types.status, payload: datos.status})
   } catch (e) {
     dispatch({ type: "error", error: e.message });
   }
 };
+
+/* export const rechazarSCC = (id)=>{ async (dispatch)=>{
+  try {
+    const response = await axiosURL.put(`/scc/${id}`,{RECHAZADO: "N"})
+    console.log(response);
+  } catch (e) {
+    dispatch({ type: "error", error: e.message });
+  }
+}} */

@@ -30,6 +30,8 @@ export const types = {
   //abrirCerrarModal
   openModal:'[MODAL] abrir modal',
   closeModal:'[MODAL] cerrar modal',
+  //estado de sccReduce
+  status:'[SCC] el estado http',
   //manejo de errores
   error: "Error!!!",
 };

@@ -177,7 +177,7 @@ export const AprobacionSCC = () => {
     (state) => state
   );
   const todasLasSolicitudes = solicitudControlCalidad.scc;
-//  console.log(todasLasSolicitudes);
+ console.log(todasLasSolicitudes.length);
   const visible = modal.openModal;
   const todosLosArt = articulos.art;
   const data= solicitudControlCalidad.data
@@ -197,7 +197,7 @@ export const AprobacionSCC = () => {
   };
   const onCreate =(values) => {
     console.log(values);
-  dispatch(editarSCC(data.NROSCC,{...data,...values}));
+  dispatch(editarSCC(data.NROSCC,{...data,...values,APROBDEP: "S", APROBCRED: "S",RECHAZADO:'N'}));
     dispatch(cerrarModal());
   console.log({...data,...values}) 
   //console.log(data.NROSCC);
@@ -232,6 +232,7 @@ export const AprobacionSCC = () => {
         bordered
         dataSource={memoizedValue}
         columns={ColumnaSCC()}
+        loading={todasLasSolicitudes.length=== 0 ? true : false }
       />
     </div>
   );

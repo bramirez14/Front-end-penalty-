@@ -1,65 +1,118 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { fecha } from "../../../helpers/funcioneshelpers";
 import { useDispatch, useSelector } from "react-redux";
-import{ abrirModal,datoSelec} from '../../../redux/actions/scc'
-import {
-  Row,
-  Col,
-  Table,
-  Button,
-  Modal,
-  Form,
-  Input,
-  Radio,
-  Checkbox,
-} from "antd";
+import { abrirModal, datoSelec, editarSCC } from "../../../redux/actions/scc";
+import { Checkbox, Button } from "antd";
+import Swal from 'sweetalert2'
+import { Loading } from "../../../loading/Loading";
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
-export const ColumnaSCC = (setState) => {
+export const ColumnaSCC = () => {
   const dispatch = useDispatch();
-  const { articulos, listaTalles } = useSelector((state) => state);
-  function onChange(e) {
-    console.log(e);
-    //setState({...state,state:e.target.checked});
-   // dispatch(abrirCerrarModal(e.target.checked))
+  const { solicitudControlCalidad, articulos, listaTalles } = useSelector(
+    (state) => state
+  );
+  const status= solicitudControlCalidad.status;
+  console.log(status);
+  const [aprobado, setAprobado] = useState(false);
+  const [cancelado, setCancelado] = useState(false);
+  function onChangeRechazar(file) {
+  if(file.RECHAZADO==='S'){
+    dispatch(
+      editarSCC(file.NROSCC, {
+        ...file,
+        RECHAZADO:'N',
+        APROBDEP: "N",
+        APROBCRED: "N",
+      })
+      );
+  }else{
+ Swal.fire({
+  title: '¿Estas seguro de rechazar la SCC ?',
+  text: "Los cambios seran alterados!!!",
+  showDenyButton: true,
+  showCancelButton: true,
+  confirmButtonText: 'Guardar',
+  denyButtonText: ` No guardar`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    dispatch(
+      editarSCC(file.NROSCC, {
+        ...file,
+        RECHAZADO: 'S',
+        APROBDEP: "N",
+        APROBCRED: "N",
+      })
+      );
+    Swal.fire('Los cambios se modificaron con exito !', '', 'success')
+
+  } else if (result.isDenied) {
+    Swal.fire('Los cambios no se modificaron', '', 'info')
   }
- const buscarNombrePorArt=(art)=>{
-  const buscarNomArt= articulos.art?.find(t=> t.NUMERO === art  )
-  const numTalle= buscarNomArt?.CODTALLE
-  const curvaTalles= listaTalles?.talle?.find(l=> l.TRANSPORTISTA === numTalle)
-  return curvaTalles
-}
-//falta agregar  file + la curva de talle en un solo array 
-const click=(file)=>{
-  dispatch(abrirModal())
-  const curva= buscarNombrePorArt(file.ARTICULO);
-  const newFile = {...file,...curva}
-  dispatch(datoSelec(newFile));
-  
-}
-  return [ 
+})
+
+  }
+ 
+    
+  }
+  const buscarNombrePorArt = (art) => {
+    const buscarNomArt = articulos.art?.find((t) => t.NUMERO === art);
+    const numTalle = buscarNomArt?.CODTALLE;
+    const curvaTalles = listaTalles?.talle?.find(
+      (l) => l.TRANSPORTISTA === numTalle
+    );
+    return curvaTalles;
+  };
+  //falta agregar  file + la curva de talle en un solo array
+  const click = (file) => {
+    console.log(file);
+    if (file.APROBDEP !== "S") {
+      dispatch(abrirModal());
+      const curva = buscarNombrePorArt(file.ARTICULO);
+      const newFile = { ...file, ...curva };
+      dispatch(datoSelec(newFile));
+    } else {
+      dispatch(
+        editarSCC(file.NROSCC, { ...file, APROBDEP: "N", APROBCRED: "N" })
+      );
+    }
+  };
+  //spinner
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+  return [
     {
       title: "Dep",
       dataIndex: "Dep",
-      render: (state, file) => {
-        // console.log(file);
-
-        return (
-          <>
-          
-            <Button type='link' onClick={()=>click(file)} ><Checkbox onChange={onChange} /></Button>
-          </>
-        );
-      }, 
+      render: (state, file) => (
+        <>
+   
+        <Checkbox
+          onChange={() => click(file)}
+          checked={file.APROBDEP === "S"}
+        />
+        </>
+       
+      ),
     },
     {
       title: "Cre",
       dataIndex: "Cre",
-      render: (state, file) => <Checkbox onChange={onChange} />,
+      render: (state, file) => ( 
+      <Checkbox checked={file.APROBCRED === "S"} />
+      
+      ),
     },
     {
       title: "Rec",
       dataIndex: "Rec",
-      render: (state, file) => <Checkbox onChange={onChange} />,
+      render: (state, file) => (
+        <Checkbox
+          onChange={() => onChangeRechazar(file)}
+          checked={file.RECHAZADO === "S"}
+        />
+      ),
     },
 
     {
@@ -79,9 +132,9 @@ const click=(file)=>{
       title: "Articulo",
       dataIndex: "ARTICULO",
     },
-    { 
-      title:'Descrip',
-      dataIndex:'Descrip'
+    {
+      title: "Descrip",
+      dataIndex: "Descrip",
     },
     {
       title: "Precio Lista",
@@ -100,7 +153,7 @@ const click=(file)=>{
       title: "Total",
       dataIndex: "CANTPED",
     },
-    
+
     {
       title: "T1",
       dataIndex: "CANTPEDT00",
