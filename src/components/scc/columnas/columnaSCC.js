@@ -1,64 +1,113 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { fecha } from "../../../helpers/funcioneshelpers";
 import { useDispatch, useSelector } from "react-redux";
-import{ abrirModal,datoSelec} from '../../../redux/actions/scc'
-import {
-  Row,
-  Col,
-  Table,
-  Button,
-  Modal,
-  Form,
-  Input,
-  Radio,
-  Checkbox,
-} from "antd";
+import { abrirModal, datoSelec, editarSCC } from "../../../redux/actions/scc";
+import { Checkbox, Button } from "antd";
+import Swal from "sweetalert2";
+import { Loading } from "../../../loading/Loading";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
-export const ColumnaSCC = (setState) => {
+export const ColumnaSCC = () => {
   const dispatch = useDispatch();
-  const { articulos, listaTalles } = useSelector((state) => state);
-  function onChange(e) {
-    //setState({...state,state:e.target.checked});
-   // dispatch(abrirCerrarModal(e.target.checked))
+  const { solicitudControlCalidad, articulos, listaTalles } = useSelector(
+    (state) => state
+  );
+
+  function onChangeRechazar(file) {
+    if (file.RECHAZADO === "S") {
+      dispatch(
+        editarSCC(file.NROSCC, {
+          ...file,
+          RECHAZADO: "N",
+          APROBDEP: "N",
+          APROBCRED: "N",
+        })
+      );
+    } else {
+      Swal.fire({
+        title: "Estas seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        
+        confirmButtonText: "Eliminar!!!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(
+            editarSCC(file.NROSCC, {
+              ...file,
+              RECHAZADO: "S",
+              APROBDEP: "N",
+              APROBCRED: "N",
+            })
+          );
+          Swal.fire("Eliminado!", "Los datos fueron eliminados.", "success");
+        }
+      });
+    }
   }
- const buscarNombrePorArt=(art)=>{
-  const buscarNomArt= articulos.art?.find(t=> t.NUMERO === art  )
-  const numTalle= buscarNomArt?.CODTALLE
-  const curvaTalles= listaTalles?.talle?.find(l=> l.TRANSPORTISTA === numTalle)
-  return curvaTalles
-}
-//falta agregar  file + la curva de talle en un solo array 
-const click=(file)=>{
-  dispatch(abrirModal())
-  const curva= buscarNombrePorArt(file.ARTICULO);
-  const newFile = {...file,...curva}
-  dispatch(datoSelec(newFile));
-  
-}
-  return [ 
+  const buscarNombrePorArt = (art) => {
+    const buscarNomArt = articulos.art?.find((t) => t.NUMERO === art);
+    const numTalle = buscarNomArt?.CODTALLE;
+    const curvaTalles = listaTalles?.talle?.find(
+      (l) => l.TRANSPORTISTA === numTalle
+    );
+    return curvaTalles;
+  };
+
+  const click = (file) => {
+    if (file.APROBDEP !== "S") {
+      dispatch(abrirModal());
+      const curva = buscarNombrePorArt(file.ARTICULO);
+      const newFile = { ...file, ...curva };
+      dispatch(datoSelec(newFile));
+    } else {
+      Swal.fire({
+        title: "Estas seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Eliminar!!!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(
+            editarSCC(file.NROSCC, { ...file, APROBDEP: "N", APROBCRED: "N" })
+          );
+          Swal.fire("Eliminado!", "Los datos fueron eliminados.", "success");
+        }
+      });
+    }
+  };
+  return [
     {
       title: "Dep",
       dataIndex: "Dep",
-      render: (state, file) => {
-        // console.log(file);
-
-        return (
-          <>
-          
-            <Button type='link' onClick={()=>click(file)} ><Checkbox onChange={onChange} /></Button>
-          </>
-        );
-      }, 
+      render: (state, file) => (
+        <>
+          <Checkbox
+            onChange={() => click(file)}
+            checked={file.APROBDEP === "S"}
+          />
+        </>
+      ),
     },
     {
       title: "Cre",
       dataIndex: "Cre",
-      render: (state, file) => <Checkbox onChange={onChange} />,
+      render: (state, file) => <Checkbox checked={file.APROBCRED === "S"} />,
     },
     {
       title: "Rec",
       dataIndex: "Rec",
-      render: (state, file) => <Checkbox onChange={onChange} />,
+      render: (state, file) => (
+        <Checkbox
+          onChange={() => onChangeRechazar(file)}
+          checked={file.RECHAZADO === "S"}
+        />
+      ),
     },
 
     {
@@ -78,9 +127,9 @@ const click=(file)=>{
       title: "Articulo",
       dataIndex: "ARTICULO",
     },
-    { 
-      title:'Descrip',
-      dataIndex:'Descrip'
+    {
+      title: "Descrip",
+      dataIndex: "Descrip",
     },
     {
       title: "Precio Lista",
@@ -99,7 +148,7 @@ const click=(file)=>{
       title: "Total",
       dataIndex: "CANTPED",
     },
-    
+
     {
       title: "T1",
       dataIndex: "CANTPEDT00",
