@@ -6,7 +6,6 @@ const inicialState={
 }
 export const sccReducer =(state=inicialState,action)=>{
     
-    console.log(state);
     switch (action.type) {
         case types.scc:
             return{
@@ -30,11 +29,10 @@ export const sccReducer =(state=inicialState,action)=>{
                             e => ( e.NROSCC ==action.payload.NROSCC) ? action.payload
                             : e 
                         )
-                       
-                        console.log(busq);
                         return{
                             ...state,
-                            scc:busq
+                            scc:busq,
+                            response:action.payload
                         }
                         case types.status:
                             console.log({...state.data,...action.payload});
