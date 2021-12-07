@@ -177,15 +177,16 @@ export const AprobacionSCC = () => {
     (state) => state
   );
   const todasLasSolicitudes = solicitudControlCalidad.scc;
+  console.log(todasLasSolicitudes);
   const visible = modal.openModal;
   const todosLosArt = articulos.art;
   const data= solicitudControlCalidad.data
   useEffect(() => {
     dispatch(todasLasSCC());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     dispatch(todasLasTalles());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     dispatch(todosLosArticulos());
   }, [dispatch]);
@@ -237,5 +238,3 @@ export const AprobacionSCC = () => {
 };
 
 
-
-//UPDATE `intranetpenalty`.`usuarios` SET `password` = '\'$2b$10$I25nfnkbXvSZj9dlIzU0DugZXW6Iycn/f5vIZEKv3SsxPlWY9vOIG\'' WHERE (`id` = '21');
