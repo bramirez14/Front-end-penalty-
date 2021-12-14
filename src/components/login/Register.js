@@ -6,28 +6,30 @@ import {
   Button,
   DatePicker,
   Row,
-  Col
+  Col,
+  Divider,
+  Result
 } from "antd";
 import {PeticionGET} from "../../config/PeticionGET";
 import {axiosURL} from "../../config/axiosURL";
+import { Titulo } from "../titulos/Titulo";
+import { useNavigate } from "react-router";
 const { Option } = Select;
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 6},
-};
+
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-export const Register = ({history}) => {
+export const Register = ( ) => {
   const [fecha, setFecha] = useState('')
-
+  const tipo = localStorage.getItem('type')
+  const navigate=useNavigate();
   const onFinish = async (values) => {
     let cel= '11'.concat(values.cel)
     let valor = { ...values,fechaContratacion:fecha,cel}
     let res = await axiosURL.post('/register',valor);
-    res.data.status===500 ? alert (res.data.message ) : history.push('/perfil')
+    res.data.status===500 ? alert (res.data.message ) : navigate('/perfil')
     
   };
 
@@ -47,18 +49,21 @@ export const Register = ({history}) => {
       ></Select>
     </Form.Item>
   );
-
+console.log(tipo!=='Gerente');
   return (
-    <Form
+    <>
+   <Form
       className='container-form'
       name="register"
       onFinish={onFinish}
       initialValues={{
         prefix: "11",
       }}
-     style={{width:400,borderRadius:10,padding:20}}
-     
-    >
+      style={{width:400,borderRadius:10,padding:20}}
+      
+      >
+        <Titulo  titulo="Registro de Empleados" />
+          <Divider/>
      
       <Row gutter={10} style={{width:300,margin:'auto'}}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -253,5 +258,6 @@ export const Register = ({history}) => {
       </Col>
     </Row>
     </Form>
+    </>
   );
 };

@@ -13,8 +13,9 @@ import { FormKm } from "./FormKm";
 import { Files } from "../../helpers/Files";
 import { FilesKm } from "./FilesKm";
 import { Spin } from "antd";
+import { useNavigate } from "react-router";
 
-export const Kilometros = ({ history }) => {
+export const Kilometros = () => {
   const [spinner, setSpinner] = useState(false)
   const [stateKm, setStateKm] = useState([]);
   const id = localStorage.getItem("uid");
@@ -55,7 +56,7 @@ export const Kilometros = ({ history }) => {
               idDB={idDB}
               totalKmDB={totalKmDB}
               importeTotalDB={importeTotalDB}
-              history={history}
+              history={useNavigate()}
               setSpinner={setSpinner}
             />
           }

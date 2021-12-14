@@ -6,10 +6,13 @@ import Swal from "sweetalert2";
 import "./css/anticipoGasto.css";
 import { alerta } from "./helpers/funciones";
 import { SocketContext } from "../../context/SocketContext";
+import { useNavigate } from "react-router";
 
-export const SueldoContainer = ({ history }) => {
+export const SueldoContainer = ( ) => {
+  const navigate = useNavigate();
   const { socket, alertas } = useContext(SocketContext);
   const id = localStorage.getItem("uid");
+  console.log(id);
   const [data, setData] = useState([{ id: "", nombre: "" }]);
   const [anticipo, setAnticipo] = useState({
     sueldo: "Sueldo",
@@ -55,8 +58,9 @@ export const SueldoContainer = ({ history }) => {
     verificarMes();
   }, []);
   const datosUsuario = PeticionGET(`/${id}`);
+  console.log(datosUsuario);
   const filtro = datosUsuario?.anticipo;
-  const APROBACION = filtro?.[filtro?.length - 1]?.estadoFinal;
+  const APROBACION = filtro?.length===0? '':filtro?.[filtro?.length - 1]?.estadoFinal;// verifica si hay anticipos pendientes 
   console.log(APROBACION)
   //fx para guardar anticipo con axios en DB
   const guardarAnticipo = async (values) => {
@@ -71,7 +75,7 @@ export const SueldoContainer = ({ history }) => {
     });
     console.log(result);
     if (result.status === 200) {
-      history.push("/");
+      navigate("/");
     }
   };
   //submit para enviar el formulario

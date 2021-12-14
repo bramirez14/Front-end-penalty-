@@ -1,13 +1,13 @@
 import React, { useState,useContext,useRef,useEffect} from "react";
+import { useNavigate } from "react-router";
 import "./login.css";
 import {axiosURL} from "../../config/axiosURL";
 import { UserContext } from "../../context/UserContext";
 
-
-export const Login = ({ history }) => {
-
+export const Login = ( ) => {
+const navigate=useNavigate();
 const {setAuth} = useContext(UserContext)
-  //securedBrowserCache.setStorageType('localStorage'); 
+  const tipo = localStorage.getItem('type')
   const [cargandoUsuario, setCargandoUsuario] = useState(true)
   const [token, setToken] = useState()
   const [errores, setErrores] = useState([]);
@@ -38,7 +38,7 @@ const {setAuth} = useContext(UserContext)
      localStorage.setItem('type', tipo);
      localStorage.setItem('N',result.data.user.nvendedor)
      setAuth(true)
-     history.push('/perfil')
+     navigate('/perfil')
       
 
     } else {
@@ -51,10 +51,6 @@ const {setAuth} = useContext(UserContext)
     verifyUser();
   };
   
-
-
-
-
 
   return (
     <>

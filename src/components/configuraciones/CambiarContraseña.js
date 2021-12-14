@@ -2,12 +2,13 @@ import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
 import { axiosURL } from '../../config/axiosURL';
 import { logout } from '../../auth/localStorage';
+import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import './config.css'
 
-export const CambiarContraseña = ({history}) => {
+export const CambiarContraseña = () => {
     const id = localStorage.getItem('uid')
-
+const navigate= useNavigate();
     const onFinish = async (values) => {
        const result= await axiosURL.put('/cambiar/contrasena',{...values,id});
        if( result.data.status === 200 ){
@@ -20,7 +21,7 @@ export const CambiarContraseña = ({history}) => {
         })
         logout();
 
-        history.push("/login");}
+      navigate("/login");}
     };
     
       const onFinishFailed = (errorInfo) => {

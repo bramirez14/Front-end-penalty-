@@ -12,7 +12,7 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { Link } from "react-router-dom";
 import { axiosURL } from "../../config/axiosURL";
 
-export const MensajesGerencia = ({history}) => {
+export const MensajesGerencia = ( ) => {
 
   const anticipos = Get("/anticipo");
   const anticiposnew = anticipos.map((a) => {
@@ -86,7 +86,6 @@ export const MensajesGerencia = ({history}) => {
   const handleClick = async (data) => {
     console.log(data.linkDB);
     const resp=await axiosURL.put(data.linkDB,{notificacion:'activa'});
-    console.log(resp);
    /*  if(resp.status===200){
       const eliminado=todosgtes.filter(t=>t.id!== data.id)
       setMsj(eliminado)

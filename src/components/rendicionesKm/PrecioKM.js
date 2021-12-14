@@ -4,7 +4,9 @@ import { axiosURL } from '../../config/axiosURL'
 import { useGet } from '../../hooks/useGet'
 import Swal from 'sweetalert2'
 import './css/preciokm.css'
-export const PrecioKM = ({ history}) => {
+import { useNavigate } from 'react-router'
+export const PrecioKM = ( ) => {
+  const navigate= useNavigate();
     const [preciokmActual,axiosGet]= useGet('/precio/km');
 console.log(preciokmActual);
     const handleSubmit= async (values) =>{
@@ -20,7 +22,7 @@ console.log(preciokmActual);
           showConfirmButton: false,
           timer: 1500
         })
-        history.push('/perfil')
+        navigate('/perfil')
     }
   }
     return (

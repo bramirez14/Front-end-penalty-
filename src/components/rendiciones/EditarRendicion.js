@@ -6,10 +6,11 @@ import TextArea from "antd/lib/input/TextArea";
 import { categorias } from "./categorias";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Files } from "../../helpers/Files"
-import moment from 'moment';
-const dateFormat = 'DD/MM/YYYY';
-export const EditarRendicion = ({ match, history }) => {
-  const { id } = match.params;
+import { useNavigate, useParams } from "react-router";
+
+export const EditarRendicion = ( ) => {
+  const  navigate=useNavigate();
+  const { id } = useParams();
   const { Option } = Select;
  const [spinner, setSpinner] = useState(false)
   const [rendicionEditar, setRendicionEditar] = useState({
@@ -34,14 +35,13 @@ export const EditarRendicion = ({ match, history }) => {
       f.append('importe',importe);
       f.append('categoria',categoria);
     let result = await axiosURL.post(`/rendicion/gastos/img/${id}`, f);
-    console.log(result);
 
     if(result.data?.error?.errno===-3008){
       alert('Compruebe su connexion!!!')
     }
     
     if (result.data.status===200) {
-     history.push(`/lista/rendicion/${gastoId}`);
+     navigate(`/lista/rendicion/${gastoId}`);
     }
     setSpinner(false)
   };
@@ -67,7 +67,7 @@ export const EditarRendicion = ({ match, history }) => {
 
   /** Boton para volver atras */
 
-  const handleBack = () => history.push(`/lista/rendicion/${gastoId}`);
+  const handleBack = () => navigate(`/lista/rendicion/${gastoId}`);
   const peticionGastoId = PeticionGET(`/gastos/${gastoId}`);
   const todasLasRendicones = peticionGastoId?.rendicion;
   const sumaGastos = todasLasRendicones?.map((sg) => sg.importe);

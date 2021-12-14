@@ -1,15 +1,19 @@
 import React, { useState, useEffect,  } from "react";
 import { axiosURL } from "../config/axiosURL";
-import {  Button, Table, Switch, Row, Col} from "antd";
+import {  Table} from "antd";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
+import { useNavigate } from "react-router";
 
-export const AntSueldoVista = ({ history }) => {
+export const AntSueldoVista = () => {
+  const navigate= useNavigate();
   const [state, setState] = useState(false)
   const N = localStorage.getItem("N");
+  const tipo= localStorage.getItem("type");
   const [sueldo, setSueldo] = useState([]);
-  /**evitar que usuari 905 ingresen a la ruta */
-  N !== "905" && history.push("/perfil");
 
+    /**evitar que usuario distintos a  905 ingresen a la ruta */
+    ( N !== "905" && tipo!=='Gerente') && navigate("/perfil");
+  
 
   const get = async () => {
     const { data } = await axiosURL.get("/anticipo");

@@ -7,15 +7,18 @@ import { BiDownload } from "react-icons/bi";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
 import { PeticionGET } from "../config/PeticionGET";
 import { PdfoImg } from "../helpers/PdfoImg";
+import { useNavigate } from "react-router";
 
-export const RendicionGastosVista = ({ history }) => {
+export const RendicionGastosVista = ( ) => {
+  const navigate= useNavigate();
   const [state, setState] = useState(false)
   const N = localStorage.getItem("N");
   const id = localStorage.getItem('uid')
   const [gasto, setGasto] = useState([]);
+  const tipo = localStorage.getItem("type");
 
-  /**evitar que usuari 905 ingresen a la ruta */
-  ( N !== "905" && N!== '901' ) && history.push("/perfil");
+  /**evitar que usuario distintos a  905 ingresen a la ruta */
+  ( N !== "905" && tipo!=='Gerente') && navigate("/perfil");
 
   const get = async () => {
     const { data } = await axiosURL.get("/gastos");

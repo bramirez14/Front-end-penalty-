@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Encabezado } from "./Encabezado";
 import { Button, Col, Row } from "antd";
 import { CardRendiciones } from "./CardRendiciones";
-import { Link } from "react-router-dom";
+import { Link,useNavigate,useParams } from "react-router-dom";
 import {axiosURL} from "../../config/axiosURL";
 import { SubEncabezado } from "./SubEncabezado";
 import { UserContext } from "../../context/UserContext";
@@ -12,9 +12,10 @@ import { alerta905 } from "../../ComponentsGerentes/helpers/funciones";
 import { PeticionGET } from "../../config/PeticionGET";
 import { SocketContext } from "../../context/SocketContext";
 
-export const ListaRendiciones = ({ match, history }) => {
+export const ListaRendiciones = () => {
+  const navigate = useNavigate();
   const {socket} = useContext(SocketContext)
-  const { id } = match.params;
+  const { id } = useParams();
   const [peticionGastoId,axiosGet] = useGet(`/gastos/${id}`);
   const uid = localStorage.getItem('uid')
   const datosUsuario = PeticionGET(`/${uid}`)
@@ -36,7 +37,7 @@ export const ListaRendiciones = ({ match, history }) => {
  }});
 
   // prohibe ingreso por medio de la ruta
-  peticionGastoId?.listo==='Si'&& history.push('/perfil')
+  peticionGastoId?.listo==='Si'&& navigate('/perfil')
 
   const todasLasRendicones = peticionGastoId?.rendicion;
   const sumaGastos = todasLasRendicones?.map((sg) => sg.importe);
@@ -62,9 +63,9 @@ export const ListaRendiciones = ({ match, history }) => {
   const onClick = () => {
     if(peticionGastoId?.sinAnticipo!=='sin'){
     
-      history.push(`/crear/rendicion/${id}`);
+      navigate(`/crear/rendicion/${id}`);
   }else{
-    history.push(`/crear/rendicion/${id}`);
+    navigate(`/crear/rendicion/${id}`);
   }
   };
 
@@ -91,7 +92,7 @@ export const ListaRendiciones = ({ match, history }) => {
 
     }
       let res=await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si'});
-      res.status===200&& history.push('/gastos')
+      res.status===200&& navigate('/gastos')
   };
   return (
     <div className='container-form'>

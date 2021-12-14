@@ -7,7 +7,7 @@ import { IoCarSportSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import "./css/drop.css";
 
-export const NombreCompleto = ({ handleLogout, nombre, apellido, history }) => {
+export const NombreCompleto = ({ handleLogout, nombre, apellido  }) => {
   const N = localStorage.getItem('N')
   const menu = (
     <Menu>
@@ -26,7 +26,7 @@ export const NombreCompleto = ({ handleLogout, nombre, apellido, history }) => {
         icon={<SettingOutlined style={{ fontSize: "20px" }} />}
         style={{ fontSize: "20px" }}
       >
-        <Link to="/configuraciones/cambiar/contraseña">
+        <Link to="/configuraciones/cambiar/contrasena">
           
           <span style={{ marginLeft: "10px" }}> Configuracion </span>
         </Link>

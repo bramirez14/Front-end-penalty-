@@ -3,14 +3,13 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "antd/dist/antd.css";
 import "./App.css";
 
-import { Routes } from "./routes/Routes";
+import { RoutesCompenent } from "./routes/Routes";
 import { UserContext } from "./context/UserContext";
 import { PeticionJWT } from "./auth/PeticionJWT";
 import { SocketProvider } from "./context/SocketContext";
-
-
 import {Provider} from 'react-redux'
 import { store } from "./redux/store/store";
+
 
 
 function App() {
@@ -44,7 +43,7 @@ const [alertas, setAlertas] = useState([])
     >
    <SocketProvider>
 
-          <Routes />
+          <RoutesCompenent/>
       </SocketProvider>
 
     </UserContext.Provider>

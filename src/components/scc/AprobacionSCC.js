@@ -16,9 +16,7 @@ import {
   todasLasSCC,
   todosLosArticulos,
   todasLasTalles,
-  abrirModal,
   cerrarModal,
-  inputCambio,
   editarSCC,
 } from "../../redux/actions/scc";
 import { ColumnaSCC } from "./columnas/ColumnaSCC";
@@ -67,6 +65,9 @@ const CollectionCreateForm = ({
       title="SCC"
       onCancel={onCancel}
       footer={[
+        <Button style={{backgroundColor:'#85a5ff'}}>
+              PASE A PEDIDOS 
+            </Button>,
         <Button key="back" onClick={onCancel}>
               Cancelar
             </Button>,

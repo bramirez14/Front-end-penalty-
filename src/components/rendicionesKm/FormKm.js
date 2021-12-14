@@ -5,7 +5,7 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { SocketContext } from "../../context/SocketContext";
 import Swal from "sweetalert2";
 import { axiosURL } from "../../config/axiosURL";
-export const FormKm = ({ history, get }) => {
+export const FormKm = ({  get }) => {
   const { socket } = useContext(SocketContext);
   const [form] = Form.useForm();
   const dateFormat = "DD/MM/YYYY";

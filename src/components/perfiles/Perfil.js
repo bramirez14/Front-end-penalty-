@@ -6,7 +6,7 @@ import { UserContext } from "../../context/UserContext";
 import "./css/perfiles.css";
 import { Alerta } from "../alertas/Alerta";
 
-export const Perfil = ({ history }) => {
+export const Perfil = () => {
 const {usuariosIO,setUsuariosIO} = useContext(UserContext)
  const token = localStorage.getItem('token'); // se solicita el token de localstorage
 
@@ -24,7 +24,6 @@ const {usuariosIO,setUsuariosIO} = useContext(UserContext)
       setUsuariosIO(data)
     });
 }, [setUsuariosIO, token]);
-
   const tipo = localStorage.getItem("type");
   return (
     <div className='contenedore'>

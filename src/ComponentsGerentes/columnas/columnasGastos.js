@@ -8,6 +8,7 @@ import { colGastos } from "./destructuracionCol/colGasto";
 import Swal from "sweetalert2";
 import { PeticionGET } from "../../config/PeticionGET";
 import { SocketContext } from "../../context/SocketContext";
+import { PdfoImg } from "../../helpers/PdfoImg";
 
 export const ColumnasGastos = () => {
 const {socket} = useContext(SocketContext);
@@ -252,9 +253,9 @@ const {socket} = useContext(SocketContext);
                     height: "auto",
                   }}
                 >
-                  <Image style={{ width: 100, height: 100 }}
+                  <PdfoImg 
                     alt="example"
-                    src={r.imagen}
+                    file={r.archivo}
                   />
                   <p>
                     <b>Fecha:</b> {r.fecha}
@@ -266,7 +267,7 @@ const {socket} = useContext(SocketContext);
                     <b>Importe:</b> ${r.importe}
                   </p>
                   <p>
-                    <b>Nota:</b> {r.notas}
+                    <b>Nota:</b> {r.nota}
                   </p>
                 </Card>
               </Col>

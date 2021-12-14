@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Col, Row, List, Avatar,Card } from "antd";
+import { Col, Row, List, Avatar, Card, Tag } from "antd";
 import { axiosURL } from "../../config/axiosURL";
 import { Link } from "react-router-dom";
 import { Drawers } from "./Drawer";
-import { CardEstado } from "./CardEstado";
-import './css/listaUsuarios.css'
-import { CardAprobaciones } from "./CardAprobaciones";
+import "./css/listaUsuarios.css";
 export const ListaUsuarios = ({ lista }) => {
   const [visible, setVisible] = useState(false);
   const [DatosPersonales, setDatosPersonales] = useState({});
@@ -14,7 +12,7 @@ export const ListaUsuarios = ({ lista }) => {
   const [vacaciones, setVacaciones] = useState([]);
 
   const TodosLosUsuarios = lista;
-
+  console.log(TodosLosUsuarios);
   const showDrawer = async (id) => {
     console.log(id);
     const acum = [];
@@ -45,62 +43,52 @@ export const ListaUsuarios = ({ lista }) => {
     if (conectado === "SI") {
       return (
         <span style={{ color: "green" }}>
-          
           <b>Si</b>
         </span>
       );
     } else {
       return (
         <span style={{ color: "red" }}>
-          
           <b>No</b>
         </span>
       );
     }
   };
- 
+
 
   return (
     <>
-      <Row gutter={[20,20]} style={{ marginTop: 20 }}>
-      {/* <CardAprobaciones/> */}
+      <Row gutter={[20, 20]} style={{ marginTop: 20 }}>
+        {/* <CardAprobaciones/> */}
         <Col xs={24} sm={24} md={24} lg={15} xl={15}>
-          <Card title='Usuarios'>
-          <div className='lista-usuarios'>
-            <List bordered className="lista">
-              {TodosLosUsuarios?.map((q, i) => (
-                <>
+          <Card title="Usuarios">
+            <div className="lista-usuarios">
+              <List
+                itemLayout="horizontal"
+                dataSource={TodosLosUsuarios}
+                renderItem={(item) => (
                   <List.Item
-                    key={q.id}
                     actions={[
-                      <Link onClick={() => showDrawer(q.id)} key={q.id}>
-                        Ver Perfil
-                      </Link>,
+                      <a onClick={() => showDrawer(item.id)} key={item.id}>
+                        <Tag color="green">perfil</Tag>
+                      </a>,
                     ]}
                   >
                     <List.Item.Meta
-                      key={q.id}
-                      avatar={<Avatar src={q.imagen} />}
-                      title={<>
-                          {q.nombre} {q.apellido}
-                          </>
+                      avatar={<Avatar src={item.imagen} />}
+                      title={
+                        <>
+                          {item.nombre} {item.apellido}
+                        </>
                       }
-                      description={q.email}
+                      description={item.email}
                     />
-                    {/* <span className="conectado">
-                      Conectado: {SelecionColores(q.conectado)}
-                    </span> */}
                   </List.Item>
-                </>
-              ))}
-            </List>
-          </div>
+                )}
+              />
+            </div>
           </Card>
-         
         </Col>
-        
-       
-
       </Row>
       <Drawers
         onClose={onClose}
@@ -109,7 +97,6 @@ export const ListaUsuarios = ({ lista }) => {
         gasto={gasto}
         sueldo={sueldo}
         vacaciones={vacaciones}
-        
       />
     </>
   );

@@ -6,9 +6,11 @@ import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Titulo } from "../titulos/Titulo";
 import { SocketContext } from "../../context/SocketContext";
+import { useNavigate } from "react-router";
 
 
-export const AnticipoGasto = ({ history }) => {
+export const AnticipoGasto = () => {
+  const navigate = useNavigate();
   //Peticion get para saber cuando vence el localStorage
   const {socket} = useContext(SocketContext);
   const id = localStorage.getItem("uid");
@@ -66,7 +68,7 @@ export const AnticipoGasto = ({ history }) => {
         f: new Date().toLocaleString(),
       });
       if (result.status === 200) {
-       history.push("/");
+       navigate("/");
       }
   };
  

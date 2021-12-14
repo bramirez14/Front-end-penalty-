@@ -4,7 +4,9 @@ import { axiosURL } from "../../config/axiosURL";
 import { categorias } from "../rendiciones/categorias";
 import { RendicionSinAnticipo } from "./RendicionSinAnticipo";
 import { alerta } from "./helpers/funciones";
-export const RendicionSinAnticipoContainer = ({ history }) => {
+import { useNavigate } from "react-router";
+export const RendicionSinAnticipoContainer = () => {
+  const navigate= useNavigate();
   const [spinner, setSpinner] = useState(false)
   const id = localStorage.getItem("uid");
   const [data, setData] = useState([]);
@@ -69,7 +71,7 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
       setSpinner(false)
     }
     if (result.data.status === 200) {
-      history.push("/gastos");
+      navigate("/gastos");
     }
   };
   console.log(crearRendicion);
@@ -79,7 +81,7 @@ export const RendicionSinAnticipoContainer = ({ history }) => {
   let getFpago = PeticionGET("/mpagos");
   /**fin peticion get forma de pago */
   const estilo = { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 };
-  const handleBack = () => history.push("/gastos");
+  const handleBack = () => navigate("/gastos");
   return (
     <RendicionSinAnticipo
       handleSubmit={handleSubmit}

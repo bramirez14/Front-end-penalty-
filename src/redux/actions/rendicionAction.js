@@ -12,7 +12,7 @@ export const getTarjetaCredito=() => async (dispatch)=>{
         dispatch({ type:'error',error:e.message})
     }
 }
-export const  tarjetaCredito=(values,history)=> async (dispatch,getState)=>{
+export const  tarjetaCredito=(values)=> async (dispatch,getState)=>{
     const datosUsuario = getState().peticiones_GET.usuario;
     try {
         let f = new FormData();
@@ -22,13 +22,13 @@ export const  tarjetaCredito=(values,history)=> async (dispatch,getState)=>{
         f.append('tarjeta',values.tarjeta);
         f.append('importe',values.importe);
         f.append('nota',values.nota)
+        f.append('fecha',values.fecha._d)
         const response = await axiosURL.post('/tarjeta/credito',f);
         const data= response.data;
         console.log(data)
         dispatch({ type:types.tarjeta_credito,payload: data})
-            if (response.data.status === 200) {
-         history.push("/perfil");
-        }
+          
+        return response
      
         
     } 

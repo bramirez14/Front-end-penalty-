@@ -31,7 +31,7 @@ export const ColumnaSCC = () => {
         icon: "warning",
         showCancelButton: true,
         
-        confirmButtonText: "Eliminar!!!",
+        confirmButtonText: "Si!",
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(
@@ -70,7 +70,7 @@ export const ColumnaSCC = () => {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: "Eliminar!!!",
+        confirmButtonText: "Si!",
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(

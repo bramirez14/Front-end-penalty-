@@ -7,7 +7,6 @@ import { AiOutlineDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { PeticionGET } from "../../config/PeticionGET";
 import { colVacaciones } from "./destructuracionCol/colVacaciones";
-import { alerta902, alertaGerencia } from "../helpers/funciones";
 import { SocketContext } from "../../context/SocketContext";
 
 var numberFormat = new Intl.NumberFormat("es-ES");
