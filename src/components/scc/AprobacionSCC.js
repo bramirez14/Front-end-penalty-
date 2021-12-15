@@ -311,8 +311,3 @@ export const AprobacionSCC = () => {
   );
 };
 
-<<<<<<< HEAD
-
-=======
-//UPDATE `intranetpenalty`.`usuarios` SET `password` = '\'$2b$10$I25nfnkbXvSZj9dlIzU0DugZXW6Iycn/f5vIZEKv3SsxPlWY9vOIG\'' WHERE (`id` = '21');
->>>>>>> 6c1077fe39f2617a0da2d25ee3764f41d34684bf
