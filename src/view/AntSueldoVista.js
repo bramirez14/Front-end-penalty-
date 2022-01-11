@@ -91,7 +91,7 @@ export const AntSueldoVista = () => {
   return (
     <>
   
-      <Table columns={columns} dataSource={datos.reverse()} />
+      <Table columns={columns} dataSource={datos} />
     </>
   );
 };

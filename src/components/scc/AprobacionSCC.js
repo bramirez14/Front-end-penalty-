@@ -18,6 +18,7 @@ import {
   todasLasTalles,
   cerrarModal,
   editarSCC,
+  pasePedidos,
 } from "../../redux/actions/scc";
 import { ColumnaSCC } from "./columnas/ColumnaSCC";
 const { TextArea } = Input;
@@ -259,7 +260,6 @@ export const AprobacionSCC = () => {
       })
     )
    
-   console.log(response);
    if(response.status === 200){
     setTimeout(() => {
      setLoading(false);
@@ -301,14 +301,14 @@ export const AprobacionSCC = () => {
         state={datoSelect}
       />
       <Table
+        title={()=><Button onClick={()=> dispatch(pasePedidos())} >PASE A PEDIDOS</Button>}
         size="small"
         bordered
         dataSource={memoizedValue}
         columns={ColumnaSCC()}
-        loading={todasLasSolicitudes.length === 0 ? true : false}
+        loading={todasLasSolicitudes?.length === 0 ? true : false}
       />
     </div>
   );
 };
 
-//UPDATE `intranetpenalty`.`usuarios` SET `password` = '\'$2b$10$I25nfnkbXvSZj9dlIzU0DugZXW6Iycn/f5vIZEKv3SsxPlWY9vOIG\'' WHERE (`id` = '21');

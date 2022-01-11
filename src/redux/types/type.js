@@ -22,11 +22,12 @@ export const types = {
   dataSEL:'[SCC] traer el dato seleccionado',
    active: '[SCC] Set active ',
    editscc:"[SCC] editamos un scc",
+  pasePedidos:'[SCC] pasando a pedidos...',
+
   //articulos
   art:"[ART] todos los articulos",
   //talles
   talles:"[TALLES] todas las talles",
-  
   //abrirCerrarModal
   openModal:'[MODAL] abrir modal',
   closeModal:'[MODAL] cerrar modal',

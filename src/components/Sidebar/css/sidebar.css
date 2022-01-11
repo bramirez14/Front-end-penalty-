@@ -114,12 +114,15 @@
 }
 /*header drawer*/
 .ant-drawer-header {
-  position: relative; 
+  position: absolute;
+  z-index: 1;
+  right: 1px;
+  width: 0;
   padding: 16px 24px;
   color: rgba(0, 0, 0, 0.85);
-  background: #fff;
   border-bottom: none;
   border-radius: 2px 2px 0 0;
+  background-color: #46a461;
 }
 
 /* .ant-drawer-mask{display:none;} */

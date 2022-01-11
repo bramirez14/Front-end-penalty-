@@ -52,6 +52,12 @@ export const editarSCC = (id, data) => async (dispatch) => {
     dispatch({ type: "error", error: e.message });
   }
 };
+export const pasePedidos = ()=> async (dispatch)=>{
+  const response = await axiosURL.post('/scc/agregar/newscc')
+  console.log(response);
+  const datos = await response.data;
+  dispatch({ type:types.pasePedidos,payload: datos})
+}
 
 /* export const rechazarSCC = (id)=>{ async (dispatch)=>{
   try {

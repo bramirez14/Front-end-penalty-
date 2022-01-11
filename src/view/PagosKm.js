@@ -231,7 +231,7 @@ export const PagosKm = () => {
     </Col>
     </Row>
         <HelperTABLEobj  
-        data={state?filtroPagoRealizado.reverse():filtroPagoIncompleto.reverse()}
+        data={state?filtroPagoRealizado:filtroPagoIncompleto}
         columns={columns} />
         </>
     )

@@ -244,7 +244,7 @@ export const RendicionGastosVista = ( ) => {
             <p style={{ margin: 0 }}>{record.description}</p>
           ),
         }}
-        dataSource={state? filterProcesoFinalizado.reverse():filterIncompletos.reverse()}
+        dataSource={state? filterProcesoFinalizado:filterIncompletos}
         scroll={{ y: 500 }}
       />
     </>

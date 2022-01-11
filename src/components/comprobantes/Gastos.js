@@ -26,8 +26,9 @@ export const Gastos = () => {
   return (
     <>
       <List
+      header={<h2>Lista de Gastos</h2>}
         style={{ margin: "auto", width: 700, backgroundColor:'#ffff',borderRadius:20, }}
-        dataSource={GET_gastos?.reverse()}
+        dataSource={GET_gastos}
         bordered
         renderItem={(item) => (
           <List.Item

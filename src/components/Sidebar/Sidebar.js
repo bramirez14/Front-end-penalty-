@@ -37,7 +37,6 @@ export const Sidebar = ({  alertas, setAlertas, getAlertas }) => {
     navigate("/login");
     setOpen(false);
   };
-
   const onClose = () => setOpen(!open);
   const screens = useBreakpoint();
   return (
@@ -76,7 +75,7 @@ export const Sidebar = ({  alertas, setAlertas, getAlertas }) => {
       ) : (
         <Drawer
           placement={"left"}
-          closable={false}
+          closable={true}
           onClose={onClose}
           visible={true}
           key={"left"}

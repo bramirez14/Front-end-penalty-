@@ -71,7 +71,7 @@ export const AprobacionAntcipoSueldo = () => {
     hoja={"Aprobaciones de Sueldos"}
     namefile={"Aprobaciones de Sueldos"}
     columns={columnasSueldo}
-    data={state?filtrofinalizados.reverse():filtropendientes.reverse()}
+    data={state?filtrofinalizados:filtropendientes}
     paginas={true}
     boton={true}
     bordered={true}
