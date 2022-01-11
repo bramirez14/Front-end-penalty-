@@ -1,4 +1,3 @@
-import React from 'react'
 import {  Descriptions, Select, Card } from 'antd';
 
 import { filtradoPorVendedorCobranzas } from './helpers/funciones';
@@ -10,7 +9,7 @@ export const ClienteRecibo = ({cliente, setCliente}) => {
   
     
     function onChange(value) {
-        const buscarCte= ctesRecibos.find(c=> value=== c.razonsoc)
+        const buscarCte= ctesRecibos?.find(c=> value=== c.razonsoc)
         setCliente(buscarCte)
     }
       

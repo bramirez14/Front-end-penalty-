@@ -15,6 +15,7 @@ export const Sueldo = ({
   cuotas,
   mes,
 }) => {
+  console.log(APROBACION);
   return (
   <>  {
 APROBACION===undefined? 

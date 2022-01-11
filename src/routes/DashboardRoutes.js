@@ -1,183 +1,217 @@
-import React,{useState,useEffect,useContext} from "react";
-
-import {
-  Switch,
-  Redirect,
-} from "react-router-dom";
-import { RendicionGastos } from "../components/rendiciones/RendicionGastos";
-import { Sidebar } from "../components/Sidebar/Sidebar";
-import { RouteGerente } from "./RouteGerente";
-import { RouteEmpleado } from "./RouteEmpleado";
-import { Vacaciones } from "../components/solicitudes/Vacaciones";
-import { AnticipoGasto } from "../components/solicitudes/AnticipoGasto";
-import { EditarRendicion } from "../components/rendiciones/EditarRendicion";
-import { CrearRendicion } from "../components/rendiciones/CrearRendicion";
-import { Uploads } from "../components/rendiciones/Uploads";
-import { ListaRendiciones } from "../components/rendiciones/ListaRendiciones";
-import {  AprobacionAntcipoSueldo } from "../ComponentsGerentes/AprobacionAntcipoSueldo";
-import { Register } from "../components/login/Register";
-import { Perfil } from "../components/perfiles/Perfil";
-import { AprobacionVacaciones } from "../ComponentsGerentes/AprobacionVacaciones";
-import { UserContext } from "../context/UserContext";
-import { SueldoContainer } from "../components/solicitudes/SueldoContainer";
-import { AprobacionGastos } from "../ComponentsGerentes/AprobacionGastos";
-import { PDF } from "../components/view/PDF";
-import { Mensajes } from "../components/mensajes/Mensajes";
-import { EstadoUsuario } from "../components/estado/EstadoUsuario";
-import { Demo } from "../components/Demo";
-import { RendicionGastosVista } from "../view/RendicionGastosVista";
-import { PagosAntSueldo } from "../view/PagosAntSueldo";
-import { PagosAntGasto } from "../view/pagoAntGasto/PagosAntGasto";
-import { CambiarContraseña } from "../components/configuraciones/CambiarContraseña";
-import { RendicionSinAnticipoContainer } from "../components/solicitudes/RendicionSinAnticipoContainer";
-import { Verificacion } from "../components/verificaciones/Verificacion";
-import { Kilometros } from "../components/rendicionesKm/Kilometros";
-import { ListaKm } from "../components/rendicionesKm/ListaKm";
-import { AprobacionKm } from "../ComponentsGerentes/AprobacionKm";
-import { RendicionKmVista } from "../view/RendicionKmVista";
-import { PagosKm } from "../view/PagosKm";
-import { AntSueldoVista } from "../view/AntSueldoVista";
+import React, { useState, useEffect, useContext } from "react";
 import { FacturacionDetalladata } from "../components/reportes/facturacionDetallada/FacturacionDetalladata";
+import { ClientesInhabilitados } from "../components/reportes/ClientesInhabilitados/ClientesInhabilitados";
+import { RendicionSinAnticipoContainer } from "../components/solicitudes/RendicionSinAnticipoContainer";
+import { PendienteAgrupadoCliente } from "../components/reportes/pendiente/PendienteAgrupadoCliente";
 import { FacturaVendedor } from "../components/reportes/facturacionVendedor/FacturaVendedor";
 import { CuentaCorriente } from "../components/reportes/cuentaCorriente/CuentaCorriente";
-import { Cobranza } from "../components/reportes/Cobranza/Cobranza";
-import { ClientesInhabilitados } from "../components/reportes/ClientesInhabilitados/ClientesInhabilitados";
-import { CargaPedidos } from "../components/reportes/cargaPedidos/CargaPedidos";
 import { PendienteDetallado } from "../components/reportes/pendiente/PendienteDetallado";
-import { PendienteAgrupadoCliente } from "../components/reportes/pendiente/PendienteAgrupadoCliente";
-import { FuturosIngresos} from "../components/reportes/futurosIngresos/FuturosIngresos";
-import { Stock } from "../components/reportes/stock/Stock";
-import { SCC } from "../components/reportes/scc/SCC";
+import { FuturosIngresos } from "../components/reportes/futurosIngresos/FuturosIngresos";
+import { AprobacionAntcipoSueldo } from "../ComponentsGerentes/AprobacionAntcipoSueldo";
+import { CambiarContraseña } from "../components/configuraciones/CambiarContraseña";
+import { TarjetaCreditoComp } from "../components/comprobantes/TarjetaCreditoComp";
+import { AprobacionVacaciones } from "../ComponentsGerentes/AprobacionVacaciones";
+import { CargaPedidos } from "../components/reportes/cargaPedidos/CargaPedidos";
+import { ListaRendiciones } from "../components/rendiciones/ListaRendiciones";
+import { RendicionGastos } from "../components/rendiciones/RendicionGastos";
+import { EditarRendicion } from "../components/rendiciones/EditarRendicion";
+import { SueldoContainer } from "../components/solicitudes/SueldoContainer";
+import { CrearRendicion } from "../components/rendiciones/CrearRendicion";
+import { AprobacionGastos } from "../ComponentsGerentes/AprobacionGastos";
+import { TarjetaCredito } from "../components/rendiciones/TarjetaCredito";
+import { Verificacion } from "../components/verificaciones/Verificacion";
+import { Routes, Navigate, Route, useNavigate } from "react-router-dom";
+import { AnticipoGasto } from "../components/solicitudes/AnticipoGasto";
+import { RendicionGastosVista } from "../view/RendicionGastosVista";
+import { Kilometros } from "../components/rendicionesKm/Kilometros";
+import { Cobranza } from "../components/reportes/Cobranza/Cobranza";
+import { EstadoUsuario } from "../components/estado/EstadoUsuario";
+import { PagosAntGasto } from "../view/pagoAntGasto/PagosAntGasto";
+import { Vacaciones } from "../components/solicitudes/Vacaciones";
+import { AprobacionKm } from "../ComponentsGerentes/AprobacionKm";
 import { Remitos } from "../components/reportes/remitos/Remitos";
+import { Calendario } from "../components/calendario/Calendario";
 import { PrecioKM } from "../components/rendicionesKm/PrecioKM";
-import { Alerta } from "../components/alertas/Alerta";
-import { Recibo } from "../components/recibos/Recibo";
-
-import { axiosURL } from "../config/axiosURL";
 import { CargaRecibo } from "../components/recibos/CargaRecibo";
 import { ListaRecibo } from "../components/recibos/ListaRecibo";
-
-import { TarjetaCredito } from "../components/rendiciones/TarjetaCredito";
-//import { Prueba } from "../components/ModalPDF";
-import { Gastos } from "../components/comprobantes/Gastos";
-import { getState } from "../redux/auth/getState";
-import {useDispatch,useSelector} from 'react-redux'
-import { TarjetaCreditoComp } from "../components/comprobantes/TarjetaCreditoComp";
-import { ModalPDF } from "../helpers/ModalPDF";
-import { Calendario } from "../components/calendario/Calendario";
 import { AprobacionSCC } from "../components/scc/AprobacionSCC";
-
-
+import { ListaKm } from "../components/rendicionesKm/ListaKm";
+import { Uploads } from "../components/rendiciones/Uploads";
+import { RendicionKmVista } from "../view/RendicionKmVista";
+import { Mensajes } from "../components/mensajes/Mensajes";
+import { Stock } from "../components/reportes/stock/Stock";
+import { Gastos } from "../components/comprobantes/Gastos";
+import { Sidebar } from "../components/Sidebar/Sidebar";
+import { Register } from "../components/login/Register";
+import { PagosAntSueldo } from "../view/PagosAntSueldo";
+import { AntSueldoVista } from "../view/AntSueldoVista";
+import { Perfil } from "../components/perfiles/Perfil";
+import { Alerta } from "../components/alertas/Alerta";
+import { Recibo } from "../components/recibos/Recibo";
+import { UserContext } from "../context/UserContext";
+import { SCC } from "../components/reportes/scc/SCC";
+import { getState } from "../redux/auth/getState";
+import { ModalPDF } from "../helpers/ModalPDF";
+import { axiosURL } from "../config/axiosURL";
+import { PDF } from "../components/view/PDF";
+import { Demo } from "../components/Demo";
+import { PagosKm } from "../view/PagosKm";
+import { useDispatch } from "react-redux";
+import { Result, Button } from "antd";
+import { NotFound } from "./NotFound";
 
 export const DashboardRoutes = ({ history }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [alertas, setAlertas] = useState([])
+  const [alertas, setAlertas] = useState([]);
   const Text = useContext(UserContext);
-  const { open} = Text;
-  
+  const { open } = Text;
+
   const axiosGet = async () => {
-    let {data} = await axiosURL.get('/msg/alertas');
+    let { data } = await axiosURL.get("/msg/alertas");
     setAlertas(data);
-};
+  };
 
-useEffect(() => {
-  axiosGet();
-}, []);
-useEffect(() => {
-  getState(dispatch);
-}, [dispatch])
-
+  useEffect(() => {
+    axiosGet();
+  }, []);
+  useEffect(() => {
+    getState(dispatch);
+  }, [dispatch]);
+  const tipo = localStorage.getItem("type");
   return (
-
     <>
-      <Sidebar history={history} alertas={alertas} setAlertas={setAlertas} getAlertas={axiosGet} />
-    
+      <Sidebar
+        history={history}
+        alertas={alertas}
+        setAlertas={setAlertas}
+        getAlertas={axiosGet}
+      />
+
       <div className={!open ? "contenedor" : "contenedor-active"}>
-      
-      <Switch>
-      
-      <RouteEmpleado exact path="/anticipo/gastos" component={AnticipoGasto} />
-      <RouteEmpleado exact path="/sueldos" component={SueldoContainer} />
-      <RouteEmpleado exact path="/vacaciones" component={Vacaciones} />
-      <RouteEmpleado exact path="/perfil" component={Perfil} />
-        <RouteGerente exact path="/aprobacion/sueldo" component={AprobacionAntcipoSueldo}/>
-        <RouteGerente exact path="/aprobacion/vacaciones" component={AprobacionVacaciones}/>
-        <RouteGerente exact path="/aprobacion/gastos" component={AprobacionGastos}/>
-        <RouteGerente  exact path='/aprobacion/km' component={AprobacionKm}/>
-        <RouteGerente exact path="/verificaciones" component={Verificacion}/>
-        <RouteGerente exact path="/pdf/:id" component={PDF}/>
-        <RouteGerente exact path="/register" component={Register}/>
-        <RouteEmpleado exact path="/gastos" component={RendicionGastos} />
-        <RouteEmpleado exact path="/editar/rendicion/:id" component={EditarRendicion}/>
-        <RouteEmpleado exact path="/crear/rendicion/:id" component={CrearRendicion} />
-        <RouteEmpleado exact path="/lista/rendicion/:id" component={ListaRendiciones} />
-        <RouteEmpleado exact path="/rendicion" component={RendicionSinAnticipoContainer} />
-        <RouteEmpleado exact path="/img" component={Uploads} />
-        <RouteEmpleado exact path='/mensajes' component={Mensajes}/>
-        <RouteEmpleado exact path='/estado/usuario' component={EstadoUsuario}/>
-        <RouteEmpleado exact path='/configuraciones/cambiar/contraseña' component={CambiarContraseña}/>
-        <RouteEmpleado exact path='/demo' component={Demo}/>
-        {/** Km */}
-        <RouteEmpleado exact path='/kilometros' component={Kilometros}/>
-        <RouteEmpleado exact path='/lista/kilometros' component={ListaKm}/>
+        {}
+        <Routes>
 
-        {/**Vistas */}
-        <RouteEmpleado exact path='/pagos/anticipo' component={PagosAntSueldo}/>
-        <RouteEmpleado exact path='/pagos/gasto' component={PagosAntGasto}/>
-        <RouteEmpleado exact path='/pagos/km' component={PagosKm}/>
-
-        <RouteEmpleado  exact path='/vista/rendicion/gasto' component={RendicionGastosVista}/>
-        <RouteEmpleado  exact path='/vista/rendicion/km' component={RendicionKmVista}/>
-        <RouteEmpleado  exact path='/vista/anicipo/sueldo' component={AntSueldoVista}/>
-
-        {/**Reportes de Gestion */}
-        <RouteEmpleado exact path='/reportes/gestion/remitos' component={Remitos}/>
-        <RouteEmpleado exact path='/reportes/facturacion/ventas' component={FacturaVendedor}/>
-        <RouteEmpleado exact path='/reportes/facturacion/detallada' component={FacturacionDetalladata}/>
-        <RouteEmpleado exact path='/reportes/cuentacorriente' component={CuentaCorriente}/>
-        <RouteEmpleado exact path='/reportes/cobranza' component={Cobranza}/>
-        <RouteEmpleado exact path='/reportes/clientes/inhabilitados' component={ClientesInhabilitados}/>
-        <RouteEmpleado exact path='/reportes/carga/pedidos' component={CargaPedidos}/>
-        <RouteEmpleado exact path='/reportes/pendiente/detallado' component={PendienteDetallado}/>
-        <RouteEmpleado exact path='/reportes/pendiente/cliente' component={PendienteAgrupadoCliente}/>
-        <RouteEmpleado exact path='/reportes/futuros/ingresos' component={FuturosIngresos}/>
-        <RouteEmpleado exact path='/reportes/stock' component={Stock}/>
-        <RouteEmpleado exact path='/reportes/scc' component={SCC}/>
-        <RouteEmpleado exact path='/precio/km' component={PrecioKM}/>
-        {/**Alertas */}
-        <RouteEmpleado exact path='/alerta' component={Alerta}/>
-
-        {/** Recibos */}
-        <RouteEmpleado exact path='/recibo' component={Recibo}/>
-        <RouteEmpleado exact path='/lista/recibo' component={ListaRecibo}/>
-         <RouteEmpleado exact path='/carga/recibo/:id' component={CargaRecibo}/>
-        { /* Tarjeta de credito */}
-         <RouteGerente exact path='/tarjeta/credito' component={ TarjetaCredito }/>
-         <RouteEmpleado exact path='/pru' component={ ModalPDF }/> 
-
-         { /* Comprobantes */}
-         <RouteEmpleado exact path='/comprobantes/gastos' component={ Gastos }/> 
-         <RouteEmpleado exact path='/comprobantes/tarjeta-credito' component={ TarjetaCreditoComp }/> 
-
-         {/** Calendario */}
-         <RouteGerente exact path='/calendario' component={ Calendario }/>
-         
-         {/** SCC */}
-         <RouteGerente exact path='/aprobacion/scc' component={ AprobacionSCC }/> 
-
-
-
-
-
-
-
-
-
-        <Redirect to="/login" />
-      </Switch>
+         <Route
+            path="/aprobacion/sueldo"
+            element={tipo!=='Gerente'?<NotFound/>: <AprobacionAntcipoSueldo />}
+          />
+          <Route
+            path="/aprobacion/vacaciones"
+            element={tipo!=='Gerente'?<NotFound/>:<AprobacionVacaciones />}
+          />
+          <Route path="/aprobacion/gastos" element={tipo!=='Gerente'?<NotFound/>:<AprobacionGastos />} />
+          <Route path="/aprobacion/km" element={tipo!=='Gerente'?<NotFound/>:<AprobacionKm />} />
+          <Route path="/verificaciones" element={tipo!=='Gerente'?<NotFound/>:<Verificacion />} />
+          <Route path="/pdf/:id" element={<PDF />} />
+          <Route path="/register" element={tipo!=='Gerente'?<NotFound/>:<Register />} />
+          <Route path="/tarjeta/credito" element={tipo!=='Gerente'?<NotFound/>:<TarjetaCredito/>} />
+          {/** Calendario */}
+          <Route path="/calendario" element={tipo!=='Gerente'?<NotFound/>:<Calendario />} />
+          {/** SCC */}
+          <Route path="/aprobacion/scc" element={tipo!=='Gerente'?<NotFound/>:<AprobacionSCC />} />
+          {/** Km */}
+        
+          <Route path="/precio/km" element={tipo!=='Gerente'?<NotFound/>:<PrecioKM />} />
+          {/* Empleados */} */
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/anticipo/gasto" element={<AnticipoGasto />} />
+          <Route path="/sueldo" element={<SueldoContainer />} />
+          <Route path="/vacaciones" element={<Vacaciones />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/gastos" element={<RendicionGastos />} />
+          <Route path="/editar/rendicion/:id" element={<EditarRendicion />} />
+          <Route path="/crear/rendicion/:id" element={<CrearRendicion />} />
+          <Route path="/lista/rendicion/:id" element={<ListaRendiciones />} />
+          <Route
+            path="/rendicion"
+            element={<RendicionSinAnticipoContainer />}
+          />
+          <Route path="/img" element={<Uploads />} />
+          <Route path="/mensajes" element={<Mensajes />} />
+          <Route path="/estado/usuario" element={<EstadoUsuario />} />
+          <Route
+            path="/configuraciones/cambiar/contrasena"
+            element={<CambiarContraseña />}
+          />
+          <Route path="/demo" element={<Demo />} />
+          <Route path="/kilometros" element={<Kilometros />} />
+          <Route path="/lista/kilometros" element={<ListaKm />} />
+          {/**Vistas */}
+          <Route path="/pagos/anticipo" element={<PagosAntSueldo />} />
+          <Route path="/pagos/gasto" element={<PagosAntGasto />} />
+          <Route path="/pagos/km" element={<PagosKm />} />
+          <Route
+            path="/vista/rendicion/gasto"
+            element={<RendicionGastosVista />}
+          />
+          <Route path="/vista/rendicion/km" element={<RendicionKmVista />} />
+          <Route path="/vista/anicipo/sueldo" element={<AntSueldoVista />} />
+          {/**Reportes de Gestion */}
+          <Route path="/reportes/gestion/remitos" element={<Remitos />} />
+          <Route
+            path="/reportes/facturacion/ventas"
+            element={<FacturaVendedor />}
+          />
+          <Route
+            path="/reportes/facturacion/detallada"
+            element={<FacturacionDetalladata />}
+          />
+          <Route
+            path="/reportes/cuentacorriente"
+            element={<CuentaCorriente />}
+          />
+          <Route path="/reportes/cobranza" element={<Cobranza />} />
+          <Route
+            path="/reportes/clientes/inhabilitados"
+            element={<ClientesInhabilitados />}
+          />
+          <Route path="/reportes/carga/pedidos" element={<CargaPedidos />} />
+          <Route
+            path="/reportes/pendiente/detallado"
+            element={<PendienteDetallado />}
+          />
+          <Route
+            path="/reportes/pendiente/cliente"
+            element={<PendienteAgrupadoCliente />}
+          />
+          <Route
+            path="/reportes/futuros/ingresos"
+            element={<FuturosIngresos />}
+          />
+          <Route path="/reportes/stock" element={<Stock />} />
+          <Route path="/reportes/scc" element={<SCC />} />
+          {/**Alertas */}
+          <Route path="/alerta" element={<Alerta />} />
+          {/** Recibos */}
+          <Route path="/recibo" element={<Recibo />} />
+          <Route path="/lista/recibo" element={<ListaRecibo />} />
+          <Route path="/carga/recibo/:id" element={<CargaRecibo />} />
+          {/* Tarjeta de credito */}
+          <Route path="/pru" element={<ModalPDF />} />
+          {/* Comprobantes */}
+          <Route path="/comprobantes/gastos" element={<Gastos />} />
+          <Route
+            path="/comprobantes/tarjeta-credito"
+            element={<TarjetaCreditoComp />}
+          />
+          <Route
+            path="*"
+            element={
+              <Result
+                status="404"
+                title="404"
+                subTitle="Sorry, the page you visited does not exist."
+                extra={
+                  <Button type="primary" onClick={() => Navigate("/perfil")}>
+                    Back Home
+                  </Button>
+                }
+              />
+            }
+          />
+        </Routes>
       </div>
-    
-      
     </>
   );
 };

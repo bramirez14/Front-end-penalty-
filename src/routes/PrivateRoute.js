@@ -1,11 +1,11 @@
-import React from 'react'
-import { Route, Redirect } from 'react-router'
+import { Route, Navigate } from 'react-router-dom'
 import { isLogged } from '../auth/localStorage'
 
-export const PrivateRoute = props => isLogged()
+export const PrivateRoute =({ children })=> {
+    return isLogged()? children : <Navigate to="/login"/>}
 
-    ? <Route { ...props }/>
-    : <Redirect to="/login"/>
+    
+   
     
 
     

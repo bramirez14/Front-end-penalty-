@@ -15,10 +15,11 @@ import Swal from 'sweetalert2'
 import { ModalPDF } from "../../helpers/ModalPDF";
 import Pdf from "react-to-pdf";
 import { saveAs } from "file-saver";
+import { useNavigate } from "react-router";
 const { useBreakpoint } = Grid;
 
-export const Recibo = ({ history }) => {
-  
+export const Recibo = () => {
+  const navigate = useNavigate();
   const {socket} = useContext(SocketContext)
   const N = localStorage.getItem("N");
   const id = localStorage.getItem("uid");
@@ -101,7 +102,7 @@ Swal.fire({
 
 }
 
-history.push('/perfil')
+navigate('/perfil')
 
 };
 

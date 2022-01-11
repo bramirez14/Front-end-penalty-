@@ -4,8 +4,10 @@ import { Row, Col, Form, Input, DatePicker, Button, Modal } from "antd";
 import { SocketContext } from "../../context/SocketContext";
 import { PeticionGET } from '../../config/PeticionGET';
 import { axiosURL } from '../../config/axiosURL';
+import { useNavigate } from 'react-router';
 
-export const FilesKm = ({idDB,totalKmDB,importeTotalDB,history,setSpinner}) => {
+export const FilesKm = ({idDB,totalKmDB,importeTotalDB,setSpinner}) => {
+  const navigate= useNavigate();
     const { socket } = useContext(SocketContext);
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
@@ -41,7 +43,7 @@ const f= new FormData();
     const resp= await axiosURL.post('/km',f);
     console.log(resp);
     if(resp.data.status===200){
-      history.push('/lista/kilometros')
+     navigate('/lista/kilometros')
     }
      setSpinner(false);
   }

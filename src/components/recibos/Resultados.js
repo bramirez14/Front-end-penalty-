@@ -1,5 +1,4 @@
 import { Card, Col, Row, Statistic } from 'antd'
-import React from 'react'
 import { numberWithCommas } from '../reportes/helpers/funciones';
 
 export const Resultados = ({efectivo,cheques,retenciones,depositos,efectivoLiq}) => {

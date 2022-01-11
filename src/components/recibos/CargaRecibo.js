@@ -1,4 +1,3 @@
-import React from 'react'
 import {Row,Col,Grid, Descriptions, Card,Form, Input, Button} from 'antd'
 import { PeticionGETIntranetCobranzas } from '../../config/PeticionGET'
 import { HelperTABLEobj } from '../../helpers/HelperTABLEobj'
@@ -6,15 +5,16 @@ import { numberWithCommas } from '../reportes/helpers/funciones';
 import { EnterOutlined, FieldNumberOutlined } from '@ant-design/icons';
 import { axiosURLIntranetCobranzas } from '../../config/axiosURL';
 import {Spinner} from '../spin/Spinner'
+import { useNavigate,useParams } from 'react-router-dom';
 const { useBreakpoint } = Grid;
 
-export const CargaRecibo = ({match,history}) => {
+export const CargaRecibo = () => {
+  const navigate= useNavigate();
  /**evitar que usuari 907 ingresen a la ruta */
  const N = localStorage.getItem('N');
- ( N !== "907" && N!== '901' ) && history.push("/perfil");
-  const { id } = match.params;
+ ( N !== "907" && N!== '901' ) && navigate("/perfil");
+  const { id } = useParams();
     const getRecibos= PeticionGETIntranetCobranzas(`detalle/recibo/${id}`);
-    console.log(getRecibos, 'line9');
     const columns = [
         {
           title: "Cliente",
@@ -124,7 +124,7 @@ export const CargaRecibo = ({match,history}) => {
       const handleSubmit=async(values)=>{
      await axiosURLIntranetCobranzas.put(`/recibo/comprobante/${id}`,values)
      //agregar una alerta 
-      history.push('/lista/recibo')
+      navigate('/lista/recibo')
     }
     console.log(getRecibos===[ ])
     return (
@@ -225,7 +225,7 @@ export const CargaRecibo = ({match,history}) => {
        </Row>
 
 }
-<Button type='link' onClick={()=>history.push('/lista/recibo')}> atras <EnterOutlined/></Button>
+<Button type='link' onClick={()=>navigate('/lista/recibo')}> atras <EnterOutlined/></Button>
   </>    
 }
         

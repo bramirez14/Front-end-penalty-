@@ -4,10 +4,11 @@ import { Titulo } from "../titulos/Titulo";
 import { axiosURL } from "../../config/axiosURL";
 import Swal from "sweetalert2";
 import { PeticionGET } from "../../config/PeticionGET";
-import { alerta } from "./helpers/funciones";
 import { SocketContext } from "../../context/SocketContext";
+import { useNavigate } from "react-router";
 
-export const Vacaciones = ({ history }) => {
+export const Vacaciones = () => {
+  const navigate = useNavigate();
   const {socket} = useContext(SocketContext);
   const id = localStorage.getItem("uid");
   /**useContext***/
@@ -131,7 +132,7 @@ console.log(getUsuario);
     });
     
     if (result.status === 200) {
-      history.push("/");
+      navigate("/");
     }
   };
 

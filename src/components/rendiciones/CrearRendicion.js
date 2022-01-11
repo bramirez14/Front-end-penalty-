@@ -11,11 +11,13 @@ import { categorias } from "./categorias";
 import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/BeatLoader";
 import { Files } from "../../helpers/Files";
+import { useNavigate,useParams } from "react-router-dom";
 
-export const CrearRendicion = ({ match, history }) => {
+export const CrearRendicion = () => {
+  const navigate=useNavigate();
   let [color, setColor] = useState('#46a461');
   const [spinner, setSpinner] = useState(false)
-  const { id } = match.params;
+  const { id } = useParams();
   const { Option } = Select;
   const [highlight, setHighlight] = useState(false);
   const [data, setData] = useState([]);
@@ -29,7 +31,6 @@ export const CrearRendicion = ({ match, history }) => {
     fecha,
   } = crearRendicion;
 
-  console.log(spinner,'soy el spinner');
   
  
   const handleChange = (e) => {
@@ -59,7 +60,7 @@ export const CrearRendicion = ({ match, history }) => {
     xl: 24,
     xxl: 24,
   };
-  const handleBack = () => history.push(`/lista/rendicion/${id}`);
+  const handleBack = () => navigate(`/lista/rendicion/${id}`);
   const peticionGastoId = PeticionGET(`/gastos/${id}`)
   const todasLasRendicones = peticionGastoId?.rendicion
   const sumaGastos = todasLasRendicones?.map(sg => sg.importe)
@@ -73,12 +74,10 @@ export const CrearRendicion = ({ match, history }) => {
   }
   const i = peticionGastoId?.importe
   const total = parseFloat(totalDeImporte) + parseFloat(importe)
- console.log(total);
 
 
   /**Submit */
   const handleSubmit = async (values) => {
-    console.log(values);
     setSpinner(true)
   
       let f = new FormData();
@@ -98,12 +97,11 @@ export const CrearRendicion = ({ match, history }) => {
       }
       
       if (result.data.status===200) {
-       history.push(`/lista/rendicion/${id}`);
+       navigate(`/lista/rendicion/${id}`);
       }
    
   };
   /**Fin Submit */
-  console.log(crearRendicion);
   return (
     <>
   <Spin tip="Cargando..." spinning={spinner}  className='spinner'>

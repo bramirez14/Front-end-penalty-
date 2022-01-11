@@ -11,13 +11,7 @@ console.log(N);
   
     return (
     <Menu>
-       { N=== '901' || N==='902' || N ==='903' ?
-      <Menu.Item>
-        <Link to='/calendario'
-        >
-         Calendario
-        </Link>
-      </Menu.Item>:''}
+     
       <Menu.Item  disabled>
         <a
           target="_blank"

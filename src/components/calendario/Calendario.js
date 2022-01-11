@@ -18,7 +18,7 @@ useEffect(() => {
   dispatch(todasLasVacaciones())
 }, [])
 const events=preparandoEvento(todasLasVaca);
-
+console.log(events);
   //para dar color
   const eventStyleGetter = (event, start, end, isSelected) => {
     const style = {
@@ -61,6 +61,7 @@ const events=preparandoEvento(todasLasVaca);
       startAccessor="start"
       endAccessor="end"
       style={{ height: 500,backgroundColor:'#ffff' }}
+       defaultDate={moment().toDate()}
       eventPropGetter={eventStyleGetter}
       onDoubleClickEvent={onDoubleClick}
       onSelectEvent={onSelectEvent}

@@ -88,14 +88,14 @@ export const MenuEmpleados = ({ open, setOpen}) => {
 }
         <SubMenu key="sub6"  title="Solicitudes" icon={<MailOutlined />}>
             <Menu.Item key="19"> 
-        <Link to='/sueldos'>Sueldo</Link>
+        <Link to='/sueldo'>Sueldo</Link>
             
              </Menu.Item>
             <Menu.Item key="20">
         <Link to='/vacaciones'>Vacaciones</Link>
                   </Menu.Item>
             <Menu.Item key="21"> 
-        <Link to='/anticipo/gastos'> Gastos</Link>
+        <Link to='/anticipo/gasto'> Gastos</Link>
             </Menu.Item>
         </SubMenu>
         <SubMenu key="sub7"  title="Rendiciones" icon={<DollarCircleOutlined />} >

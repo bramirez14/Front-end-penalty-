@@ -1,21 +1,38 @@
-import React from "react";
 import {
-  BrowserRouter as Router,
-  Switch,
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate
 } from "react-router-dom";
 
 import { Login } from "../components/login/Login";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { DashboardRoutes } from "./DashboardRoutes";
-export const Routes = () => {
+export const RoutesCompenent= () => {
 
   return (
-    <Router>
-      <Switch>
-        <PublicRoute exact path="/login" component={Login} />
-        <PrivateRoute path="/" component={DashboardRoutes} />
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <Routes >
+        <Route path="/login" element={
+          
+          <PublicRoute  >
+              <Login/>
+        </PublicRoute>
+
+        } />
+       
+       <Route path="/*" element={
+          
+          <PrivateRoute>
+            <DashboardRoutes/>
+          </PrivateRoute>
+
+      } />
+       <Route path="/" element={<Navigate replace to="/perfil" />} />
+      </Routes>
+    
+
+    </BrowserRouter>
   );
 };

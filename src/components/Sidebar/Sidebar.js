@@ -1,29 +1,26 @@
 import React, { useState, useContext } from "react";
-import { Avatar, Drawer, Grid, Layout, Menu, Dropdown } from "antd";
+import { Row, Col,Avatar, Drawer, Grid, Layout, Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
-import { AvatarImg } from "../img/Avatar";
 import { UserContext } from "../../context/UserContext";
 import { PeticionJWT } from "../../auth/PeticionJWT";
-import { Row, Col } from "antd";
 import { axiosURL } from "../../config/axiosURL";
 import { logout } from "../../auth/localStorage";
-import { SidebarItems } from "./SidebarItems";
-import { SidebarItems2 } from "./SidebarItems2";
-import { SidebarItemsEmpleado } from "./SidebarItemsEmpleado";
 import { BotomHamburguesa } from "../botones/BotomHamburguesa";
 import { NombreCompleto } from "./NombreCompleto";
-import CustomScroll from "react-custom-scroll";
 import { Alerta } from "../alertas/Alerta";
-import "./css/sidebar.css";
 import { MenuGerencia } from "./MenuGerencia";
 import { MenuEmpleados } from "./MenuEmpleados";
 import { PeticionGET } from "../../config/PeticionGET";
 import { menuEmail } from "./menuEmail";
+import { useNavigate } from "react-router";
+import CustomScroll from "react-custom-scroll";
+import "./css/sidebar.css";
 const { Sider } = Layout;
 const { useBreakpoint } = Grid;
 
 
-export const Sidebar = ({ history, alertas, setAlertas, getAlertas }) => {
+export const Sidebar = ({  alertas, setAlertas, getAlertas }) => {
+  const navigate=useNavigate();
   let [isOpen, setIsOpen] = useState(false);
   const abrirCerrarHamburguesa = () => setOpen(!open);
   const id = localStorage.getItem("uid");
@@ -37,7 +34,7 @@ export const Sidebar = ({ history, alertas, setAlertas, getAlertas }) => {
   const handleLogout = async () => {
     await axiosURL.put(`/cs/${id}`, { conectado: "NO" });
     logout();
-    history.push("/login");
+    navigate("/login");
     setOpen(false);
   };
 
@@ -79,7 +76,7 @@ export const Sidebar = ({ history, alertas, setAlertas, getAlertas }) => {
       ) : (
         <Drawer
           placement={"left"}
-          /* closable={false} */
+          closable={true}
           onClose={onClose}
           visible={true}
           key={"left"}
