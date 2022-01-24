@@ -57,6 +57,7 @@ export const pasePedidos = ()=> async (dispatch)=>{
   console.log(response);
   const datos = await response.data;
   dispatch({ type:types.pasePedidos,payload: datos})
+  return response;
 }
 
 /* export const rechazarSCC = (id)=>{ async (dispatch)=>{

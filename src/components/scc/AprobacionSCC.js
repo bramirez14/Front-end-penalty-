@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
+import Swal from 'sweetalert2'
+import {useNavigate} from 'react-router'
+import '../css/inputNumber.css'
 import {
   Button,
   Modal,
@@ -10,6 +13,9 @@ import {
   Table,
   Tag,
   Result,
+  Progress,
+  Switch,
+  InputNumber
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,7 +26,8 @@ import {
   editarSCC,
   pasePedidos,
 } from "../../redux/actions/scc";
-import { ColumnaSCC } from "./columnas/ColumnaSCC";
+import {ColumnaSCC} from './columnas/ColumnaSCC'
+import { SccExcel } from "./excel/SccExcel";
 const { TextArea } = Input;
 
 const CollectionCreateForm = ({
@@ -66,9 +73,7 @@ const CollectionCreateForm = ({
       title="SCC"
       onCancel={onCancel}
       footer={[
-        <Button style={{backgroundColor:'#85a5ff'}}>
-              PASE A PEDIDOS 
-            </Button>,
+     
         <Button key="back" onClick={onCancel}>
               Cancelar
             </Button>,
@@ -133,82 +138,82 @@ const CollectionCreateForm = ({
 
             <Col span={3}>
               <Form.Item label="TU">
-                <Input name="CANTPEDT00" value={state.CANTPEDT00} min={0} />
+                <InputNumber  controls={false} name="CANTPEDT00" value={state.CANTPEDT00} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="01">
-                <Input name="CANTPEDT01" value={state.CANTPEDT01} min={0} />
+                <InputNumber controls={false} name="CANTPEDT01" value={state.CANTPEDT01} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="02">
-                <Input name="CANTPEDT02" value={state.CANTPEDT02} min={0} />
+                <InputNumber controls={false} name="CANTPEDT02" value={state.CANTPEDT02} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="03">
-                <Input name="CANTPEDT03" value={state.CANTPEDT03} min={0} />
+                <InputNumber controls={false} name="CANTPEDT03" value={state.CANTPEDT03} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="04">
-                <Input name="CANTPEDT04" value={state.CANTPEDT04} min={0} />
+                <InputNumber controls={false} name="CANTPEDT04" value={state.CANTPEDT04} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="05">
-                <Input name="CANTPEDT05" value={state.CANTPEDT05} min={0} />
+                <InputNumber controls={false} name="CANTPEDT05" value={state.CANTPEDT05} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="S">
-                <Input name="CANTPEDT06" value={state.CANTPEDT06} min={0} />
+                <InputNumber controls={false} name="CANTPEDT06" value={state.CANTPEDT06} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="M">
-                <Input name="CANTPEDT07" value={state.CANTPEDT07} min={0} />
+                <InputNumber controls={false} name="CANTPEDT07" value={state.CANTPEDT07} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="L">
-                <Input name="CANTPEDT08" value={state.CANTPEDT08} min={0} />
+                <InputNumber controls={false} name="CANTPEDT08" value={state.CANTPEDT08} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="XL">
-                <Input name="CANTPEDT09" value={state.CANTPEDT09} min={0} />
+                <InputNumber controls={false} name="CANTPEDT09" value={state.CANTPEDT09} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="XXL">
-                <Input name="CANTPEDT10" value={state.CANTPEDT10} min={0} />
+                <InputNumber controls={false} name="CANTPEDT10" value={state.CANTPEDT10} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="08">
-                <Input name="CANTPEDT11" value={state.CANTPEDT11} min={0} />
+                <InputNumber controls={false} name="CANTPEDT11" value={state.CANTPEDT11} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="09">
-                <Input name="CANTPEDT12" value={state.CANTPEDT12} min={0} />
+                <InputNumber controls={false} name="CANTPEDT12" value={state.CANTPEDT12} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="10">
-                <Input name="CANTPEDT13" value={state.CANTPEDT13} min={0} />
+                <InputNumber controls={false} name="CANTPEDT13" value={state.CANTPEDT13} min={0} />
               </Form.Item>
             </Col>
             <Col span={3}>
               <Form.Item label="XXX">
-                <Input name="CANTPEDT14" value={state.CANTPEDT14} min={0} />
+                <InputNumber controls={false} name="CANTPEDT14" value={state.CANTPEDT14} min={0} />
               </Form.Item>
             </Col>
             <Col span={4}>
               <Form.Item label="Total">
-                <Input value={total} min={0} />
+                <InputNumber controls={false} value={total} min={0} />
               </Form.Item>
             </Col>
           </Row>
@@ -218,13 +223,18 @@ const CollectionCreateForm = ({
   );
 };
 export const AprobacionSCC = () => {
+  const [isAprob,setIsAprob] = useState(false)
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(200);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { solicitudControlCalidad, articulos, modal } = useSelector(
     (state) => state
   );
   const todasLasSolicitudes = solicitudControlCalidad.scc;
+  console.log(todasLasSolicitudes);
+  const listaSCC = todasLasSolicitudes?.filter( t => t.APROBCRED==='S' && t.APROBDEP==='S' &&  t.NROCOMP === null );
+  console.log(listaSCC,'LINE 232');
   const visible = modal.openModal;
   const todosLosArt = articulos.art;
   const data = solicitudControlCalidad.data;
@@ -236,10 +246,10 @@ export const AprobacionSCC = () => {
 
   useEffect(() => {
     dispatch(todasLasSCC());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     dispatch(todasLasTalles());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     dispatch(todosLosArticulos());
   }, [dispatch]);
@@ -280,13 +290,27 @@ export const AprobacionSCC = () => {
       key: t.NROSCC,
     }));
   };
-  const memoizedValue = useMemo(
+  const memoAprobados = useMemo(
     () => todos(todasLasSolicitudes),
     [todasLasSolicitudes]
   );
-
+ const paseAPedidos = async() =>{
+const response = await dispatch(pasePedidos()) 
+if(response.status===200){
+Swal.fire({
+  position: 'center',
+  icon: 'success',
+  title: ' SCC se guardo con exito!',
+  showConfirmButton: false,
+  timer: 2000
+})
+navigate('/')
+} 
+}
+console.log(isAprob);
   return (
     <div>
+        
       <CollectionCreateForm
         visible={visible}
         onCreate={onCreate}
@@ -299,15 +323,32 @@ export const AprobacionSCC = () => {
         status={status}
         setState={setDatoSelect}
         state={datoSelect}
-      />
+      /><Row style={{ marginTop: 20, marginBottom: 20 }}>
+          <Col span={24}>   
+           <SccExcel data={memoAprobados}/>
+          
+          </Col>
+  
+    
+        <Col span={24} >
+          <Switch
+            checkedChildren="Finalizados"
+            unCheckedChildren="Pendientes"
+            defaultChecked
+            onChange={() => setIsAprob(!isAprob)}
+            style={{ marginRight: 10 }}
+          />
+        </Col>
+      </Row>
       <Table
-        title={()=><Button onClick={()=> dispatch(pasePedidos())} >PASE A PEDIDOS</Button>}
+        title={()=><Button onClick={()=>paseAPedidos()} >PASE A PEDIDOS</Button>}
         size="small"
         bordered
-        dataSource={memoizedValue}
-        columns={ColumnaSCC()}
+        dataSource={!isAprob?memoAprobados:todos(listaSCC)}
+        columns={ ColumnaSCC()}
         loading={todasLasSolicitudes?.length === 0 ? true : false}
       />
+          
     </div>
   );
 };

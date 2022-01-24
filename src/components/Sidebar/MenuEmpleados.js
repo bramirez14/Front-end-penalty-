@@ -107,18 +107,22 @@ export const MenuEmpleados = ({ open, setOpen}) => {
                  </Menu.Item>
         </SubMenu>
             { N==='907'&&
+            <>
             <SubMenu key="sub8"  title="Cobranzas" icon={<ReconciliationOutlined />}>
             <Menu.Item key="24"> 
             <Link to='/lista/recibo'> Recibo </Link>
 
             </Menu.Item>
             </SubMenu>
-
+            <Menu.Item key="25"> 
+            <Link to='/aprobacion/scc'> Aprob SCC </Link>
+            </Menu.Item>
+            </>
             }
 
             {N==='0000'?'': filtroNumVendedores (N)?'':
             <SubMenu key="sub9"  title="Cobranzas" icon={<ReconciliationOutlined />}>
-            <Menu.Item key="25"> 
+            <Menu.Item key="26"> 
             <Link to='/recibo'> Recibo provisorio </Link>
 
             </Menu.Item>
@@ -127,10 +131,10 @@ export const MenuEmpleados = ({ open, setOpen}) => {
             }
             {N==='905'&&
             <SubMenu key="sub10"  title="Comprobante" icon={<ReconciliationOutlined />}>
-            <Menu.Item key="26"> 
+            <Menu.Item key="27"> 
             <Link to='/comprobantes/gastos'> gastos </Link>
             </Menu.Item>
-            <Menu.Item key="27"> 
+            <Menu.Item key="28"> 
             <Link to='/comprobantes/tarjeta-credito'> tarjeta de credito</Link>
             </Menu.Item>
             </SubMenu>

@@ -59,6 +59,8 @@ import { PagosKm } from "../view/PagosKm";
 import { useDispatch } from "react-redux";
 import { Result, Button } from "antd";
 import { NotFound } from "./NotFound";
+import { Buscador } from "../layout/Buscador";
+import { Selector } from "../layout/Selector";
 
 export const DashboardRoutes = ({ history }) => {
   const navigate = useNavigate();
@@ -195,6 +197,15 @@ export const DashboardRoutes = ({ history }) => {
             path="/comprobantes/tarjeta-credito"
             element={<TarjetaCreditoComp />}
           />
+           <Route
+            path="/pru/search"
+            element={<Buscador />}
+          />
+           <Route
+            path="/pru/select"
+            element={<Selector />}
+          />
+
           <Route
             path="*"
             element={

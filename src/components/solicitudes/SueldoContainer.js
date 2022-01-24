@@ -59,8 +59,13 @@ export const SueldoContainer = ( ) => {
   }, []);
   const datosUsuario = PeticionGET(`/${id}`);
   console.log(datosUsuario);
-  const filtro = datosUsuario?.anticipo;
-  const APROBACION = filtro?.length===0? '':filtro?.[filtro?.length - 1]?.estadoFinal;// verifica si hay anticipos pendientes 
+  const filtro  = datosUsuario?.anticipo;
+  let APROBACION; 
+  if( filtro===undefined){
+    APROBACION= []
+  }else{
+    APROBACION = filtro?.length === 0? '':filtro?.[filtro?.length - 1]?.estadoFinal;// verifica si hay anticipos pendientes 
+  }
   console.log(APROBACION)
   //fx para guardar anticipo con axios en DB
   const guardarAnticipo = async (values) => {

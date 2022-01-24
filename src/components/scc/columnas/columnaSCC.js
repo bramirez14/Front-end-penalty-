@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { fecha } from "../../../helpers/funcioneshelpers";
 import { useDispatch, useSelector } from "react-redux";
 import { abrirModal, datoSelec, editarSCC } from "../../../redux/actions/scc";
-import { Checkbox, Button } from "antd";
+import { Checkbox, Button, Table, Input, Space, Spin} from "antd";
+import Highlighter from 'react-highlight-words';
+import { SearchOutlined } from '@ant-design/icons';
 import Swal from "sweetalert2";
-import { Loading } from "../../../loading/Loading";
-import { Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
 
 export const ColumnaSCC = () => {
+  const [state, setState] = useState( 
+    {searchText: '',
+    searchedColumn: '',
+  });
   const dispatch = useDispatch();
   const { solicitudControlCalidad, articulos, listaTalles } = useSelector(
     (state) => state
@@ -81,6 +84,84 @@ export const ColumnaSCC = () => {
       });
     }
   };
+
+// lupa para los campos de la col 
+const getColumnSearchProps = dataIndex => ({
+  filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+    <div style={{ padding: 8 }}>
+      <Input
+        placeholder={`Search ${dataIndex}`}
+        value={selectedKeys[0]}
+        onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+        onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+        style={{ marginBottom: 8, display: 'block' }}
+      />
+      <Space>
+        <Button
+          type="primary"
+          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          icon={<SearchOutlined />}
+          size="small"
+          style={{ width: 90 }}
+        >
+          Search
+        </Button>
+        <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+          Reset
+        </Button>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => {
+            confirm({ closeDropdown: false });
+            setState({
+              searchText: selectedKeys[0],
+              searchedColumn: dataIndex,
+            });
+          }}
+        >
+          Filter
+        </Button>
+      </Space>
+    </div>
+  ),
+  filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+  onFilter: (value, record) =>
+    record[dataIndex]
+      ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+      : '',
+
+  render: text =>
+    state.searchedColumn === dataIndex ? (
+      <Highlighter
+        highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+        searchWords={[state.searchText]}
+        autoEscape
+        textToHighlight={text ? text.toString() : ''}
+      />
+    ) : (
+      text
+    ),
+});
+
+const handleSearch = (selectedKeys, confirm, dataIndex) => {
+  confirm();
+  setState({
+    searchText: selectedKeys[0],
+    searchedColumn: dataIndex,
+  });
+};
+
+const handleReset = clearFilters => {
+  clearFilters();
+  setState({ searchText: '' });
+};
+
+
+// fin de lupa 
+
+
+
   return [
     {
       title: "Dep",
@@ -113,7 +194,9 @@ export const ColumnaSCC = () => {
     {
       title: "Fecha",
       dataIndex: "FECEMISION",
+      ...getColumnSearchProps('FECEMISION'),
       render: (state, file) => <p> {fecha(file.FECEMISION)} </p>,
+      
     },
     {
       title: "SCC",
@@ -122,6 +205,8 @@ export const ColumnaSCC = () => {
     {
       title: "Cte",
       dataIndex: "CLIENTE",
+      ...getColumnSearchProps('CLIENTE'),
+
     },
     {
       title: "Articulo",
