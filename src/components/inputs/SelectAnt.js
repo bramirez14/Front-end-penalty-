@@ -1,6 +1,5 @@
 import React from "react";
 import { Form,Select } from "antd";
-import "./select.css";
 export const SelectAnt = ({ name,array, placeholder,change,mensaje,label}) => {
  
   const { Option } = Select;

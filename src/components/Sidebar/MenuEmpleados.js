@@ -113,10 +113,10 @@ export const MenuEmpleados = ({ open, setOpen}) => {
             <Link to='/lista/recibo'> Recibo </Link>
 
             </Menu.Item>
-            </SubMenu>
             <Menu.Item key="25"> 
             <Link to='/aprobacion/scc'> Aprob SCC </Link>
             </Menu.Item>
+            </SubMenu>
             </>
             }
 

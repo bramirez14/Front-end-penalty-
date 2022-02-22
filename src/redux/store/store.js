@@ -8,6 +8,7 @@ import { sccReducer, } from '../reducers/sccReducer';
 import { articulosReducer } from '../reducers/articulosReducer';
 import { tallesReducer } from '../reducers/tallesReducer';
 import { abrirCerrarModalReducer } from '../reducers/abrirCerrarModal';
+import { clientesReducer } from '../reducers/clientesReducer';
 
 
 
@@ -25,6 +26,7 @@ solicitudControlCalidad:sccReducer,
 articulos:articulosReducer,
 listaTalles:tallesReducer,
 modal:abrirCerrarModalReducer,
+listaCtes:clientesReducer,
 })
 
 

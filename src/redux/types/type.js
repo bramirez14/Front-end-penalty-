@@ -28,6 +28,8 @@ export const types = {
   art:"[ART] todos los articulos",
   //talles
   talles:"[TALLES] todas las talles",
+  //clientes
+  clientes:"[CLIENTES] todos los clientes",
   //abrirCerrarModal
   openModal:'[MODAL] abrir modal',
   closeModal:'[MODAL] cerrar modal',

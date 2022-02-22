@@ -1,7 +1,8 @@
 .boton{
     background:#46a461;
     border-color:#46a461;
-    border-radius: 10px;
+    border-radius: 7px;
+    color: #ffff;
 }
 .boton:hover{
     background-color: #ffff;
@@ -10,8 +11,26 @@
 
 }
 .boton:focus{
-    color: #fff;
-    background: #53ce76;
-    border-color: #53ce76;;
+    color: #46a461;
+    background-color: #ffff;
+    border-color: #46a461;
  
 }
+/*segundo estilo de boton */
+.botonII{
+    border-color:#46a461;
+    border-radius: 7px;
+    color: #46a461;
+}
+.botonII:hover{
+   border-color:#46a461;
+    border-radius: 7px;
+    color: #46a461;
+
+}
+.botonII:focus{
+   border-color:#46a461;
+    border-radius: 7px;
+    color: #46a461;
+ 
+} 

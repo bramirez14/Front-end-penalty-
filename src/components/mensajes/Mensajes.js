@@ -13,7 +13,6 @@ import {
 } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { AiOutlineDelete } from "react-icons/ai";
-import "./mensajes.css";
 import { run } from "../helper/funciones";
 import {Link} from "react-router-dom";
 import { axiosURL } from "../../config/axiosURL";

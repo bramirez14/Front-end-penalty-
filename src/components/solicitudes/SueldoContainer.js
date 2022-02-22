@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Sueldo } from "./Sueldo";
-import Swal from "sweetalert2";
-import "./css/anticipoGasto.css";
+//import "./css/anticipoGasto.css";
 import { alerta } from "./helpers/funciones";
 import { SocketContext } from "../../context/SocketContext";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 export const SueldoContainer = ( ) => {
   const navigate = useNavigate();

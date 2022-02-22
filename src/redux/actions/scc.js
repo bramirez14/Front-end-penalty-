@@ -28,6 +28,15 @@ export const todasLasTalles = () => async (dispatch) => {
     dispatch({ type: "error", error: e.message });
   }
 };
+export const todosLosClientes = () => async (dispatch) => {
+  try {
+    const response = await axiosURL.get("/scc/todos/clientes");
+    const datos = await response.data;
+    dispatch({ type: types.clientes, payload: datos[0] });
+  } catch (e) {
+    dispatch({ type: "error", error: e.message });
+  }
+};
 export const abrirModal = () => ({ type: types.openModal });
 export const cerrarModal = () => ({ type: types.closeModal });
 

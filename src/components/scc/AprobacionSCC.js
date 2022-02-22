@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
-import Swal from 'sweetalert2'
-import {useNavigate} from 'react-router'
-import '../css/inputNumber.css'
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
+import "../css/inputNumber.css";
+import './css/aprob.css'
+import '../css/boton.css'
 import {
   Button,
   Modal,
@@ -15,7 +17,7 @@ import {
   Result,
   Progress,
   Switch,
-  InputNumber
+  InputNumber,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -25,8 +27,9 @@ import {
   cerrarModal,
   editarSCC,
   pasePedidos,
+  todosLosClientes,
 } from "../../redux/actions/scc";
-import {ColumnaSCC} from './columnas/ColumnaSCC'
+import { ColumnaSCC } from "./columnas/ColumnaSCC";
 import { SccExcel } from "./excel/SccExcel";
 const { TextArea } = Input;
 
@@ -73,27 +76,26 @@ const CollectionCreateForm = ({
       title="SCC"
       onCancel={onCancel}
       footer={[
-     
         <Button key="back" onClick={onCancel}>
-              Cancelar
-            </Button>,
-          <Button
-            key="submit"
-            loading={loading}
-            onClick={() => {
-              form
-                .validateFields()
-                .then((values) => {
-                  form.resetFields();
-                  onCreate(values);
-                })
-                .catch((info) => {
-                  console.log("Validate Failed:", info);
-                });
-            }}
-          >
-            Guardar
-          </Button>
+          Cancelar
+        </Button>,
+        <Button
+          key="submit"
+          loading={loading}
+          onClick={() => {
+            form
+              .validateFields()
+              .then((values) => {
+                form.resetFields();
+                onCreate(values);
+              })
+              .catch((info) => {
+                console.log("Validate Failed:", info);
+              });
+          }}
+        >
+          Guardar
+        </Button>,
       ]}
     >
       {status === 400 ? (
@@ -118,7 +120,9 @@ const CollectionCreateForm = ({
               label="Precio"
               className="collection-create-form_last-form-item"
               name="PRECIO"
-              rules={[{ required: true, message: 'Por favor seleccion una opcion' }]}
+              rules={[
+                { required: true, message: "Por favor seleccion una opcion" },
+              ]}
             >
               <Radio.Group>
                 <Radio value={state.PRECIOLIST}>
@@ -137,83 +141,158 @@ const CollectionCreateForm = ({
             </Col>
 
             <Col span={3}>
-              <Form.Item label="TU">
-                <InputNumber  controls={false} name="CANTPEDT00" value={state.CANTPEDT00} min={0} />
+              <Form.Item label={state.ALFA01}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT00"
+                  value={state.CANTPEDT00}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="01">
-                <InputNumber controls={false} name="CANTPEDT01" value={state.CANTPEDT01} min={0} />
+              <Form.Item label={state.ALFA02}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT01"
+                  value={state.CANTPEDT01}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="02">
-                <InputNumber controls={false} name="CANTPEDT02" value={state.CANTPEDT02} min={0} />
+              <Form.Item label={state.ALFA03}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT02"
+                  value={state.CANTPEDT02}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="03">
-                <InputNumber controls={false} name="CANTPEDT03" value={state.CANTPEDT03} min={0} />
+              <Form.Item label={state.ALFA04}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT03"
+                  value={state.CANTPEDT03}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="04">
-                <InputNumber controls={false} name="CANTPEDT04" value={state.CANTPEDT04} min={0} />
+              <Form.Item label={state.ALFA05}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT04"
+                  value={state.CANTPEDT04}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="05">
-                <InputNumber controls={false} name="CANTPEDT05" value={state.CANTPEDT05} min={0} />
+              <Form.Item label={state.ALFA06}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT05"
+                  value={state.CANTPEDT05}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="S">
-                <InputNumber controls={false} name="CANTPEDT06" value={state.CANTPEDT06} min={0} />
+              <Form.Item label={state.ALFA07}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT06"
+                  value={state.CANTPEDT06}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="M">
-                <InputNumber controls={false} name="CANTPEDT07" value={state.CANTPEDT07} min={0} />
+              <Form.Item label={state.ALFA08}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT07"
+                  value={state.CANTPEDT07}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="L">
-                <InputNumber controls={false} name="CANTPEDT08" value={state.CANTPEDT08} min={0} />
+              <Form.Item label={state.ALFA09}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT08"
+                  value={state.CANTPEDT08}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="XL">
-                <InputNumber controls={false} name="CANTPEDT09" value={state.CANTPEDT09} min={0} />
+              <Form.Item label={state.ALFA10}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT09"
+                  value={state.CANTPEDT09}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="XXL">
-                <InputNumber controls={false} name="CANTPEDT10" value={state.CANTPEDT10} min={0} />
+              <Form.Item label={state.ALFA11}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT10"
+                  value={state.CANTPEDT10}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="08">
-                <InputNumber controls={false} name="CANTPEDT11" value={state.CANTPEDT11} min={0} />
+              <Form.Item label={state.ALFA12}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT11"
+                  value={state.CANTPEDT11}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="09">
-                <InputNumber controls={false} name="CANTPEDT12" value={state.CANTPEDT12} min={0} />
+              <Form.Item label={state.ALFA13}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT12"
+                  value={state.CANTPEDT12}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="10">
-                <InputNumber controls={false} name="CANTPEDT13" value={state.CANTPEDT13} min={0} />
+              <Form.Item label={state.ALFA14}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT13"
+                  value={state.CANTPEDT13}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={3}>
-              <Form.Item label="XXX">
-                <InputNumber controls={false} name="CANTPEDT14" value={state.CANTPEDT14} min={0} />
+              <Form.Item label={state.ALFA15}>
+                <InputNumber
+                  controls={false}
+                  name="CANTPEDT14"
+                  value={state.CANTPEDT14}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={4}>
               <Form.Item label="Total">
-                <InputNumber controls={false} value={total} min={0} />
+                <InputNumber controls={false} value={state.CANTPED} min={0} />
               </Form.Item>
             </Col>
           </Row>
@@ -223,8 +302,10 @@ const CollectionCreateForm = ({
   );
 };
 export const AprobacionSCC = () => {
-  const [isAprob,setIsAprob] = useState(false)
+
+  const [isAprob, setIsAprob] = useState(false);
   const [loading, setLoading] = useState(false);
+const [datosExcel, setDatosExcel] = useState([] );
   const [status, setStatus] = useState(200);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -232,18 +313,37 @@ export const AprobacionSCC = () => {
     (state) => state
   );
   const todasLasSolicitudes = solicitudControlCalidad.scc;
-  console.log(todasLasSolicitudes);
-  const listaSCC = todasLasSolicitudes?.filter( t => t.APROBCRED==='S' && t.APROBDEP==='S' &&  t.NROCOMP === null );
-  console.log(listaSCC,'LINE 232');
-  const visible = modal.openModal;
-  const todosLosArt = articulos.art;
-  const data = solicitudControlCalidad.data;
+  const todasLasSolicitudesOrdenadas  =  todasLasSolicitudes?.sort((a,b) => {
+if(b.FECEMISION < a.FECEMISION) return -1
+if (b.FECEMISION < a.FECEMISION)  return 1 
+return 0
 
+  })
+ 
+  const newTodasLasSol = todasLasSolicitudesOrdenadas?.filter(
+    (t) =>  !!t.NROCOMP 
+  );
+  
+  console.log(newTodasLasSol);
+  const listaSCC = todasLasSolicitudesOrdenadas?.filter(
+    (t) =>  !t.NROCOMP && t.RECHAZADO!== 'S'
+  );
+  const visible = modal.openModal;
+  const data = solicitudControlCalidad.data;
   const [datoSelect, setDatoSelect] = useState(data);
+  const todosExcel = ( ) => {
+    let dataExcel = todasLasSolicitudes.map((t) => ({
+      ...t,
+      FECEMISION:t.FECEMISION.split('T')[0],
+      FECFACT:t.FECFACT.split('T')[0],
+      key: t.NROSCC,
+
+    }));
+    setDatosExcel(dataExcel)
+  };
   useEffect(() => {
     setDatoSelect(data);
   }, [data]);
-
   useEffect(() => {
     dispatch(todasLasSCC());
   }, [dispatch]);
@@ -253,84 +353,99 @@ export const AprobacionSCC = () => {
   useEffect(() => {
     dispatch(todosLosArticulos());
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(todosLosClientes());
+  }, [dispatch]);
 
-  const buscarNombrePorArt = (art) => {
-    const buscarNomArt = todosLosArt?.find((t) => t.NUMERO === art);
-    return buscarNomArt?.DESCRIP;
-  };
   const onCreate = async (values) => {
-     setLoading(true);
-    const response= await dispatch(
-      editarSCC(datoSelect.NROSCC, {
-        ...datoSelect,
-        ...values,
-        APROBDEP: "S",
-        APROBCRED: "S",
-        RECHAZADO: "N",
-      })
-    )
-   
-   if(response.status === 200){
-    setTimeout(() => {
-     setLoading(false);
-   dispatch(cerrarModal());
-    }, 3000);
-   }else{
-     setStatus(response.status)
-     setLoading(false);
-     
-   }
-    
-  };
+    const buscandoNroSCC = todasLasSolicitudes.find(t=> t.NROSCC=== datoSelect.NROSCC)
+      const total =
+      datoSelect.CANTPEDT00 +
+      datoSelect.CANTPEDT01 +
+      datoSelect.CANTPEDT02 +
+      datoSelect.CANTPEDT03 +
+      datoSelect.CANTPEDT04 +
+      datoSelect.CANTPEDT05 +
+      datoSelect.CANTPEDT06 +
+      datoSelect.CANTPEDT07 +
+      datoSelect.CANTPEDT08 +
+      datoSelect.CANTPEDT09 +
+      datoSelect.CANTPEDT10 +
+      datoSelect.CANTPEDT11 +
+      datoSelect.CANTPEDT12 +
+      datoSelect.CANTPEDT13 +
+      datoSelect.CANTPEDT14;
 
-  const todos = (array) => {
-    return array?.map((t) => ({
-      ...t,
-      Descrip: buscarNombrePorArt(t.ARTICULO),
-      key: t.NROSCC,
-    }));
-  };
-  const memoAprobados = useMemo(
-    () => todos(todasLasSolicitudes),
-    [todasLasSolicitudes]
+if(buscandoNroSCC.CANTPED <= total){
+
+  setLoading(true);
+  const response = await dispatch(
+    editarSCC(datoSelect.NROSCC, {
+      ...datoSelect,
+      ...values,
+      APROBDEP: "S",
+      APROBCRED: "S",
+      RECHAZADO: "N",
+    })
   );
- const paseAPedidos = async() =>{
-const response = await dispatch(pasePedidos()) 
-if(response.status===200){
-Swal.fire({
-  position: 'center',
-  icon: 'success',
-  title: ' SCC se guardo con exito!',
-  showConfirmButton: false,
-  timer: 2000
-})
-navigate('/')
-} 
+  if (response.status === 200) {
+    setTimeout(() => {
+      setLoading(false);
+      dispatch(cerrarModal());
+    }, 3000);
+  } else {
+    setStatus(response.status);
+    setLoading(false);
+  }
+}else{
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'La curva de talles no coinciden con el total!',
+  })
 }
-console.log(isAprob);
+  };
+  
+/*   const memoAprobados = useMemo(
+    () => todasLasSolicitudes,
+    [todasLasSolicitudes]
+  ); */
+  const paseAPedidos = async () => {
+    const response = await dispatch(pasePedidos());
+    if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: " SCC se guardo con exito!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      navigate("/");
+    }
+  };
+  useEffect(() => {todosExcel()},[todasLasSolicitudes])
+  console.log(datoSelect);
   return (
     <div>
-        
       <CollectionCreateForm
         visible={visible}
         onCreate={onCreate}
         onCancel={() => {
           dispatch(cerrarModal());
-          setStatus(200)
-          
+          setStatus(200);
         }}
         loading={loading}
         status={status}
         setState={setDatoSelect}
         state={datoSelect}
-      /><Row style={{ marginTop: 20, marginBottom: 20 }}>
-          <Col span={24}>   
-           <SccExcel data={memoAprobados}/>
-          
-          </Col>
-  
-    
-        <Col span={24} >
+      />
+     { todasLasSolicitudes?.length === 0 ? '':
+      <Row style={{ marginTop: 20, marginBottom: 20 }}>
+        <Col span={24}>
+          <SccExcel data={datosExcel} />
+        </Col>
+
+        <Col span={24}>
           <Switch
             checkedChildren="Finalizados"
             unCheckedChildren="Pendientes"
@@ -340,16 +455,18 @@ console.log(isAprob);
           />
         </Col>
       </Row>
+      }
       <Table
-        title={()=><Button onClick={()=>paseAPedidos()} >PASE A PEDIDOS</Button>}
+        title={() => (
+          <Button className='botonII' onClick={() => paseAPedidos()}>PASE A PEDIDOS</Button>
+        )}
         size="small"
         bordered
-        dataSource={!isAprob?memoAprobados:todos(listaSCC)}
-        columns={ ColumnaSCC()}
+        dataSource={!isAprob ? newTodasLasSol: listaSCC}
+        columns={ColumnaSCC()}
         loading={todasLasSolicitudes?.length === 0 ? true : false}
+        scroll={{ y:400}}
       />
-          
     </div>
   );
 };
-

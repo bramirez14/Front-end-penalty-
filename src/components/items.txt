@@ -1,0 +1,27 @@
+Aprobacion de Pedidos
+
+Autorizacion 
+.Diego 
+.Mariela 
+.Marisa 
+
+Base de Datos 
+
+[GET] todos los datos  PDCABEZA.
+[GET] toods los datos  PDITEMS.
+
+columna TIPO  E son presupuestos  sera reemplazado por P al finalizar.
+
+Back end.
+Rutas 
+/editar/tipo __ un update  cuando hacen pase a Pedidos
+ /aprobacion/pedidos/ ___ un GET de trae de la vista AprobacionPedidoFinal
+/pase-pedidos/ok __ un GET de la Tabla Pedidos Ok 
+/pase-pedidos  ___ un Get a la table  Pedidos 
+
+Front end 
+
+Table  con item y check  
+boton  pedidos oj y pedidso con problemas 
+
+

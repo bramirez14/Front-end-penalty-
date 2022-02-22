@@ -43,6 +43,7 @@ export const sccReducer =(state=inicialState,action)=>{
                                     ...state,
                                     response:{...state.data,...action.payload}
                                 }
+                             
         default:
             return state;
 

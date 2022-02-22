@@ -10,9 +10,7 @@ import {
   Spin
 } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import { css } from "@emotion/react";
-import BeatLoader from "react-spinners/BeatLoader";
-import "./css/anticipoGasto.css";
+//import "./css/anticipoGasto.css";
 import "../css/form.css";
 import { Files } from "../../helpers/Files";
 export const RendicionSinAnticipo = ({
