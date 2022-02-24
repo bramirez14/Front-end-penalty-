@@ -1,16 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect  } from "react";
 import { axiosURL } from "../../config/axiosURL";
 import "./css/spiner.css";
 import "./css/kilometros.css";
 
-import Swal from "sweetalert2";
-import { PeticionGET } from "../../config/PeticionGET";
-import { alerta } from "../solicitudes/helpers/funciones";
 import { HelperTABLEobj } from "../../helpers/HelperTABLEobj";
 import { TablaKm } from "./TablaKm";
-import { HelperMODAL } from "../../helpers/HelperMODAL";
 import { FormKm } from "./FormKm";
-import { Files } from "../../helpers/Files";
 import { FilesKm } from "./FilesKm";
 import { Spin } from "antd";
 import { useNavigate } from "react-router";
@@ -19,9 +14,6 @@ export const Kilometros = () => {
   const [spinner, setSpinner] = useState(false)
   const [stateKm, setStateKm] = useState([]);
   const id = localStorage.getItem("uid");
-  const [km, setKm] = useState({
-    imagen: "",
-  });
 
   const peticionGet = async () => {
     const { data } = await axiosURL.get("/rendiciones/kilometros");

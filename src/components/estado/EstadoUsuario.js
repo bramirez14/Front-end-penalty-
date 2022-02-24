@@ -5,7 +5,7 @@ import { axiosURL } from "../../config/axiosURL";
 import { Row, Col, Grid, Table, BackTop } from "antd";
 import { AvatarImg } from "../img/Avatar";
 import { DescripcionUsuario } from "./DescripcionUsuario";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { columnasVacaciones } from "./columnas/columnasVacaciones";
 import { columnasAnticipos } from "./columnas/columnasAnticipos";
 import { columnasGastos } from "./columnas/columnasGastos";
@@ -13,9 +13,9 @@ export const EstadoUsuario = () => {
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
   console.log(screens);
-  const [vacaciones, setVacaciones] = useState([]);
-  const [sueldo, setSueldo] = useState([]);
-  const [gasto, setGasto] = useState([]);
+  const [ , setVacaciones] = useState([]);
+  const [, setSueldo] = useState([]);
+  const [, setGasto] = useState([]);
   //vamos a ver las vacaciones tomadas en el ano; y cuantas les falta
   const id = localStorage.getItem("uid");
   const fechActual = new Date().getMonth();
@@ -45,7 +45,7 @@ export const EstadoUsuario = () => {
   };
   useEffect(() => {
     get();
-  }, []);
+  }, [get]);
 
   const { peticiones_GET } = useSelector((state) => state);
   const usuario = peticiones_GET?.usuario;

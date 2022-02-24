@@ -12,7 +12,8 @@ export const useGet = (url) => {
     
     useEffect(() => {
         axiosGet();
-      }, []);
+      }, [axiosGet]);
+      
       return [data,axiosGet,state,setData]
       
       

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { axiosURL } from "../config/axiosURL";
-import { Card, Button, Row, Col, Table, Image, Switch } from "antd";
+import { Card, Button, Row, Col, Table,  Switch } from "antd";
 import { Modale } from "./helpers/Modale";
 import { saveAs } from "file-saver";
 import { BiDownload } from "react-icons/bi";
@@ -151,8 +151,6 @@ export const RendicionGastosVista = ( ) => {
       key: "acciones",
       width: 170,
       render: (state, file) => {
-        const gtes= PeticionGET("/gerentes")
-        const gerente=gtes.filter( g=> g.id === file.usuario.gerenteId)
 
         const datosUsuario= PeticionGET(`/${id}`)
         const usuarios=PeticionGET('/allusers')

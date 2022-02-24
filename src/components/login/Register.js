@@ -8,7 +8,6 @@ import {
   Row,
   Col,
   Divider,
-  Result
 } from "antd";
 import {PeticionGET} from "../../config/PeticionGET";
 import {axiosURL} from "../../config/axiosURL";

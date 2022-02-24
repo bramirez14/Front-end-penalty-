@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table,Button } from 'antd';
+import { Table } from 'antd';
 import { useSelector } from 'react-redux';
 import { PdfoImg } from '../../helpers/PdfoImg';
 export const TarjetaCreditoComp = () => {

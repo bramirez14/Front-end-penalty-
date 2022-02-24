@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { descargarPDF, GetFiltroGerencia } from "./helpers/funciones";
 import { ColumnasSueldo} from "./columnas/columnasSueldo";
 import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
 import { Button, Descriptions, Switch, Row, Col} from "antd";
 import { BiDownload } from "react-icons/bi";
 import { colSueldoExcel } from "./columnas/columnasExcel/columnasSueldoExcel";
-import {  CheckOutlined } from '@ant-design/icons'
-import { SwitchComponet } from "../components/botones/Switch";
 
 export const AprobacionAntcipoSueldo = () => {
   const N = localStorage.getItem('N');

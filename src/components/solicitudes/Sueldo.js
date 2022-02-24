@@ -1,5 +1,5 @@
 import React from "react";
-import {  Row,Col, Form, Input, Button, Radio, Divider, Spin, Alert} from "antd";
+import {  Row,Col, Form, Input, Button, Radio, Divider } from "antd";
 import { Titulo } from "../titulos/Titulo";
 import { FormAntAguinaldo } from "./helpers/FormAntAguinaldo";
 import { FormAntSueldo } from "./helpers/FormAntSueldo";

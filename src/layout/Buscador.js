@@ -1,6 +1,4 @@
-import React from 'react';
-import { Input, Space } from 'antd';
-import { AudioOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
 import './css/buscador.css'
 
 const { Search } = Input;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu, Grid} from 'antd';
-import { CheckOutlined, DollarCircleOutlined, HomeOutlined, MailOutlined, ReconciliationOutlined, RiseOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { DollarCircleOutlined, HomeOutlined, MailOutlined, ReconciliationOutlined, RiseOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { filtroNumVendedores  } from '../../helpers/funcioneshelpers';
 const { SubMenu } = Menu;

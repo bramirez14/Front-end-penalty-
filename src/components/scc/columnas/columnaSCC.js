@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { fecha } from "../../../helpers/funcioneshelpers";
 import { useDispatch, useSelector } from "react-redux";
 import { abrirModal, datoSelec, editarSCC } from "../../../redux/actions/scc";
-import { Checkbox, Button, Table, Input, Space, Spin} from "antd";
+import { Checkbox, Button, Input, Space} from "antd";
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import Swal from "sweetalert2";
@@ -13,7 +13,7 @@ export const ColumnaSCC = () => {
     searchedColumn: '',
   });
   const dispatch = useDispatch();
-  const { solicitudControlCalidad, articulos, listaTalles } = useSelector(
+  const {  articulos, listaTalles } = useSelector(
     (state) => state
   );
 

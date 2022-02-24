@@ -1,22 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { Row, Col, Form, Input, DatePicker, Button, Modal } from "antd";
 import { useForm } from "../../hooks/useForm";
 import { PeticionGET } from "../../config/PeticionGET";
-import { SocketContext } from "../../context/SocketContext";
 import Swal from "sweetalert2";
 import { axiosURL } from "../../config/axiosURL";
 export const FormKm = ({  get }) => {
-  const { socket } = useContext(SocketContext);
   const [form] = Form.useForm();
   const dateFormat = "DD/MM/YYYY";
-  const [loading, setLoading] = useState(false);
-  const [stateKm, setStateKm] = useState([]);
-  const [datosKm, setDatosKm] = useState([]);
 
   const [visible, setVisible] = useState(false);
-  const [datePicker, setDatePicker] = useState("");
   const id = localStorage.getItem("uid");
-  const datosUsuario = PeticionGET(`/${id}`);
   const [values, handleInputChange, reset] = useForm({
     KmI: "",
     KmF: "",
@@ -24,9 +17,8 @@ export const FormKm = ({  get }) => {
     nota: "",
   });
 
-  const { KmI, KmF, nota, fechaSelect } = values;
+  const { KmI, KmF } = values;
   const precioKM = PeticionGET("/precio/km");
-  console.log(precioKM);
   const restaKm =
     KmI === "" && KmF === "" ? "0 " : parseFloat(KmF) - parseFloat(KmI);
   const totalImporte =

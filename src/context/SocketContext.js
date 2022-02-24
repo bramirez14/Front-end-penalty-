@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useState, } from "react";
+import React, {  useEffect, useState, } from "react";
 import { createContext } from "react";
 import { useSocket } from "../hooks/useSocket";
-import { UserContext } from "./UserContext";
 
 export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
   const [alertas, setAlertas] = useState([])
-  const { auth, setArrayUsuarios } = useContext(UserContext);//no es este investigar desp 
-  const { socket, conectarSocket, desconectarSocket } = useSocket(
+  const { socket, conectarSocket } = useSocket(
     "http://intranet.penalty.com.ar:4000"
   );
   

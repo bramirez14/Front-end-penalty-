@@ -1,11 +1,9 @@
-import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { Descriptions, Badge } from 'antd';
+import { useSelector } from "react-redux";
+import { Descriptions } from 'antd';
 export const DescripcionUsuario = () => {
   const { peticiones_GET } = useSelector((state) => state);
   const usuario = peticiones_GET.usuario;
-console.log(usuario);
-    return (
+  return (
         <Descriptions title="Informacion" layout="vertical" bordered>
     <Descriptions.Item label="Nombre"> {usuario?.nombre} </Descriptions.Item>
     <Descriptions.Item label="Apellido">{usuario?.apellido}</Descriptions.Item>

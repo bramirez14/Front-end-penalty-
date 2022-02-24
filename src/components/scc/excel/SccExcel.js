@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Button } from "antd";
 import ReactExport from "react-export-excel";
-import '../../css/boton.css'
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
-
 
 export const SccExcel = ({ data }) => {
   const excelSCC = [
@@ -204,6 +202,7 @@ export const SccExcel = ({ data }) => {
       data.disabled = false;
       data.innerHTML= "Exportar a Excel";
     }, 7000);
+    //return false; 
   }
   
 
@@ -214,7 +213,7 @@ export const SccExcel = ({ data }) => {
        <ExcelFile
           element={
            
-            <Button  onClick={confirmEnviar} className="boton" style={{marginBottom:10}}>Exportar a Excel</Button>
+            <Button onClick={confirmEnviar} className="btn-excel">Exportar a Excel</Button>
            
           }
           filename="SCC"

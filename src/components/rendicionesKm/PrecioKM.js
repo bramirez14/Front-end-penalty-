@@ -7,8 +7,7 @@ import './css/preciokm.css'
 import { useNavigate } from 'react-router'
 export const PrecioKM = ( ) => {
   const navigate= useNavigate();
-    const [preciokmActual,axiosGet]= useGet('/precio/km');
-console.log(preciokmActual);
+    const [preciokmActual]= useGet('/precio/km');
     const handleSubmit= async (values) =>{
         console.log(values);
        const res= await axiosURL.put('/precio/km',values)

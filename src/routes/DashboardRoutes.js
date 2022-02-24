@@ -20,7 +20,7 @@ import { CrearRendicion } from "../components/rendiciones/CrearRendicion";
 import { AprobacionGastos } from "../ComponentsGerentes/AprobacionGastos";
 import { TarjetaCredito } from "../components/rendiciones/TarjetaCredito";
 import { Verificacion } from "../components/verificaciones/Verificacion";
-import { Routes, Navigate, Route, useNavigate } from "react-router-dom";
+import { Routes, Navigate, Route } from "react-router-dom";
 import { AnticipoGasto } from "../components/solicitudes/AnticipoGasto";
 import { RendicionGastosVista } from "../view/RendicionGastosVista";
 import { Kilometros } from "../components/rendicionesKm/Kilometros";
@@ -36,7 +36,6 @@ import { CargaRecibo } from "../components/recibos/CargaRecibo";
 import { ListaRecibo } from "../components/recibos/ListaRecibo";
 import { AprobacionSCC } from "../components/scc/AprobacionSCC";
 import { ListaKm } from "../components/rendicionesKm/ListaKm";
-import { Uploads } from "../components/rendiciones/Uploads";
 import { RendicionKmVista } from "../view/RendicionKmVista";
 import { Mensajes } from "../components/mensajes/Mensajes";
 import { Stock } from "../components/reportes/stock/Stock";
@@ -59,13 +58,9 @@ import { PagosKm } from "../view/PagosKm";
 import { useDispatch } from "react-redux";
 import { Result, Button } from "antd";
 import { NotFound } from "./NotFound";
-import { Buscador } from "../layout/Buscador";
-import { Selector } from "../layout/Selector";
-import { Prueba } from "../components/pruebas/Prueba";
 import { PasePedidos } from "../components/pedidos/PasePedidos";
 
 export const DashboardRoutes = ({ history }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [alertas, setAlertas] = useState([]);
   const Text = useContext(UserContext);
@@ -109,10 +104,6 @@ export const DashboardRoutes = ({ history }) => {
             path="/aprobacion/vacaciones"
             element={<AprobacionVacaciones />}
           />
-          <Route
-            path="/pruebas"
-            element={<Prueba />}
-          />
           </>}
           <Route path="/aprobacion/gastos" element={tipo!=='Gerente'?<NotFound/>:<AprobacionGastos />} />
           <Route path="/aprobacion/km" element={tipo!=='Gerente'?<NotFound/>:<AprobacionKm />} />
@@ -141,7 +132,6 @@ export const DashboardRoutes = ({ history }) => {
             path="/rendicion"
             element={<RendicionSinAnticipoContainer />}
           />
-          <Route path="/img" element={<Uploads />} />
           <Route path="/mensajes" element={<Mensajes />} />
           <Route path="/estado/usuario" element={<EstadoUsuario />} />
           <Route

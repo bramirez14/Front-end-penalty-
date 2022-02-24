@@ -1,4 +1,4 @@
-import {Row,Col,Grid, Descriptions, Card,Form, Input, Button} from 'antd'
+import {Row,Col, Descriptions, Card,Form, Input, Button} from 'antd'
 import { PeticionGETIntranetCobranzas } from '../../config/PeticionGET'
 import { HelperTABLEobj } from '../../helpers/HelperTABLEobj'
 import { numberWithCommas } from '../reportes/helpers/funciones';
@@ -6,7 +6,6 @@ import { EnterOutlined, FieldNumberOutlined } from '@ant-design/icons';
 import { axiosURLIntranetCobranzas } from '../../config/axiosURL';
 import {Spinner} from '../spin/Spinner'
 import { useNavigate,useParams } from 'react-router-dom';
-const { useBreakpoint } = Grid;
 
 export const CargaRecibo = () => {
   const navigate= useNavigate();

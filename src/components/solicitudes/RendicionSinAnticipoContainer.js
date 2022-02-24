@@ -3,8 +3,8 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { axiosURL } from "../../config/axiosURL";
 import { categorias } from "../rendiciones/categorias";
 import { RendicionSinAnticipo } from "./RendicionSinAnticipo";
-import { alerta } from "./helpers/funciones";
 import { useNavigate } from "react-router";
+
 export const RendicionSinAnticipoContainer = () => {
   const navigate= useNavigate();
   const [spinner, setSpinner] = useState(false)

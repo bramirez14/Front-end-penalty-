@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { axiosURL } from '../../config/axiosURL';
 import { logout } from '../../auth/localStorage';
 import { useNavigate } from "react-router-dom";

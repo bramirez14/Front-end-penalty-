@@ -1,4 +1,4 @@
-import React, { useState,useContext,useRef } from "react";
+import React, { useState,useContext } from "react";
 import { Row, Col, Button } from "antd";
 import "./css/recibo.css";
 import { TablaIngresos } from "./TablaIngresos";
@@ -12,8 +12,6 @@ import { Grid, Spin } from "antd";
 import { SocketContext } from "../../context/SocketContext";
 import './css/listarecibo.css';
 import Swal from 'sweetalert2'
-import { ModalPDF } from "../../helpers/ModalPDF";
-import Pdf from "react-to-pdf";
 import { saveAs } from "file-saver";
 import { useNavigate } from "react-router";
 const { useBreakpoint } = Grid;

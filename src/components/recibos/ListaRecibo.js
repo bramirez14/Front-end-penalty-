@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Button, Grid, Tag, Card } from "antd";
+import {  Button, Grid,  Card } from "antd";
 import { PeticionGETIntranetCobranzas } from "../../config/PeticionGET";
 import { HelperTABLEobj } from "../../helpers/HelperTABLEobj";
 import { DownloadOutlined } from "@ant-design/icons";
@@ -12,8 +12,6 @@ export const ListaRecibo = () => {
   const N = localStorage.getItem("N");
   N !== "907" && N !== "901" && navigate("/perfil");
   const getRecibos = PeticionGETIntranetCobranzas("/ingresos/recibos");
-  const numerorecibo = getRecibos[0]?.map((g) => g.numerorecibo);
-  const nreciboSinRecibo = [...new Set(numerorecibo)];
   const handleNrecibo = (file) => {
     navigate(`/carga/recibo/${file.numerorecibo}`);
   };

@@ -17,7 +17,7 @@ export const AnticipoGasto = () => {
   const { Option } = Select;
 
   /** declarando el etado inicial */
-  const [gastos, setGastos] = useState({
+  const [gastos ] = useState({
     notas: "",
     importe: "",
     fecha: new Date().toLocaleDateString(),
@@ -29,7 +29,6 @@ export const AnticipoGasto = () => {
   const { fecha, usuarioId } = gastos;
   /**Petciones get */
   let datosUsuario = PeticionGET(`/${id}`);
-  let cantidadDeAntGastos = datosUsuario.gasto?.length;
   let pmp = PeticionGET("/mpagos");
 
   const handleAlert = () => {

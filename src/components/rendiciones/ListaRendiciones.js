@@ -8,7 +8,6 @@ import { SubEncabezado } from "./SubEncabezado";
 import { UserContext } from "../../context/UserContext";
 import { saveAs } from "file-saver";
 import { useGet } from "../../hooks/useGet";
-import { alerta905 } from "../../ComponentsGerentes/helpers/funciones";
 import { PeticionGET } from "../../config/PeticionGET";
 import { SocketContext } from "../../context/SocketContext";
 
@@ -21,7 +20,6 @@ export const ListaRendiciones = () => {
   const datosUsuario = PeticionGET(`/${uid}`)
   const usuarios= PeticionGET(`/allusers`)
   const filtroUsuario905= usuarios.filter(u=>u.nvendedor === '905')
-  const filtroUsuario902= usuarios.filter(u=>u.nvendedor === '902')
 
   const filtrodata905 = filtroUsuario905.map(f=> 
   {return{
@@ -49,7 +47,6 @@ export const ListaRendiciones = () => {
   }
   const importe = peticionGastoId?.importe;
   const Text = useContext(UserContext);
-  const { open } = Text;
 
   const handleClick = async () => {
     let res = await axiosURL.post("/generar/pdf", todasLasRendicones);

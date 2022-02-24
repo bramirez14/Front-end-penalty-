@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 
 export const AntSueldoVista = () => {
   const navigate= useNavigate();
-  const [state, setState] = useState(false)
   const N = localStorage.getItem("N");
   const tipo= localStorage.getItem("type");
   const [sueldo, setSueldo] = useState([]);

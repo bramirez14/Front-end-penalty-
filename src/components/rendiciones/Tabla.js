@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table, Button, Col, Modal, Form, Input, Upload, message } from "antd";
+import { Table, Button } from "antd";
 import { axiosURL } from "../../config/axiosURL";
 import { Link } from "react-router-dom";
 import { PeticionGET } from "../../config/PeticionGET";
@@ -9,14 +9,6 @@ export const Tabla = ({ usuario, setUsuario }) => {
   let p = PeticionGET("/gastos");
   console.log(p);
   let filtradoUsuariosConMediosDePago = p.filter((d) => d.usuarioId ==(id));
-
-  const [rendicionEditar, setRendicionEditar] = useState({
-    notas: "",
-    importe: "",
-    imagen: "",
-    categoria: "",
-    deleteId: [],
-  });
 
   const columns = [
     {
@@ -123,15 +115,7 @@ export const Tabla = ({ usuario, setUsuario }) => {
     };
   });
 
-  /** editar la rendicion  */
-  const editarRendicion = async () => {
-    let f = new FormData();
-    f.append("imagen", rendicionEditar.imagen);
-    f.append("importe", rendicionEditar.importe);
-    f.append("categoria", rendicionEditar.categoria);
-    f.append("notas", rendicionEditar.notas);
-    await axiosURL.put(`/rendicion/gastos/${rendicionEditar.id}`, f);
-  };
+
 
   return (
     <>

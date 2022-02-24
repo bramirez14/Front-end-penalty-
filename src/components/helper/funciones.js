@@ -25,7 +25,7 @@ export const run = (date) => {
    
     let posicion2 = separacion[1]; // HORA
     /**SEPARACION EN ARRAY */
-    let arrayPosicion1 = posicion1.split('/');
+    //let arrayPosicion1 = posicion1.split('/');
     let arrayPosicion2 = posicion2.split(':');
 
    

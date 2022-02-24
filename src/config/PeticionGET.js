@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { axiosURL, axiosURLIntranet, axiosURLIntranetCobranzas } from './axiosURL';
-
+//url global facilita la comunicacion con la api.
  const PeticionGET = (url) => {
   const [peticiones, setPeticiones] = useState([]);
   useEffect(() => {

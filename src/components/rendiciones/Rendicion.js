@@ -1,5 +1,5 @@
 import React from "react";
-import { Form,Col, Row,Divider } from "antd";
+import { Col, Row,Divider } from "antd";
 import "./css/createRendicion.css";
 import { Tabla } from "./Tabla";
 import { Titulo } from "../titulos/Titulo";

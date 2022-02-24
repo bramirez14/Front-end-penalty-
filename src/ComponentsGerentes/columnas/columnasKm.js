@@ -27,9 +27,8 @@ export const ColumnasKm = () => {
       });
       const datosUsuario=PeticionGET(`/${id}`)
       const usuarios= PeticionGET(`/allusers`)
-      const filtro902 = usuarios.filter(u=> u.nvendedor==='902')
-      const filtro905 = usuarios.filter(u=> u.nvendedor==='905')
-      const filtro906 = usuarios.filter(u=> u.nvendedor==='906')
+      const filtro902 = usuarios.filter(u=> u.nvendedor==='902');
+      const filtro905 = usuarios.filter(u=> u.nvendedor==='905');
       const { TextArea } = Input;
       /** peticion get trae todo los gastos */
       const axiosGet = async () => {
@@ -74,16 +73,7 @@ export const ColumnasKm = () => {
           emisor:datosUsuario.email,
           usuarioId:datosUsuario.id,
         }
-        //envio usuario 906
-        const obj906={
-          alerta:'Aprobado por gerencia',
-          info:`Tenes un anticipo de km a pagar`,
-          f: new Date().toLocaleString(),
-          estado:'activa',
-          path:'/pagos/km',
-          emisor:datosUsuario.email,
-          usuarioId:datosUsuario.id,
-        }
+      
       //condicional de  gerentes
         
        if( N === "902"){
