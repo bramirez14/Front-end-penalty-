@@ -1,6 +1,5 @@
 import React from 'react'
-import { Col, Row, Card,List} from "antd";
-import {Link} from "react-router-dom";
+import { Col, Card} from "antd";
 import { Tarjetas } from './Tarjetas';
 import { TarjetaEmpleado905 } from './TarjetaEmpleado905';
 import { TarjetaEmpleado906 } from './TarjetaEmpleado906';
@@ -12,9 +11,7 @@ export const CardAprobaciones = (array,url) => {
              {N==='905'?
              <TarjetaEmpleado905/>:N==='906'?
             <TarjetaEmpleado906/>:''
-            
         }
-      
         {(N==='901' || N==='902' || N==='903') && <Tarjetas/>}
         </Card>
      </Col>

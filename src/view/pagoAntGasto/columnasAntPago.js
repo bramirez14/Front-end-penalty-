@@ -1,8 +1,7 @@
-import { Button, Table } from "antd";
+import { Button } from "antd";
 import { saveAs } from "file-saver";
 import { axiosURL } from "../../config/axiosURL";
 import { BiDownload } from 'react-icons/bi';
-import { numberWithCommas } from "../../components/reportes/helpers/funciones";
 
 const descargarPDF = async (pdf) => {
     let res = await axiosURL.get("/pdf/gastos/rendicion", {

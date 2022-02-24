@@ -3,16 +3,14 @@ import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Sueldo } from "./Sueldo";
 //import "./css/anticipoGasto.css";
-import { alerta } from "./helpers/funciones";
 import { SocketContext } from "../../context/SocketContext";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 export const SueldoContainer = ( ) => {
   const navigate = useNavigate();
-  const { socket, alertas } = useContext(SocketContext);
+  const { socket  } = useContext(SocketContext);
   const id = localStorage.getItem("uid");
-  console.log(id);
   const [data, setData] = useState([{ id: "", nombre: "" }]);
   const [anticipo, setAnticipo] = useState({
     sueldo: "Sueldo",

@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import {PeticionGET} from '../../config/PeticionGET';
 import { Encabezado } from '../rendiciones/Encabezado'
 import { SubEncabezado } from '../rendiciones/SubEncabezado'
-import { Col, Row, Table, Tag, Space, Modal, Button  } from "antd";
+import { Table, Space, Modal, Button  } from "antd";
 import Pdf from "react-to-pdf";
 import './pdf.css'
 const ref = React.createRef();
@@ -27,7 +27,7 @@ export const PDF = ({match}) => {
   /**Modal */
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState('Content of the modal');
+  const [, setModalText] = useState('Content of the modal');
 
   const showModal = () => {
     setVisible(true);

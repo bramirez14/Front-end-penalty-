@@ -1,11 +1,10 @@
 import React,{useState} from "react";
 import {PeticionGET} from "../config/PeticionGET";
-import { descargarPDF, GetFiltroGerencia } from "./helpers/funciones";
+import { GetFiltroGerencia } from "./helpers/funciones";
 import { ColumnasVacaciones } from "./columnas/columnasVacaciones";
 import "./css/aprob.css";
 import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
-import { Button, Col, Descriptions, Row, Switch } from "antd";
-import { BiDownload } from "react-icons/bi";
+import {  Col, Descriptions, Row, Switch } from "antd";
 import { colVacaExcel } from "./columnas/columnasExcel/columnasVacacionesExcel";
 
 export const AprobacionVacaciones = () => {

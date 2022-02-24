@@ -16,7 +16,7 @@ const {vacaciones}= useSelector(state=> state)
 const todasLasVaca=(vacaciones.vacaciones);
 useEffect(() => {
   dispatch(todasLasVacaciones())
-}, [])
+}, [dispatch])
 const events=preparandoEvento(todasLasVaca);
 console.log(events);
   //para dar color

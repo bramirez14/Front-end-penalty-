@@ -1,6 +1,5 @@
 import React from 'react'
-import { Col, Row, Drawer, List, Avatar, Divider} from "antd";
-import { CardTitle } from './CardTitle';
+import { Col, Row, Drawer} from "antd";
 
 export const Drawers = ({onClose,visible,DatosPersonales,gasto,sueldo,vacaciones}) => {
     const {

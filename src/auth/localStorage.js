@@ -7,6 +7,6 @@ localStorage.clear();
 }
 const gerente = () => localStorage.getItem('type');
 const employee= () => localStorage.getItem('type') ;
-const administrativo = () => localStorage.getItem('type}') 
+const administrativo = () => localStorage.getItem('type') 
 
 export { isLogged, login, logout, gerente, administrativo,employee }

@@ -1,10 +1,6 @@
-import { Button } from "antd/lib/radio";
-import { BiDownload } from "react-icons/bi";
 import { PeticionGET } from "../../../config/PeticionGET";
-import { descargarPDF } from "../../helpers/funciones";
-var numberFormat = new Intl.NumberFormat("es-ES");
+
 export const colGastos = [
-  
   {
     title: "N° de anticipo",
     dataIndex: "id",
@@ -36,14 +32,14 @@ export const colGastos = [
     width: 100,
     lupa: true,
     render: (estado, file) => {
-      const dtos = PeticionGET("/departamentos"); // peticion get para traer todos los departamentos
+      const dtos = PeticionGET("/departamentos");
       const Dto = dtos.find((d) => d.id === file.usuario?.departamentoId);
       const DtoSelect = Dto?.departamento;
       return <h5>{DtoSelect}</h5>;
     },
   },
 
-{
+  {
     title: "Estado",
     dataIndex: "estado",
     key: "estado",
@@ -52,7 +48,7 @@ export const colGastos = [
       const color = () => {
         switch (file.estado) {
           case "pendiente":
-            return <h5 style={{ color: '#F79E0B' }}> pendiente...</h5>;
+            return <h5 style={{ color: "#F79E0B" }}> pendiente...</h5>;
           case "aprobado":
             return <h5 style={{ color: "green" }}> aprobado </h5>;
           default:
@@ -62,5 +58,4 @@ export const colGastos = [
       return <>{color()}</>;
     },
   },
- 
 ];

@@ -5,7 +5,6 @@ import { axiosURL } from '../../config/axiosURL';
 import Swal from 'sweetalert2'
 import './full.css'
 
-import { alerta906 } from './funciones';
 import { SocketContext } from '../../context/SocketContext';
 export const Modale = ({get,url,archivo,filtro906,newobj}) => {
   const {socket} = useContext(SocketContext)

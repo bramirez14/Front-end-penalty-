@@ -1,4 +1,3 @@
-import React from 'react'
 import { types } from '../types/type';
 
 export const getReducer = (state={},action) => {

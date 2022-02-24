@@ -1,6 +1,5 @@
 import React from "react";
 import { Row, Col, Card, Tooltip } from "antd";
-import { PeticionJWT } from "../../auth/PeticionJWT";
 import { PeticionGET } from "../../config/PeticionGET";
 import { GiReceiveMoney, GiCheckMark, GiCancel } from "react-icons/gi";
 import { BiTimeFive} from "react-icons/bi";
@@ -38,7 +37,6 @@ export const CardEstado = () => {
       <BiTimeFive style={{ fontSize: 20, color: "#D3F70B" }} />
     </Tooltip>
   }
-  const dtos=PeticionGET('/departamentos')
   return (
     <>
       <Row gutter={[20,20]} >

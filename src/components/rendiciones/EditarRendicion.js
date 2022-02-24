@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { axiosURL } from "../../config/axiosURL";
-import { Form, Input, Button, Col, Row, Select, Divider, DatePicker,Spin } from "antd";
+import { Form, Input, Button,Select,Spin, Divider } from "antd";
 import "./css/editarRendicion.css";
 import TextArea from "antd/lib/input/TextArea";
 import { categorias } from "./categorias";
@@ -18,7 +18,7 @@ export const EditarRendicion = ( ) => {
     importe: "",
     categoria: "",
   });
-  const { nota, importe, categoria, fecha, gastoId } = rendicionEditar;
+  const { nota, importe, categoria,  gastoId } = rendicionEditar;
   useEffect(() => {
     const peticionID = async () => {
       let res = await axiosURL.get(`/rendicion/${id}`);
@@ -45,12 +45,7 @@ export const EditarRendicion = ( ) => {
     }
     setSpinner(false)
   };
-  const editarRendicion = async () => {
-    await axiosURL.put(`/rendicion/gastos/${id}`, {
-      ...rendicionEditar,
-      total,
-    });
-  };
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRendicionEditar({
@@ -74,10 +69,9 @@ export const EditarRendicion = ( ) => {
   const totalDeImporte = sumaGastos?.reduce((acumulador, item) => {
     return (acumulador = parseFloat(acumulador) + parseFloat(item));
   });
-  const i = peticionGastoId?.importe;
   const peticionRendicion = PeticionGET(`/rendicion/${id}`);
   const resta = totalDeImporte - parseFloat(peticionRendicion.importe); //Es para verificar
-  const total = resta + parseFloat(importe); //Declarado en el estado
+ // const total = resta + parseFloat(importe); //Declarado en el estado
 
   return (
     <>

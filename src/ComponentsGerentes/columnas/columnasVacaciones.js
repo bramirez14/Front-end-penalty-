@@ -9,7 +9,6 @@ import { PeticionGET } from "../../config/PeticionGET";
 import { colVacaciones } from "./destructuracionCol/colVacaciones";
 import { SocketContext } from "../../context/SocketContext";
 
-var numberFormat = new Intl.NumberFormat("es-ES");
 
 export const ColumnasVacaciones = () => {
 const {socket} = useContext(SocketContext);

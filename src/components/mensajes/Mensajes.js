@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import {
   Row,
   Col,
@@ -15,9 +14,7 @@ import { EllipsisOutlined } from "@ant-design/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import { run } from "../helper/funciones";
 import {Link} from "react-router-dom";
-import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
-import CustomScroll from 'react-custom-scroll';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 export const Mensajes = ({socket,alertas}) => {

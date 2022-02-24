@@ -13,7 +13,6 @@ import "./css/aprob.css";
 import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
 import { colKmExcel } from "./columnas/columnasExcel/columnasKmExcel";
 import { BiDownload } from "react-icons/bi";
-import { SwitchComponet } from "../components/botones/Switch";
 
 export const AprobacionKm = () => {
   const N = localStorage.getItem('N')

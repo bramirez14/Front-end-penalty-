@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useState} from "react";
 import{ axiosURL} from "../../config/axiosURL";
 import { Form, Input, Button,  Select, Divider,Spin} from "antd";
 import TextArea from "antd/lib/input/TextArea";
@@ -12,12 +12,9 @@ import '../css/spin.css'
 
 export const CrearRendicion = () => {
   const navigate=useNavigate();
-  let [color, setColor] = useState('#46a461');
   const [spinner, setSpinner] = useState(false)
   const { id } = useParams();
   const { Option } = Select;
-  const [highlight, setHighlight] = useState(false);
-  const [data, setData] = useState([]);
   const [crearRendicion, setCrearRendicion] = useState({
     fecha: new Date().toLocaleDateString(),
     categoria: "",
@@ -47,7 +44,6 @@ export const CrearRendicion = () => {
   /****fin imagenn  */
 
   /**peticio get de forma de pago */
-  let getFpago = PeticionGET("/mpagos");
   /**fin peticion get forma de pago */
   const estilo = {
     xs: 24,
@@ -69,7 +65,6 @@ export const CrearRendicion = () => {
   }else{
     totalDeImporte=0
   }
-  const i = peticionGastoId?.importe
   const total = parseFloat(totalDeImporte) + parseFloat(importe)
 
 

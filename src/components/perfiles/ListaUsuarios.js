@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Col, Row, List, Avatar, Card, Tag } from "antd";
 import { axiosURL } from "../../config/axiosURL";
-import { Link } from "react-router-dom";
 import { Drawers } from "./Drawer";
 import "./css/listaUsuarios.css";
 export const ListaUsuarios = ({ lista }) => {
@@ -39,21 +38,7 @@ export const ListaUsuarios = ({ lista }) => {
   // console.log(DatosPersonales);
   const onClose = () => setVisible(false);
   /**Selecion de Colores para conectado*/
-  const SelecionColores = (conectado) => {
-    if (conectado === "SI") {
-      return (
-        <span style={{ color: "green" }}>
-          <b>Si</b>
-        </span>
-      );
-    } else {
-      return (
-        <span style={{ color: "red" }}>
-          <b>No</b>
-        </span>
-      );
-    }
-  };
+
 
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, {  useContext } from "react";
 import { Row, Col,Avatar, Drawer, Grid, Layout, Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { UserContext } from "../../context/UserContext";
@@ -21,7 +21,6 @@ const { useBreakpoint } = Grid;
 
 export const Sidebar = ({  alertas, setAlertas, getAlertas }) => {
   const navigate=useNavigate();
-  let [isOpen, setIsOpen] = useState(false);
   const abrirCerrarHamburguesa = () => setOpen(!open);
   const id = localStorage.getItem("uid");
   const datos = PeticionGET(`/${id}`);

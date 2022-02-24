@@ -13,7 +13,6 @@ import { HelperTABLEobj } from "../helpers/HelperTABLEobj";
 import { colGastosExcel } from "./columnas/columnasExcel/columnasGastosExcel";
 import { BiDownload } from "react-icons/bi";
 import { PeticionGET } from "../config/PeticionGET";
-import { SwitchComponet } from "../components/botones/Switch";
 export const AprobacionGastos = () => {
   const N = localStorage.getItem('N')
   const [state, setState] = useState(false)

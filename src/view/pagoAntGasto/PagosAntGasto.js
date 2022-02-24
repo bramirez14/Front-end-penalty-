@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Descriptions, Row, Switch, Table } from "antd";
+import { Col, Descriptions, Row, Switch } from "antd";
 import { axiosURL } from "../../config/axiosURL";
 import { conAnticipo906, enCurso, finalizar, sinAnticipo906 } from "./funciones";
 import { HelperMODAL } from "../../helpers/HelperMODAL";

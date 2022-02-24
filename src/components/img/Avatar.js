@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./avatar.css";
-import { AntDesignOutlined, CameraOutlined,  LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { PeticionJWT } from "../../auth/PeticionJWT";
+import { AntDesignOutlined, CameraOutlined,   } from '@ant-design/icons';
 import {axiosURL }from "../../config/axiosURL";
 
-import { Form,  Button, Modal, Avatar,Input,Radio  } from "antd";
+import { Form, Modal, Avatar  } from "antd";
 import { SubirImagen } from "./SubirImagen";
 
 
@@ -60,7 +59,7 @@ let res=await axiosURL.get(`/${id}`)
 }
 useEffect(() => {
   peticionDeUsuario()
-}, [])
+}, [peticionDeUsuario])
 
   const onCreate = async (values) => {
 

@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/cardRendiciones.css";
-import { Button, Card } from "antd";
+import { Button } from "antd";
 import {Link} from 'react-router-dom'
 import { List,  } from 'antd';
 import { axiosURL } from "../../config/axiosURL";

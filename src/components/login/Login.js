@@ -1,4 +1,4 @@
-import React, { useState,useContext,useRef,useEffect} from "react";
+import React, { useState,useContext} from "react";
 import { useNavigate } from "react-router";
 import "./login.css";
 import {axiosURL} from "../../config/axiosURL";
@@ -7,9 +7,6 @@ import { UserContext } from "../../context/UserContext";
 export const Login = ( ) => {
 const navigate=useNavigate();
 const {setAuth} = useContext(UserContext)
-  const tipo = localStorage.getItem('type')
-  const [cargandoUsuario, setCargandoUsuario] = useState(true)
-  const [token, setToken] = useState()
   const [errores, setErrores] = useState([]);
   const [msg, setMsg] = useState();
   const [user, setUser] = useState({

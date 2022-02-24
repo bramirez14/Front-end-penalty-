@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { axiosURL } from "../config/axiosURL";
 import { saveAs } from "file-saver";
-import { Card, Collapse, Button, Row, Col, Table, Switch } from "antd";
+import { Card,  Button, Row, Col, Table, Switch } from "antd";
 import { Modale } from "./helpers/Modale";
 import { BiDownload } from "react-icons/bi";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
@@ -99,8 +99,6 @@ export const RendicionKmVista = () => {
       key: "acciones",
       width: 100,
       render: (state, file) => {
-        const gtes = PeticionGET("/gerentes");
-        const gerente = gtes.filter((g) => g.id === file.usuario.gerenteId);
         const datosUsuario = PeticionGET(`/${id}`);
         const usuarios = PeticionGET("/allusers");
         const filtro906 = usuarios.filter((u) => u.nvendedor === "906");

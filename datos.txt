@@ -1,0 +1,41 @@
+Tecnologias utilizadas el back node y expres el patron de arquitectura es MVC 
+modelo, vista y controllador.
+Tambien se utilizo sequelize un ORM para la facil comunicacion con la Base de Datos con mysql.
+https://nodejs.org/es/
+https://expressjs.com/es/
+https://sequelize.org/
+
+para el front usamos React js con hooks y con redux para el manejo de rutas usamos react rauter y algo de socketio
+https://es.reactjs.org/
+https://es.redux.js.org/
+https://reactrouter.com/
+https://socket.io/
+
+Consola
+La consola de comando utilizada es git bash https://git-scm.com/downloads
+
+Base de datos utilizada: Mysql y SQL 
+
+Para almacenar las fotos utilizamos cloudinary  https://cloudinary.com/
+penalty.intranet@gmail.com
+Penc@m748
+
+gmail 
+penalty.intranet@gmail.com
+pencam748
+
+directo a los recursos: https://cloudinary.com/documentation/admin_api#update_details_of_an_existing_resource
+
+Para levantar el sistem ingresas a la carpeta  donde esta ubicado el proyecto en este caso 
+tenemos 2 carpetas el front-end  y el back-end 
+
+para el front-end vamos  correr en la consola de comando de  git bash  con npm start 
+para eñ back-end vamos a correr en la consola de comando de git bash con yarn start 
+
+Comunicacion entre el  front y el back 
+por medio de axios https://axios-http.com/es/docs/intro
+
+Para probar  la api usamos Postman
+
+
+

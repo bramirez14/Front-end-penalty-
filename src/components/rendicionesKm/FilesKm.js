@@ -1,6 +1,6 @@
 import React,{ useState,useContext} from 'react'
 import { Files } from '../../helpers/Files';
-import { Row, Col, Form, Input, DatePicker, Button, Modal } from "antd";
+import {  Form,  Button, Modal } from "antd";
 import { SocketContext } from "../../context/SocketContext";
 import { PeticionGET } from '../../config/PeticionGET';
 import { axiosURL } from '../../config/axiosURL';

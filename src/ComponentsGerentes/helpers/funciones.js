@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
 import { axiosURL } from "../../config/axiosURL";
 import { saveAs } from "file-saver";
-import { PeticionGET } from "../../config/PeticionGET";
 
 export const TodosGastos = (data) => {
-  const N = localStorage.getItem("N"); // numero de registro
+  const N = localStorage.getItem("N"); 
   const getGastos = data;
   const gastosSinAnt = getGastos.filter(
     (d) => d.sinAnticipo === "sin" && d.listo === "Si"
