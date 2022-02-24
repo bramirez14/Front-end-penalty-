@@ -90,7 +90,7 @@ export const AprobacionKm = () => {
  hoja={"Aprobaciones de Kilometros"}
     namefile={"Aprobaciones de Kilometros"}
  columns={columnasKm}
- data={state?filtrofinalizados.reverse():filtropendientes.reverse()}
+ data={state?filtrofinalizados:filtropendientes}
     paginas={true}
     expandible={true}
     bordered={false}

@@ -1,17 +1,14 @@
 import React, { useEffect, useState} from "react";
 import{ axiosURL} from "../../config/axiosURL";
 import { Form, Input, Button,  Select, Divider,Spin} from "antd";
-import "./css/editarRendicion.css";
-import "../solicitudes/css/anticipoGasto.css";
-import '../css/spin.css'
-
 import TextArea from "antd/lib/input/TextArea";
 import {PeticionGET} from "../../config/PeticionGET";
 import { categorias } from "./categorias";
-import { css } from "@emotion/react";
-import BeatLoader from "react-spinners/BeatLoader";
 import { Files } from "../../helpers/Files";
 import { useNavigate,useParams } from "react-router-dom";
+import "./css/editarRendicion.css";
+import "../solicitudes/css/anticipoGasto.css";
+import '../css/spin.css'
 
 export const CrearRendicion = () => {
   const navigate=useNavigate();

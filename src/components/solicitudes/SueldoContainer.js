@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Sueldo } from "./Sueldo";
-import Swal from "sweetalert2";
-import "./css/anticipoGasto.css";
+//import "./css/anticipoGasto.css";
 import { alerta } from "./helpers/funciones";
 import { SocketContext } from "../../context/SocketContext";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 export const SueldoContainer = ( ) => {
   const navigate = useNavigate();
@@ -59,8 +59,13 @@ export const SueldoContainer = ( ) => {
   }, []);
   const datosUsuario = PeticionGET(`/${id}`);
   console.log(datosUsuario);
-  const filtro = datosUsuario?.anticipo;
-  const APROBACION = filtro?.length===0? '':filtro?.[filtro?.length - 1]?.estadoFinal;// verifica si hay anticipos pendientes 
+  const filtro  = datosUsuario?.anticipo;
+  let APROBACION; 
+  if( filtro===undefined){
+    APROBACION= []
+  }else{
+    APROBACION = filtro?.length === 0? '':filtro?.[filtro?.length - 1]?.estadoFinal;// verifica si hay anticipos pendientes 
+  }
   console.log(APROBACION)
   //fx para guardar anticipo con axios en DB
   const guardarAnticipo = async (values) => {

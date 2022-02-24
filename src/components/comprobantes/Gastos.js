@@ -5,8 +5,7 @@ import {
   Avatar,
   Descriptions,
   Divider,
-  Typography,
-  Button
+  Typography 
 
 } from "antd";
 
@@ -15,29 +14,29 @@ import { numeroConComa } from "../../helpers/funcioneshelpers";
 import { PeticionGET } from "../config/PeticionGET";
 const { Title } = Typography;
 export const Gastos = () => {
-  let GET_gastos= PeticionGET('/gastos')
-
   const [gasto, setGasto] = useState([]);
   const [visible, setVisible] = useState(false);
   const showDrawer = (item) => {
     setGasto(item);
-    setVisible(true)
+    setVisible(true);
   };
   const onClose = () => setVisible(false);
-  console.log(GET_gastos);
+  const GET_gastos= PeticionGET('/gastos')
+  
   return (
     <>
       <List
+      header={<h2>Lista de Gastos</h2>}
         style={{ margin: "auto", width: 700, backgroundColor:'#ffff',borderRadius:20, }}
-        dataSource={GET_gastos?.reverse()}
+        dataSource={GET_gastos}
         bordered
         renderItem={(item) => (
           <List.Item
             key={item.id}
             actions={[
-              <Button type='link' onClick={() => showDrawer(item)} >
-                Rendiciones
-              </Button>,
+              <a onClick={() => showDrawer(item)} key={`a-${item.id}`}>
+                View Profile
+              </a>,
             ]}
           >
             <List.Item.Meta

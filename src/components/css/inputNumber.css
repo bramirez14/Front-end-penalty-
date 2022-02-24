@@ -1,0 +1,14 @@
+.ant-input-number {
+    border-color: none;
+    border-radius: 10px;
+  }
+  .ant-input-number:hover{
+    border-color: var(--color);
+
+  }
+  .ant-input-number:focus, .ant-input-number-focused {box-shadow: none;}
+  input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

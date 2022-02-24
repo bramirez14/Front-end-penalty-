@@ -1,7 +1,7 @@
 import React, { useState,useContext} from "react";
 import Swal from "sweetalert2";
 import { Form, Input, Button, Select, Col, Row, Divider  } from "antd";
-import "./css/anticipoGasto.css";
+//import "./css/anticipoGasto.css";
 import { axiosURL } from "../../config/axiosURL";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Titulo } from "../titulos/Titulo";
@@ -116,7 +116,7 @@ export const AnticipoGasto = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button className="btn" htmlType="submit" block>
+            <Button type="primary" htmlType="submit" block>
               Enviar
             </Button>
           </Form.Item>

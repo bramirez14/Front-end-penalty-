@@ -103,15 +103,6 @@ body::-webkit-scrollbar-track:active {
   margin:auto;
   border-radius: 10px;
 }
-@media (max-width: 768px){
-  .avatar {
-  
-    position: absolute;
-    bottom: 10px;
-    left: 142px;
-    ;
-  }
-}
 @media (max-width: 480px){
 .avatar{
    position: absolute;
@@ -119,6 +110,16 @@ body::-webkit-scrollbar-track:active {
     left: 68px;
     font-size: 16px;
 }
+@media (max-width: 768px){
+  .avatar {
+  
+    position: absolute;
+    bottom: 10px;
+    left: 142px;
+    
+  }
+}
+
 }
 @media (min-width: 1700px){
   .avatar {

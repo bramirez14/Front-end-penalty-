@@ -102,7 +102,7 @@ const modoRendicion=( modo) => {
       hoja={"Aprobaciones de Gastos"}
       namefile={"Aprobaciones de Gastos"}
       columns={columnasGastos}
-      data={state?filtrofinalizados.reverse():filtropendientes.reverse()}
+      data={state?filtrofinalizados:filtropendientes}
       expandible={true}
       boton={true}
       paginas={true}

@@ -24,7 +24,6 @@ export const sccReducer =(state=inicialState,action)=>{
                         data:action.payload
                     }
                     case types.editscc:
-                        console.log(action);
                         let busq =state.scc.map(
                             e => ( e.NROSCC ==action.payload.NROSCC) ? action.payload
                             : e 
@@ -35,11 +34,16 @@ export const sccReducer =(state=inicialState,action)=>{
                             response:action.payload
                         }
                         case types.status:
-                            console.log({...state.data,...action.payload});
                             return{
                                 ...state,
                                 data:{...state.data,...action.payload}
                             }
+                            case types.pasePedidos:
+                                return{
+                                    ...state,
+                                    response:{...state.data,...action.payload}
+                                }
+                             
         default:
             return state;
 

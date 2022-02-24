@@ -2,10 +2,10 @@ import React, { useState, useEffect,useContext } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Divider } from "antd";
 import { Titulo } from "../titulos/Titulo";
 import { axiosURL } from "../../config/axiosURL";
-import Swal from "sweetalert2";
 import { PeticionGET } from "../../config/PeticionGET";
 import { SocketContext } from "../../context/SocketContext";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 export const Vacaciones = () => {
   const navigate = useNavigate();
@@ -259,7 +259,7 @@ console.log(getUsuario);
                 )}
               </Col>
             </Row>
-            <Button className="btn" htmlType="submit" block>
+            <Button type="primary" htmlType="submit" block>
               Enviar
             </Button>
           </>

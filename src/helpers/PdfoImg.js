@@ -10,7 +10,6 @@ export const PdfoImg = ({file,style,width=100,height=100}) => {
     return 'No hay archivo'
   }else{
     const extension = file?.split('.');
- console.log(extension);
      const descargarPDF = async (pdf) => {
     let res = await axiosURL.get("/descarga/pdf", {
       headers: { archivo: pdf },

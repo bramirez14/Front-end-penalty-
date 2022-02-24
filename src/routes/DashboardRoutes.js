@@ -59,6 +59,10 @@ import { PagosKm } from "../view/PagosKm";
 import { useDispatch } from "react-redux";
 import { Result, Button } from "antd";
 import { NotFound } from "./NotFound";
+import { Buscador } from "../layout/Buscador";
+import { Selector } from "../layout/Selector";
+import { Prueba } from "../components/pruebas/Prueba";
+import { PasePedidos } from "../components/pedidos/PasePedidos";
 
 export const DashboardRoutes = ({ history }) => {
   const navigate = useNavigate();
@@ -92,14 +96,24 @@ export const DashboardRoutes = ({ history }) => {
         {}
         <Routes>
 
-         <Route
+       { tipo!=='Gerente'?
+       <Route path="" element={<NotFound/>}/>
+       : 
+       <>
+       
+       <Route
             path="/aprobacion/sueldo"
-            element={tipo!=='Gerente'?<NotFound/>: <AprobacionAntcipoSueldo />}
+            element={ <AprobacionAntcipoSueldo />}
           />
           <Route
             path="/aprobacion/vacaciones"
-            element={tipo!=='Gerente'?<NotFound/>:<AprobacionVacaciones />}
+            element={<AprobacionVacaciones />}
           />
+          <Route
+            path="/pruebas"
+            element={<Prueba />}
+          />
+          </>}
           <Route path="/aprobacion/gastos" element={tipo!=='Gerente'?<NotFound/>:<AprobacionGastos />} />
           <Route path="/aprobacion/km" element={tipo!=='Gerente'?<NotFound/>:<AprobacionKm />} />
           <Route path="/verificaciones" element={tipo!=='Gerente'?<NotFound/>:<Verificacion />} />
@@ -109,7 +123,7 @@ export const DashboardRoutes = ({ history }) => {
           {/** Calendario */}
           <Route path="/calendario" element={tipo!=='Gerente'?<NotFound/>:<Calendario />} />
           {/** SCC */}
-          <Route path="/aprobacion/scc" element={tipo!=='Gerente'?<NotFound/>:<AprobacionSCC />} />
+          <Route path="/aprobacion/scc" element={<AprobacionSCC />} />
           {/** Km */}
         
           <Route path="/precio/km" element={tipo!=='Gerente'?<NotFound/>:<PrecioKM />} />
@@ -195,6 +209,7 @@ export const DashboardRoutes = ({ history }) => {
             path="/comprobantes/tarjeta-credito"
             element={<TarjetaCreditoComp />}
           />
+
           <Route
             path="*"
             element={
@@ -210,7 +225,10 @@ export const DashboardRoutes = ({ history }) => {
               />
             }
           />
+        <Route path="/pase/pedidos" element={<PasePedidos />} />
         </Routes>
+
+
       </div>
     </>
   );

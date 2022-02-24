@@ -13,7 +13,6 @@ import {
 } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { AiOutlineDelete } from "react-icons/ai";
-import "./mensajes.css";
 import { run } from "../helper/funciones";
 import {Link} from "react-router-dom";
 import { axiosURL } from "../../config/axiosURL";
@@ -96,7 +95,7 @@ const Listareverse= filtroEmail.reverse();
                   <List.Item.Meta
                     onClick={()=>handleCard(item.id)}
                     className='item-meta'
-                    avatar={<Avatar src={item.usuario?.imagen} />}
+                    avatar={<Avatar src={item.usuario.imagen} />}
                     title={<Link style={{color:'#7D7D7D'}} to={item.path} >{item.estado==='activa'? <b style={{color:'#000000'}} >{item.info}</b> : item.info}</Link>}
                     description={
                       <Link to={item.path}>

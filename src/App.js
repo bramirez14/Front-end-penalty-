@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import "react-pro-sidebar/dist/css/styles.css";
-import "antd/dist/antd.css";
-import "./App.css";
+import "./App.less";
 
 import { RoutesCompenent } from "./routes/Routes";
 import { UserContext } from "./context/UserContext";

@@ -243,7 +243,7 @@ export const PagosAntSueldo = () => {
       </Row>
       <HelperTABLEobj
         data={
-          state ? filtroPagoRealizado.reverse() : filtroPagoIncompleto.reverse()
+          state ? filtroPagoRealizado : filtroPagoIncompleto
         }
         columns={columns}
         expandible={true}

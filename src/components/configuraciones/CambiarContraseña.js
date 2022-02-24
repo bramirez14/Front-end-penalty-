@@ -4,7 +4,6 @@ import { axiosURL } from '../../config/axiosURL';
 import { logout } from '../../auth/localStorage';
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
-import './config.css'
 
 export const CambiarContraseña = () => {
     const id = localStorage.getItem('uid')

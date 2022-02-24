@@ -1,0 +1,18 @@
+.ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button {
+background:var(--color);
+border-color: var(--color);
+
+}
+.ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 0 10px 10px 0;
+}
+.ant-input-search .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-color: var(--color);
+}
+.ant-input-affix-wrapper:focus, .ant-input-affix-wrapper-focused{
+    box-shadow: none;
+}

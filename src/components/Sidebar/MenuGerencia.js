@@ -140,32 +140,35 @@ export const MenuGerencia = ({ open, setOpen }) => {
       </SubMenu>
 
       <SubMenu key="sub11" title="Cobranzas" icon={<ReconciliationOutlined />}>
-        <Menu.Item key="27">
-          <Link to="/recibo"> Recibo provisorio </Link>
+      <Menu.Item key="27">
+          <Link to="/aprobacion/scc"> Aprob SCC </Link>
         </Menu.Item>
         <Menu.Item key="28">
+          <Link to="/recibo"> Recibo provisorio </Link>
+        </Menu.Item>
+        <Menu.Item key="29">
           <Link to="/lista/recibo"> Recibo </Link>
         </Menu.Item>
       </SubMenu>
 
       <SubMenu key="sub12" title="orden de pago" icon={ <AccountBookOutlined />}>
     
-        <Menu.Item key="29">
+        <Menu.Item key="30">
           <Link to="/vista/rendicion/gasto"> gastos </Link>
         </Menu.Item>
-        <Menu.Item key="30">
+        <Menu.Item key="31">
           <Link to="/vista/rendicion/km"> km</Link>
         </Menu.Item>
       </SubMenu>
 
       <SubMenu key="sub13" title="pago" icon={<PayCircleOutlined />}>
-      <Menu.Item key="31">
+      <Menu.Item key="32">
           <Link to="/pagos/anticipo"> sueldos </Link>
         </Menu.Item>
-        <Menu.Item key="32">
+        <Menu.Item key="33">
           <Link to="/pagos/gasto"> gastos </Link>
         </Menu.Item>
-        <Menu.Item key="33">
+        <Menu.Item key="34">
           <Link to="/pagos/km"> km</Link>
         </Menu.Item>
       </SubMenu>

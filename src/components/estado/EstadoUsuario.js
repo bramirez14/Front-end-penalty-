@@ -48,7 +48,7 @@ export const EstadoUsuario = () => {
   }, []);
 
   const { peticiones_GET } = useSelector((state) => state);
-  const usuario = peticiones_GET.usuario;
+  const usuario = peticiones_GET?.usuario;
 
   const style = {
     height: 40,
@@ -64,10 +64,10 @@ export const EstadoUsuario = () => {
   return (
     <>
       <Row gutter={[20, 20]}>
-        <Col xs={24} sm={24} md={24} lg={8} xl={6}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={8}>
           <AvatarImg />
         </Col>
-        <Col xs={24} sm={24} md={24} lg={16} xl={18}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={14}>
           <DescripcionUsuario />
         </Col>
       </Row>

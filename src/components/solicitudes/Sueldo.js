@@ -54,7 +54,7 @@ APROBACION===undefined?
               </Form.Item>
 
               <Form.Item>
-                <Button className="btn" htmlType="submit" block>
+                <Button type="primary" htmlType="submit" block>
                   Enviar
                 </Button>
               </Form.Item>
@@ -63,8 +63,6 @@ APROBACION===undefined?
       </Row>
       )}
     </Form>
-
-
 
     }</>
     

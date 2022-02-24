@@ -9,14 +9,14 @@ import { PeticionGET } from "../config/PeticionGET";
 import { useNavigate } from "react-router";
 
 export const RendicionKmVista = () => {
-  const navigate= useNavigate();
-  const [state, setState] = useState(false)
-  const id= localStorage.getItem('uid')
+  const navigate = useNavigate();
+  const [state, setState] = useState(false);
+  const id = localStorage.getItem("uid");
   const N = localStorage.getItem("N");
   const tipo = localStorage.getItem("type");
   const [km, setKm] = useState([]);
   /**evitar que usuari 905 ingresen a la ruta */
-  (N !== "905" && tipo!=='Gerente') && navigate("/perfil");
+  N !== "905" && tipo !== "Gerente" && navigate("/perfil");
   const get = async () => {
     const { data } = await axiosURL.get("/todos/kilometros");
     setKm(data);
@@ -99,38 +99,38 @@ export const RendicionKmVista = () => {
       key: "acciones",
       width: 100,
       render: (state, file) => {
-        const gtes= PeticionGET("/gerentes")
-        const gerente=gtes.filter( g=> g.id === file.usuario.gerenteId)
-        const datosUsuario= PeticionGET(`/${id}`)
-        const usuarios=PeticionGET('/allusers')
-        const filtro906= usuarios.filter(u=> u.nvendedor ==='906')
-      const obj={
-        alerta:'Se cargo el numero de orden y pdf proveedores',
-        info:'Tenes un aprobacion de gasto',
-        f: new Date().toLocaleString(),
-        nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
-        estado:'activa',
-        path:'/pagos/km',
-        emisor:datosUsuario.email,          
-        usuarioId:id,
-      }
-        
-        return(
-        <>
-          {file.procesoFinalizado === "Si" ? (
-            <h5 y>Completado</h5>
-          ) : (
-            <Modale
-              newobj={obj}
-              archivo={file}
-              get={get}
-              url={"/km/pdf"}
-              filtro906={filtro906}
-            />
-          )}
-        </>
-      );
-    }
+        const gtes = PeticionGET("/gerentes");
+        const gerente = gtes.filter((g) => g.id === file.usuario.gerenteId);
+        const datosUsuario = PeticionGET(`/${id}`);
+        const usuarios = PeticionGET("/allusers");
+        const filtro906 = usuarios.filter((u) => u.nvendedor === "906");
+        const obj = {
+          alerta: "Se cargo el numero de orden y pdf proveedores",
+          info: "Tenes un aprobacion de gasto",
+          f: new Date().toLocaleString(),
+          nombre: `${datosUsuario.nombre} ${datosUsuario.apellido}`,
+          estado: "activa",
+          path: "/pagos/km",
+          emisor: datosUsuario.email,
+          usuarioId: id,
+        };
+
+        return (
+          <>
+            {file.procesoFinalizado === "Si" ? (
+              <h5 y>Completado</h5>
+            ) : (
+              <Modale
+                newobj={obj}
+                archivo={file}
+                get={get}
+                url={"/km/pdf"}
+                filtro906={filtro906}
+              />
+            )}
+          </>
+        );
+      },
     },
   ];
   const datos = filtroListo?.map((f) => {
@@ -178,14 +178,23 @@ export const RendicionKmVista = () => {
       ),
     };
   });
-  const filterProcesoFinalizado= datos.filter(d=>d.procesoFinalizado === 'Si');
-  const filterIncompletos=datos.filter(d=>d.procesoFinalizado !== 'Si');
+  const filterProcesoFinalizado = datos.filter(
+    (d) => d.procesoFinalizado === "Si"
+  );
+  const filterIncompletos = datos.filter((d) => d.procesoFinalizado !== "Si");
   return (
     <>
-    <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
-      <Switch checkedChildren="Pendientes" unCheckedChildren="Finalizados" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}} />
-    </Col>
-    </Row>
+      <Row style={{ marginTop: 20, marginBottom: 20 }}>
+        <Col span={24}>
+          <Switch
+            checkedChildren="Pendientes"
+            unCheckedChildren="Finalizados"
+            defaultChecked
+            onChange={() => setState(!state)}
+            style={{ marginRight: 10 }}
+          />
+        </Col>
+      </Row>
       <Table
         columns={columns}
         expandable={{
@@ -193,8 +202,7 @@ export const RendicionKmVista = () => {
             <p style={{ margin: 0 }}>{record.description}</p>
           ),
         }}
-        dataSource={state? filterProcesoFinalizado.reverse():filterIncompletos.reverse()}
-
+        dataSource={state ? filterProcesoFinalizado : filterIncompletos}
       />
     </>
   );

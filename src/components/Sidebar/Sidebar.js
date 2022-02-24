@@ -37,7 +37,6 @@ export const Sidebar = ({  alertas, setAlertas, getAlertas }) => {
     navigate("/login");
     setOpen(false);
   };
-
   const onClose = () => setOpen(!open);
   const screens = useBreakpoint();
   return (

@@ -1,88 +1,101 @@
-import React, { useState } from 'react';
-import { Table, Radio, Divider } from 'antd';
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-  },
-];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-  },
-  {
-    key: '4',
-    name: 'Disabled User',
-    age: 99,
-    address: 'Sidney No. 1 Lake Park',
-  },
-]; // rowSelection object indicates the need for row selection
-
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
-  getCheckboxProps: (record) => ({
-    disabled: record.name === 'Disabled User',
-    // Column configuration not to be checked
-    name: record.name,
-  }),
-  columnTitle:()=>(<h1>hi mund</h1>),
-
-};
-const rowSelection2 = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
-  getCheckboxProps: (record) => ({
-    disabled: record.name === 'Disabled User',
-    // Column configuration not to be checked
-    name: record.name,
-  }),
-
-};
+import axios, { CancelToken, isCancel } from "axios";
+//import { ProgressBar } from "react-bootstrap";
+import { Progress } from 'antd';
+import { useState,useRef } from "react";
 export const Demo = () => {
-  const [selectionType, setSelectionType] = useState('checkbox');
-  return (
-    <div>
-    
+    const [uploadPercentage, setUploadPercentage] = useState(0);
+    const cancelFileUpload = useRef(null);
 
-      <Divider />
+    const uploadFile = ({ target: { files } }) => {
+        let data = new FormData();
+        data.append("file", files[0]);
 
-      <Table
-        rowSelection={{
-          ...rowSelection,
-          rowSelection2,
+        const options = {
+            onUploadProgress: progressEvent => {
+                const { loaded, total } = progressEvent;
 
+                let percent = Math.floor((loaded * 100) / total);
 
-        }}
-        columns={columns}
-        dataSource={data}
-      />
-    </div>
-  );
+                if (percent < 100) {
+                    setUploadPercentage(percent);
+                }
+            },
+            cancelToken: new CancelToken(
+                cancel => (cancelFileUpload.current = cancel)
+            )
+        };
+
+        axios
+            .post(
+                "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+                data,
+                options
+            )
+            .then(res => {
+                console.log(res,'soy res');
+                setUploadPercentage(100);
+
+                setTimeout(() => {
+                    setUploadPercentage(0);
+                }, 1000);
+            })
+            .catch(err => {
+                console.log(err);
+
+                if (isCancel(err)) {
+                    alert(err.message);
+                }
+                setUploadPercentage(0);
+            });
+    };
+
+    const cancelUpload = () => {
+        if (cancelFileUpload.current)
+            cancelFileUpload.current("User has canceled the file upload.");
+    };
+console.log(uploadPercentage);
+    return (
+        <>
+
+         
+
+            <div className="row justify-content-center bg-light">
+                <div className="col-md-6 text-center">
+                    <h2>Upload your profile picture</h2>
+
+                    <p>
+                        You can upload a sample file to see the progress bar
+                        with cancel file upload button
+                    </p>
+                    <p>
+                        <input
+                            type="file"
+                            className="form-control-file"
+                            onChange={uploadFile}
+                        />
+                    </p>
+                    {uploadPercentage > 0 && (
+                        <div className="row mt-3">
+                            <div className="col pt-1">
+                                {/* <ProgressBar
+                                    now={uploadPercentage}
+                                    striped={true}
+                                    label={`${uploadPercentage}%`}
+                                /> */}
+                                 <Progress percent={uploadPercentage} />
+                            </div>
+                            <div className="col-auto">
+                                <span
+                                    className="text-primary cursor-pointer"
+                                    onClick={() => cancelUpload()}
+                                >
+                                    Cancel
+                                </span>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </>
+    );
 };
