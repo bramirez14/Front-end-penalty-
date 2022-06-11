@@ -11,6 +11,7 @@ import { run } from "../helper/funciones";
 import { PeticionGET } from "../../config/PeticionGET";
 import { Link } from "react-router-dom";
 import { axiosURL } from "../../config/axiosURL";
+import './mensajes.css'
 
 export const MensajesGerencia = ( ) => {
 

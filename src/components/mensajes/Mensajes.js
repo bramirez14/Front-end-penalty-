@@ -16,6 +16,7 @@ import { run } from "../helper/funciones";
 import {Link} from "react-router-dom";
 import { PeticionGET } from "../../config/PeticionGET";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import './mensajes.css'
 
 export const Mensajes = ({socket,alertas}) => {
 const id = localStorage.getItem('uid');

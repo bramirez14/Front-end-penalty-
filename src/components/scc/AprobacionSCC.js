@@ -1,10 +1,7 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-import "../css/inputNumber.css";
-import './css/aprob.css'
-import '../css/boton.css'
+
 import {
   Button,
   Modal,
@@ -314,9 +311,7 @@ const [datosExcel, setDatosExcel] = useState([] );
     (state) => state
   );
   const todasLasSolicitudes = solicitudControlCalidad.scc;
-
-  const todasLasSolicitudesOrdenadas  =  todasLasSolicitudes?.sort((a,b) => {
-    
+  const todasLasSolicitudesOrdenadas  =  todasLasSolicitudes.sort((a,b) => {
 if(b.FECEMISION < a.FECEMISION) return -1
 if (b.FECEMISION < a.FECEMISION)  return 1 
 return 0
@@ -461,8 +456,7 @@ if(buscandoNroSCC.CANTPED <= total){
       }
       <Table
         title={() => (
-
-          <Button className='botonII' onClick={() => paseAPedidos()}>PASE A PEDIDOS</Button>
+          <Button onClick={() => paseAPedidos()}>PASE A PEDIDOS</Button>
         )}
         size="small"
         bordered
