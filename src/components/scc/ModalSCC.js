@@ -2,15 +2,19 @@ import React from "react";
 import {
     Row,
     Col,
+    Table,
+    Button,
     Modal,
     Form,
     Input,
     Radio,
+    Checkbox,
   } from "antd";
-  import { InputNumber } from 'antd';
 const { TextArea } = Input;
 
 export const ModalSCC = ({ visible, onCreate, onCancel }) => {
+  //const [modal, setModal] = useState(false);
+  
  
     const [form] = Form.useForm();
     return (
@@ -41,7 +45,7 @@ export const ModalSCC = ({ visible, onCreate, onCancel }) => {
         >
           <Row gutter={[20, 20]}>
             <Form.Item name="title" label="S.C.C Nro">
-              <Input  />
+              <Input />
             </Form.Item>
             <Form.Item name="description" label="Cliente">
               <Input type="text" />
@@ -65,7 +69,7 @@ export const ModalSCC = ({ visible, onCreate, onCancel }) => {
             </Col>
             <Col span={3}>
               <Form.Item name="title" label="TU">
-                <Input  />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={3}>
@@ -98,7 +102,6 @@ export const ModalSCC = ({ visible, onCreate, onCancel }) => {
                 <Input />
               </Form.Item>
             </Col>
-          
             <Col span={3}>
               <Form.Item name="m" label="M">
                 <Input />
@@ -139,13 +142,12 @@ export const ModalSCC = ({ visible, onCreate, onCancel }) => {
                 <Input />
               </Form.Item>
             </Col>
-          {/*   <Col span={4}>
+            <Col span={4}>
               <Form.Item name="total" label="Total">
                 <Input />
               </Form.Item>
-            </Col> */}
+            </Col>
           </Row>
-          <p>hi word</p>
         </Form>
       </Modal>
     );

@@ -5,6 +5,8 @@ import { FaBullhorn } from "react-icons/fa";
 import { run } from '../helper/funciones';
 import { PeticionGET } from '../../config/PeticionGET';
 import { Link } from 'react-router-dom';
+import './mensajes.css'
+
 
 export const Mensajes906 = () => {
     const pagosueldo= PagoAntSueldo();

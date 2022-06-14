@@ -1,7 +1,49 @@
 import { Table } from 'antd';
 import { useState,useEffect } from 'react';
 import { axiosURL } from '../../config/axiosURL';
-
+const columns = [
+  {
+    title: 'Vendedor',
+    dataIndex: 'VENDEDOR',
+    filters: [
+      {
+        text: 'Joe',
+        value: 'Joe',
+      },
+      {
+        text: 'Jim',
+        value: 'Jim',
+      },
+      
+    ],
+    // specify the condition of filtering result
+    // here is that finding the name started with `value`
+    onFilter: (value, record) => record.name.indexOf(value) === 0,
+    /* sorter: (a, b) => a.name.length - b.name.length,
+    sortDirections: ['descend'], */
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.age - b.age,
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    filters: [
+      {
+        text: 'London',
+        value: 'London',
+      },
+      {
+        text: 'New York',
+        value: 'New York',
+      },
+    ],
+    onFilter: (value, record) => record.address.indexOf(value) === 0,
+  },
+];
 const data = [
     {
       key: '1',
