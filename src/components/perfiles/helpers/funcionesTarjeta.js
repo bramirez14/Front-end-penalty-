@@ -51,6 +51,7 @@ export const PagoAntSueldo=()=>{
   }
   export const PagosKm =()=> {
     const get=PeticionGET('/todos/kilometros');
+    console.log(get);
     const filtroAprobacion= get.filter(q=> q.estadoFinal==='aprobado' && q.procesoFinalizado==='Si');
     const getTotalMuestra = filtroAprobacion.filter(d=>d.procesoPagar!=='Si');
     return(

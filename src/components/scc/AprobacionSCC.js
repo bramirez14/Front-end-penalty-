@@ -29,8 +29,8 @@ import {
   pasePedidos,
   todosLosClientes,
 } from "../../redux/actions/scc";
-import { ColumnaSCC } from "./columnas/ColumnaSCC";
 import { SccExcel } from "./excel/SccExcel";
+import { ColumnaSCC } from "./columnas/columnaSCC";
 const { TextArea } = Input;
 
 const CollectionCreateForm = ({
@@ -424,7 +424,6 @@ if(buscandoNroSCC.CANTPED <= total){
     }
   };
   useEffect(() => {todosExcel()},[todasLasSolicitudes])
-  console.log(datoSelect);
   return (
     <div>
       <CollectionCreateForm
