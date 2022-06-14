@@ -104,7 +104,6 @@ export const DashboardRoutes = ({ history }) => {
             path="/aprobacion/vacaciones"
             element={<AprobacionVacaciones />}
           />
-         
           </>}
           <Route path="/aprobacion/gastos" element={tipo!=='Gerente'?<NotFound/>:<AprobacionGastos />} />
           <Route path="/aprobacion/km" element={tipo!=='Gerente'?<NotFound/>:<AprobacionKm />} />

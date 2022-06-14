@@ -99,6 +99,7 @@ export const RendicionKmVista = () => {
       key: "acciones",
       width: 100,
       render: (state, file) => {
+
         const datosUsuario = PeticionGET(`/${id}`);
         const usuarios = PeticionGET("/allusers");
         const filtro906 = usuarios.filter((u) => u.nvendedor === "906");

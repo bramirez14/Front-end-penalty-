@@ -3,6 +3,7 @@ import { Row, Col,List } from "antd";
 import { FaBullhorn } from "react-icons/fa";
 import { run } from '../helper/funciones';
 import { PeticionGET } from '../../config/PeticionGET';
+import './mensajes.css'
 
 export const Mensajes0000 = () => {
     /**Sector respuesta */
