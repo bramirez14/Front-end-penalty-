@@ -4,9 +4,9 @@ import { axiosURL } from "../../config/axiosURL";
 export const sinAnticipo906 = (array) => {
   const anticipo = array.filter(
     (c) =>
-      c.sinAnticipo === "sin" &&
-      c.listo === "Si" &&
-      c.estadoFinal === "aprobado"
+      c.sinAnticipo == "sin" &&
+      c.listo == "Si" &&
+      c.estado == "aprobado"
   );
   const anticipoFinalizado905 = anticipo.filter(
     (c) => c.procesoFinalizado === "Si"

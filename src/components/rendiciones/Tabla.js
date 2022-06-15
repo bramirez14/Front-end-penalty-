@@ -79,8 +79,6 @@ export const Tabla = ({ usuario, setUsuario }) => {
       width: 100,
 
       render: (f, fila) => {
-        console.log(fila.estado);
-
         return (
           <>
             {fila.estado==='rechazado'?'rechazado':
@@ -105,7 +103,6 @@ export const Tabla = ({ usuario, setUsuario }) => {
   const filasFiltradas = filtradoUsuariosConMediosDePago?.filter(
     (f) => f.estadoFinal === "aprobado" || f.sinAnticipo === "sin"
   );
-  console.log(filasFiltradas);
   const filas = filasFiltradas?.map((f, i) => {
     return {
       ...f,

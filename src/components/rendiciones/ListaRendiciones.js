@@ -68,7 +68,7 @@ export const ListaRendiciones = () => {
 
   const listo = async ()=>{
     const obj={
-       alerta: 'Rendiciones finalizadas',
+    alerta: 'Rendiciones finalizadas',
     info:'Tenes una operacion de  Gasto ',
     nombre:`${datosUsuario.nombre} ${datosUsuario.apellido}`,
     usuarioId:uid,
@@ -88,7 +88,8 @@ export const ListaRendiciones = () => {
       socket.emit('alerta-nueva',obj)
 
     }
-      let res=await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si'});
+      let res = await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si',procesoFinalizado:'Si'});
+      console.log(res);
       res.status===200&& navigate('/gastos')
   };
   return (

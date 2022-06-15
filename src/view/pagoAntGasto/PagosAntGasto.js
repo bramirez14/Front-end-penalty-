@@ -143,9 +143,9 @@ const formaDepago = PeticionGET("/mpagos");
     
     }
   })
+  console.log(datos);
   const filtroPagoRealizado = datos.filter(d=>d.pagoRealizado==='Si')
   const filtroPagoIncompleto = datos.filter(d=>d.pagoRealizado !=='Si')
-console.log(filtroPagoIncompleto)
   return (
     <>
       <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
