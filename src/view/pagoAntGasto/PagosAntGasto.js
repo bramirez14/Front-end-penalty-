@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Col, Descriptions, Row, Switch } from "antd";
+import {
+  Col,
+  Descriptions,
+  Row,
+  Switch,
+  Button,
+  Modal,
+  Divider,
+  Form,
+} from "antd";
 import { axiosURL } from "../../config/axiosURL";
-import { conAnticipo906, enCurso, finalizar, sinAnticipo906 } from "./funciones";
+import {
+  conAnticipo906,
+  enCurso,
+  finalizar,
+  sinAnticipo906,
+} from "./funciones";
 import { HelperMODAL } from "../../helpers/HelperMODAL";
 import { FormularioSinAnt } from "./FormularioSinAnt";
 import { FormularioConAnt } from "./FormularioConAnt";
@@ -10,13 +24,15 @@ import { columnsant } from "./columnasAntPago";
 import { PeticionGET } from "../../config/PeticionGET";
 import { numberWithCommas } from "../../components/reportes/helpers/funciones";
 import { HelperTABLEobj } from "../../helpers/HelperTABLEobj";
-
+import { BiEdit } from "react-icons/bi";
+import { Files } from "../../helpers/Files";
+import { FormModal } from "../../layout/FormModal";
 export const PagosAntGasto = () => {
   const [state, setState] = useState(false);
   const [dataGasto, setDataGasto] = useState([]);
-  const [stateFile, setStateFile] = useState('');
-  const [stateFilefinal, setStateFilefinal] = useState('');
- 
+  const [stateFile, setStateFile] = useState("");
+  const [stateFilefinal, setStateFilefinal] = useState("");
+  const [form] = Form.useForm();
   const getGastos = async () => {
     const { data } = await axiosURL.get("/gastos");
     setDataGasto(data);
@@ -27,18 +43,19 @@ export const PagosAntGasto = () => {
   const sinAnticipo = sinAnticipo906(dataGasto);
   const conAnticipo = conAnticipo906(dataGasto);
   const anticipoTotal = [...sinAnticipo, ...conAnticipo];
+
   const columns = [
-   ...columnsant,
+    ...columnsant,
     {
       title: "Acciones",
       key: "acciones",
-      width:120,
+      width: 120,
 
       render: (state, file) => (
         <>
           {file.pagoRealizado === "Si" ? (
             <h5>Realizado</h5>
-          ) : file.pagoRealizado === "En curso" && file.listo!=='Si' ? (
+          ) : file.pagoRealizado === "En curso" && file.listo !== "Si" ? (
             <h5> En curso...</h5>
           ) : (
             <>
@@ -48,27 +65,43 @@ export const PagosAntGasto = () => {
                   title={"Rendicion sin Anticipo"}
                   Submit={"Finalizar"}
                   Return={"Salir"}
-                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile,stateFilefinal,setStateFilefinal)}
+                  click={() =>
+                    finalizar(
+                      file.id,
+                      getGastos,
+                      stateFile,
+                      setStateFile,
+                      stateFilefinal,
+                      setStateFilefinal
+                    )
+                  }
                   noclick={() => {}}
                 >
                   <FormularioSinAnt
-                  stateFile={stateFile}
-                  setStateFile={setStateFile}
-                   stateFilefinal={stateFilefinal}
+                    stateFile={stateFile}
+                    setStateFile={setStateFile}
+                    stateFilefinal={stateFilefinal}
                     setStateFilefinal={setStateFilefinal}
                     orden={file.norden}
                     importeRendido={file.importerendido}
                   />
                 </HelperMODAL>
-
-
               ) : file.listo === "Si" ? (
                 <HelperMODAL
                   boton={"Completar"}
                   title={"Rendicion sin Anticipo"}
                   Submit={"Finalizar"}
                   Return={"Salir"}
-                  click={() => finalizar(file.id,getGastos,stateFile,setStateFile,stateFilefinal,setStateFilefinal)}
+                  click={() =>
+                    finalizar(
+                      file.id,
+                      getGastos,
+                      stateFile,
+                      setStateFile,
+                      stateFilefinal,
+                      setStateFilefinal
+                    )
+                  }
                   noclick={() => {}}
                 >
                   <FormularioConAnt
@@ -81,14 +114,12 @@ export const PagosAntGasto = () => {
                     importe={file.importe}
                   />
                 </HelperMODAL>
-
-
               ) : (
                 <HelperMODAL
                   boton={"Completar"}
                   Submit={"Pagado"}
                   Return={"Salir"}
-                  click={() => enCurso(file.id,getGastos)}
+                  click={() => enCurso(file.id, getGastos)}
                   noclick={() => {}}
                 >
                   <FormularioConAntPago
@@ -102,65 +133,109 @@ export const PagosAntGasto = () => {
         </>
       ),
     },
+    {
+      key: "editar",
+      render: (state, file) => {
+        return (
+          <FormModal btnModal={<BiEdit style={{fontSize: 18}} />} >
+          <Divider orientation="left" plain>
+            PDF Proveedores
+          </Divider>
+          <Files />
+          <Divider orientation="left" plain>
+            PDF Pagos
+          </Divider>
+          <Files name="file2" />
+          <Divider orientation="left" plain>
+            PDF Orden de pago final
+          </Divider>
+          <Files name="file3" />
+        </FormModal>
+
+
+          
+        );
+      },
+    },
   ];
-const formaDepago = PeticionGET("/mpagos");
-  const formaPago= (idpago) => {
-    const op= formaDepago.find(
-              (f) => f.id === idpago
-            );
-      return op?.pago
-            
+  const formaDepago = PeticionGET("/mpagos");
+  const formaPago = (idpago) => {
+    const op = formaDepago.find((f) => f.id === idpago);
+    return op?.pago;
+  };
+  const modoRendicion = (modo) => {
+    if (modo === "sin") {
+      return "Sin Anticipo";
+    } else {
+      return "Con Anticipo";
     }
-    const modoRendicion=( modo) => {
-     if(modo==='sin'){
-       return 'Sin Anticipo'
-     }else{
-       return 'Con Anticipo'
-     }
-       
-    }
-    const importeSolicitado = ( obj) => (
-      <>
-    {obj.sinAnticipo === "sin" ? 
-     <span style={{color:'orange'}}>Sin importe</span>
-   :
-      <span>${numberWithCommas( obj.importe)}</span>
-    }
+  };
+  const importeSolicitado = (obj) => (
+    <>
+      {obj.sinAnticipo === "sin" ? (
+        <span style={{ color: "orange" }}>Sin importe</span>
+      ) : (
+        <span>${numberWithCommas(obj.importe)}</span>
+      )}
     </>
-  )
+  );
   const datos = anticipoTotal?.map((f) => {
     return {
       ...f,
       key: f.id,
       nombre: f.usuario.nombre,
       apellido: f.usuario.apellido,
-      description: (  <Descriptions title={`Info ${f.id}`} style={{border:' solid 2px #ddd', padding:20}}>
-      <Descriptions.Item label="Fecha"><b>{f.fecha}</b></Descriptions.Item>
-      <Descriptions.Item label="Forma de pago"><b>{formaPago(f.formapagoId)}</b></Descriptions.Item>
-      <Descriptions.Item label="Rendicion"><b>{modoRendicion(f.sinAnticipo)}</b></Descriptions.Item>
-      <Descriptions.Item label="Importe"><b>{importeSolicitado(f)}</b></Descriptions.Item>
-      </Descriptions>)
-    
-    }
-  })
-  console.log(datos);
-  const filtroPagoRealizado = datos.filter(d=>d.pagoRealizado==='Si')
-  const filtroPagoIncompleto = datos.filter(d=>d.pagoRealizado !=='Si')
+      description: (
+        <Descriptions
+          title={`Info ${f.id}`}
+          style={{ border: " solid 2px #ddd", padding: 20 }}
+        >
+          <Descriptions.Item label="Fecha">
+            <b>{f.fecha}</b>
+          </Descriptions.Item>
+          <Descriptions.Item label="Forma de pago">
+            <b>{formaPago(f.formapagoId)}</b>
+          </Descriptions.Item>
+          <Descriptions.Item label="Rendicion">
+            <b>{modoRendicion(f.sinAnticipo)}</b>
+          </Descriptions.Item>
+          <Descriptions.Item label="Importe">
+            <b>{importeSolicitado(f)}</b>
+          </Descriptions.Item>
+        </Descriptions>
+      ),
+    };
+  });
+  const filtroPagoRealizado = datos.filter((d) => d.pagoRealizado === "Si");
+  const filtroPagoIncompleto = datos.filter((d) => d.pagoRealizado !== "Si");
+  const onFinish = (values) => {
+    console.log("Received values of form: ", values);
+  };
   return (
     <>
-      <Row style={{marginTop:20,marginBottom:20}}><Col span={24}>
-      <Switch checkedChildren="Pendientes" unCheckedChildren="Finalizados" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}} />
-    </Col>
-    </Row>
-    <HelperTABLEobj
-     columns={columns}
-     data={state?filtroPagoRealizado.reverse():filtroPagoIncompleto.reverse()}
-     pagination={false}
-     y={500}
-     expandible={true}
+      <h1>holaa </h1>
+     
 
-    />
-  
+      <Row style={{ marginTop: 20, marginBottom: 20 }}>
+        <Col span={24}>
+          <Switch
+            checkedChildren="Pendientes"
+            unCheckedChildren="Finalizados"
+            defaultChecked
+            onChange={() => setState(!state)}
+            style={{ marginRight: 10 }}
+          />
+        </Col>
+      </Row>
+      <HelperTABLEobj
+        columns={columns}
+        data={
+          state ? filtroPagoRealizado.reverse() : filtroPagoIncompleto.reverse()
+        }
+        pagination={false}
+        y={500}
+        expandible={true}
+      />
     </>
   );
 };

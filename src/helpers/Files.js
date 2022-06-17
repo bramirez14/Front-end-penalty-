@@ -1,8 +1,7 @@
 import { Form, Button, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import './files.css'
-export const Files = ({obli}) => {
-  console.log(obli);
+export const Files = ({obli,name='file'}) => {
   const normFile =  (e) => {
     if (Array.isArray(e)) {
       return e;
@@ -12,7 +11,7 @@ export const Files = ({obli}) => {
   };
   return (
       <Form.Item
-        name="file"
+        name={name}
         valuePropName="fileList"
         getValueFromEvent={normFile}
         extra='acepta : .jpg .jpeg .png .pdf .jfif'
