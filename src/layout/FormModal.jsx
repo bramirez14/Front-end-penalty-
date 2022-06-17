@@ -1,5 +1,7 @@
-import { Button, Form, Input, Modal, Radio } from 'antd';
+
+import { Button, Form, Modal, Alert} from 'antd';
 import { useState } from 'react';
+import { axiosURL } from '../config/axiosURL';
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel,title,okText,cancelText,children}) => {
   const [form] = Form.useForm();
@@ -35,11 +37,14 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel,title,okText,cancelT
   );
 };
 
-export const FormModal = ({title,okText,cancelText,children,btnModal,property}) => {
+export const FormModal = ({title,okText,cancelText,children,btnModal,property,url,setState} = {}) => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log('Received values of form: ', values);
+  const onCreate = async(values) => {
+    let f = new FormData();
+      f.append("file", values.file?.[0]?.originFileObj);
+    let result = await axiosURL.post(url, f);
+  setState(result);
     setVisible(false);
   };
 

@@ -5,9 +5,7 @@ import {
   Row,
   Switch,
   Button,
-  Modal,
-  Divider,
-  Form,
+  Alert
 } from "antd";
 import { axiosURL } from "../../config/axiosURL";
 import {
@@ -24,28 +22,152 @@ import { columnsant } from "./columnasAntPago";
 import { PeticionGET } from "../../config/PeticionGET";
 import { numberWithCommas } from "../../components/reportes/helpers/funciones";
 import { HelperTABLEobj } from "../../helpers/HelperTABLEobj";
-import { BiEdit } from "react-icons/bi";
 import { Files } from "../../helpers/Files";
 import { FormModal } from "../../layout/FormModal";
+import { BiDownload } from "react-icons/bi";
+import { BiEdit } from "react-icons/bi";
+import { saveAs } from "file-saver";
+
 export const PagosAntGasto = () => {
   const [state, setState] = useState(false);
   const [dataGasto, setDataGasto] = useState([]);
   const [stateFile, setStateFile] = useState("");
   const [stateFilefinal, setStateFilefinal] = useState("");
-  const [form] = Form.useForm();
+  const [estadoDeGasto, setEstadoDeGasto] = useState('')
   const getGastos = async () => {
     const { data } = await axiosURL.get("/gastos");
     setDataGasto(data);
   };
   useEffect(() => {
     getGastos();
-  }, []);
+  }, [estadoDeGasto]);
   const sinAnticipo = sinAnticipo906(dataGasto);
   const conAnticipo = conAnticipo906(dataGasto);
   const anticipoTotal = [...sinAnticipo, ...conAnticipo];
-
+console.log(estadoDeGasto);
+const descargarPDF = async (pdf) => {
+  let res = await axiosURL.get("/pdf/gastos/rendicion", {
+    headers: { archivo: pdf },
+    responseType: "blob",
+  });
+  const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
+  saveAs(pdfBlob, `${pdf}`);
+};
+//COLUMNAS
   const columns = [
     ...columnsant,
+    {
+      title: "PDF Proveedores",
+      dataIndex: "pdf",
+      key: "pdf",
+      width: 140,
+  
+      render: (state, file) => {
+        return (
+          <>
+            {file.pdf === null || file.pdf === "" ? (
+              <h5>No hay pdf</h5>
+            ) : (
+              <Row>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                  <Button shape="circle" onClick={() => descargarPDF(file.pdf)}>
+                    <BiDownload />{" "}
+                  </Button>{" "}
+                </Col>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                  <FormModal
+                    property={{ shape: "circle" }}
+                    btnModal={<BiEdit style={{ fontSize: 14 }} />}
+                    title={`Editar ${file.pdf}`}
+                    url={`/editar/pdf/gastos/${file.id}`}
+                    setState={setEstadoDeGasto}
+                  >
+                    <Files />
+                  </FormModal>
+                </Col>
+              </Row>
+            )}
+          </>
+        );
+      },
+    },
+    {
+      title: "PDF Pagos",
+      dataIndex: "pdfinal",
+      key: "pdfinal",
+      width: 140,
+  
+      render: (state, file) => {
+        return (
+          <>
+            {file.pdfinal === null || file.pdfinal === "" ? (
+              <h5>No hay pdf</h5>
+            ) : (
+              <Row>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                  <Button
+                    shape="circle"
+                    onClick={() => descargarPDF(file.pdfinal)}
+                  >
+                    <BiDownload />{" "}
+                  </Button>
+                </Col>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                  <FormModal
+                    property={{ shape: "circle" }}
+                    btnModal={<BiEdit style={{ fontSize: 14 }} />}
+                    title={`Editar ${file.pdfinal}`}
+                    url={`/editar/pdfinal/gastos/${file.id}`}
+                    setState={setEstadoDeGasto}
+                  >
+                    <Files />
+                  </FormModal>
+                </Col>
+              </Row>
+            )}
+          </>
+        );
+      },
+    },
+    {
+      title: "  PDF Orden pago final ",
+      dataIndex: "pdfpagoFinal",
+      key: "pdfpagoFinal",
+      width: 170,
+      render: (state, file) => {
+        return (
+          <>
+            {file.pdfpagoFinal === null || file.pdfpagoFinal === "" ? (
+              <h5>No hay pdf</h5>
+            ) : (
+              <>
+                <Row>
+                  <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                    <Button
+                      shape="circle"
+                      onClick={() => descargarPDF(file.pdfpagoFinal)}
+                    >
+                      <BiDownload />
+                    </Button>
+                  </Col>
+                  <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                    <FormModal
+                      property={{ shape: "circle" }}
+                      btnModal={<BiEdit style={{ fontSize: 14 }} />}
+                      title={`Editar ${file.pdfpagoFinal}`}
+                      url={`/editar/pdfpagofinal/gastos/${file.id}`}
+                      setState={setEstadoDeGasto}
+                    >
+                      <Files />
+                    </FormModal>
+                  </Col>
+                </Row>
+              </>
+            )}
+          </>
+        );
+      },
+    },
     {
       title: "Acciones",
       key: "acciones",
@@ -133,30 +255,6 @@ export const PagosAntGasto = () => {
         </>
       ),
     },
-    {
-      key: "editar",
-      render: (state, file) => {
-        return (
-          <FormModal btnModal={<BiEdit style={{fontSize: 18}} />} >
-          <Divider orientation="left" plain>
-            PDF Proveedores
-          </Divider>
-          <Files />
-          <Divider orientation="left" plain>
-            PDF Pagos
-          </Divider>
-          <Files name="file2" />
-          <Divider orientation="left" plain>
-            PDF Orden de pago final
-          </Divider>
-          <Files name="file3" />
-        </FormModal>
-
-
-          
-        );
-      },
-    },
   ];
   const formaDepago = PeticionGET("/mpagos");
   const formaPago = (idpago) => {
@@ -213,9 +311,7 @@ export const PagosAntGasto = () => {
   };
   return (
     <>
-      <h1>holaa </h1>
-     
-
+     <Alert message="Success Tips" type="success" showIcon />
       <Row style={{ marginTop: 20, marginBottom: 20 }}>
         <Col span={24}>
           <Switch
