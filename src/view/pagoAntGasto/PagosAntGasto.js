@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Col,
-  Descriptions,
-  Row,
-  Switch,
-  Button,
-  Alert
-} from "antd";
+import { Col, Descriptions, Row, Switch, Button, Alert } from "antd";
 import { axiosURL } from "../../config/axiosURL";
 import {
   conAnticipo906,
@@ -33,7 +26,9 @@ export const PagosAntGasto = () => {
   const [dataGasto, setDataGasto] = useState([]);
   const [stateFile, setStateFile] = useState("");
   const [stateFilefinal, setStateFilefinal] = useState("");
-  const [estadoDeGasto, setEstadoDeGasto] = useState('')
+  const [estadoDeGasto, setEstadoDeGasto] = useState("");
+  const [stateChange, setStateChange] = useState();
+
   const getGastos = async () => {
     const { data } = await axiosURL.get("/gastos");
     setDataGasto(data);
@@ -44,16 +39,19 @@ export const PagosAntGasto = () => {
   const sinAnticipo = sinAnticipo906(dataGasto);
   const conAnticipo = conAnticipo906(dataGasto);
   const anticipoTotal = [...sinAnticipo, ...conAnticipo];
-console.log(estadoDeGasto);
-const descargarPDF = async (pdf) => {
-  let res = await axiosURL.get("/pdf/gastos/rendicion", {
-    headers: { archivo: pdf },
-    responseType: "blob",
-  });
-  const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
-  saveAs(pdfBlob, `${pdf}`);
-};
-//COLUMNAS
+
+  const descargarPDF = async (pdf) => {
+    let res = await axiosURL.get("/pdf/gastos/rendicion", {
+      headers: { archivo: pdf },
+      responseType: "blob",
+    });
+    const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
+    saveAs(pdfBlob, `${pdf}`);
+  };
+  const cambioDeEstado = (state) =>{
+  console.log(state);
+    state?.data.status === 200 && setStateChange(true);}
+  //COLUMNAS
   const columns = [
     ...columnsant,
     {
@@ -61,7 +59,7 @@ const descargarPDF = async (pdf) => {
       dataIndex: "pdf",
       key: "pdf",
       width: 140,
-  
+
       render: (state, file) => {
         return (
           <>
@@ -80,7 +78,7 @@ const descargarPDF = async (pdf) => {
                     btnModal={<BiEdit style={{ fontSize: 14 }} />}
                     title={`Editar ${file.pdf}`}
                     url={`/editar/pdf/gastos/${file.id}`}
-                    setState={setEstadoDeGasto}
+                    cambio={cambioDeEstado}
                   >
                     <Files />
                   </FormModal>
@@ -96,7 +94,7 @@ const descargarPDF = async (pdf) => {
       dataIndex: "pdfinal",
       key: "pdfinal",
       width: 140,
-  
+
       render: (state, file) => {
         return (
           <>
@@ -118,7 +116,7 @@ const descargarPDF = async (pdf) => {
                     btnModal={<BiEdit style={{ fontSize: 14 }} />}
                     title={`Editar ${file.pdfinal}`}
                     url={`/editar/pdfinal/gastos/${file.id}`}
-                    setState={setEstadoDeGasto}
+                    cambio={cambioDeEstado}
                   >
                     <Files />
                   </FormModal>
@@ -156,7 +154,7 @@ const descargarPDF = async (pdf) => {
                       btnModal={<BiEdit style={{ fontSize: 14 }} />}
                       title={`Editar ${file.pdfpagoFinal}`}
                       url={`/editar/pdfpagofinal/gastos/${file.id}`}
-                      setState={setEstadoDeGasto}
+                      cambio={cambioDeEstado}
                     >
                       <Files />
                     </FormModal>
@@ -306,12 +304,15 @@ const descargarPDF = async (pdf) => {
   });
   const filtroPagoRealizado = datos.filter((d) => d.pagoRealizado === "Si");
   const filtroPagoIncompleto = datos.filter((d) => d.pagoRealizado !== "Si");
-  const onFinish = (values) => {
+  /*  const onFinish = (values) => {
     console.log("Received values of form: ", values);
-  };
+  }; */
   return (
     <>
-     <Alert message="Success Tips" type="success" showIcon />
+      {stateChange && (
+        <Alert message="Success Tips" type="success" showIcon closable={true} />
+      )}
+
       <Row style={{ marginTop: 20, marginBottom: 20 }}>
         <Col span={24}>
           <Switch

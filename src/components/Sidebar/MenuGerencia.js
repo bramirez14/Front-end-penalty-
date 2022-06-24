@@ -41,6 +41,9 @@ export const MenuGerencia = ({ open, setOpen }) => {
           <Menu.Item key="2">
             <Link to="/register">Registro</Link>
           </Menu.Item>
+          <Menu.Item key="3">
+            <Link to="/editar/usuario">Editar</Link>
+          </Menu.Item>
         </SubMenu>
       )}
       <SubMenu key="sub2" title="Aprobaciones" icon={<CheckOutlined />}>

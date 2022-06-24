@@ -1,15 +1,16 @@
 
+import { useState,useEffect } from 'react';
 import { Button, Form, Modal, Alert} from 'antd';
-import { useState } from 'react';
 import { axiosURL } from '../config/axiosURL';
 
-const CollectionCreateForm = ({ visible, onCreate, onCancel,title,okText,cancelText,children}) => {
+const CollectionCreateForm = ({ visible, onCreate, onCancel,title,okText,cancelText,children,cambio}) => {
   const [form] = Form.useForm();
   const datosForm = async () => {
     try {
       let res = await form.validateFields();
       await form.resetFields();
-      onCreate(res);
+    let result= await onCreate(res);
+    //console.log(result);
     } catch (error) {
       console.log('Validate Failed:', error);
     }
@@ -37,15 +38,16 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel,title,okText,cancelT
   );
 };
 
-export const FormModal = ({title,okText,cancelText,children,btnModal,property,url,setState} = {}) => {
+export const FormModal = ({title,okText,cancelText,children,btnModal,property,url,cambio} = {}) => {
   const [visible, setVisible] = useState(false);
 
   const onCreate = async(values) => {
     let f = new FormData();
       f.append("file", values.file?.[0]?.originFileObj);
     let result = await axiosURL.post(url, f);
-  setState(result);
     setVisible(false);
+    cambio(result);
+
   };
 
   return (
@@ -58,6 +60,7 @@ export const FormModal = ({title,okText,cancelText,children,btnModal,property,ur
       >
         {btnModal}
       </Button>
+    
       <CollectionCreateForm
         visible={visible}
         onCreate={onCreate}
@@ -67,7 +70,9 @@ export const FormModal = ({title,okText,cancelText,children,btnModal,property,ur
          onCancel={() => {
           setVisible(false);
         }}
+        cambio={cambio}
       >
+        
        { children }
       </CollectionCreateForm>
     </div>

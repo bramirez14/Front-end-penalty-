@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Divider } from "antd";
 import { Titulo } from "../titulos/Titulo";
 import { axiosURL } from "../../config/axiosURL";
@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 
 export const Vacaciones = () => {
   const navigate = useNavigate();
-  const {socket} = useContext(SocketContext);
+  const { socket } = useContext(SocketContext);
   const id = localStorage.getItem("uid");
   /**useContext***/
   /***iniciamos el estado******/
@@ -108,21 +108,20 @@ export const Vacaciones = () => {
   const APROBACION = getUsuario.vacacion?.[log]?.estadoFinal;
   /********enviamos el formulario a DB********/
   const tipo = localStorage.getItem("type");
-console.log(getUsuario);
+  console.log(getUsuario);
   const guardarAnticipoDeVacaciones = async () => {
     const nuevoObj = {
       alerta: vacaciones.obs,
-      info:`Tenes solicitud de vacaciones`,
-      nombre:`${getUsuario.nombre} ${getUsuario.apellido}`,
+      info: `Tenes solicitud de vacaciones`,
+      nombre: `${getUsuario.nombre} ${getUsuario.apellido}`,
       f: new Date().toLocaleString(),
-      estado:'activa',
-      path:'/aprobacion/vacaciones',
-      usuarioId:getUsuario.id,
+      estado: "activa",
+      path: "/aprobacion/vacaciones",
+      usuarioId: getUsuario.id,
       emisor: getUsuario.email,
       receptor: getUsuario.gerente.email,
     };
-    socket.emit('alerta-nueva', nuevoObj);
-   
+    socket.emit("alerta-nueva", nuevoObj);
 
     let result = await axiosURL.post("/vacaciones", {
       ...vacaciones,
@@ -130,7 +129,7 @@ console.log(getUsuario);
       estado: "pendiente",
       f: new Date().toLocaleString(),
     });
-    
+
     if (result.status === 200) {
       navigate("/");
     }
@@ -200,7 +199,7 @@ console.log(getUsuario);
             <Row gutter={10}>
               <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                 <Titulo titulo=" Vacaciones" />
-              <Divider/>
+                <Divider />
                 <Form.Item
                   label="Periodo"
                   rules={[

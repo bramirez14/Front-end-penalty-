@@ -59,6 +59,7 @@ import { useDispatch } from "react-redux";
 import { Result, Button } from "antd";
 import { NotFound } from "./NotFound";
 import { PasePedidos } from "../components/pedidos/PasePedidos";
+import { EditarDatosUsuario } from "../components/login/EditarDatosUsuario";
 
 export const DashboardRoutes = ({ history }) => {
   const dispatch = useDispatch();
@@ -109,7 +110,10 @@ export const DashboardRoutes = ({ history }) => {
           <Route path="/aprobacion/km" element={tipo!=='Gerente'?<NotFound/>:<AprobacionKm />} />
           <Route path="/verificaciones" element={tipo!=='Gerente'?<NotFound/>:<Verificacion />} />
           <Route path="/pdf/:id" element={<PDF />} />
+          {/* Datos de usuario */}
           <Route path="/register" element={tipo!=='Gerente'?<NotFound/>:<Register />} />
+          <Route path="/editar/usuario" element={tipo!=='Gerente'?<NotFound/>:<EditarDatosUsuario />} />
+
           <Route path="/tarjeta/credito" element={tipo!=='Gerente'?<NotFound/>:<TarjetaCredito/>} />
           {/** Calendario */}
           <Route path="/calendario" element={tipo!=='Gerente'?<NotFound/>:<Calendario />} />
