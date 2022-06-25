@@ -1,9 +1,10 @@
 
-import { LockOutlined, CreditCardOutlined } from '@ant-design/icons';
+import { CreditCardOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { useEffect, useState } from 'react';
+import { axiosURL } from '../../config/axiosURL';
 
-export const AltasMedioPago = () => {
+export const AltasMediosPagos= () => {
   const [form] = Form.useForm();
   const [, forceUpdate] = useState({}); // To disable submit button at the beginning.
 
@@ -11,8 +12,10 @@ export const AltasMedioPago = () => {
     forceUpdate({});
   }, []);
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log('Finish:', values);
+    const res = await axiosURL.post('/alta/medios/pagos',values)
+    console.log(res);
   };
 
   return (
