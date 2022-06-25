@@ -21,13 +21,11 @@ const [id, setId] = useState()
 
   const onChangeOnSearch = (value) => {
     let filterUser = allUsers.filter((user) => user.id === value);
-    console.log(Object.keys(filterUser[0]));
     let obj = Object.keys(filterUser[0]);
     let newArrayValue = obj.map((o) => ({
       name: [o],
       value: filterUser[0][o],
     }));
-    console.log(newArrayValue);
 
     setUserSelected(newArrayValue);
     setId(filterUser[0].id);
