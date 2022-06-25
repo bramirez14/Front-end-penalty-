@@ -34,12 +34,8 @@ const [id, setId] = useState()
   };
 console.log(id);
 
-  const onFinish = async (values) => {
-    console.log("Finish:", values);
-    
-    let res = await axiosURL.put(`./editar/usuario/${id}`,values);
-    console.log(res);
-  };
+  const onFinish = async (values) =>  await axiosURL.put(`./editar/usuario/${id}`,values);
+  
 
   return (
     <>
