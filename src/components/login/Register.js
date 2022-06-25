@@ -48,7 +48,6 @@ export const Register = ( ) => {
       ></Select>
     </Form.Item>
   );
-console.log(tipo!=='Gerente');
   return (
     <>
    <Form
