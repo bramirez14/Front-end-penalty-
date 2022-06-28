@@ -103,23 +103,25 @@ body::-webkit-scrollbar-track:active {
   margin:auto;
   border-radius: 10px;
 }
-@media (max-width: 480px){
+@media(max-width: 990px){
 .avatar{
-   position: absolute;
-    bottom: 2px;
-    left: 68px;
-    font-size: 16px;
+  position: absolute;
+  left: 147px;
 }
+}
+
 @media (max-width: 768px){
   .avatar {
-  
-    position: absolute;
-    bottom: 10px;
-    left: 142px;
+    font-size: 20px;
+    bottom: 0px;
+    left: 70px;
     
   }
 }
-
+@media (max-width: 480px){
+  .avatar{
+      font-size: 12px;
+  }
 }
 @media (min-width: 1700px){
   .avatar {

@@ -22,8 +22,9 @@ export const Kilometros = () => {
   useEffect(() => {
     peticionGet();
   }, []);
-
-  const filtroUsuario = stateKm.filter((s) => s.usuarioId === parseInt(id));
+console.log(stateKm);
+  const filtroUsuario = stateKm?.filter((s) => s.usuarioId === parseInt(id));
+  
   const filtroSinKmId = filtroUsuario.filter((d) => d.kilometroId === null);
   const idDB = filtroSinKmId?.map((i) => i.id);
   const kmRecorridos = filtroSinKmId.map((i) => i.KmRecorrido);

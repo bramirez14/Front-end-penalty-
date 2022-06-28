@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { axiosURL } from "../../config/axiosURL";
 
-import { Row, Col, Grid, Table, BackTop } from "antd";
+import { Row, Col, Table, BackTop } from "antd";
 import { AvatarImg } from "../img/Avatar";
 import { DescripcionUsuario } from "./DescripcionUsuario";
 import {  useSelector } from "react-redux";
@@ -10,9 +10,9 @@ import { columnasVacaciones } from "./columnas/columnasVacaciones";
 import { columnasAnticipos } from "./columnas/columnasAnticipos";
 import { columnasGastos } from "./columnas/columnasGastos";
 export const EstadoUsuario = () => {
-  const { useBreakpoint } = Grid;
-  const screens = useBreakpoint();
-  console.log(screens);
+  /* const { useBreakpoint } = Grid;
+  const screens = useBreakpoint(); */
+  //console.log(screens);
   const [ , setVacaciones] = useState([]);
   const [, setSueldo] = useState([]);
   const [, setGasto] = useState([]);
@@ -45,7 +45,7 @@ export const EstadoUsuario = () => {
   };
   useEffect(() => {
     get();
-  }, [get]);
+  }, []);
 
   const { peticiones_GET } = useSelector((state) => state);
   const usuario = peticiones_GET?.usuario;

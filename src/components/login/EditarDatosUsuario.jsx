@@ -1,17 +1,21 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Row, Col, Button, Form, Input, Select, DatePicker } from "antd";
+import { Row, Col, Button, Form, Input, Select, DatePicker, Alert } from "antd";
 import { useEffect, useState } from "react";
 import { axiosURL } from "../../config/axiosURL";
 import { useGet } from "../../hooks/useGet";
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 const { Option } = Select;
 
 export const EditarDatosUsuario = () => {
   const [userSelected, setUserSelected] = useState([]);
 const [id, setId] = useState()
   const [form] = Form.useForm();
+const navigate=useNavigate();
+
   const [, forceUpdate] = useState({}); // To disable submit button at the beginning.
-  const [allUsers] = useGet("./allusers");
-  const nameAndSurname = allUsers.map((t) => ({
+  const [allUsers,_,stateAllUsers] = useGet("./allusers");
+  const nameAndSurname = allUsers?.map((t) => ({
     id: t.id,
     name: t.nombre + " " + t.apellido,
   }));
@@ -26,15 +30,36 @@ const [id, setId] = useState()
       name: [o],
       value: filterUser[0][o],
     }));
-
     setUserSelected(newArrayValue);
     setId(filterUser[0].id);
+
   };
-console.log(id);
 
-  const onFinish = async (values) =>  await axiosURL.put(`./editar/usuario/${id}`,values);
+  const onFinish = async (values) => { 
+   const isConfirmed= await Swal.fire({
+      title: 'Estas seguro',
+      text: "¡NO podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Editar!'
+    })
+      if (isConfirmed) {
+        const res=await axiosURL.put(`./editar/usuario/${id}`,values);
+        Swal.fire(
+          'Editado!',
+          'Se edito con exito!!!',
+          'success'
+        )
+      if(res.status === 200)navigate('/')
+
+      }
+
   
+  }
 
+  
   return (
     <>
       <Form
@@ -46,6 +71,7 @@ console.log(id);
         <Row gutter={[20,20]}>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Select
+            loading={stateAllUsers.status!==200}
               showSearch
               placeholder="Seleccione un empleado"
               optionFilterProp="children"
@@ -187,7 +213,7 @@ console.log(id);
         </Form.Item>
         <Form.Item >
             <Button type="primary" htmlType="submit">
-              Log in
+              Editar
             </Button>
         </Form.Item>
           </Col>
