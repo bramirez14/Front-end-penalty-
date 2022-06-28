@@ -49,9 +49,10 @@ export const PagosAntGasto = () => {
     saveAs(pdfBlob, `${pdf}`);
   };
   const cambioDeEstado = (state) =>{
+  
     state?.data.status === 200 && setStateChange(true);
     getGastos();
-  
+
   }
   //COLUMNAS
   const columns = [

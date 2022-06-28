@@ -55,11 +55,10 @@ const [imgDB, setImgDB] = useState();
 const peticionDeUsuario=async()=>{
 let res=await axiosURL.get(`/${id}`)
  setImgDB(res.data.imagen)
- console.log('hola me llamaron');
 }
 useEffect(() => {
   peticionDeUsuario()
-}, [peticionDeUsuario])
+}, [])
 
   const onCreate = async (values) => {
 
