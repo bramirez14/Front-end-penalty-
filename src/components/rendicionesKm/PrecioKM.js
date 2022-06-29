@@ -1,10 +1,12 @@
-import { Row, Col, Form,Input,Button, Statistic} from 'antd'
+import { Row, Col, Form,Input,Button, Statistic, Divider} from 'antd'
 import React from 'react'
 import { axiosURL } from '../../config/axiosURL'
 import { useGet } from '../../hooks/useGet'
 import Swal from 'sweetalert2'
 import './css/preciokm.css'
 import { useNavigate } from 'react-router'
+import { AltasMediosPagos } from '../formularios/AltasMediosPagos'
+import { Titulo } from '../titulos/Titulo'
 export const PrecioKM = ( ) => {
   const navigate= useNavigate();
     const [preciokmActual]= useGet('/precio/km');
@@ -25,7 +27,12 @@ export const PrecioKM = ( ) => {
     }
   }
     return (
-        <div className='container-km'>
+      <Row>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}> 
+        <div className='container-form'>
+        <Titulo  titulo="Cambiar Precio de Km" />
+        <Divider/>
+         
           <Row gutter={[20,70]}>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Statistic title="Precio Actual" value={preciokmActual[0]?.precio} />
@@ -48,7 +55,7 @@ export const PrecioKM = ( ) => {
       <Form.Item
        
       >
-        <Button style={{marginTop:20}}type="primary" htmlType="submit" block>Enviar</Button>
+        <Button style={{marginTop:20}}type="primary" htmlType="submit" block>Guardar</Button>
         
       </Form.Item>
         </Form>
@@ -56,6 +63,13 @@ export const PrecioKM = ( ) => {
       
         </Row>
         </div>
+        </Col>
+<Col xs={24} sm={24} md={12} lg={12} xl={12}>
+<AltasMediosPagos/>
+</Col>
+        
+      </Row>
+
         
     )
 }

@@ -5,6 +5,7 @@ import { axiosURL } from "../../config/axiosURL";
 import { useGet } from "../../hooks/useGet";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { Titulo } from "../titulos/Titulo";
 const { Option } = Select;
 
 export const EditarDatosUsuario = () => {
@@ -68,6 +69,8 @@ const navigate=useNavigate();
         form={form}
         onFinish={onFinish}
       >
+          <Titulo  titulo="Editar Usuario" />
+        
         <Row gutter={[20,20]}>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Select

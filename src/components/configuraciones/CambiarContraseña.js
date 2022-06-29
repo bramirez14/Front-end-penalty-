@@ -1,9 +1,10 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Divider } from 'antd';
 import { axiosURL } from '../../config/axiosURL';
 import { logout } from '../../auth/localStorage';
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
+import { Titulo } from '../titulos/Titulo';
 
 export const CambiarContraseña = () => {
     const id = localStorage.getItem('uid')
@@ -30,7 +31,8 @@ const navigate= useNavigate();
     return (
       <div className='cambiopassword' >
 
-        <Form
+        <Form 
+        className='container-form'
         style={{marginTop:'20px'}}
         name="Cambiar Contrasena"
         labelCol={{
@@ -45,6 +47,8 @@ const navigate= useNavigate();
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
+          <Titulo  titulo="Cambiar contrasena" />
+<Divider/>
         <Form.Item
         name="password"
         label="Cambiar Contraseña"
