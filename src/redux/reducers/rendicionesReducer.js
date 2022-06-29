@@ -16,7 +16,11 @@ console.log(action,'action'); */
                tc:[ action.payload.result, ...state.tc ]
             }
             
-            
+            case types.addCreditCard:
+                return{
+                    ...state,
+                    creditCard:[ action.payload.result, ...state.creditCard]
+                }
         default:
             return state;
 

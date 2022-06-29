@@ -36,3 +36,17 @@ export const  tarjetaCredito=(values)=> async (dispatch,getState)=>{
     dispatch({ type:'error',error:e.message})
 }
 }
+
+export const  addCreditCard=(values)=> async (dispatch)=>{
+    try {
+     
+        const response = await axiosURL.post('/agregar/tc',values);
+        const data= response.data;
+        console.log(data);
+        dispatch({ type:types.addCreditCard,payload: data})
+        return response
+    } 
+    catch (e) {
+    dispatch({ type:'error',error:e.message})
+}
+}

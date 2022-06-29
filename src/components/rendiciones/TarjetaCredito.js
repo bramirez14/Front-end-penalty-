@@ -12,7 +12,6 @@ export const TarjetaCredito = () => {
   const [spinner, setSpinner] = useState(false)
   const dispatch = useDispatch();
   const onFinish = async (values) =>{ 
-    console.log(values);
     setSpinner(true)
     const response = await dispatch(tarjetaCredito(values, navigate));
     if (response.data.status === 200) {
