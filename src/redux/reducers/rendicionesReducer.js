@@ -1,25 +1,32 @@
 import { types } from "../types/type";
 
-export const rendicionesReducer =(state={},action)=>{
-/* console.log(state,'state');
+export const rendicionesReducer = (state = {}, action) => {
+/*   console.log(state,'state');
 console.log(action,'action'); */
-    switch (action.type) {
-        case types.todastc:
-            return{
-                ...state,
-               tc: action.payload
-            }
-        case types.tarjeta_credito:
+  switch (action.type) {
+    case types.todastc:
+      return {
+        ...state,
+        tc: action.payload,
+      };
+    case types.tarjeta_credito:
+      return {
+        ...state,
+        tc: [action.payload.result, ...state.tc],
+      };
 
-            return{
-               ...state,
-               tc:[ action.payload.result, ...state.tc ]
-            }
-            
-            
-        default:
-            return state;
+ /*    case types.addCreditCard:
+      return {
+        ...state,
+        creditCard: [action.payload.result, ...state.creditCard],
+      };
+    case types.addPaymentMethod:
+      return {
+        ...state,
+        paymentMethod: [action.payload.result, ...state.paymentMethod],
+      }; */
 
-    }
-
-}
+    default:
+      return state;
+  }
+};

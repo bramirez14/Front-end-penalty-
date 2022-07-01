@@ -6,13 +6,13 @@ import "../css/boton.css";
 import { tarjetaCredito } from "../../redux/actions/rendicionAction";
 import { Titulo } from "../titulos/Titulo";
 import { useNavigate } from "react-router";
+import { useGet } from "../../hooks/useGet";
 const { Option } = Select;
 export const TarjetaCredito = () => {
   const navigate= useNavigate();
   const [spinner, setSpinner] = useState(false)
   const dispatch = useDispatch();
   const onFinish = async (values) =>{ 
-    console.log(values);
     setSpinner(true)
     const response = await dispatch(tarjetaCredito(values, navigate));
     if (response.data.status === 200) {
@@ -20,6 +20,8 @@ export const TarjetaCredito = () => {
      }
   }
   const dateFormat = 'DD/MM/YYYY';
+  const [getAllCreditCard ]= useGet('medios/pagos/tarjeta/credito');
+  console.log(getAllCreditCard);
   return (
       <Spin tip='Cargando...' spinning={spinner} className='spinner'>
       <Form name="validate_other" onFinish={onFinish} className="form-complete" size="large" >
@@ -47,9 +49,13 @@ export const TarjetaCredito = () => {
       </Form.Item>
       <Form.Item name="tarjeta">
         <Select placeholder="Seleccione una tarjeta">
-          <Option value="visa">Visa</Option>
-          <Option value="American Express">American Express</Option>
-          <Option value="otra">Otra</Option>
+          { getAllCreditCard.map(c=>(
+            <Option value={c.tarjeta} key={c.id}>{ c.tarjeta}</Option>
+          ))
+
+          }
+          
+       
         </Select>
       </Form.Item>
       <Form.Item name="nota">

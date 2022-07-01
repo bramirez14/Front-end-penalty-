@@ -11,6 +11,7 @@ export const types = {
   //Tarjeta de credito
   todastc: "[TC]  todas gastos de tarjetas de credito",
   tarjeta_credito: "[TC] Post tarjeta de credito",
+
   //vacaciones
   todasvacaciones: "[Vaca] todas las vacaciones",
   guardar: "[Vaca] guardar vacacion",
