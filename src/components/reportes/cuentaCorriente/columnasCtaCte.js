@@ -7,103 +7,103 @@ export const columnasCtaCte=[
    
       {
         title: 'Cliente',
-        dataIndex: 'cliente',
-        key: 'cliente',
+        dataIndex: 'CLIENTE',
+        key: 'CLIENTE',
         width:100,
-        render:(state,file)=> <h5>{file.cliente}</h5>,
+        render:(state,file)=> <h5>{file.CLIENTE}</h5>,
         
       },
-      {
+       {
         title: 'Razon Social',
-        dataIndex: 'razonsoc',
-        key: 'razonsoc',
+        dataIndex: 'RAZONSOC',
+        key: 'RAZONSOC',
         width:170,
-        render:(state,file)=> <h5>{file.razonsoc}</h5>,
+        render:(state,file)=> <h5>{file.RAZONSOC}</h5>,
       },
       {
         title: 'Vdor',
-        dataIndex: 'vendedor',
-        key: 'vendedor',
+        dataIndex: 'VENDEDOR',
+        key: 'VENDEDOR',
         width:100,
 
-        render:(state,file)=> <h5>{file.vendedor}</h5>,
+        render:(state,file)=> <h5>{file.VENDEDOR}</h5>,
         
       },
       {
         title: 'Nombre',
-        dataIndex: 'apeynom',
-        key: 'apeynom',
+        dataIndex: 'APEYNOM',
+        key: 'APEYNOM',
         width:160,
 
-        render:(state,file)=> <h5>{file.apeynom}</h5>,
+        render:(state,file)=> <h5>{file.APEYNOM}</h5>,
       },
       {
         title: 'Fecha',
-        dataIndex: 'fecemision',
-        key: 'fecemision',
+        dataIndex: 'FECEMISION',
+        key: 'FECEMISION',
         width:140,
         render:(state,file)=>{
-          const fecha = file.fecemision.split('T')[0];
+          const fecha = file.FECEMISION.split('T')[0];
          return <h5>{fecha}</h5>
         },
       },
       {
         title: 'Vto',
-        dataIndex: 'fecvenc',
-        key: 'fecvenc',
+        dataIndex: 'FECVENC',
+        key: 'FECVENC',
         width:120,
         render:(state,file)=> {
-          const fecha = file.fecvenc.split('T')[0];
+          const fecha = file.FECVENC.split('T')[0];
          return <h5>{fecha}</h5>
         },
       }, 
       {
         title: 'Cabeza',
-        dataIndex: 'cabeza',
-        key: 'cabeza',
+        dataIndex: 'CABEZA',
+        key: 'CABEZA',
         width:140,
 
-        render:(state,file)=> <h5>{file.cabeza}</h5>,
+        render:(state,file)=> <h5>{file.CABEZA}</h5>,
       },
       {
         title: 'Cod Cabeza',
-        dataIndex: 'codcabeza',
-        key: 'codcabeza',
+        dataIndex: 'CODCABEZA',
+        key: 'CODCABEZA',
         width:100,
 
-        render:(state,file)=> <h5>{file.codcabeza}</h5>,
+        render:(state,file)=> <h5>{file.CODCABEZA}</h5>,
       },
       {
-        title: 'aplicado',
-        dataIndex: 'aplicado',
-        key: 'aplicado',
+        title: 'Aplicado',
+        dataIndex: 'APLICADO',
+        key: 'APLICADO',
         width:140,
 
-        render:(state,file)=> <h5>{file.aplicado}</h5>,
+        render:(state,file)=> <h5>{file.APLICADO}</h5>,
       },
       {
-        title: 'codaplicado',
-        dataIndex: 'codaplicad',
-        key: 'codaplicad',
+        title: 'Codaplicado',
+        dataIndex: 'CODAPLICAD',
+        key: 'CODAPLICAD',
         width:140,
 
-        render:(state,file)=> <h5>{file.codaplicad}</h5>,
+        render:(state,file)=> <h5>{file.CODAPLICAD}</h5>,
       },
       {
         title: 'Total',
-        dataIndex: 'totalml',
-        key: 'totalml',
+        dataIndex: 'TOTALML',
+        key: 'TOTALML',
         width:120,
 
-        render:(state,file)=> <h5>${numberWithCommas(file.totalml)}</h5>,
+        render:(state,file)=> <h5>${numberWithCommas(file.TOTALML)}</h5>,
       },
        {
         title: 'Saldo',
-        dataIndex: 'saldoml',
-        key: 'saldoml',
+        dataIndex: 'SALDOML',
+        key: 'SALDOML',
         width:120,
 
-        render:(state,file)=> <h5>${numberWithCommas(file.saldoml)}</h5>,
+        render:(state,file)=> <h5>${numberWithCommas(file.SALDOML)}</h5>,
       },
       {
         title: 'pdf',
@@ -121,7 +121,7 @@ export const columnasCtaCte=[
           };
           return <Button type='link' onClick={() => descargarPDF(file.pdf)}>descargar</Button>;
         },
-      },
+      }, 
       
       
 
