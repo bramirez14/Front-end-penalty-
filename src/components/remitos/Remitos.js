@@ -7,7 +7,6 @@ import { axiosURLIntranet } from '../../config/axiosURL';
 import { saveAs } from "file-saver";
 export const Remitos = ()=> {
     const todosRemitos = PeticionGETIntranet('/remitos')
-    console.log(todosRemitos);
     const [state, setState] = useState( {
         searchText: '',
         searchedColumn: '',
