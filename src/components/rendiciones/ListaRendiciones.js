@@ -88,7 +88,7 @@ export const ListaRendiciones = () => {
       socket.emit('alerta-nueva',obj)
 
     }
-      let res = await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si',procesoFinalizado:'Si'});
+      let res = await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si'});
       console.log(res);
       res.status===200&& navigate('/gastos')
   };
@@ -103,6 +103,7 @@ export const ListaRendiciones = () => {
         sinAnticipo={peticionGastoId.sinAnticipo}
       />
       <Row>
+      
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Button style={{ marginTop: "10px" }} onClick={onClick}>
             Agregar Gasto
