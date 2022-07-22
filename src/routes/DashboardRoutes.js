@@ -61,6 +61,7 @@ import { NotFound } from "./NotFound";
 import { PasePedidos } from "../components/pedidos/PasePedidos";
 import { EditarDatosUsuario } from "../components/login/EditarDatosUsuario";
 import { AltasMediosPagos } from "../components/formularios/AltasMediosPagos";
+import { CuentaCteProveedores } from "../components/reportes/cuentaCorriente/CuentaCteProveedores";
 
 export const DashboardRoutes = ({ history }) => {
   const dispatch = useDispatch();
@@ -172,7 +173,7 @@ export const DashboardRoutes = ({ history }) => {
           />
            <Route
             path="/reportes/ctacte/proveedores"
-            element={<CuentaCorriente />}
+            element={<CuentaCteProveedores/>}
           />
           <Route path="/reportes/cobranza" element={<Cobranza />} />
           <Route
