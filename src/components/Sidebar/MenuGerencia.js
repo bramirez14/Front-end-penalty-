@@ -26,7 +26,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
       setOpen(false);
     };
   }
-
+//key=37
   return (
     <Menu
       mode="inline"
@@ -82,6 +82,9 @@ export const MenuGerencia = ({ open, setOpen }) => {
         </SubMenu>
         <Menu.Item key="12">
           <Link to="/reportes/cuentacorriente">CuentaCorriente </Link>
+        </Menu.Item>
+        <Menu.Item key="37">
+          <Link to="/reportes/ctacte/proveedores">CtaCte Proveedores </Link>
         </Menu.Item>
         <Menu.Item key="13">
           <Link to="/reportes/cobranza">Cobranzas</Link>

@@ -170,6 +170,10 @@ export const DashboardRoutes = ({ history }) => {
             path="/reportes/cuentacorriente"
             element={<CuentaCorriente />}
           />
+           <Route
+            path="/reportes/ctacte/proveedores"
+            element={<CuentaCorriente />}
+          />
           <Route path="/reportes/cobranza" element={<Cobranza />} />
           <Route
             path="/reportes/clientes/inhabilitados"

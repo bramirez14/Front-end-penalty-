@@ -17,7 +17,7 @@ export const MenuEmpleados = ({ open, setOpen}) => {
             };
   }
     
- 
+ //key=29
     return (
         <Menu  mode="inline"
         onClick={handleClick} 
@@ -45,6 +45,10 @@ export const MenuEmpleados = ({ open, setOpen}) => {
         </SubMenu>
             <Menu.Item key="10">
         <Link to='/reportes/cuentacorriente'>CuentaCorriente </Link>
+                
+                </Menu.Item>
+                <Menu.Item key="29">
+                <Link to="/reportes/ctacte/proveedores">CtaCte Proveedores </Link>
                 
                 </Menu.Item>
             <Menu.Item key="11">
