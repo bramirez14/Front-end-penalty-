@@ -3,8 +3,8 @@ import { HelperTABLEobj } from "../../../helpers/HelperTABLEobj";
 import { filtradoPorVendedorSQL } from "../helpers/funciones";
 import { columnasCtaCte } from "./columnasCtaCte";
 
-export const CuentaCorriente = () => {
-  const getctacte = filtradoPorVendedorSQL("/sql/ctacte");
+export const CuentaCteProveedores = () => {
+  const getctacte = filtradoPorVendedorSQL("/sql/ctacte/proveedores");
 
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
 
