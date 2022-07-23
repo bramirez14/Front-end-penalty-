@@ -23,7 +23,7 @@ export const CuentaCteProveedores = () => {
           boton={true}
           paginas={true}
           y={mediaqueryList.matches ? 350 : 500}
-          colExcel={columnasCtaCte}
+          colExcel={columnasCtaCteProv}
         />
       )}
     </>
