@@ -62,6 +62,7 @@ import { PasePedidos } from "../components/pedidos/PasePedidos";
 import { EditarDatosUsuario } from "../components/login/EditarDatosUsuario";
 import { AltasMediosPagos } from "../components/formularios/AltasMediosPagos";
 import { CuentaCteProveedores } from "../components/reportes/cuentaCorriente/CuentaCteProveedores";
+import { ExcelComponent } from "../helpers/ExcelComponent";
 
 export const DashboardRoutes = ({ history }) => {
   const dispatch = useDispatch();
@@ -228,6 +229,9 @@ export const DashboardRoutes = ({ history }) => {
         <Route path="/pase/pedidos" element={<PasePedidos />} />
         {/* Formulario de alta de medios de pago */}
         <Route path="/alta/medios/pagos" element={<AltasMediosPagos/>} />
+        {/* Formulario para subir archivos excel*/}
+        <Route path="/excel" element={<ExcelComponent/>} />
+
 
         </Routes>
 

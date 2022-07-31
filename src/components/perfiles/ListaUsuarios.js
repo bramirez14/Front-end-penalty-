@@ -11,9 +11,7 @@ export const ListaUsuarios = ({ lista }) => {
   const [vacaciones, setVacaciones] = useState([]);
 
   const TodosLosUsuarios = lista;
-  console.log(TodosLosUsuarios);
   const showDrawer = async (id) => {
-    console.log(id);
     const acum = [];
     /**Sector gastos */
     let e = TodosLosUsuarios.find((q) => q.id === id);
@@ -38,8 +36,6 @@ export const ListaUsuarios = ({ lista }) => {
   // console.log(DatosPersonales);
   const onClose = () => setVisible(false);
   /**Selecion de Colores para conectado*/
-
-
 
   return (
     <>

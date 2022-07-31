@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, Grid } from "antd";
 import {
-    AccountBookOutlined,
+  AccountBookOutlined,
   CheckOutlined,
   DollarCircleOutlined,
   FileDoneOutlined,
@@ -11,6 +11,7 @@ import {
   ReconciliationOutlined,
   RiseOutlined,
   UserOutlined,
+  
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 const { SubMenu } = Menu;
@@ -26,7 +27,8 @@ export const MenuGerencia = ({ open, setOpen }) => {
       setOpen(false);
     };
   }
-//key=37
+  //submenu12
+  //key = 38
   return (
     <Menu
       mode="inline"
@@ -55,7 +57,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
         </Menu.Item>
         <Menu.Item key="6">
           <Link to="/calendario"></Link>
-                Calendario
+          Calendario
         </Menu.Item>
         <Menu.Item key="7">
           <Link to="/aprobacion/gastos"></Link>
@@ -65,7 +67,6 @@ export const MenuGerencia = ({ open, setOpen }) => {
           <Link to="/aprobacion/km"></Link>
           Km
         </Menu.Item>
-      
       </SubMenu>
 
       <SubMenu key="sub3" title="Rtes de Gestion" icon={<RiseOutlined />}>
@@ -146,7 +147,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
       </SubMenu>
 
       <SubMenu key="sub9" title="Cobranzas" icon={<ReconciliationOutlined />}>
-      <Menu.Item key="29">
+        <Menu.Item key="29">
           <Link to="/aprobacion/scc"> Aprob SCC </Link>
         </Menu.Item>
         <Menu.Item key="30">
@@ -156,9 +157,13 @@ export const MenuGerencia = ({ open, setOpen }) => {
           <Link to="/lista/recibo"> Recibo </Link>
         </Menu.Item>
       </SubMenu>
+      <SubMenu key="sub12" title="Subir Excel" icon={<FileDoneOutlined />}>
+        <Menu.Item key="38">
+          <Link to="/excel"> Archivo Excel</Link>
+        </Menu.Item>
+      </SubMenu>
 
-      <SubMenu key="sub10" title="orden de pago" icon={ <AccountBookOutlined />}>
-    
+      <SubMenu key="sub10" title="orden de pago" icon={<AccountBookOutlined />}>
         <Menu.Item key="32">
           <Link to="/vista/rendicion/gasto"> gastos </Link>
         </Menu.Item>
@@ -168,7 +173,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
       </SubMenu>
 
       <SubMenu key="sub11" title="pago" icon={<PayCircleOutlined />}>
-      <Menu.Item key="34">
+        <Menu.Item key="34">
           <Link to="/pagos/anticipo"> sueldos </Link>
         </Menu.Item>
         <Menu.Item key="35">
