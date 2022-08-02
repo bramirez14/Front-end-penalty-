@@ -47,7 +47,7 @@ const navigate=useNavigate();
         beforeUpload={true}
     
     >
-      <Button >Subi tu archivo excel</Button>
+      <Button >Deposito</Button>
     </Upload>
   </Form.Item>
   <Form.Item
