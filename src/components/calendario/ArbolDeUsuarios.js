@@ -2,7 +2,6 @@ import React from "react";
 import { Tree, Avatar } from "antd";
 
 export const ArbolDeUsuarios = ({ vacaciones = [] }) => {
-  console.log(vacaciones);
   const arbolVacacionesEditadas = vacaciones.map((v) => ({
     title: (
       <h3>

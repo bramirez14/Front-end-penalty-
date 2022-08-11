@@ -27,7 +27,6 @@ const filtrokilometro= kilometro?.filter((a) => a.fd!==null)
 
 const  respuesta= (filtroAnt,filtroGasto,filtrokilometro,filtroVacacion===undefined )?undefined:[...filtroAnt,...filtroGasto,...filtroVacacion,...filtrokilometro]
 const todos905=respuesta===undefined?'':[...listogastonew,...listokmnew,...listosueldonew,...respuesta];
-console.log(todos905);
     return (
         <List
       bordered

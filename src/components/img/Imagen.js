@@ -3,7 +3,6 @@ import React from 'react'
 export const Imagen = ({setData,setState,state,ancho}) => {
   const handleFileChange = (e) => {
     let file = e.target.files[0];
-    console.log(file);
     handFiles(file);
   };
   const handFiles = (file) => {

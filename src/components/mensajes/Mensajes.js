@@ -25,7 +25,6 @@ const usuario = PeticionGET(`/${id}`);
  
   function handleMenuClick(e) {
     message.info("La notificacion se elimino con exito!!!");
-    console.log("click", e);
   }
   const handleCard = async (id) => {
     socket.emit('editar-alerta',id)

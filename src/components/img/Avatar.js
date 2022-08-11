@@ -25,7 +25,6 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
             onCreate(values);
           })
           .catch((info) => {
-            console.log('Validate Failed:', info);
           });
       }}
     >
@@ -62,11 +61,9 @@ useEffect(() => {
 
   const onCreate = async (values) => {
 
-   console.log('Received values of form: ', values.file[0].originFileObj);
    let d = new FormData();
    d.append("imagen", values.file[0].originFileObj);
 const response = await axiosURL.put(`/${id}`, d);
-console.log(response);
    setVisible(false);
    peticionDeUsuario();
  };

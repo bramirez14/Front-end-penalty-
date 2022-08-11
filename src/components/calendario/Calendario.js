@@ -18,7 +18,6 @@ useEffect(() => {
   dispatch(todasLasVacaciones())
 }, [dispatch])
 const events=preparandoEvento(todasLasVaca);
-console.log(events);
   //para dar color
   const eventStyleGetter = (event, start, end, isSelected) => {
     const style = {
@@ -35,21 +34,17 @@ console.log(events);
   };
   //datos de cada dia
   const onDoubleClick = (e) => {
-    //console.log(e);
     //dispatch( uiOpenModal() );
   };
   const onSelectEvent = (e) => {
     //dispatch( eventSetActive( e ) );
-    //console.log(e);
   };
 
   const onViewChange = (e) => {
     //setLastView(e);
-    console.log("lastView", e);
   };
 
   const onSelectSlot = (e) => {
-    //console.log(e);
     // dispatch( eventClearActiveEvent() );
   };
 

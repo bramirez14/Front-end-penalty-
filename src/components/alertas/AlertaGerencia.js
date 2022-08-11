@@ -24,7 +24,6 @@ const filtrokilometro= kilometro?.filter((a) => a.fd!==null)
 const  respuesta= (filtroAnt,filtroGasto,filtrokilometro,filtroVacacion===undefined )?undefined:[...filtroAnt,...filtroGasto,...filtroVacacion,...filtrokilometro]
 const todosgtes= respuesta===undefined?undefined:[...anticipos,...vacaciones,...gastosConAnt,...gastosSinAnt,...km,...respuesta]
 const filtroInactiva= todosgtes?.filter(t=>t.notificacion ==='inactiva')
-console.log(filtroInactiva);
 return (
         <Link to="/mensajes">
         <Button /* onClick={openNotification} */ className="boton-campana">

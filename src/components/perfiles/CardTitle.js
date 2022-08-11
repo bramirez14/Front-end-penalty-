@@ -76,7 +76,6 @@ export const CardTitle = ({gasto,sueldo,vacaciones})=> {
     setState({ [type]: key });
   };
 
-console.log(state);
     return (
       <>
         <Card
