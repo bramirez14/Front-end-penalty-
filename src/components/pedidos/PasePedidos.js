@@ -83,15 +83,12 @@ const GET_aprobPedidos = async()=>{
 useEffect(() => {
   GET_aprobPedidos();
 }, [])
-console.log(state);
 const vendedores = state.map( s => ({
     text: s.VENDEDOR,
     value: s.VENDEDOR,
 }))
-console.log(vendedores);
 
     function onChange(pagination, filters, sorter, extra) {
-        console.log('params', pagination, filters, sorter, extra);
     }
     const columns = [
         {

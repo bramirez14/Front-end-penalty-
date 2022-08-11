@@ -85,7 +85,6 @@ export const MensajesGerencia = ( ) => {
         ];
 
   const handleClick = async (data) => {
-    console.log(data.linkDB);
     const resp=await axiosURL.put(data.linkDB,{notificacion:'activa'});
    /*  if(resp.status===200){
       const eliminado=todosgtes.filter(t=>t.id!== data.id)

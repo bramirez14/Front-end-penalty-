@@ -22,7 +22,6 @@ const filtrokilometro= kilometro?.filter((a) => a.fd!==null)
 
 const  respuesta= (filtroAnt,filtroGasto,filtrokilometro,filtroVacacion===undefined )?undefined:[...filtroAnt,...filtroGasto,...filtroVacacion,...filtrokilometro]
     const todos906=respuesta===undefined?'':[...pagosueldo,...pagokm,...pagogasto,...respuesta];
-console.log(todos906);
     return (
         <Link to="/mensajes">
         <Button /* onClick={openNotification} */ className="boton-campana">

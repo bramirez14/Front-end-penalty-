@@ -12,7 +12,6 @@ import { columnasGastos } from "./columnas/columnasGastos";
 export const EstadoUsuario = () => {
   /* const { useBreakpoint } = Grid;
   const screens = useBreakpoint(); */
-  //console.log(screens);
   const [ , setVacaciones] = useState([]);
   const [, setSueldo] = useState([]);
   const [, setGasto] = useState([]);
