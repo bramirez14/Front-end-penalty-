@@ -18,12 +18,10 @@ export const Try = () => {
     },
   ]);
   const [all] = useGet('/allusers');
-  console.log(Object.keys(all));
   const newU = all?.map(a=>({
     name: 'nombre',
     value:[a.nombre],
   }))
-  console.log(Object.keys(all[0]));
   return (
     <>
      {/*  <CustomizedForm
@@ -38,7 +36,6 @@ export const Try = () => {
     layout="inline"
     fields={newU}
     onFieldsChange={(_, allFields) => {
-      console.log(allFields);
     }}
   >
     <Form.Item

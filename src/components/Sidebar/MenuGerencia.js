@@ -157,9 +157,9 @@ export const MenuGerencia = ({ open, setOpen }) => {
           <Link to="/lista/recibo"> Recibo </Link>
         </Menu.Item>
       </SubMenu>
-      <SubMenu key="sub12" title="Subir Excel" icon={<FileDoneOutlined />}>
+      <SubMenu key="sub12" title="Deposito" icon={<FileDoneOutlined />}>
         <Menu.Item key="38">
-          <Link to="/excel"> Archivo Excel</Link>
+          <Link to="/excel">Archivos Entregas </Link>
         </Menu.Item>
       </SubMenu>
 

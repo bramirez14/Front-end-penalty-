@@ -32,7 +32,6 @@ export const Demo = () => {
                 options
             )
             .then(res => {
-                console.log(res,'soy res');
                 setUploadPercentage(100);
 
                 setTimeout(() => {
@@ -40,7 +39,6 @@ export const Demo = () => {
                 }, 1000);
             })
             .catch(err => {
-                console.log(err);
 
                 if (isCancel(err)) {
                     alert(err.message);
@@ -53,7 +51,6 @@ export const Demo = () => {
         if (cancelFileUpload.current)
             cancelFileUpload.current("User has canceled the file upload.");
     };
-console.log(uploadPercentage);
     return (
         <>
 
