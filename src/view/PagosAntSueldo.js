@@ -81,7 +81,6 @@ export const PagosAntSueldo = () => {
     const final = new FormData();
     final.append("file", statefinal);
     const result = await axiosURL.put(`/pagofinal/sueldo/${id}`, final);
-    console.log(result);
   };
   const handleFileChange = (e) => {
     setStateFile(e.target.files[0]);

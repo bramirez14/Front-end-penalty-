@@ -4,7 +4,6 @@ import { CardAprobaciones } from './CardAprobaciones'
 import { CardEstado } from './CardEstado'
 export const PerfilEmpleado = ({history}) => {
     const N = localStorage.getItem('N')
-    console.log(N);
    PeticionJWT(); 
         return (
         <>

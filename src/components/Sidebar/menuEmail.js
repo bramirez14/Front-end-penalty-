@@ -5,8 +5,6 @@ import { Menu} from "antd";
 
 export const menuEmail= () =>{
   const N = localStorage.getItem('N')
-console.log(N);
-
   
     return (
     <Menu>

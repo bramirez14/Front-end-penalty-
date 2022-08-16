@@ -29,7 +29,6 @@ export const Vacaciones = () => {
   /*****Alertas******/
   const handleAlert = () => {
     let fcha = sumaFecha(dias, fechaDesde);
-    console.log(fcha);
     Swal.fire({
       title: `Solicitud enviada 
       fecha de regreso ${fcha}`,
@@ -61,7 +60,6 @@ export const Vacaciones = () => {
     const fx = async () => {
       if (periodo !== "") {
         const { data } = await axiosURL.get(`/${id}`);
-        console.log(data);
         const { fechaContratacion, departamento } = data;
         const depto = departamento.departamento;
         const periodoElegido = vacaciones.periodo;
@@ -99,7 +97,6 @@ export const Vacaciones = () => {
   };
 
   const onChange = (date, dateString) => {
-    console.log(dateString);
     const fcha = sumaFecha(dias, dateString);
     setVacaciones({ ...vacaciones, fechaDesde: dateString, fechaHasta: fcha });
   };
@@ -108,7 +105,6 @@ export const Vacaciones = () => {
   const APROBACION = getUsuario.vacacion?.[log]?.estadoFinal;
   /********enviamos el formulario a DB********/
   const tipo = localStorage.getItem("type");
-  console.log(getUsuario);
   const guardarAnticipoDeVacaciones = async () => {
     const nuevoObj = {
       alerta: vacaciones.obs,

@@ -56,7 +56,6 @@ export const AnticipoGasto = () => {
      path:'/aprobacion/gastos',
      usuarioId:datosUsuario.id
    };
-   console.log(nuevoObj);
    socket.emit( 'alerta-nueva', nuevoObj);
       let result = await axiosURL.post("/mpago", {
         ...values,

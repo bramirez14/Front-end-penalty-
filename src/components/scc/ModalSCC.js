@@ -33,7 +33,6 @@ export const ModalSCC = ({ visible, onCreate, onCancel }) => {
               onCreate(values);
             })
             .catch((info) => {
-              console.log("Validate Failed:", info);
             });
         }}
       >

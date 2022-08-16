@@ -194,7 +194,6 @@ export const SccExcel = ({ data }) => {
 
   function confirmEnviar() {
     let data= document.querySelector('.btn-excel')
-    console.log(data);
     data.innerHTML='Cargando...'
     data.disabled= true;
    

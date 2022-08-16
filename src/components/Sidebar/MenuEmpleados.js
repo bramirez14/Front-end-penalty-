@@ -14,7 +14,6 @@ import { filtroNumVendedores } from "../../helpers/funcioneshelpers";
 const { SubMenu } = Menu;
 export const MenuEmpleados = ({ open, setOpen }) => {
   const N = localStorage.getItem("N");
-  console.log(filtroNumVendedores(N));
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
   let handleClick;

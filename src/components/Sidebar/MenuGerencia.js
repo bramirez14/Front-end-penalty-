@@ -23,7 +23,6 @@ export const MenuGerencia = ({ open, setOpen }) => {
   let handleClick;
   if (!screens.md) {
     handleClick = (e) => {
-      console.log(e);
       setOpen(false);
     };
   }

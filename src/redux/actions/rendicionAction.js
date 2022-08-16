@@ -23,7 +23,6 @@ export const tarjetaCredito = (values) => async (dispatch, getState) => {
     f.append("fecha", values.fecha._d);
     const response = await axiosURL.post("/tarjeta/credito", f);
     const data = response.data;
-    console.log(data);
     dispatch({ type: types.tarjeta_credito, payload: data });
 
     return response;

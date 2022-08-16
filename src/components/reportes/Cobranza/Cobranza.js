@@ -24,9 +24,7 @@ const tabList = [
 export const Cobranza = () => {
 
     const [state, setState] = useState({key: 'tab1'})
-    console.log(state);
       const onTabChange = (key, type) => {
-        console.log(key, type);
         setState({ [type]: key });
       };
       

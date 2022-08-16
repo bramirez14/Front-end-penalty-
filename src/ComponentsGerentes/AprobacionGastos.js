@@ -25,7 +25,7 @@ const op= formaDepago.find(
   return op?.pago
         
 }
-console.log(data);
+
 const modoRendicion=( modo) => {
  if(modo==='sin'){
    return 'Sin Anticipo'

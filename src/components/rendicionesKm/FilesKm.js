@@ -41,7 +41,6 @@ const f= new FormData();
      f.append('f',new Date().toLocaleString())
 
     const resp= await axiosURL.post('/km',f);
-    console.log(resp);
     if(resp.data.status===200){
      navigate('/lista/kilometros')
     }
@@ -72,7 +71,6 @@ const f= new FormData();
               handleSubmit(values);
             })
             .catch((info) => {
-              console.log("Validate Failed:", info);
             });
         }}
       >

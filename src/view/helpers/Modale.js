@@ -42,7 +42,6 @@ setStateForm({...stateForm,[name]:value})
   };
 
   const handleChangeFile = (e) => {
-    console.log(e.target.files[0]);
     setStateForm({
       ...stateForm, file:e.target.files[0]
     })
