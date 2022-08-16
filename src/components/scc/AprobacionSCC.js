@@ -92,7 +92,7 @@ const CollectionCreateForm = ({
               });
           }}
         >
-          Guardar
+          Guardarss
         </Button>,
       ]}
     >
@@ -322,7 +322,6 @@ return 0
     (t) =>  !!t.NROCOMP 
   );
   
-  console.log(newTodasLasSol);
   const listaSCC = todasLasSolicitudesOrdenadas?.filter(
     (t) =>  !t.NROCOMP && t.RECHAZADO!== 'S'
   );
@@ -356,6 +355,7 @@ return 0
   }, [dispatch]);
 
   const onCreate = async (values) => {
+   
     const buscandoNroSCC = todasLasSolicitudes.find(t=> t.NROSCC=== datoSelect.NROSCC)
       const total =
       datoSelect.CANTPEDT00 +
