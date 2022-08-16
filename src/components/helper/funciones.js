@@ -68,10 +68,7 @@ export const run = (date) => {
     }else{
       Ht=H1-H2
     }
- /*    console.log(Ht + 'HORAS');
-    console.log(Mt + 'MINUTOS');
-    console.log(St + 'SEGUNDOS');
-    console.log(resultDias); */
+
     if (resultDias === '0 dia'){
    if(Ht===0){
      

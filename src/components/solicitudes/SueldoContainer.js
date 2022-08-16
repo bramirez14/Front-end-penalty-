@@ -56,7 +56,6 @@ export const SueldoContainer = ( ) => {
     verificarMes();
   }, []);
   const datosUsuario = PeticionGET(`/${id}`);
-  console.log(datosUsuario);
   const filtro  = datosUsuario?.anticipo;
   let APROBACION; 
   if( filtro===undefined){
@@ -64,7 +63,6 @@ export const SueldoContainer = ( ) => {
   }else{
     APROBACION = filtro?.length === 0? '':filtro?.[filtro?.length - 1]?.estadoFinal;// verifica si hay anticipos pendientes 
   }
-  console.log(APROBACION)
   //fx para guardar anticipo con axios en DB
   const guardarAnticipo = async (values) => {
     const result = await axiosURL.post("/anticipo", {
@@ -76,7 +74,6 @@ export const SueldoContainer = ( ) => {
       f: new Date().toLocaleString(),
       finpago:finpago(values.cuotas)
     });
-    console.log(result);
     if (result.status === 200) {
       navigate("/");
     }
@@ -100,17 +97,13 @@ export const SueldoContainer = ( ) => {
       };
       socket.emit("alerta-nueva", nuevoObj);
       const pp = socket?.on("alerta-creada", async (data) => {
-        console.log(data);
       });
-      console.log(pp);
       let u = { ...v, usuarioId, fecha };
       guardarAnticipo(u);
     }
   };
   const finpago = (cuota) => {
-    console.log(parseInt(cuota));
     let mespago = parseInt(mes())+ parseInt(cuota) ;
-    console.log(mespago);
     switch (mespago) {
       case 0:
         return "Enero";

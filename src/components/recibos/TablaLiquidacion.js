@@ -11,13 +11,11 @@ const axiosGet = async () => {
     let  res = await axiosURLIntranet.get('/cuentacorriente');
     setData(res.data)
 };
-console.log(data);
 useEffect(() => {
     axiosGet();
   }, []);
 
 const buscarCliente= data.filter(c=> c.razonsoc === cliente.razonsoc);
-console.log(buscarCliente);
 const columns = [
 
     {

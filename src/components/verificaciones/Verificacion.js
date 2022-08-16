@@ -23,7 +23,6 @@ const [gasto, setGasto] = useState([]);
     noTitleKey: "app",
   });
   const onTabChange = (key, type) => {
-    console.log(key, type);
     setState({ [type]: key });
   };
 
@@ -38,7 +37,6 @@ useEffect(() => {
   const filtroListo = gasto.filter((f) => f.listo === "Si");
 
   const gastoVerificado = async (id) => {
-    console.log(id);
      await axiosURL.put(`/verficacion/gasto/${id}`, {
       aprobacion: "Si",
     });
@@ -93,7 +91,7 @@ useEffect(() => {
                           <img
                             alt="example"
                             src={mm.imagen}
-                            alt="No hay imagen"
+                            /* alt="No hay imagen" */
                             style={{
                               borderRadius: "10px",
                               width: 200,

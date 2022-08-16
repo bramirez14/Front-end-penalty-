@@ -35,7 +35,6 @@ export const RendicionKmVista = () => {
     const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
     saveAs(pdfBlob, `${pdf}`);
   };
-  console.log(filtroListo);
 
   const columns = [
     {

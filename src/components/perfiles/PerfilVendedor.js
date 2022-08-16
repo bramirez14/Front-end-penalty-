@@ -17,8 +17,6 @@ var numberFormat = new Intl.NumberFormat("es-ES");
     const ultimaVacacion = vacacion?.[vacacion?.length-1];
     const ultimoGasto= gasto?.[gasto?.length-1]
     const ultimoKm= km?.[km?.length-1]
-    console.log(ultimoKm);
-
    
      return (
          <>

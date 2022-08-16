@@ -125,7 +125,6 @@ export const CargaRecibo = () => {
      //agregar una alerta 
       navigate('/lista/recibo')
     }
-    console.log(getRecibos===[ ])
     return (
         <>
           { getRecibos.length===0 ?

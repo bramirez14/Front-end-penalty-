@@ -21,9 +21,7 @@ export const AntSueldoVista = () => {
   useEffect(() => {
     get();
   }, []);
-  function onChange(checked) {
-    console.log(`switch to ${checked}`);
-  }
+
   
   const filtroListo = sueldo.filter((f) => f.estadoFinal === "aprobado");
 

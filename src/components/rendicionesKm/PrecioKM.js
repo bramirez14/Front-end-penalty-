@@ -11,9 +11,7 @@ export const PrecioKM = ( ) => {
   const navigate= useNavigate();
     const [preciokmActual]= useGet('/precio/km');
     const handleSubmit= async (values) =>{
-        console.log(values);
        const res= await axiosURL.put('/precio/km',values)
-       console.log(res);
        if(res.status=== 200){
         /* axiosGet(); */
         Swal.fire({

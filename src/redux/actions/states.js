@@ -9,7 +9,6 @@ try {
     dispatch({ type:types.sueldo, payload: datos })
 } catch (e) {
     dispatch({ type: 'error', error: e.message })
-    console.log(e)
 }
 
 }

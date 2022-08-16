@@ -307,9 +307,7 @@ export const PagosAntGasto = () => {
   });
   const filtroPagoRealizado = datos.filter((d) => d.pagoRealizado === "Si");
   const filtroPagoIncompleto = datos.filter((d) => d.pagoRealizado !== "Si");
-  /*  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-  }; */
+
   return (
     <>
       {stateChange && (

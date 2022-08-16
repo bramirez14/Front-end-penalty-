@@ -51,7 +51,6 @@ export const datoSelec = (file) => ({ type: types.dataSEL, payload: file });
 export const editarSCC = (id, data) => async (dispatch) => {
   try {
     const response = await axiosURL.put(`/scc/${id}`, data);
-    console.log(response);
     const datos = await response.data;
     
       dispatch({ type: types.editscc, payload: datos});
@@ -63,17 +62,8 @@ export const editarSCC = (id, data) => async (dispatch) => {
 };
 export const pasePedidos = ()=> async (dispatch)=>{
   const response = await axiosURL.post('/scc/agregar/newscc')
-  console.log(response);
   const datos = await response.data;
   dispatch({ type:types.pasePedidos,payload: datos})
   return response;
 }
 
-/* export const rechazarSCC = (id)=>{ async (dispatch)=>{
-  try {
-    const response = await axiosURL.put(`/scc/${id}`,{RECHAZADO: "N"})
-    console.log(response);
-  } catch (e) {
-    dispatch({ type: "error", error: e.message });
-  }
-}} */

@@ -22,7 +22,6 @@ export const Kilometros = () => {
   useEffect(() => {
     peticionGet();
   }, []);
-console.log(stateKm);
   const filtroUsuario = stateKm?.filter((s) => s.usuarioId === parseInt(id));
   
   const filtroSinKmId = filtroUsuario.filter((d) => d.kilometroId === null);

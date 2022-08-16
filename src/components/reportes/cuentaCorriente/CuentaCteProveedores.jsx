@@ -5,7 +5,6 @@ import { columnasCtaCteProv } from "./columnasCtaCtePro";
 
 export const CuentaCteProveedores = () => {
   const getctacte = filtradoPorVendedorSQL("/sql/ctacte/proveedores");
-    console.log(getctacte);
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
   
   return (

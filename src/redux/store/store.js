@@ -40,7 +40,3 @@ listaCtes:clientesReducer,
         )
      );
      
-/* store.subscribe(()=>{
-     console.log('cambio el estado',store.getState());
- })
- */

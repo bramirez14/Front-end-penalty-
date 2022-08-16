@@ -34,7 +34,6 @@ export const login = (uid,displayName)=>({
 })
 
 export const fetchThunk = () => async (dispatch,getState) => {
-    console.log(getState().auth);
     try {
       const response = await axios.get('https://jsonplaceholder.typicode.com/todos')
       const datas = await response.data
@@ -42,6 +41,5 @@ export const fetchThunk = () => async (dispatch,getState) => {
      dispatch({ type:types.axiosget, payload: todos })
     } catch(e) {
       dispatch({ type: 'error', error: e.message })
-      console.log(e)
     }
   } 

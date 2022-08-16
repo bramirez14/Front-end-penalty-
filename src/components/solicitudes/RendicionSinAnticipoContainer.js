@@ -39,7 +39,6 @@ export const RendicionSinAnticipoContainer = () => {
     });
   };
   const handleSubmit = async (values) => {
-    console.log(values);
     setSpinner(true)
     
 //   const {data} = await alerta(objs)
@@ -65,7 +64,6 @@ export const RendicionSinAnticipoContainer = () => {
     f.append("estado", obj.estado);
     f.append("estadoFinal", obj.estadoFinal);
     let result = await axiosURL.post("/gasto/rendicion/sinanticipo", f);
-    console.log(result);
     if(result.data?.error?.errno===-3008){
       alert('Compruebe su connexion!!!')
       setSpinner(false)
@@ -74,7 +72,6 @@ export const RendicionSinAnticipoContainer = () => {
       navigate("/gastos");
     }
   };
-  console.log(crearRendicion);
 
   /**Fin Submit */
   /**peticio get de forma de pago */

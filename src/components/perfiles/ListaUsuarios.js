@@ -33,7 +33,6 @@ export const ListaUsuarios = ({ lista }) => {
     setVisible(true);
     /** Fin sector gastos */
   };
-  // console.log(DatosPersonales);
   const onClose = () => setVisible(false);
   /**Selecion de Colores para conectado*/
 

@@ -61,7 +61,6 @@ export const Recibo = () => {
   const finalizar = async () => {
 setSpinner(true)
 const response= await axiosURL.post('/generar/pdf/recibo',datos);
-console.log(response.data.status);
 
    if (response.data.status === 200) {
      setSpinner(false)

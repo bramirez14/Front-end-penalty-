@@ -1,7 +1,6 @@
 import { axiosURL } from "../../config/axiosURL";
 
 export const alerta906 = async(obj) => {
-    console.log(obj);
     
     const nuevoObj = {
       alerta: obj.msj,

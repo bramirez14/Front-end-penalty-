@@ -75,7 +75,6 @@ export const PagosKm = () => {
     const final = new FormData();
     final.append("file", statefinal);
     const result = await axiosURL.put(`/pagofinal/kilometros/${id}`, final);
-    console.log(result);
   };
   const handleFileChange = (e) => {
     setStateFile(e.target.files[0]);

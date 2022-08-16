@@ -64,7 +64,6 @@ const finalizarfinal=async (id,statefinal) =>{
   const final = new FormData();
   final.append("file",statefinal);
   const  result= await axiosURL.put(`/pagofinal/${id}`, final);
-  console.log(result);
 }
 
 
