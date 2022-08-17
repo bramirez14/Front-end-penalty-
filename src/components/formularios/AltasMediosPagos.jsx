@@ -1,5 +1,5 @@
 import { CreditCardOutlined } from "@ant-design/icons";
-import { Button, Divider, Form, Input, Radio } from "antd";
+import { Row,Col,Button, Divider, Form, Input, Radio } from "antd";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -44,6 +44,8 @@ export const AltasMediosPagos = () => {
     }
   };
   return (
+    <Row justify='center'>
+    <Col xs={24} sm={24} md={12} lg={12} xl={12}> 
     <Form
       fields={fields}
       className="container-form"
@@ -102,5 +104,9 @@ export const AltasMediosPagos = () => {
         )}
       </Form.Item>
     </Form>
+    </Col>
+
+        
+      </Row>
   );
 };

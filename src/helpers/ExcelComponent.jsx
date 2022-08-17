@@ -6,6 +6,7 @@ import {
   } from 'antd';
 import { axiosURL } from '../config/axiosURL';
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 export const ExcelComponent = () => {
   const [loading, setLoading] = useState(false);
@@ -26,6 +27,13 @@ const navigate=useNavigate();
 
    setTimeout(() => {
    setLoading(false);
+   Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Se guardó con éxito',
+    showConfirmButton: false,
+    timer: 1500
+  })
     navigate('/')}, 7000);
 
   }

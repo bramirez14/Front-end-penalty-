@@ -25,7 +25,7 @@ export const PrecioKM = ( ) => {
     }
   }
     return (
-      <Row>
+      <Row justify='center'>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}> 
         <div className='container-form'>
         <Titulo  titulo="Cambiar Precio de Km" />
@@ -62,9 +62,7 @@ export const PrecioKM = ( ) => {
         </Row>
         </div>
         </Col>
-<Col xs={24} sm={24} md={12} lg={12} xl={12}>
-<AltasMediosPagos/>
-</Col>
+
         
       </Row>
 
