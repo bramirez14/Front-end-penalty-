@@ -125,6 +125,7 @@ export const DashboardRoutes = ({ history }) => {
           {/** Km */}
         
           <Route path="/precio/km" element={tipo!=='Gerente'?<NotFound/>:<PrecioKM />} />
+
           {/* Empleados */} */
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/anticipo/gasto" element={<AnticipoGasto />} />
@@ -228,7 +229,8 @@ export const DashboardRoutes = ({ history }) => {
           />
         <Route path="/pase/pedidos" element={<PasePedidos />} />
         {/* Formulario de alta de medios de pago */}
-        <Route path="/alta/medios/pagos" element={<AltasMediosPagos/>} />
+        <Route path="/alta/medios/pagos" element={tipo!=='Gerente'?<NotFound/>:<AltasMediosPagos />} />
+
         {/* Formulario para subir archivos excel*/}
         <Route path="/excel" element={<ExcelComponent/>} />
 

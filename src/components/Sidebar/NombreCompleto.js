@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Dropdown, Space } from "antd";
-import { UserOutlined, SettingOutlined } from "@ant-design/icons";
+import { UserOutlined, SettingOutlined,PlusOutlined } from "@ant-design/icons";
 import { CaretDownOutlined } from "@ant-design/icons";
 import { ImExit } from "react-icons/im";
 import { IoCarSportSharp } from "react-icons/io5";
@@ -33,6 +33,7 @@ export const NombreCompleto = ({ handleLogout, nombre, apellido  }) => {
       </Menu.Item>
 
       { (N==='901'|| N==='902') && 
+      <>
       <Menu.Item
         key="4"
         icon={<IoCarSportSharp/>}
@@ -44,6 +45,19 @@ export const NombreCompleto = ({ handleLogout, nombre, apellido  }) => {
          </Link>
       
       </Menu.Item>
+      
+<Menu.Item
+        key="5"
+        icon={<PlusOutlined />}
+        style={{ fontSize: "20px" }}
+        
+      >
+         <Link to="/alta/medios/pagos" style={{color:'black'}}>
+         <span style={{ marginLeft: "10px" }}> Agregar Medio de Pago</span>
+         </Link>
+      
+      </Menu.Item>
+      </>
       }
 
       <Menu.Item
