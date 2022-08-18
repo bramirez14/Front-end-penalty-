@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
@@ -300,7 +300,7 @@ const CollectionCreateForm = ({
   );
 };
 export const AprobacionSCC = () => {
-
+ 
   const [isAprob, setIsAprob] = useState(false);
   const [loading, setLoading] = useState(false);
 const [datosExcel, setDatosExcel] = useState([] );
@@ -311,6 +311,7 @@ const [datosExcel, setDatosExcel] = useState([] );
     (state) => state
   );
   const todasLasSolicitudes = solicitudControlCalidad.scc;
+  console.log(todasLasSolicitudes);
   const todasLasSolicitudesOrdenadas  =  todasLasSolicitudes.sort((a,b) => {
 if(b.FECEMISION < a.FECEMISION) return -1
 if (b.FECEMISION < a.FECEMISION)  return 1 
@@ -404,13 +405,10 @@ if(buscandoNroSCC.CANTPED <= total){
 }
   };
   
-/*   const memoAprobados = useMemo(
-    () => todasLasSolicitudes,
-    [todasLasSolicitudes]
-  ); */
   const paseAPedidos = async () => {
     const response = await dispatch(pasePedidos());
     console.log(response);
+
     if (response.status === 200) {
       Swal.fire({
         position: "center",
@@ -419,9 +417,11 @@ if(buscandoNroSCC.CANTPED <= total){
         showConfirmButton: false,
         timer: 2000,
       });
+
       navigate("/");
     }
   };
+  const reload=()=>window.location.reload();
   useEffect(() => {todosExcel()},[todasLasSolicitudes])
   return (
     <div>
@@ -441,6 +441,7 @@ if(buscandoNroSCC.CANTPED <= total){
       <Row style={{ marginTop: 20, marginBottom: 20 }}>
         <Col span={24}>
           <SccExcel data={datosExcel} />
+          <Button onClick={reload}>Refresh</Button>
         </Col>
 
         <Col span={24}>
