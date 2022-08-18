@@ -410,8 +410,8 @@ if(buscandoNroSCC.CANTPED <= total){
   ); */
   const paseAPedidos = async () => {
     const response = await dispatch(pasePedidos());
-    console.log(response.data.status);
-    if (response.data.status === 200) {
+    console.log(response);
+    if (response.status === 200) {
       Swal.fire({
         position: "center",
         icon: "success",
