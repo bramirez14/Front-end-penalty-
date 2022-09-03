@@ -83,8 +83,10 @@ export const remitos = [
             );
           case "DESPACHADO":
             return <h5 style={{ color: "green" }}>  DESPACHADO</h5>;
-          default:
+          case "EN PREPARACION":
             return <h5 style={{ color: "blue" }}> EN PREPARACION </h5>;
+            default:
+            return <h5 style={{ color: "red" }}> ANULADO </h5>;
         }
       };
       return <>{color()}</>;
