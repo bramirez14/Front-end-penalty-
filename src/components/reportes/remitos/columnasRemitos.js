@@ -75,17 +75,16 @@ export const remitos = [
     render: (estado, file) => {
       const color = () => {
         switch (file.ESTADO) {
-          case "PENDIENTE":
+          case "PREPARADO":
             return (
-              <h5 style={{ color: "#F3D726" }}>
-                {" "}
-                <b>PENDIENTE...</b>{" "}
+              <h5 style={{ color: "orange" }}>
+                <b>PREPARADO</b>
               </h5>
             );
           case "DESPACHADO":
-            return <h5 style={{ color: "green" }}> DESPACHADO </h5>;
+            return <h5 style={{ color: "green" }}>  DESPACHADO</h5>;
           default:
-            return <h5 style={{ color: "red" }}> EN PREPARACION </h5>;
+            return <h5 style={{ color: "blue" }}> EN PREPARACION </h5>;
         }
       };
       return <>{color()}</>;
