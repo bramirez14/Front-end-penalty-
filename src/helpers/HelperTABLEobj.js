@@ -122,7 +122,6 @@ export const HelperTABLEobj = ({
         expandable={expandible?{
           expandedRowRender: record => <>{record.description}</>,
         }:''}
-        scroll={{ y: y}}
         footer={() => (footer)}
       />
   
