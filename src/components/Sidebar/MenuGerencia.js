@@ -77,14 +77,14 @@ export const MenuGerencia = ({ open, setOpen }) => {
             <Link to="/reportes/facturacion/ventas">Por Vdor</Link>
           </Menu.Item>
           <Menu.Item key="11">
-            <Link to="/reportes/facturacion/detallada">Detalladata</Link>
+            <Link to="/reportes/facturacion/detallada">Con Detalle</Link>
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="12">
-          <Link to="/reportes/cuentacorriente">CuentaCorriente </Link>
+          <Link to="/reportes/cuentacorriente">Cta Cte Clientes </Link>
         </Menu.Item>
         <Menu.Item key="37">
-          <Link to="/reportes/ctacte/proveedores">CtaCte Proveedores </Link>
+          <Link to="/reportes/ctacte/proveedores">Cta Cte Proveedores </Link>
         </Menu.Item>
         <Menu.Item key="13">
           <Link to="/reportes/cobranza">Cobranzas</Link>
