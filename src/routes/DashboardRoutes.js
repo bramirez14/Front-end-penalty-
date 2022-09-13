@@ -63,6 +63,8 @@ import { EditarDatosUsuario } from "../components/login/EditarDatosUsuario";
 import { AltasMediosPagos } from "../components/formularios/AltasMediosPagos";
 import { CuentaCteProveedores } from "../components/reportes/cuentaCorriente/CuentaCteProveedores";
 import { ExcelComponent } from "../helpers/ExcelComponent";
+import { ListUsers } from "../components/users/ListUsers";
+import { UserId } from "../components/users/UserId";
 
 export const DashboardRoutes = ({ history }) => {
   const dispatch = useDispatch();
@@ -114,7 +116,8 @@ export const DashboardRoutes = ({ history }) => {
           <Route path="/verificaciones" element={tipo!=='Gerente'?<NotFound/>:<Verificacion />} />
           <Route path="/pdf/:id" element={<PDF />} />
           {/* Datos de usuario */}
-          <Route path="/register" element={tipo!=='Gerente'?<NotFound/>:<Register />} />
+          <Route path="/register" element={tipo!=='Gerente'?<NotFound/>:<ListUsers />} />
+          <Route path="/usuario/:id" element={tipo!=='Gerente'?<NotFound/>:<UserId/>} />
           <Route path="/editar/usuario" element={tipo!=='Gerente'?<NotFound/>:<EditarDatosUsuario />} />
 
           <Route path="/tarjeta/credito" element={tipo!=='Gerente'?<NotFound/>:<TarjetaCredito/>} />

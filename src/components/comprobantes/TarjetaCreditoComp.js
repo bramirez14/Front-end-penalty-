@@ -17,7 +17,7 @@ const columns=[
     render:(state,file)=>{
       let day= file?.fecha
       let  d = new Date(day).getDate();
-       let  m = new Date(day).getMonth();
+       let  m = new Date(day).getMonth()+1;
         let y = new Date(day).getFullYear();
   return <span>{day !== null ?`${d}/${m}/${y}` :'no hay fecha'}</span>
   }
