@@ -15,7 +15,7 @@ export const ListUsers = () => {
     renderItem={(item) => (
         
       <List.Item key={item.id}
-      actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">Eliminar</a>]}
+      actions={[<a key="list-loadmore-edit">Editar</a>, <a key="list-loadmore-more">Eliminar</a>]}
       >
          <List.Item.Meta
           avatar={<Avatar src={item.imagen} />}

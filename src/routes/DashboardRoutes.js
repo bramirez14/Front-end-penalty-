@@ -65,6 +65,7 @@ import { CuentaCteProveedores } from "../components/reportes/cuentaCorriente/Cue
 import { ExcelComponent } from "../helpers/ExcelComponent";
 import { ListUsers } from "../components/users/ListUsers";
 import { UserId } from "../components/users/UserId";
+import { UpdateUser } from "../components/users/UpdateUser";
 
 export const DashboardRoutes = ({ history }) => {
   const dispatch = useDispatch();
@@ -118,7 +119,7 @@ export const DashboardRoutes = ({ history }) => {
           {/* Datos de usuario */}
           <Route path="/register" element={tipo!=='Gerente'?<NotFound/>:<ListUsers />} />
           <Route path="/usuario/:id" element={tipo!=='Gerente'?<NotFound/>:<UserId/>} />
-          <Route path="/editar/usuario" element={tipo!=='Gerente'?<NotFound/>:<EditarDatosUsuario />} />
+          <Route path="/editar/usuario/:id" element={tipo!=='Gerente'?<NotFound/>:<UpdateUser/>} />
 
           <Route path="/tarjeta/credito" element={tipo!=='Gerente'?<NotFound/>:<TarjetaCredito/>} />
           {/** Calendario */}
