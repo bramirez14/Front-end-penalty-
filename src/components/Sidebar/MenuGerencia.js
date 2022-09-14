@@ -27,6 +27,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
   }
   //submenu12
   //key = 38
+  //saque key 3
   return (
     <Menu
       mode="inline"
@@ -41,9 +42,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
           <Menu.Item key="2">
             <Link to="/lista/usuarios">Lista de Empleados</Link>
           </Menu.Item>
-          <Menu.Item key="3">
-            <Link to="/editar/usuario">Editar</Link>
-          </Menu.Item>
+          
         </SubMenu>
       )}
       <SubMenu key="sub2" title="Aprobaciones" icon={<CheckOutlined />}>

@@ -14,7 +14,6 @@ export const HelperTABLEobj = ({
   columns,
   data,
   boton,
-  paginas = false,
   x,
   y,
   expandible= false,
@@ -117,12 +116,14 @@ export const HelperTABLEobj = ({
       rowSelection={check?rowSelection:''}
         columns={columna}
         dataSource={data}
-        pagination={paginas}
         bordered={bordered}
         expandable={expandible?{
           expandedRowRender: record => <>{record.description}</>,
         }:''}
         footer={() => (footer)}
+        pagination={{
+          position: ['none', 'bottomLeft'],
+        }}
       />
   
     </>
