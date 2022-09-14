@@ -73,7 +73,6 @@ export const FormKm = ({  get }) => {
               handleSubmit(values);
             })
             .catch((info) => {
-              console.log("Validate Failed:", info);
             });
         }}
       >

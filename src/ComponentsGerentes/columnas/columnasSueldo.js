@@ -77,7 +77,6 @@ const {socket} = useContext(SocketContext);
       });
      
     } else {
-      console.log("soy usuario distinto de 902");
       await axiosURL.put(`/anticipo/aprobado/${file.id}`, {
         ...mensaje,
         estado: "aprobado",

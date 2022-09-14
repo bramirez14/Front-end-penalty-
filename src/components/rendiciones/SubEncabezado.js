@@ -4,7 +4,6 @@ import {PeticionGET} from '../../config/PeticionGET';
 
 
 export const SubEncabezado = ({uuid,total,importeAnticipo,sinAnticipo}) => {
-  console.log(sinAnticipo==='sin');
   const id = localStorage.getItem('uid')
   let usuario = PeticionGET(`/${id}`)
 

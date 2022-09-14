@@ -16,6 +16,7 @@ export const CuentaCorriente = () => {
         </h1>
       ) : (
         <HelperTABLEobj
+          title="Cuenta Corriente"
           hoja={"cta cte"}
           namefile={"cuenta corriente"}
           data={getctacte}

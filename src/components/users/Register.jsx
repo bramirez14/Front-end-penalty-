@@ -20,12 +20,10 @@ export const Register = () => {
     const [fecha, setFecha] = useState('')
   const navigate=useNavigate();
   const onFinish = async (values) => {
-    console.log(values);
     let cel= '11'.concat(values.cel)
     let valor = { ...values,fechaContratacion:fecha,cel}
     let res = await axiosURL.post('/register',valor);
     res.data.status===400 ? alert (res.data.message ) : navigate('/lista/usuarios')
-    
   };
 
   const onChange = (date, dateString) => {

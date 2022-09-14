@@ -33,7 +33,6 @@ const EditableCell = ({
   }, [editing]);
 
   const toggleEdit = () => {
-    console.log(record[dataIndex],36)
     setEditing(!editing);
     form.setFieldsValue({
       [dataIndex]: record[dataIndex],
@@ -41,16 +40,12 @@ const EditableCell = ({
   };
 
   const save = async () => {
-    console.log(record,.44)
     try {
       const values = await form.validateFields();
-      console.log(values,.47)
       toggleEdit();
-      console.log({ ...record, ...values },49)
       
       handleSave({ ...record, ...values });
     } catch (errInfo) {
-      console.log('Save failed:', errInfo);
     }
   };
 
@@ -89,13 +84,9 @@ const EditableCell = ({
 };
 
 export const TableLiq = ({col,datos, dataCheck,setDataCheck,setDatos})=> {
-  console.log(datos);
     const [contenedor, setContenedor] = useState([])//lo dejamos porque influye  el valor de la tabla 
 
-
-
-
-  const handleSave = (row) => {
+    const handleSave = (row) => {
     const newData = datos;
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
@@ -140,7 +131,6 @@ export const TableLiq = ({col,datos, dataCheck,setDataCheck,setDatos})=> {
     });
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-          console.log(selectedRows);
            setContenedor(selectedRows)
            setDataCheck(selectedRows)
         },

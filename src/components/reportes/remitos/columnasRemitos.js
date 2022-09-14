@@ -8,28 +8,28 @@ export const remitos = [
     title: "N° de Cliente",
     dataIndex: "cliente",
     key: "cliente",
-    width: 100,
+    lupa:true,
     render:(state,file)=> <h5>{file.cliente}</h5>,
   },
   {
     title: "Nombre del Cliente",
     dataIndex: "razonsoc",
     key: "razonsoc",
-    width: 200,
+    lupa:true,
     render:(state,file)=> <h5>{file.razonsoc}</h5>,
   },
   {
     title: "N° de Vdor",
     dataIndex: "vendedor",
     key: "vendedor",
-    width: 100,
+    lupa:true,
     render:(state,file)=> <h5>{file.vendedor}</h5>,
   },
   {
     title: "Nombre del vendedor",
     dataIndex: "apeynom",
     key: "apeynom",
-    width: 200,
+    lupa:true,
     render:(state,file)=> <h5>{file.apeynom}</h5>,
   },
 
@@ -37,21 +37,20 @@ export const remitos = [
     title: "N° de Pedido",
     dataIndex: "PEDIDO",
     key: "PEDIDO",
-    width: 140,
+    lupa:true,
     render:(state,file)=> <h5>{file.PEDIDO}</h5>,
   },
   {
     title: "Unidades",
     dataIndex: "UNIDADES",
     key: "UNIDADES",
-    width: 120,
     render:(state,file)=> <h5>{file.UNIDADES}</h5>,
   },
   {
     title: "Fecha de Emision",
     dataIndex: "fecemision",
     key: "fecemision",
-    width: 140,
+    lupa:true,
     render: (estado, file) => {
       let reducir = file.fecemision?.split("T");
       return <h5>{reducir?.[0]}</h5>;
@@ -61,7 +60,7 @@ export const remitos = [
     title: "N° de Remito",
     dataIndex: "REMITO",
     key: "REMITO",
-    width: 170,
+    lupa:true,
     render: (state, file) => (
       <>{file.REMITO === null ? <h5>No hay remito</h5> : <h5>{file.REMITO}</h5>}</>
     ),
@@ -71,7 +70,7 @@ export const remitos = [
     title: "Estado",
     dataIndex: "ESTADO",
     key: "ESTADO",
-    width: 200,
+    lupa:true,
     render: (estado, file) => {
       const color = () => {
         switch (file.ESTADO) {
@@ -96,7 +95,6 @@ export const remitos = [
     title: "PDF",
     dataIndex: "pdf",
     key: "pdf",
-    width: 100,
     render: (a, file) => {
       const descargarPDF = async (pdf) => {
         let res = await axiosURLIntranet.get("/remitos/pdf", {

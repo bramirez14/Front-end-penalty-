@@ -6,13 +6,13 @@ import { columnasFutIngresos } from './columnasFutIngresos'
 export const FuturosIngresos = () => {
     const getfuturosIngreso= filtradoPorVendedor('/futuros/ingresos');
     var mediaqueryList = window.matchMedia("(min-width: 1200px)");
-    console.log(mediaqueryList.matches);
       return (
         <>{
           getfuturosIngreso===undefined?
           <h1 style={{marginTop:200,marginLeft:300}}>Compruebe su conexion!!!</h1>
        :
        <HelperTABLEobj
+      title='Futuros Ingresos'
        hoja={'Futuros Ingresos'}
        namefile={'Futuros Ingresos'}
        columns={columnasFutIngresos}

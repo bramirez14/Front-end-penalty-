@@ -18,7 +18,6 @@ const {usuariosIO,setUsuariosIO} = useContext(UserContext)
       'x-token': token
   }}
     )
-    //console.log(socket);
     socket.on('lista-usuarios', (data)=> { 
       setUsuariosIO(data)
     });

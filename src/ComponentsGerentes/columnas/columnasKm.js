@@ -199,7 +199,7 @@ export const ColumnasKm = () => {
             width: 100,
             render: (f, fila) => {
               const handleDelete = async () => {
-                console.log("me clickeaste para borrar");
+
                 let resultado = await Swal.fire({
                   title: "¿Estás seguro?",
                   text: "¡No podrás revertir esto!",

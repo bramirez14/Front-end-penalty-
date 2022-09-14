@@ -178,12 +178,10 @@ export const Remitos = ()=> {
         ...getColumnSearchProps('pdf'),
         render:(a,file)=>{
           const descargarPDF= async ( pdf)=>{
-            console.log(pdf);
             let res=await axiosURLIntranet.get('/remitos/pdf',{
               headers: {archivo:pdf},
               responseType: "blob"
             });
-            console.log(res);
             const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
             saveAs(pdfBlob, `${file.pdf}`);
           }

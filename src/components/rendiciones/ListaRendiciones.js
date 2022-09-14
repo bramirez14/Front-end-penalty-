@@ -89,7 +89,6 @@ export const ListaRendiciones = () => {
 
     }
       let res = await axiosURL.put(`/gasto/finalizado/${id}`,{listo:'Si'});
-      console.log(res);
       res.status===200&& navigate('/gastos')
   };
   return (

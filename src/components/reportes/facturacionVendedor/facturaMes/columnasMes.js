@@ -3,20 +3,21 @@ export const columnasMes=[
           title: 'Vendedor',
           dataIndex: 'vendedor',
           key: 'vendedor',
-          width: '20%',
+          lupa:true,
           render:(state,file)=> <h5>{file.vendedor}</h5>,
         },
         {
           title: 'Cliente',
           dataIndex: 'numctacte',
           key: 'numctacte',
-          width: '20%',
+          lupa:true,
           render:(state,file)=> <h5>{file.numctacte}</h5>,
         },
         {
           title: 'Razon Social',
           dataIndex: 'razonsoc',
           key: 'razonsoc',
+          lupa:true,
           render:(state,file)=> <h5>{file.razonsoc}</h5>,
         },
         {

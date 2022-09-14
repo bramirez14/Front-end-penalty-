@@ -88,7 +88,6 @@ const CollectionCreateForm = ({
                 onCreate(values);
               })
               .catch((info) => {
-                console.log("Validate Failed:", info);
               });
           }}
         >
@@ -410,7 +409,6 @@ if(buscandoNroSCC.CANTPED <= total){
   ); */
   const paseAPedidos = async () => {
     const response = await dispatch(pasePedidos());
-    console.log(response);
     if (response.status === 200) {
       Swal.fire({
         position: "center",

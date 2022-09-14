@@ -82,7 +82,6 @@ export const CrearRendicion = () => {
       f.append("total",total);
 
       let result = await axiosURL.post("/rendicion", f);
-   console.log(result);
       if(result.data?.error?.errno===-3008){
         alert('Compruebe su connexion!!!')
         setSpinner(false)

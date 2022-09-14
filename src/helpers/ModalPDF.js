@@ -3,7 +3,6 @@ import Pdf from "react-to-pdf";
 import { Modal, Button } from 'antd';
 
 export const ModalPDF=({children,ref})=>{
-  console.log(ref);
  const [isModalVisible, setIsModalVisible] = useState(false);
 const t=()=>setIsModalVisible(false)
     

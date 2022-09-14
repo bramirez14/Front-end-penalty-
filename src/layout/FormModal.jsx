@@ -10,9 +10,8 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel,title,okText,cancelT
       let res = await form.validateFields();
       await form.resetFields();
     let result= await onCreate(res);
-    //console.log(result);
     } catch (error) {
-      console.log('Validate Failed:', error);
+     return('Validate Failed:', error);
     }
   }
   return (

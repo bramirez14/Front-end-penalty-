@@ -21,7 +21,6 @@ export const TarjetaCredito = () => {
   }
   const dateFormat = 'DD/MM/YYYY';
   const [getAllCreditCard ]= useGet('medios/pagos/tarjeta/credito');
-  console.log(getAllCreditCard);
   return (
       <Spin tip='Cargando...' spinning={spinner} className='spinner'>
       <Form name="validate_other" onFinish={onFinish} className="form-complete" size="large" >

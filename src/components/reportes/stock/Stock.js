@@ -11,6 +11,7 @@ export const Stock = () => {
         getSotck===undefined?
         <h1 style={{marginTop:200,marginLeft:300}}>Compruebe su conexion!!!</h1>:
         <HelperTABLEobj
+        title='Stock'
         hoja={'Stock'}
         namefile={'Stock'}
         columns= {columnasStock}

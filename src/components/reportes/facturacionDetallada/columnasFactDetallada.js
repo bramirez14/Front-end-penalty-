@@ -5,7 +5,7 @@ export const columnasFactDet=[
         title: 'Fecha',
         dataIndex: 'fecemision',
         key: 'fecemision',
-        width: 120,
+        lupa:true,
         render:(state,file)=> {
         const fecha = file.fecemision.split('T')[0];
         return <h5>{fecha}</h5>
@@ -16,7 +16,7 @@ export const columnasFactDet=[
         title: 'Codigo',
         dataIndex: 'codigo',
         key: 'codigo',
-        width: 100,
+        lupa:true,
         render:(state,file)=> <h5>{file.codigo}</h5>,
         
       },
@@ -24,7 +24,7 @@ export const columnasFactDet=[
         title: 'Comprobante',
         dataIndex: 'numeromov',
         key: 'numeromov',
-        width: 140,
+        lupa:true,
         render:(state,file)=> <h5>{file.numeromov}</h5>,
         
       },
@@ -32,7 +32,7 @@ export const columnasFactDet=[
         title: 'Cliente',
         dataIndex: 'numctacte',
         key: 'numctacte',
-        width: 100,
+        lupa:true,
         render:(state,file)=> <h5>{file.numctacte}</h5>,
         
       },
@@ -40,7 +40,7 @@ export const columnasFactDet=[
         title: 'Razon Social',
         dataIndex: 'razonsoc',
         key: 'razonsoc',
-        width: 200,
+        lupa:true,
         render:(state,file)=> <h5>{file.razonsoc}</h5>,
         
       },
@@ -48,8 +48,7 @@ export const columnasFactDet=[
         title: 'Vdor',
         dataIndex: 'vendedor',
         key: 'vendedor',
-        width: 80,
-        
+        lupa:true,
         render:(state,file)=> <h5>{file.vendedor}</h5>,
         
       },
@@ -57,8 +56,6 @@ export const columnasFactDet=[
         title: 'Condicion',
         dataIndex: 'condventa',
         key: 'condventa',
-        width: 120,
-        
         render:(state,file)=> <h5>{file.condventa}</h5>,
         
       },
@@ -66,8 +63,7 @@ export const columnasFactDet=[
         title: 'Dto',
         dataIndex: 'bonifica',
         key: 'bonifica',
-        width: 120,
-        
+        lupa:true,
         render:(state,file)=> <h5>{file.bonifica}</h5>,
         
       },
@@ -75,8 +71,7 @@ export const columnasFactDet=[
         title: 'Articulo',
         dataIndex: 'articulo',
         key: 'articulo',
-        width: 200,
-        
+        lupa:true,
         render:(state,file)=> <h5>{file.articulo}</h5>,
         
       },
@@ -84,8 +79,6 @@ export const columnasFactDet=[
         title: 'Descripcion',
         dataIndex: 'descrip',
         key: 'descrip',
-        width: 120,
-        
         render:(state,file)=> <h5>{file.decrip}</h5>,
         
       },
@@ -93,8 +86,6 @@ export const columnasFactDet=[
         title: 'Unidades',
         dataIndex: 'unidades',
         key: 'unidades',
-        width: 120,
-        
         render:(state,file)=> <h5>{file.unidades}</h5>,
         
       },
@@ -102,8 +93,6 @@ export const columnasFactDet=[
         title: 'Precio',
         dataIndex: 'precio',
         key: 'precio',
-        width: 120,
-        
         render:(state,file)=> <h5>${numberWithCommas(file.precio)}</h5>,
         
       },
@@ -111,8 +100,6 @@ export const columnasFactDet=[
         title: 'Importe',
         dataIndex: 'importe',
         key: 'importe',
-        width: 120,
-        
         render:(state,file)=> <h5>${numberWithCommas(file.importe)}</h5>,
         
       },
@@ -120,8 +107,6 @@ export const columnasFactDet=[
         title: 'IVA',
         dataIndex: 'iva',
         key: 'iva',
-        width: 120,
-        
         render:(state,file)=> <h5>${numberWithCommas(file.iva)}</h5>,
         
       },
@@ -129,8 +114,6 @@ export const columnasFactDet=[
         title: 'Bonificacion',
         dataIndex: 'bonificacion',
         key: 'bonificacion',
-        width: 130,
-        
         render:(state,file)=> <h5>{file.bonificacion}</h5>,
         
       },
@@ -138,8 +121,6 @@ export const columnasFactDet=[
         title: 'Total',
         dataIndex: 'total',
         key: 'total',
-        width: 120,
-        
         render:(state,file)=> <h5>${numberWithCommas(file.total)}</h5>,
         
       },

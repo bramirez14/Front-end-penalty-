@@ -11,6 +11,7 @@ export const FacturacionDetalladata = () => {
         <>{getFactDetallada===undefined?
             <h1 style={{marginTop:200,marginLeft:300}}>Compruebe su conexion!!!</h1>:
             <HelperTABLEobj
+            title='Facturacion Detallada'
             hoja={'Facturacion Detallada'}
             nameFile={'Facturacion Detalladata'}
             columns={columnasFactDet}

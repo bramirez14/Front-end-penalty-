@@ -14,8 +14,9 @@ export const PendienteAgrupadoCliente = () => {
         </h1>
       ) : (
         <HelperTABLEobj
-          hoja={" Pendiente Agrupado por CLiente"}
-          namefile={" Pendiente Agrupado por CLiente"}
+          title="Pendiente Agrupado Por Cliente"
+          hoja={" Pendiente Agrupado por Cliente"}
+          namefile={" Pendiente Agrupado por Cliente"}
           columns={columnasPendAgrupCliente}
           data={getPendAgrupClientes}
           boton={true}

@@ -5,7 +5,7 @@ export const columnasFactAnnoGral=[
         title: 'Categoria',
         dataIndex: 'categoria',
         key: 'categoria',
-        width: '200px',
+        lupa:true,
         render:(state,file)=> <h5>{file.categoria}</h5>,
 
       },
@@ -13,7 +13,6 @@ export const columnasFactAnnoGral=[
         title: 'Unidades',
         dataIndex: 'unidades',
         key: 'unidades',
-        width: '150px',
         render:(state,file)=> <h5>{file.unidades}</h5>,
 
       },
@@ -21,7 +20,6 @@ export const columnasFactAnnoGral=[
         title: 'Importe',
         dataIndex: 'importe',
         key: 'importe',
-        width: '170px',
         render:(state,file)=> <h5>${numberWithCommas(file.importe)}</h5>,
 
       },

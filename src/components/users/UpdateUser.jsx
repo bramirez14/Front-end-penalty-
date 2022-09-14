@@ -42,6 +42,10 @@ export const UpdateUser = () => {
         name: ["cel"],
         value: data.cel,
       },
+      {
+        name: ["categoria"],
+        value: data.categoria,
+      },
     ]);
   };
 
@@ -49,7 +53,6 @@ export const UpdateUser = () => {
     axiosGet();
   }, []);
   const onFinish = async (values) => {
-    console.log(values);
     const isConfirmed = await Swal.fire({
       title: "Estas seguro",
       text: "¡NO podrás revertir esto!",
@@ -61,7 +64,6 @@ export const UpdateUser = () => {
     });
     if (isConfirmed) {
       const res = await axiosURL.put(`/editar/usuario/${id}`, values);
-      console.log(res);
       Swal.fire("Editado!", "Se edito con exito!!!", "success");
       if(res.status === 200)navigate('/lista/usuarios')
     }
@@ -132,7 +134,12 @@ export const UpdateUser = () => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name="tipousuario" label="Usuario" hasFeedback>
+        <Form.Item name="tipousuario" label="Usuario" hasFeedback rules={[
+            {
+              required: true,
+              message: "Please input your username!",
+            },
+          ]}>
           <Select placeholder="Tipo de usuario">
             <Option value="Gerente">Gerente</Option>
             <Option value="Empleada">Empleada</Option>
@@ -190,7 +197,12 @@ export const UpdateUser = () => {
           <Input.Password placeholder="Confirme Contraseña" />
         </Form.Item>
 
-        <Form.Item name="categoria" label="Categoria" hasFeedback>
+        <Form.Item name="categoria" label="Categoria"  hasFeedback rules={[
+            {
+              required: true,
+              message: "Please input your username!",
+            },
+          ]}>
           <Select placeholder="Categoria">
             <Option value="interno">Interno</Option>
             <Option value="externo">Externo</Option>

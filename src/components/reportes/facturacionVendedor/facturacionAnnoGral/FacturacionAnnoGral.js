@@ -15,6 +15,7 @@ export const FacturacionAnnoGral = () => {
         </h1>
       ) : (
         <HelperTABLEobj
+          title="Facturacion General De Cada Año "
           hoja={"Factruacion Año Gral"}
           namefile={"Factruacion Año Gral"}
           columns={columnasFactAnnoGral}

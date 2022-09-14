@@ -8,6 +8,7 @@ export const Remitado = () => {
  var mediaqueryList = window.matchMedia("(min-width: 1200px)");
     return (
        <HelperTABLEobj
+       title='Remitado'
        hoja={'Remitado'}
        namefile={'Remitado'}
        columns={columnasRdo}

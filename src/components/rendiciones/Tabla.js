@@ -7,7 +7,6 @@ import { PeticionGET } from "../../config/PeticionGET";
 export const Tabla = ({ usuario, setUsuario }) => {
   const id = localStorage.getItem("uid");
   let p = PeticionGET("/gastos");
-  console.log(p);
   let filtradoUsuariosConMediosDePago = p.filter((d) => d.usuarioId ==(id));
 
   const columns = [

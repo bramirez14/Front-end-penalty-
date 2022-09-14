@@ -14,7 +14,6 @@ import axios from 'axios'
                 dispatch( finishLoading() );
             })
             .catch( e => {
-                console.log(e);
                 dispatch( finishLoading() );
                 Swal.fire('Error', e.message, 'error');
             })

@@ -15,6 +15,7 @@ export const Remitos = () => {
         </h1>
       ) : (
         <HelperTABLEobj
+          title="Remitos"
           hoja={"Remitos"}
           nameFile={"Remitos"}
           columns={remitos}

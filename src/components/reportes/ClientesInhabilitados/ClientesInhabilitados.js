@@ -14,6 +14,7 @@ export const ClientesInhabilitados = () => {
         </h1>
       ) : (
         <HelperTABLEobj
+          title="Clientes Inhabilitados"
           hoja={"clientes Inhab"}
           namefile={"Clientes Inhabilitados"}
           columns={columnasCliInhab}

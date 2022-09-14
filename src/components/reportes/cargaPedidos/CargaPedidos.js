@@ -14,6 +14,7 @@ export const CargaPedidos = () => {
         </h1>
       ) : (
         <HelperTABLEobj
+          title="Control de Carga de Pedidos"
           hoja={"Control de Carga de Pedidos"}
           namefile={"Control de Carga de Pedidos"}
           columns={columnasCargaPedidos}
@@ -21,7 +22,7 @@ export const CargaPedidos = () => {
           boton={true}
           paginas={true}
           y={mediaqueryList.matches ? 370 : 400}
-          colExcel={columnasCargaPedidos }
+          colExcel={columnasCargaPedidos}
         />
       )}
     </>

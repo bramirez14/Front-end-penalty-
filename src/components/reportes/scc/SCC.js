@@ -14,6 +14,7 @@ export const SCC = () => {
         </h1>
       ) : (
         <HelperTABLEobj
+        title="SCC"
           hoja={"SCC"}
           namefile={"SCC"}
           columns={columnasSCC}

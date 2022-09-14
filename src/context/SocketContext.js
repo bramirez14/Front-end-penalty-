@@ -11,20 +11,17 @@ export const SocketProvider = ({ children }) => {
   );
   
  useEffect(() => {
-      console.log('estoy autenticado');
      conectarSocket();
   }, [conectarSocket]);
 
  /*  useEffect(() => {
     if (!auth) {
-      console.log('estoy deconcectado');
       desconectarSocket();
     }
   }, [ auth,desconectarSocket]); */
 
  /*  useEffect(() => {
     socket?.on("lista-usuarios", (usuarios) => {
-      console.log('enviando');
       setArrayUsuarios(usuarios);
     });
   }, [socket, setArrayUsuarios]);  */

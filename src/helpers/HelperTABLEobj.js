@@ -1,9 +1,9 @@
 import React from "react";
-import { Table, Input, Button, Space } from "antd";
+import { Table, Input, Button, Space,Typography } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import ReactExport from "react-export-excel";
 import "./botonExcel.css";
-
+const {Title} =Typography
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -20,7 +20,7 @@ export const HelperTABLEobj = ({
   bordered=true,
   check=false,
   setDataCheck,
-  title,
+  title='',
   footer,
   colExcel,
 
@@ -112,7 +112,7 @@ export const HelperTABLEobj = ({
       )}
 
       <Table
-      title={()=> title}
+      title={()=> <Title level={2}>{title}</Title>}
       rowSelection={check?rowSelection:''}
         columns={columna}
         dataSource={data}

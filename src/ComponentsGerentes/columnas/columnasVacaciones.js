@@ -171,7 +171,6 @@ const {socket} = useContext(SocketContext);
       width: 100,
       render: (f, file) => {
         const handleDelete = async () => {
-          console.log("me clickeaste para borrar");
           let resultado = await Swal.fire({
             title: "¿Estás seguro?",
             text: "¡No podrás revertir esto!",

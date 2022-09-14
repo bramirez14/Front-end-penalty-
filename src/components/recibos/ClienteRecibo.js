@@ -13,9 +13,8 @@ export const ClienteRecibo = ({cliente, setCliente}) => {
         setCliente(buscarCte)
     }
       
-      function onSearch(val) {
-        console.log('search:', val);
-      }
+      /* function onSearch(val) {
+      } */
     return (
         <>
       
@@ -26,7 +25,7 @@ export const ClienteRecibo = ({cliente, setCliente}) => {
     placeholder="Select a person"
     optionFilterProp="children"
     onChange={onChange}
-    onSearch={onSearch}
+   // onSearch={onSearch}
     filterOption={(input, option) =>{
 
         const opfinal= option.children===null?'':option.children

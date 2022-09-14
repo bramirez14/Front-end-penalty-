@@ -6,8 +6,7 @@ export const filtradoPorVendedor = (url) => {
   let filtrado;
   const getDB = PeticionGETIntranet(url);
   if (!!getDB?.original) {
-    console.log(getDB);
-    console.log(!!getDB.original);
+   
   } else {
     const filtroVendedor = getDB.filter((t) => t.vendedor === N);
 
@@ -40,9 +39,7 @@ export const filtradoPorVendedorSQL = (url) =>{
 const N = localStorage.getItem("N");
   let filtrado;
   const getDB = PeticionGET(url);
-  console.log(
-    getDB
-  );
+ 
   const filtroVendedor = getDB.filter((t) => t.VENDEDOR === N);
   if (
     N === "0000"||
@@ -59,12 +56,5 @@ const N = localStorage.getItem("N");
     filtrado = filtroVendedor;
   }
   return filtrado;
-  /* if (!!getDB?.original) {
-    console.log(getDB);
-    console.log(!!getDB.original);
-  } else {
-    const filtroVendedor = getDB.filter((t) => t.vendedor === N);
 
-     */
-  
 }

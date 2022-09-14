@@ -1,8 +1,7 @@
 import { types } from "../types/type";
 
 export const rendicionesReducer = (state = {}, action) => {
-/*   console.log(state,'state');
-console.log(action,'action'); */
+
   switch (action.type) {
     case types.todastc:
       return {

@@ -19,7 +19,6 @@ export const CardRendiciones = ({data,axiosGet,imagen,categoria,importe,fecha,no
   cancelButtonColor: '#d33',
   confirmButtonText: 'Borrar!'
 })
-console.log(result);
   if (result.isConfirmed) {
     await axiosURL.delete(`/delete/rendicion/gasto/${id}`)
     Swal.fire("Borrado!", "Su archivo se borró con exito.", "success");
