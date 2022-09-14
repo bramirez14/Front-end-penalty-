@@ -1,23 +1,50 @@
-import { useGet } from '../../hooks/useGet'
+import { useGet } from "../../hooks/useGet";
 import { useNavigate, useParams } from "react-router";
-import { Descriptions } from 'antd';
+import { Button, Descriptions, Typography, Divider } from "antd";
 
+const { Title } = Typography;
 
 export const UserId = () => {
-    const  navigate=useNavigate();
-    const { id } = useParams();
-    const [userId] = useGet(`${id}`);
-    console.log(userId);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [userId] = useGet(`${id}`);
   return (
-    <Descriptions title={`${userId.nombre}, ${userId.apellido}` }className='form-complete' style={{width:'auto'}}>
-    <Descriptions.Item label="Email">{userId.email}</Descriptions.Item>
-    <Descriptions.Item label="Usuario">{userId.tipousuario}</Descriptions.Item>
-    <Descriptions.Item label="Contratado">{userId.fechaContratacion}</Descriptions.Item>
-    <Descriptions.Item label="Celular">{userId.cel}</Descriptions.Item>
-    <Descriptions.Item label="N Vendedor">{userId.nvendedor}</Descriptions.Item>
-    <Descriptions.Item label="Celular">{userId.cel}</Descriptions.Item>
-    <Descriptions.Item label="Departamento">{userId.departamento?.departamento}</Descriptions.Item>
+    <div className="form-complete">
+      <Button type="link" onClick={() => navigate(-1)} size="large">
+        Volver
+      </Button>
+      <Title level={3} style={{ textAlign: "center" }}>
+        {" "}
+        Perfil del Empleado{" "}
+      </Title>
+      <Divider />
 
-  </Descriptions>
-  )
-}
+      <Descriptions title={`${userId.nombre}, ${userId.apellido}`}>
+        <Descriptions.Item label={<strong>Email</strong>}>
+          {userId.email}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Usuario</strong>}>
+          {userId.tipousuario}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Contratado</strong>}>
+          {userId.fechaContratacion}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Celular</strong>}>
+          {userId.cel}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>N Vendedor</strong>}>
+          {userId.nvendedor}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Celular</strong>}>
+          {userId.cel}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Departamento</strong>}>
+          {userId.departamento?.departamento}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Categoria</strong>}>
+          {userId.categoria}
+        </Descriptions.Item>
+      </Descriptions>
+    </div>
+  );
+};

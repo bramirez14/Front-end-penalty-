@@ -53,7 +53,7 @@ const pg= PeticionGET(`./${id}`)
           >
             <MenuItem onClick={q ? click : click2} style={{ fontSize: "14px" }}>
               Registro de usuarios
-              <Link to="/register" />
+              <Link to="/registrar/usuario" />
             </MenuItem>
           </SubMenu>
           

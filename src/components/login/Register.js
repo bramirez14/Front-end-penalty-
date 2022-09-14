@@ -51,7 +51,7 @@ export const Register = ( ) => {
   return (
     <>
    <Form
-      className='container-form'
+      className='form-complete'
       name="register"
       onFinish={onFinish}
       initialValues={{
@@ -250,7 +250,7 @@ export const Register = ( ) => {
 
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
-          Register
+          Registrar
         </Button>
       </Form.Item>
       </Col>

@@ -41,7 +41,6 @@ import { Mensajes } from "../components/mensajes/Mensajes";
 import { Stock } from "../components/reportes/stock/Stock";
 import { Gastos } from "../components/comprobantes/Gastos";
 import { Sidebar } from "../components/Sidebar/Sidebar";
-import { Register } from "../components/login/Register";
 import { PagosAntSueldo } from "../view/PagosAntSueldo";
 import { AntSueldoVista } from "../view/AntSueldoVista";
 import { Perfil } from "../components/perfiles/Perfil";
@@ -66,6 +65,7 @@ import { ExcelComponent } from "../helpers/ExcelComponent";
 import { ListUsers } from "../components/users/ListUsers";
 import { UserId } from "../components/users/UserId";
 import { UpdateUser } from "../components/users/UpdateUser";
+import { Register } from "../components/users/Register";
 
 export const DashboardRoutes = ({ history }) => {
   const dispatch = useDispatch();
@@ -117,7 +117,8 @@ export const DashboardRoutes = ({ history }) => {
           <Route path="/verificaciones" element={tipo!=='Gerente'?<NotFound/>:<Verificacion />} />
           <Route path="/pdf/:id" element={<PDF />} />
           {/* Datos de usuario */}
-          <Route path="/register" element={tipo!=='Gerente'?<NotFound/>:<ListUsers />} />
+          <Route path="/lista/usuarios" element={tipo!=='Gerente'?<NotFound/>:<ListUsers />} />
+          <Route path="/registrar/usuario" element={tipo!=='Gerente'?<NotFound/>:<Register />} />
           <Route path="/usuario/:id" element={tipo!=='Gerente'?<NotFound/>:<UserId/>} />
           <Route path="/editar/usuario/:id" element={tipo!=='Gerente'?<NotFound/>:<UpdateUser/>} />
 
