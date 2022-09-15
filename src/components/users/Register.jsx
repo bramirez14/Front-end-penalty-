@@ -13,6 +13,8 @@ import {PeticionGET} from "../../config/PeticionGET";
 import {axiosURL} from "../../config/axiosURL";
 import { Titulo } from "../titulos/Titulo";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
+
 const { Option } = Select;
 
 
@@ -23,7 +25,25 @@ export const Register = () => {
     let cel= '11'.concat(values.cel)
     let valor = { ...values,fechaContratacion:fecha,cel}
     let res = await axiosURL.post('/register',valor);
-    res.data.status===400 ? alert (res.data.message ) : navigate('/lista/usuarios')
+    console.log(res);
+    if(res.data.status===400){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `${res.data.errors[0].msg} para el campo ${res.data.errors[0].param}`,
+      })
+    }
+    if(res.data.status===200){
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se registro con exito',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      navigate('/lista/usuarios')
+    }
+    
   };
 
   const onChange = (date, dateString) => {
