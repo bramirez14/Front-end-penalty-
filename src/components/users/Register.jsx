@@ -34,7 +34,7 @@ export const Register = () => {
         footer: '<a href="">Why do I have this issue?</a>'
       })
     }
-    if(res.status===200){
+    if(res.data.status===200){
       Swal.fire({
         position: 'center',
         icon: 'success',
