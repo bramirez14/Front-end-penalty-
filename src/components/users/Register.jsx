@@ -31,7 +31,6 @@ export const Register = () => {
         icon: 'error',
         title: 'Oops...',
         text: `${res.data.errors[0].msg} para el campo ${res.data.errors[0].param}`,
-        footer: '<a href="">Why do I have this issue?</a>'
       })
     }
     if(res.data.status===200){
