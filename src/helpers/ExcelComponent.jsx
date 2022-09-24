@@ -23,20 +23,20 @@ const navigate=useNavigate();
     setLoading(true);
     let f = new FormData();
     f.append("file", values.file[0].originFileObj);
-    await axiosURL.post('/reportes/file/excel', f)
-
-   setTimeout(() => {
-   setLoading(false);
-   Swal.fire({
-    position: 'center',
-    icon: 'success',
-    title: 'Se guardó con éxito',
-    showConfirmButton: false,
-    timer: 1500
-  })
-    navigate('/')}, 7000);
-
+    let response = await axiosURL.post('/reportes/file/excel', f)
+      if (response.data.status === 200){
+        setLoading(false);
+        Swal.fire({
+         position: 'center',
+         icon: 'success',
+         title: 'Se guardó con éxito',
+         showConfirmButton: false,
+         timer: 1500
+       })
+       navigate('/')
+      }
   }
+
   return (
     <Form
     onFinish={onFinish}
