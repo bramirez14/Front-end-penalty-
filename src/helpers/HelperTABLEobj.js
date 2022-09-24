@@ -124,6 +124,8 @@ export const HelperTABLEobj = ({
         pagination={{
           position: ['none', 'bottomLeft'],
         }}
+        sortDirections={['descend','ascend' ]}
+        size='small'
       />
   
     </>

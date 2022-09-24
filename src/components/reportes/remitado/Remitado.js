@@ -4,7 +4,7 @@ import { filtradoPorVendedor } from '../helpers/funciones'
 import { columnasRdo } from './columnasRemitado'
 
 export const Remitado = () => {
- const getRemitado=filtradoPorVendedor('/remmes')
+ const getRemitado=filtradoPorVendedor('/reportes/remmes')
  var mediaqueryList = window.matchMedia("(min-width: 1200px)");
     return (
        <HelperTABLEobj

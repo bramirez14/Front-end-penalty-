@@ -4,7 +4,7 @@ import { HelperTABLEobj } from "../../../../helpers/HelperTABLEobj";
 import { filtradoPorVendedor } from "../../helpers/funciones";
 
 export const FacturacionMes = () => {
-  const getFacturacionMes = filtradoPorVendedor("/facturacion/mes");
+  const getFacturacionMes = filtradoPorVendedor("/reportes/facturacion/mes");
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
 
   return (
