@@ -6,18 +6,17 @@ export const columnasPendienteDetallado = [
     title: "FECEMISION",
     dataIndex: "FECEMISION",
     key: "FECEMISION",
-    lupa:true,
+    
     render: (_, file) => <h5>{dateFormatDDMMYYYY(file.FECEMISION)}</h5>,
   },
   {
     title: "CODIGO",
     dataIndex: "CODIGO",
     key: "CODIGO",
-    lupa:true,
     render: (_, file) => <h5>{file.CODIGO}</h5>,
   },
   {
-    title: "NROPED",
+    title: "PEDIDO",
     dataIndex: "NROPED",
     key: "NROPED",
     lupa:true,
@@ -51,14 +50,12 @@ export const columnasPendienteDetallado = [
     title: "CONDVENTA",
     dataIndex: "CONDVENTA",
     key: "CONDVENTA",
-    lupa:true,
     render: (_, file) => <h5>{file.CONDVENTA}</h5>,
   },
   {
     title: "BONIFICA",
     dataIndex: "BONIFICA",
     key: "BONIFICA",
-    lupa:true,
     render: (_, file) => <h5>{file.BONIFICA}</h5>,
   },
 
@@ -86,7 +83,6 @@ export const columnasPendienteDetallado = [
     title: "IMPORTE",
     dataIndex: "IMPORTE",
     key: "IMPORTE",
-    lupa:true,
     render: (_, file) => <h5>{numberWithCommas(file.IMPORTE)}</h5>,
   },
   {
@@ -196,6 +192,7 @@ export const columnasPendienteDetallado = [
     title: "ENTREGA",
     dataIndex: "Entart",
     key: "Entart",
+    lupa:true,
     render: (state, file) => <h5>{dateFormatDDMMYYYY(file.Entart)}</h5>,
   },
   {

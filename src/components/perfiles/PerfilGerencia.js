@@ -5,7 +5,7 @@ export const PerfilGerencia = ({ usuarios }) => {
   return (
     <>
       <CardEstado/>
-      <ListaUsuarios lista={usuarios} />
+      {/* <ListaUsuarios lista={usuarios} /> */}
     </>
   );
 };
