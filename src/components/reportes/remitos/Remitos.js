@@ -3,7 +3,7 @@ import { filtradoPorVendedor } from "../helpers/funciones";
 import { HelperTABLEobj } from "../../../helpers/HelperTABLEobj";
 import { remitos } from "./columnasRemitos";
 export const Remitos = () => {
-  const todosRemitos = filtradoPorVendedor("/remitos");
+  const todosRemitos = filtradoPorVendedor("/reportes/remitos");
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
 
   return (

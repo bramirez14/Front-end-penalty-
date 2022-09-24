@@ -4,7 +4,7 @@ import { filtradoPorVendedor } from "../helpers/funciones";
 import { columnasPendAgrupCliente } from "./columnasPendAgrupCliente";
 
 export const PendienteAgrupadoCliente = () => {
-  const getPendAgrupClientes = filtradoPorVendedor("/pendiente/agrupadocliente");
+  const getPendAgrupClientes = filtradoPorVendedor("/sql/reportes/pendientes/web");
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
   return (
     <>
