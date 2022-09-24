@@ -4,7 +4,7 @@ import { filtradoPorVendedor } from '../helpers/funciones'
 import { columnasPendienteDetallado } from './columnasPendienteDetallado'
 
 export const PendienteDetallado = () => {
-    const getPendienteDetallado=filtradoPorVendedor('/pendiente/detallado')
+    const getPendienteDetallado=filtradoPorVendedor('/sql/reportes/pendientes')
     var mediaqueryList = window.matchMedia("(min-width: 1200px)");
     return (
         <>

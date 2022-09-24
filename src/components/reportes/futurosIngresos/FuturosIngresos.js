@@ -4,7 +4,7 @@ import { filtradoPorVendedor } from '../helpers/funciones'
 import { columnasFutIngresos } from './columnasFutIngresos'
 
 export const FuturosIngresos = () => {
-    const getfuturosIngreso= filtradoPorVendedor('/futuros/ingresos');
+    const getfuturosIngreso= filtradoPorVendedor('/sql/reportes/ingresos/vendedor');
     var mediaqueryList = window.matchMedia("(min-width: 1200px)");
       return (
         <>{

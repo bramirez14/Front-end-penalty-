@@ -1,10 +1,10 @@
 import React from "react";
 import { HelperTABLEobj } from "../../../helpers/HelperTABLEobj";
-import { filtradoPorVendedorSQL } from "../helpers/funciones";
+import { filtradoPorVendedor } from "../helpers/funciones";
 import { columnasCtaCte } from "./columnasCtaCte";
 
 export const CuentaCorriente = () => {
-  const getctacte = filtradoPorVendedorSQL("/sql/ctacte");
+  const getctacte = filtradoPorVendedor("/sql/reportes/ctacte");
 
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
 

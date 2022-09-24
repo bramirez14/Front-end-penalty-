@@ -1,10 +1,11 @@
 import React from "react";
 import { PeticionGETIntranet } from "../../../../config/PeticionGET";
 import { HelperTABLEobj } from "../../../../helpers/HelperTABLEobj";
+import { filtradoPorVendedor } from "../../helpers/funciones";
 import { columnasFactMes } from "./columnasFactMesGral";
 
 export const FacturacionMesGral = () => {
-  const getFacturacionMesGral = PeticionGETIntranet("/facturacion/mesgral");
+  const getFacturacionMesGral = filtradoPorVendedor("/reportes/facturacion/mesgral");
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
 
   return (

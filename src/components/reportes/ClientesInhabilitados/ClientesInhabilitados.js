@@ -4,7 +4,8 @@ import { filtradoPorVendedor } from "../helpers/funciones";
 import { columnasCliInhab } from "./columnasCliInhab";
 
 export const ClientesInhabilitados = () => {
-  const getCliInhab = filtradoPorVendedor("/clientes/inhabilitados");
+  const getCliInhab = filtradoPorVendedor("/sql/reportes/cliente/inhabilitado");
+  console.log(getCliInhab);
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
   return (
     <>

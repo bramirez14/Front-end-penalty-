@@ -4,7 +4,7 @@ import { filtradoPorVendedor } from "../helpers/funciones";
 import { columnasCargaPedidos } from "./columnasCargaPedidos";
 
 export const CargaPedidos = () => {
-  const getCargaPedidos = filtradoPorVendedor("/carga/pedidos");
+  const getCargaPedidos = filtradoPorVendedor("/sql/reportes/pedidos");
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
   return (
     <>
