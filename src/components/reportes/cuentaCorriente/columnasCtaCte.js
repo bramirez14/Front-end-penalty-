@@ -18,6 +18,7 @@ export const columnasCtaCte=[
         dataIndex: 'RAZONSOC',
         key: 'RAZONSOC',
         lupa:true,
+        with:150,
         render:(state,file)=> <h5>{file.RAZONSOC}</h5>,
       },
       {
@@ -40,6 +41,7 @@ export const columnasCtaCte=[
         dataIndex: 'FECEMISION',
         key: 'FECEMISION',
         lupa:true,
+        with:120,
         render:(state,file)=>{
           const fecha = file.FECEMISION.split('T')[0];
          return <h5>{fecha}</h5>
@@ -50,6 +52,7 @@ export const columnasCtaCte=[
         dataIndex: 'FECVENC',
         key: 'FECVENC',
         lupa:true,
+        with:120,
         render:(state,file)=> {
           const fecha = file.FECVENC.split('T')[0];
          return <h5>{fecha}</h5>

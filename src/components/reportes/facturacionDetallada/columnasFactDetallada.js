@@ -40,6 +40,7 @@ export const columnasFactDet=[
         title: 'Razon Social',
         dataIndex: 'razonsoc',
         key: 'razonsoc',
+        with:150,
         lupa:true,
         render:(state,file)=> <h5>{file.razonsoc}</h5>,
         
@@ -71,6 +72,7 @@ export const columnasFactDet=[
         title: 'Articulo',
         dataIndex: 'articulo',
         key: 'articulo',
+        with:150,
         lupa:true,
         render:(state,file)=> <h5>{file.articulo}</h5>,
         

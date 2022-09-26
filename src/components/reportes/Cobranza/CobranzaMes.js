@@ -17,7 +17,7 @@ export const CobranzaMes = () => {
         <HelperTABLEobj
           title="Cobranzas De Cada Mes"
           hoja={"cobranzas"}
-          namefile={"Cobranzas"}
+          namefile={"Cobranzas_Mes"}
           columns={columnasCobranzasMes}
           data={getCobranzas}
           boton={true}
