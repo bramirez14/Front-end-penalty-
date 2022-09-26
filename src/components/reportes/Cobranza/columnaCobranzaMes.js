@@ -1,16 +1,7 @@
 import { numberWithCommas } from "../helpers/funciones";
 
 export const columnasCobranzasMes = [
-  {
-    "VENDEDOR": "100",
-    "NOMBRE": "ALEJANDRO PEREZ",
-    "ANO": 2022,
-    "MES": 9,
-    "CLIENTE": "00022",
-    "RAZONSOC": "MATEU SPORT S.C.P.A.",
-    "COBRANZA": 163422.61,
-    "COMISION": 0
-  },
+
   {
     title: "VENDEDOR",
     dataIndex: "VENDEDOR",
