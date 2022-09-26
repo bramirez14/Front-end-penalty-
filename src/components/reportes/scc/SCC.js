@@ -4,7 +4,7 @@ import { filtradoPorVendedor } from "../helpers/funciones";
 import { columnasSCC } from "./columnasSCC";
 
 export const SCC = () => {
-  const getSCC = filtradoPorVendedor("/scc");
+  const getSCC = filtradoPorVendedor("/reportes/scc");
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
   return (
     <>
