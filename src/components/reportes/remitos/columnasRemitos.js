@@ -57,6 +57,16 @@ export const remitos = [
     },
   },
   {
+    title: "Fecha Fin",
+    dataIndex: "fechafin",
+    key: "fechafin",
+    lupa:true,
+    render: (estado, file) => {
+      let reducir = file.fechafin?.split("T");
+      return <h5>{reducir?.[0]}</h5>;
+    },
+  },
+  {
     title: "N° de Remito",
     dataIndex: "REMITO",
     key: "REMITO",
