@@ -129,7 +129,8 @@ export const MenuEmpleados = ({ open, setOpen }) => {
           </Menu.Item>
         </SubMenu>
       )}
-      {N === "905" && (
+      {/* N905 */} 
+      {N === "905"  && (
         <SubMenu
           key="sub10"
           title="Comprobante"
