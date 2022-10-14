@@ -3,14 +3,14 @@ import axios from 'axios';
 /*****https://axios-http.com/es/docs/instance *****/   
  const axiosURL= axios.create({
 
- baseURL:"http://localhost:4000/api"
+ baseURL:"http://intranet.penalty.com.ar:4000"
 
  })
  
 const axiosURLIntranet = axios.create({
-baseURL:"http://localhost:4000/api/reportes" 
+baseURL:"http://intranet.penalty.com.ar:4000/reportes" 
 })
 const axiosURLIntranetCobranzas = axios.create({
-baseURL:"http://localhost:4000/api/cobranzas" 
+baseURL:"http://intranet.penalty.com.ar:4000/cobranzas" 
 })
 export{ axiosURL, axiosURLIntranet, axiosURLIntranetCobranzas}
