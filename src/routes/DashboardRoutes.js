@@ -72,7 +72,7 @@ import { UserSwitchOutlined } from "@ant-design/icons";
 export const DashboardRoutes = ({ history }) => {
   const dispatch = useDispatch();
   const [alertas, setAlertas] = useState([]);
-  const {open} = useContext(UserContext);
+  const { open } = useContext(UserContext);
   const axiosGet = async () => {
     let { data } = await axiosURL.get("/msg/alertas");
     setAlertas(data);
@@ -87,11 +87,9 @@ export const DashboardRoutes = ({ history }) => {
   }, [dispatch]);
 
   const tipo = localStorage.getItem("type");
-  const role= localStorage.getItem('role');
-  const permissions= JSON.parse(localStorage.getItem('permissions'));
-  console.log(permissions.includes('Comprobantes')); 
-
-
+  const role = localStorage.getItem("role");
+  const permissions = JSON.parse(localStorage.getItem("permissions"));
+  console.log(permissions.includes("Comprobantes"));
 
   return (
     <>
@@ -103,45 +101,47 @@ export const DashboardRoutes = ({ history }) => {
       />
 
       <div className={!open ? "contenedor" : "contenedor-active"}>
-        {}
         <Routes>
-
-       { tipo!=='Gerente'?
-       <Route path="" element={<NotFound/>}/>
-       : 
-       <>
-        </>}
-    
-          <Route path="/verificaciones" element={tipo!=='Gerente'?<NotFound/>:<Verificacion />} />
-          <Route path="/pdf/:id" element={<PDF />} />
-
-
+          {/* <Route path="/pdf/:id" element={<PDF />} /> */}
           {/* Datos de usuario */}
-          <Route element={<ProtectedRoute isAllowed={role=== 'admin'} />}>
-          <Route path="/lista/usuarios" element={tipo!=='Gerente'?<NotFound/>:<ListUsers />} />
-          <Route path="/registrar/usuario" element={tipo!=='Gerente'?<NotFound/>:<Register />} />
-          <Route path="/usuario/:id" element={tipo!=='Gerente'?<NotFound/>:<UserId/>} />
-          <Route path="/editar/usuario/:id" element={tipo!=='Gerente'?<NotFound/>:<UpdateUser/>} />
+          <Route element={<ProtectedRoute isAllowed={role === "admin"} />}>
+            <Route path="/lista/usuarios" element={<ListUsers />} />
+            <Route path="/registrar/usuario" element={<Register />} />
+            <Route path="/usuario/:id" element={<UserId />} />
+            <Route path="/editar/usuario/:id" element={<UpdateUser />} />
           </Route>
-
           {/* Aprobaciones  */}
-          <Route element={<ProtectedRoute isAllowed={role === 'admin'|| role==='super'} />}>
-          <Route path="/aprobacion/sueldo" element={ <AprobacionAntcipoSueldo />}/>
-          <Route path="/aprobacion/vacaciones" element={<AprobacionVacaciones />}/>
-          <Route path="/aprobacion/gastos" element={tipo!=='Gerente'?<NotFound/>:<AprobacionGastos />} />
-          <Route path="/aprobacion/km" element={tipo!=='Gerente'?<NotFound/>:<AprobacionKm />} />
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={role === "admin" || role === "super"}
+              />
+            }
+          >
+            <Route
+              path="/aprobacion/sueldo"
+              element={<AprobacionAntcipoSueldo />}
+            />
+            <Route
+              path="/aprobacion/vacaciones"
+              element={<AprobacionVacaciones />}
+            />
+            <Route path="/aprobacion/gastos" element={<AprobacionGastos />} />
+            <Route path="/aprobacion/km" element={<AprobacionKm />} />
+            <Route path="/tarjeta/credito" element={<TarjetaCredito />} />
+
+            {/** Calendario */}
+            <Route path="/calendario" element={<Calendario />} />
+            {/** SCC */}
+          <Route element={<ProtectedRoute isAllowed={role === "admin"||role==='super'|| permissions.includes('Cobranzas')} />}>
+            <Route path="/aprobacion/scc" element={<AprobacionSCC />} />
+
           </Route>
 
-
-          <Route path="/tarjeta/credito" element={tipo!=='Gerente'?<NotFound/>:<TarjetaCredito/>} />
-          {/** Calendario */}
-          <Route path="/calendario" element={tipo!=='Gerente'?<NotFound/>:<Calendario />} />
-          {/** SCC */}
-          <Route path="/aprobacion/scc" element={<AprobacionSCC />} />
-          {/** Km */}
-        
-          <Route path="/precio/km" element={tipo!=='Gerente'?<NotFound/>:<PrecioKM />} />
-
+            {/** Km */}
+            <Route path="/precio/km" element={<PrecioKM />} />
+            <Route path="/verificaciones" element={<Verificacion />} />
+          </Route>
           {/* Empleados */} */
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/anticipo/gasto" element={<AnticipoGasto />} />
@@ -166,20 +166,38 @@ export const DashboardRoutes = ({ history }) => {
           <Route path="/kilometros" element={<Kilometros />} />
           <Route path="/lista/kilometros" element={<ListaKm />} />
           {/**Vistas */}
-          <Route element={<ProtectedRoute isAllowed={role==='admin'|| role==='super'|| permissions.includes('Pago')} />}>
-
-          <Route path="/pagos/anticipo" element={<PagosAntSueldo />} />
-          <Route path="/pagos/gasto" element={<PagosAntGasto />} />
-          <Route path="/pagos/km" element={<PagosKm />} />
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={
+                  role === "admin" ||
+                  role === "super" ||
+                  permissions.includes("Pago")
+                }
+              />
+            }
+          >
+            <Route path="/pagos/anticipo" element={<PagosAntSueldo />} />
+            <Route path="/pagos/gasto" element={<PagosAntGasto />} />
+            <Route path="/pagos/km" element={<PagosKm />} />
           </Route>
           <Route
             path="/vista/rendicion/gasto"
             element={<RendicionGastosVista />}
           />
-          <Route element={<ProtectedRoute isAllowed={role==='admin'|| role==='super'|| permissions.includes('Orden de Pago')} />}>
-
-          <Route path="/vista/rendicion/km" element={<RendicionKmVista />} />
-          <Route path="/vista/anicipo/sueldo" element={<AntSueldoVista />} />
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={
+                  role === "admin" ||
+                  role === "super" ||
+                  permissions.includes("Orden de Pago")
+                }
+              />
+            }
+          >
+            <Route path="/vista/rendicion/km" element={<RendicionKmVista />} />
+            <Route path="/vista/anicipo/sueldo" element={<AntSueldoVista />} />
           </Route>
           {/**Reportes de Gestion */}
           <Route path="/reportes/gestion/remitos" element={<Remitos />} />
@@ -195,9 +213,9 @@ export const DashboardRoutes = ({ history }) => {
             path="/reportes/cuentacorriente"
             element={<CuentaCorriente />}
           />
-           <Route
+          <Route
             path="/reportes/ctacte/proveedores"
-            element={<CuentaCteProveedores/>}
+            element={<CuentaCteProveedores />}
           />
           <Route path="/reportes/cobranza" element={<Cobranza />} />
           <Route
@@ -228,14 +246,23 @@ export const DashboardRoutes = ({ history }) => {
           {/* Tarjeta de credito */}
           <Route path="/pru" element={<ModalPDF />} />
           {/* Comprobantes */}
-          <Route element={<ProtectedRoute isAllowed={role=== 'admin'|| role==='super'|| permissions.includes('Comprobantes')} />}>
-          <Route path="/comprobantes/gastos" element={<Gastos />} />
           <Route
-            path="/comprobantes/tarjeta-credito"
-            element={<TarjetaCreditoComp />}
-          />
+            element={
+              <ProtectedRoute
+                isAllowed={
+                  role === "admin" ||
+                  role === "super" ||
+                  permissions.includes("Comprobantes")
+                }
+              />
+            }
+          >
+            <Route path="/comprobantes/gastos" element={<Gastos />} />
+            <Route
+              path="/comprobantes/tarjeta-credito"
+              element={<TarjetaCreditoComp />}
+            />
           </Route>
-
           <Route
             path="*"
             element={
@@ -251,20 +278,23 @@ export const DashboardRoutes = ({ history }) => {
               />
             }
           />
-        <Route path="/pase/pedidos" element={<PasePedidos />} />
-        {/* Formulario de alta de medios de pago */}
-        <Route path="/alta/medios/pagos" element={tipo!=='Gerente'?<NotFound/>:<AltasMediosPagos />} />
-
-        {/* Formulario para subir archivos excel*/}
-        <Route element={<ProtectedRoute isAllowed={role=== 'admin'|| permissions.includes('Deposito')} />}>
-        <Route path="/excel" element={<ExcelComponent/>} />
-         </Route>
-
-
-
+          <Route path="/pase/pedidos" element={<PasePedidos />} />
+          {/* Formulario de alta de medios de pago */}
+          <Route
+            path="/alta/medios/pagos"
+            element={tipo !== "Gerente" ? <NotFound /> : <AltasMediosPagos />}
+          />
+          {/* Formulario para subir archivos excel*/}
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={role === "admin" || permissions.includes("Deposito")}
+              />
+            }
+          >
+            <Route path="/excel" element={<ExcelComponent />} />
+          </Route>
         </Routes>
-
-
       </div>
     </>
   );

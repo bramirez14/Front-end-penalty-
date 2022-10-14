@@ -40,6 +40,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
       <Menu.Item key="1" icon={<HomeOutlined />}>
         <Link to="/perfil">Home </Link>
       </Menu.Item>
+{/* USUARIOS  */}
       {role === "admin" && (
         <SubMenu key="sub1" title="Usuario" icon={<UserOutlined />}>
           <Menu.Item key="2">
@@ -47,6 +48,8 @@ export const MenuGerencia = ({ open, setOpen }) => {
           </Menu.Item>
         </SubMenu>
       )}
+      {/* FIN DE USUARIOS  */}
+{/* APROBACIONES */}
       {role === "admin" ||
         (role === "super" && (
           <SubMenu key="sub2" title="Aprobaciones" icon={<CheckOutlined />}>
@@ -70,7 +73,8 @@ export const MenuGerencia = ({ open, setOpen }) => {
             </Menu.Item>
           </SubMenu>
         ))}
-
+        {/* FIN DE APROBACIONES */}
+{/* REPORTES DE GESTION */}
       <SubMenu key="sub3" title="Rtes de Gestion" icon={<RiseOutlined />}>
         <Menu.Item key="9">
           <Link to="/reportes/gestion/remitos">Remitos</Link>
@@ -116,7 +120,10 @@ export const MenuGerencia = ({ open, setOpen }) => {
           <Link to="/reportes/scc">Control de SCC</Link>
         </Menu.Item>
       </SubMenu>
+{/* FIN DE REPORTES DE GESTION */}
 
+
+{/* SOLICITUDES */}
       <SubMenu key="sub6" title="Solicitudes" icon={<MailOutlined />}>
         <Menu.Item key="21">
           <Link to="/sueldo">Sueldo</Link>
@@ -139,9 +146,9 @@ export const MenuGerencia = ({ open, setOpen }) => {
           <Link to="/tarjeta/credito"> Gasto con Tarjeta</Link>
         </Menu.Item>
       </SubMenu>
-
+{/* FIN DE SOLICITUDES */}
       {
-        /* Comprobantes */
+        /* COMPROBANTES */
         (role === "admin" ||
           role === "super" ||
           permissions.includes("Comprobantes")) && (
@@ -158,8 +165,9 @@ export const MenuGerencia = ({ open, setOpen }) => {
           </SubMenu>
         )
       }
+      {/* FIN DE COMPROBANTES */}
       {
-        /* Cobranzas */
+        /* COBRANZAS*/
         (role === "admin" ||
           role === "super" ||
           permissions.includes("Cobranzas")) && (
@@ -179,12 +187,19 @@ export const MenuGerencia = ({ open, setOpen }) => {
             </Menu.Item>
           </SubMenu>
         )
+        /* FIN DE COBRANZAS */
       }
+     {/* DEPOSITO */
+       (role === "admin" ||
+       role === "super" ||
+       permissions.includes("Deposito"))&&
       <SubMenu key="sub12" title="Deposito" icon={<FileDoneOutlined />}>
         <Menu.Item key="38">
           <Link to="/excel">Archivos Entregas </Link>
         </Menu.Item>
       </SubMenu>
+      /* FIN DE DEPOSITO */
+      }
       {
         /*Orden de pago  */
         (role === "admin" ||
