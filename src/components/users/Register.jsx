@@ -48,10 +48,9 @@ const [role, setRole] = useState('');
   useEffect(() => {
     allPermissions();
   }, []);
-
   const onFinish = async (values) => {
     let cel = "11".concat(values.cel);
-    let valor = { ...values, fechaContratacion: fecha, cel,checkedList,role};
+    let valor = { ...values, fechaContratacion: fecha, cel,checkedList,role:!!role?role:null};
      let res = await axiosURL.post('/register',valor);
     if(res.data.status===400){
       Swal.fire({
@@ -266,7 +265,7 @@ const [role, setRole] = useState('');
             </Select>
           </Form.Item>
 
-          <Form.Item
+         {/*  <Form.Item
             name="nvendedor"
             tooltip={{ title: "Si no es un vendedor ingresar 0000" }}
             rules={[
@@ -278,7 +277,7 @@ const [role, setRole] = useState('');
             hasFeedback
           >
             <Input type="number" placeholder=" Vendedor" />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             name="cel"

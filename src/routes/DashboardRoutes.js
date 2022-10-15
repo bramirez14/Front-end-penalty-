@@ -89,7 +89,6 @@ export const DashboardRoutes = ({ history }) => {
   const tipo = localStorage.getItem("type");
   const role = localStorage.getItem("role");
   const permissions = JSON.parse(localStorage.getItem("permissions"));
-  console.log(permissions.includes("Cobranzas"));
   return (
     <>
       <Sidebar
