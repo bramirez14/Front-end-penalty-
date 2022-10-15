@@ -89,7 +89,7 @@ export const DashboardRoutes = ({ history }) => {
   const tipo = localStorage.getItem("type");
   const role = localStorage.getItem("role");
   const permissions = JSON.parse(localStorage.getItem("permissions"));
-
+  console.log(permissions.includes('Cobranzas'));
   return (
     <>
       <Sidebar
@@ -132,9 +132,9 @@ export const DashboardRoutes = ({ history }) => {
             {/** Calendario */}
             <Route path="/calendario" element={<Calendario />} />
             {/** SCC */}
-          <Route element={<ProtectedRoute isAllowed={role === "admin"||role==='super'|| permissions.includes('Cobranzas')} />}>
+          <Route element={<ProtectedRoute isAllowed={(role === "admin"||role==='super'|| permissions.includes('Cobranzas'))} />}>
             <Route path="/aprobacion/scc" element={<AprobacionSCC />} />
-
+            <Route path="/recibo" element={<Recibo />} />
           </Route>
 
             {/** Km */}
@@ -239,7 +239,7 @@ export const DashboardRoutes = ({ history }) => {
           {/**Alertas */}
           <Route path="/alerta" element={<Alerta />} />
           {/** Recibos */}
-          <Route path="/recibo" element={<Recibo />} />
+         
           <Route path="/lista/recibo" element={<ListaRecibo />} />
           <Route path="/carga/recibo/:id" element={<CargaRecibo />} />
           {/* Tarjeta de credito */}

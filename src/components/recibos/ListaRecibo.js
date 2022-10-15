@@ -9,8 +9,8 @@ const { useBreakpoint } = Grid;
 export const ListaRecibo = () => {
   /**evitar que usuari 907 ingresen a la ruta */
   const navigate = useNavigate();
-  const N = localStorage.getItem("N");
-  N !== "907" && N !== "901" && navigate("/perfil");
+  //const N = localStorage.getItem("N");
+  //N !== "907" && N !== "901" && navigate("/perfil");
   const getRecibos = PeticionGETIntranetCobranzas("/ingresos/recibos");
   const handleNrecibo = (file) => {
     navigate(`/carga/recibo/${file.numerorecibo}`);
