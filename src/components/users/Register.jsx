@@ -84,8 +84,6 @@ const [role, setRole] = useState('');
     setIndeterminate(!!list.length && list.length < plain.length);
     setCheckAllAdmin(list.length === plain.length);
     if(list.includes(1)){return setDisabledSuper(true)}else{ return setDisabledSuper(false)}//1 es usuarios
-   // setCheckAllSuper(list.length === plain.length-1);
-
   };
   const onCheckAllChangeAdmin = (e) => {
   setRole(e.target.name);
@@ -96,7 +94,6 @@ const [role, setRole] = useState('');
   };
   const onCheckAllChangeSuper = (e) => {
   setRole(e.target.name);
-
     setDisabledAdmin(!disabledAdmin)
      let plainWithoutUser =!disabledAdmin? plain.filter((p) => p.label!=='Usuarios'):plain;
      let newPlain=!disabledAdmin?plain.map(p=>{ if(p.label==='Usuarios')return({...p,disabled:true})
