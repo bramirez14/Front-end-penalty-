@@ -18,7 +18,7 @@ export const RendicionGastosVista = ( ) => {
   const tipo = localStorage.getItem("type");
 
   /**evitar que usuario distintos a  905 ingresen a la ruta */
-  ( N !== "905" && tipo!=='Gerente') && navigate("/perfil");
+  // ( N !== "905" && tipo!=='Gerente') && navigate("/perfil");
 
   const get = async () => {
     const { data } = await axiosURL.get("/gastos");

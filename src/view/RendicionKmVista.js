@@ -16,7 +16,7 @@ export const RendicionKmVista = () => {
   const tipo = localStorage.getItem("type");
   const [km, setKm] = useState([]);
   /**evitar que usuari 905 ingresen a la ruta */
-  N !== "905" && tipo !== "Gerente" && navigate("/perfil");
+// N !== "905" && tipo !== "Gerente" && navigate("/perfil");
   const get = async () => {
     const { data } = await axiosURL.get("/todos/kilometros");
     setKm(data);

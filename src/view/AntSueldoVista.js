@@ -11,7 +11,7 @@ export const AntSueldoVista = () => {
   const [sueldo, setSueldo] = useState([]);
 
     /**evitar que usuario distintos a  905 ingresen a la ruta */
-    ( N !== "905" && tipo!=='Gerente') && navigate("/perfil");
+    // ( N !== "905" && tipo!=='Gerente') && navigate("/perfil");
   
 
   const get = async () => {
