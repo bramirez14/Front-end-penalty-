@@ -5,7 +5,6 @@ import { columnasStock } from './columnasStock'
 
 export const Stock = () => {
     const getStock=filtradoPorVendedor('/sql/reportes/stock');
-    console.log(getStock);
     var mediaqueryList = window.matchMedia("(min-width: 1200px)");
     return (
       <>{

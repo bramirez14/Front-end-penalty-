@@ -30,7 +30,6 @@ export const MenuGerencia = ({ open, setOpen }) => {
   //saque key 3
   const role = localStorage.getItem("role");
   const permissions = JSON.parse(localStorage.getItem("permissions"));
-  console.log(permissions.includes("Comprobantes"));
   return (
     <Menu
       mode="inline"

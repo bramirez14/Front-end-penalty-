@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Form,
   Input,
@@ -8,24 +8,51 @@ import {
   Row,
   Col,
   Divider,
+  Checkbox,
 } from "antd";
-import {PeticionGET} from "../../config/PeticionGET";
-import {axiosURL} from "../../config/axiosURL";
+import { PeticionGET } from "../../config/PeticionGET";
+import { axiosURL } from "../../config/axiosURL";
 import { Titulo } from "../titulos/Titulo";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 const { Option } = Select;
-
+const CheckboxGroup = Checkbox.Group;
 
 export const Register = () => {
-    const [fecha, setFecha] = useState('')
-  const navigate=useNavigate();
+  const [fecha, setFecha] = useState("");
+  const [permissions, setPermissions] = useState([]);
+  
+  const [checkedList, setCheckedList] = useState([]);
+  const [indeterminate, setIndeterminate] = useState(false);
+  const [checkAllAdmin, setCheckAllAdmin] = useState(false);
+  const [checkAllSuper, setCheckAllSuper] = useState(false);
+ const [disabledSuper, setDisabledSuper] = useState(false)
+ const [disabledAdmin, setDisabledAdmin] = useState(false)
+
+  const [plain, setPlain] = useState([])
+  const navigate = useNavigate();
+
+  const allPermissions = async () => {
+    const { data } = await axiosURL.get("/permissions/all");
+    setPermissions(data);
+    let plainOptions = data.map((p) => ( {
+    label: p.permission,
+    value: p.id,
+    disabled: false,
+  }));
+  setPlain(plainOptions);
+  };
+ 
+  
+  useEffect(() => {
+    allPermissions();
+  }, []);
+
   const onFinish = async (values) => {
-    let cel= '11'.concat(values.cel)
-    let valor = { ...values,fechaContratacion:fecha,cel}
-    let res = await axiosURL.post('/register',valor);
-    console.log(res);
+    let cel = "11".concat(values.cel);
+    let valor = { ...values, fechaContratacion: fecha, cel,checkedList};
+     let res = await axiosURL.post('/register',valor);
     if(res.data.status===400){
       Swal.fire({
         icon: 'error',
@@ -43,237 +70,272 @@ export const Register = () => {
       })
       navigate('/lista/usuarios')
     }
-    
   };
 
   const onChange = (date, dateString) => {
-    setFecha(dateString)
-  }
- 
-  const dtos = PeticionGET('/departamentos')
+    setFecha(dateString);
+  };
+
+  const dtos = PeticionGET("/departamentos");
   
+  /* Check */
+  const onChangeCheck = (list) => {
+    setCheckedList(list);
+    setIndeterminate(!!list.length && list.length < plain.length);
+    setCheckAllAdmin(list.length === plain.length);
+    if(list.includes(1)){return setDisabledSuper(true)}else{ return setDisabledSuper(false)}//1 es usuarios
+   // setCheckAllSuper(list.length === plain.length-1);
+
+  };
+  const onCheckAllChangeAdmin = (e) => {
   
+      setDisabledSuper(!disabledSuper)
+    setCheckedList(e.target.checked ? plain.map(p=>p.value)  : []);
+    setIndeterminate(false);
+    setCheckAllAdmin(e.target.checked);
+  };
+  const onCheckAllChangeSuper = (e) => {
+    setDisabledAdmin(!disabledAdmin)
+     let plainWithoutUser =!disabledAdmin? plain.filter((p) => p.label!=='Usuarios'):plain;
+     let newPlain=!disabledAdmin?plain.map(p=>{ if(p.label==='Usuarios')return({...p,disabled:true})
+    return p
+    }):plain.map(p=>({...p,disabled:false}))
+    setPlain(newPlain)
+    setCheckedList(e.target.checked ? plainWithoutUser.map(p=>p.value)  : []);
+    setIndeterminate(false);
+    setCheckAllSuper(e.target.checked);
+  };
+
   return (
     <Form
-    className='form-complete'
-    style={{width:700}}
-    onFinish={onFinish}
-    initialValues={{
-      prefix: "11",
-    }}
-    
+      className="form-complete"
+      style={{ width: 700 }}
+      onFinish={onFinish}
+      initialValues={{
+        prefix: "11",
+      }}
     >
-         <Button type="link" onClick={() => navigate(-1)} size="large">
+      <Button type="link" onClick={() => navigate(-1)} size="large">
         Volver
       </Button>
-      <Titulo  titulo="Registro de Empleados" />
-        <Divider/>
-   
-    <Row gutter={10} >
-      <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-    <Form.Item
-      name="departamentoId"
-      hasFeedback
-      rules={[
-        {
-          required: true,
-          message: "Seleccione un dto!",
-        },
-      ]}
-    >
-     <Select placeholder='Departamento'>
-     {dtos.map( d=>
-        <Option value={d.id} key={d.id} >
-          {d.departamento}
-        </Option>
-    )}
-      </Select>
-    </Form.Item>
+      <Titulo titulo="Registro de Empleados" />
+      <Divider />
 
-    <Form.Item
-      name="nombre"
-      rules={[
-        {
-          required: true,
-          message: "Ingrese un nombre!",
-        },
-      ]}
-    >
-     
-      <Input  placeholder="Nombre" />
-    </Form.Item>
+      <Row gutter={10}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+          <Form.Item
+            name="departamentoId"
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Seleccione un dto!",
+              },
+            ]}
+          >
+            <Select placeholder="Departamento">
+              {dtos.map((d) => (
+                <Option value={d.id} key={d.id}>
+                  {d.departamento}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
 
-    <Form.Item
-      name="apellido"
-      hasFeedback
-      rules={[
-        {
-          required: true,
-          message: "Ingresa un Apellido!",
-        },
-      ]}
-    >
-      <Input placeholder="Apellido" />
-    </Form.Item>
+          <Form.Item
+            name="nombre"
+            rules={[
+              {
+                required: true,
+                message: "Ingrese un nombre!",
+              },
+            ]}
+          >
+            <Input placeholder="Nombre" />
+          </Form.Item>
 
-    <Form.Item
-      name="email"
-      hasFeedback
-      rules={[
-        {
-          type: "email",
-          message: "No es un E-mail valido!",
-        },
-        {
-          required: true,
-          message: "Ingrese un  E-mail!",
-        },
-      ]}
-    >
-      <Input  placeholder="E-mail"/>
-    </Form.Item>
+          <Form.Item
+            name="apellido"
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Ingresa un Apellido!",
+              },
+            ]}
+          >
+            <Input placeholder="Apellido" />
+          </Form.Item>
 
-    <Form.Item
-      name="password"
-     placeholder="Contraseña"
-      rules={[
-        {
-          required: true,
-          message: "Ingrese una Contrasena!",
-        },
-      ]}
-      hasFeedback
-    >
-      <Input.Password  placeholder="Contraseña"/>
-    </Form.Item>
+          <Form.Item
+            name="email"
+            hasFeedback
+            rules={[
+              {
+                type: "email",
+                message: "No es un E-mail valido!",
+              },
+              {
+                required: true,
+                message: "Ingrese un  E-mail!",
+              },
+            ]}
+          >
+            <Input placeholder="E-mail" />
+          </Form.Item>
 
-    <Form.Item
-      name="password2"
-      dependencies={["password"]}
-      hasFeedback
-      rules={[
-        {
-          required: true,
-          message: "Please confirm your password!",
-        },
-        ({ getFieldValue }) => ({
-          validator(_, value) {
-            if (!value || getFieldValue("password") === value) {
-              return Promise.resolve();
-            }
+          <Form.Item
+            name="password"
+            placeholder="Contraseña"
+            rules={[
+              {
+                required: true,
+                message: "Ingrese una Contrasena!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.Password placeholder="Contraseña" />
+          </Form.Item>
 
-            return Promise.reject(
-              new Error("The two passwords that you entered do not match!")
-            );
-          },
-        }),
-      ]}
-    >
-      <Input.Password placeholder="Confirme Contraseña"/>
-    </Form.Item>
-    </Col>
+          <Form.Item
+            name="password2"
+            dependencies={["password"]}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Please confirm your password!",
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
 
-    <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-    
+                  return Promise.reject(
+                    new Error(
+                      "The two passwords that you entered do not match!"
+                    )
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password placeholder="Confirme Contraseña" />
+          </Form.Item>
+        </Col>
 
-        <Form.Item name='tipousuario'  rules={ [{required:true,message:' !Seleccione una opcion!'}]}  hasFeedback>
-        <Select placeholder='Tipo de usuario'>
-        <Option value='Gerente'>
-        Gerente
-        </Option>
-        <Option value='Empleada'>
-          Empleada
-        </Option>
-        <Option value='Empleado'>
-          Empleado
-        </Option>
-        <Option>
-          Visitante
-        </Option>
-        </Select>
-        </Form.Item>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+          <Form.Item
+            name="tipousuario"
+            rules={[{ required: true, message: " !Seleccione una opcion!" }]}
+            hasFeedback
+          >
+            <Select placeholder="Tipo de usuario">
+              <Option value="Gerente">Gerente</Option>
+              <Option value="Empleada">Empleada</Option>
+              <Option value="Empleado">Empleado</Option>
+              <Option>Visitante</Option>
+            </Select>
+          </Form.Item>
 
-        <Form.Item name='gerenteId'  rules={ [{required:true,message:' !Seleccione una opcion!'}]}  hasFeedback>
-        <Select placeholder='Reportar a'>
-        <Option value={1}>
-        Esteban Ramos
-        </Option>
-        <Option value={3}>
-          Cristian Rios
-        </Option>
-        <Option value={2}>
-          Cristian DeSousa
-        </Option>
-        </Select>
-        </Form.Item>
-    <Form.Item
-      name="categoria"
-      rules={[
-        {
-          required: true,
-          message: "Ingrese una categoria!",
-        },
-      ]}
-      hasFeedback
-    >
-      <Select placeholder="Categoria">
-        <Option value='interno'>
-          Interno
-        </Option>
-        <Option value='externo'>Externo</Option>
-        </Select>
-    </Form.Item>
- 
-    <Form.Item name='nvendedor' 
-    tooltip={{ title: 'Si no es un vendedor ingresar 0000' }}
-    rules={[{
-        required: true,
-        message: "Ingrese numero de vendedor!",
-    }]}
-    hasFeedback>
-      <Input type='number' placeholder=' Vendedor' />
-    </Form.Item>
-    
-    <Form.Item
-      name="cel"
-      rules={[
-        {
-          required: true,
-          message: "Please input your phone number!",
-        },
-      ]}
-      hasFeedback
-    >
-      <Input
-      type='number'
-      placeholder="Celular"
-      />
-    </Form.Item>
-   <Form.Item
-      name="fechaContratacion"
-      rules={[
-        {
-          required: true,
-          message: "Ingrese una fecha de contratacion!",
-        },
-      ]}
-      hasFeedback
-    >
-      <DatePicker
-      placeholder="Fecha de Contratacion"
-      format='DD/MM/YYYY'
-                style={{ width: "100%" }}
-                onChange={onChange}
-              />
-    </Form.Item>
+          <Form.Item
+            name="gerenteId"
+            rules={[{ required: true, message: " !Seleccione una opcion!" }]}
+            hasFeedback
+          >
+            <Select placeholder="Reportar a">
+              <Option value={1}>Esteban Ramos</Option>
+              <Option value={3}>Cristian Rios</Option>
+              <Option value={2}>Cristian DeSousa</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="categoria"
+            rules={[
+              {
+                required: true,
+                message: "Ingrese una categoria!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Select placeholder="Categoria">
+              <Option value="interno">Interno</Option>
+              <Option value="externo">Externo</Option>
+            </Select>
+          </Form.Item>
 
-    <Form.Item >
-      <Button type="primary" htmlType="submit" block>
-        Registrar
-      </Button>
-    
-    </Form.Item></Col>
-  </Row>
-  </Form>
-  )
-}
+          <Form.Item
+            name="nvendedor"
+            tooltip={{ title: "Si no es un vendedor ingresar 0000" }}
+            rules={[
+              {
+                required: true,
+                message: "Ingrese numero de vendedor!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input type="number" placeholder=" Vendedor" />
+          </Form.Item>
+
+          <Form.Item
+            name="cel"
+            rules={[
+              {
+                required: true,
+                message: "Please input your phone number!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input type="number" placeholder="Celular" />
+          </Form.Item>
+          <Form.Item
+            name="fechaContratacion"
+            rules={[
+              {
+                required: true,
+                message: "Ingrese una fecha de contratacion!",
+              },
+            ]}
+            hasFeedback
+          >
+            <DatePicker
+              placeholder="Fecha de Contratacion"
+              format="DD/MM/YYYY"
+              style={{ width: "100%" }}
+              onChange={onChange}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+      <Form.Item  label="Permisos">
+      <Checkbox indeterminate={indeterminate} onChange={onCheckAllChangeAdmin} checked={checkAllAdmin} disabled={disabledAdmin}>
+        Admin
+      </Checkbox>
+      <Checkbox indeterminate={indeterminate} onChange={onCheckAllChangeSuper} checked={checkAllSuper} disabled={disabledSuper}>
+          Super
+      </Checkbox>
+      <Divider />
+      <Checkbox.Group
+      options={plain}//{
+      //   label: p.label,
+      //   value: p.value,
+      //   disabled: true,
+      // }
+      onChange={onChangeCheck}
+      value={checkedList}//[1,2,3,4,5,6,7]
+    />
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit" block>
+          Registrar
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+};
