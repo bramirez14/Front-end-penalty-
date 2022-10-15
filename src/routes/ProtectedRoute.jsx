@@ -7,6 +7,7 @@ export const ProtectedRoute = ({
 }) => {
   console.log(isAllowed);
   if (!isAllowed) {
+    
     return <Navigate to={redirectTo} replace />;
   }
 

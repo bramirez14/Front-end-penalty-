@@ -29,7 +29,7 @@ export const Register = () => {
   const [checkAllSuper, setCheckAllSuper] = useState(false);
  const [disabledSuper, setDisabledSuper] = useState(false)
  const [disabledAdmin, setDisabledAdmin] = useState(false)
-
+const [role, setRole] = useState('');
   const [plain, setPlain] = useState([])
   const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ export const Register = () => {
 
   const onFinish = async (values) => {
     let cel = "11".concat(values.cel);
-    let valor = { ...values, fechaContratacion: fecha, cel,checkedList};
+    let valor = { ...values, fechaContratacion: fecha, cel,checkedList,role};
      let res = await axiosURL.post('/register',valor);
     if(res.data.status===400){
       Swal.fire({
@@ -88,13 +88,15 @@ export const Register = () => {
 
   };
   const onCheckAllChangeAdmin = (e) => {
-  
+  setRole(e.target.name);
       setDisabledSuper(!disabledSuper)
     setCheckedList(e.target.checked ? plain.map(p=>p.value)  : []);
     setIndeterminate(false);
     setCheckAllAdmin(e.target.checked);
   };
   const onCheckAllChangeSuper = (e) => {
+  setRole(e.target.name);
+
     setDisabledAdmin(!disabledAdmin)
      let plainWithoutUser =!disabledAdmin? plain.filter((p) => p.label!=='Usuarios'):plain;
      let newPlain=!disabledAdmin?plain.map(p=>{ if(p.label==='Usuarios')return({...p,disabled:true})
@@ -313,10 +315,10 @@ export const Register = () => {
         </Col>
       </Row>
       <Form.Item  label="Permisos">
-      <Checkbox indeterminate={indeterminate} onChange={onCheckAllChangeAdmin} checked={checkAllAdmin} disabled={disabledAdmin}>
+      <Checkbox name="admin" indeterminate={indeterminate} onChange={onCheckAllChangeAdmin} checked={checkAllAdmin} disabled={disabledAdmin}>
         Admin
       </Checkbox>
-      <Checkbox indeterminate={indeterminate} onChange={onCheckAllChangeSuper} checked={checkAllSuper} disabled={disabledSuper}>
+      <Checkbox name="super" indeterminate={indeterminate} onChange={onCheckAllChangeSuper} checked={checkAllSuper} disabled={disabledSuper}>
           Super
       </Checkbox>
       <Divider />
