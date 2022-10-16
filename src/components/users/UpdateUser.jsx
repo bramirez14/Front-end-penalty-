@@ -122,7 +122,7 @@ export const UpdateUser = () => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           name="nvendedor"
           label="N vendedor"
           rules={[
@@ -133,7 +133,7 @@ export const UpdateUser = () => {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item name="tipousuario" label="Usuario" hasFeedback rules={[
             {
               required: true,
