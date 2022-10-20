@@ -1,18 +1,53 @@
-import { Button, Form, Input, Select, Typography, Divider } from "antd";
+import { Button, Form, Input, Select, Typography, Divider, Checkbox } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { axiosURL } from "../config/axiosURL";
 import Swal from "sweetalert2";
 
+
+const options = [
+  {
+    label: 'Apple',
+    value: 'Apple',
+  },
+  {
+    label: 'Pear',
+    value: 'Pear',
+  },
+  {
+    label: 'Orange',
+    value: 'Orange',
+  },
+];
 const { Option } = Select;
 const { Title } = Typography;
 export const UpdateUser = () => {
+//State de permisos
+const [checkedList, setCheckedList] = useState([]);
+const [plain, setPlain] = useState([])
+const [data, setData] = useState({role:'',list:[]});
+const allPermissions = async () => {
+  const { data } = await axiosURL.get("/permissions/all");
+  let plainOptions = data.map((p) => ( {
+  label: p.permission,
+  value: p.id,
+}));
+setPlain(plainOptions);
+};
+
+useEffect(() => {
+  allPermissions();
+}, []);
+
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [fields, setFields] = useState();
   const axiosGet = async () => {
     let { data } = await axiosURL.get(`/${id}`);
+    
+    const dataId=data.permissions.map(d=> d.id);
+    setData({role:data.role,list:dataId,listdelete:dataId});
     setFields([
       {
         name: ["nombre"],
@@ -53,6 +88,10 @@ export const UpdateUser = () => {
     axiosGet();
   }, []);
   const onFinish = async (values) => {
+     if(data.role==='admin'&& plain.length!==data.list.length)return alert('Rol de administrador tiene que tener acesos a todos los permisos')
+     if(data.role==='super' && data.list.includes(1)) return alert('Rol de super usuario no debe incluir el permiso de Usuarios')
+     if((plain.length -1) !== data.list.length  && data.role==='super') alert('El Rol de super usuario debe contener todos los permisos menos el de Usuarios')
+    
     const isConfirmed = await Swal.fire({
       title: "Estas seguro",
       text: "¡NO podrás revertir esto!",
@@ -63,11 +102,28 @@ export const UpdateUser = () => {
       confirmButtonText: "Editar!",
     });
     if (isConfirmed) {
-      const res = await axiosURL.put(`/editar/usuario/${id}`, values);
+      const res = await axiosURL.put(`/editar/usuario/${id}`,{ ...values,role:data.role?data.role:null,checkedList,checkedListDelete:data.listdelete});
       Swal.fire("Editado!", "Se edito con exito!!!", "success");
-      if(res.status === 200)navigate('/lista/usuarios')
+      //if(res.status === 200)navigate('/lista/usuarios')
+      console.log(res);
     }
   };
+
+  // PERMISOS
+  const onChangeCheck = (list) => {
+    setData({...data,list:list})
+    setCheckedList(list);
+  };
+  const onCheckAllChangeAdmin = (e) => {
+       setData({...data,role:e.target.checked?e.target.name:'',list:e.target.checked ? plain.map(p=>p.value): []})
+    };
+
+    const onCheckAllChangeSuper = (e) => {
+      setData({...data,role:e.target.checked?e.target.name:'',list:e.target.checked ? plain.filter(p=>p.label!=='Usuarios').map(p=>p.value): []})
+
+    };
+console.log(data,'IS DATA');
+console.log(plain,'is plain');
   return (
     <>
       <Form
@@ -208,6 +264,29 @@ export const UpdateUser = () => {
             <Option value="externo">Externo</Option>
           </Select>
         </Form.Item>
+        {/* permisos */}
+        <Form.Item  label="Role">
+      <Checkbox name="admin"  onChange={onCheckAllChangeAdmin} checked={data.role==='admin'}
+       >
+        Admin
+      </Checkbox>
+      <Checkbox name="super" onChange={onCheckAllChangeSuper} checked={data.role==='super'} 
+      >
+          Super
+      </Checkbox>
+      </Form.Item>
+
+      <Divider />
+      <Form.Item  label="Permisos">
+      
+      <Checkbox.Group
+      options={plain}
+      onChange={onChangeCheck}
+      value={data.list}
+     //[1,2,3,4,5,6,7]
+    />
+</Form.Item>
+
         <Form.Item>
           <Button type="primary" block htmlType="submit">
             Editar Empleado
