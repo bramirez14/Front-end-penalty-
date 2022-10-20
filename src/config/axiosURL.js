@@ -3,7 +3,7 @@ import axios from 'axios';
 /*****https://axios-http.com/es/docs/instance *****/   
  const axiosURL= axios.create({
 
- baseURL:"http://localhost:7000/api"
+ baseURL:"http://intranet.penalty.com.ar:7000/api"
 
  })
  
