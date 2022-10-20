@@ -310,14 +310,17 @@ const [role, setRole] = useState('');
           </Form.Item>
         </Col>
       </Row>
-      <Form.Item  label="Permisos">
+      <Form.Item  label="Role">
       <Checkbox name="admin" indeterminate={indeterminate} onChange={onCheckAllChangeAdmin} checked={checkAllAdmin} disabled={disabledAdmin}>
         Admin
       </Checkbox>
       <Checkbox name="super" indeterminate={indeterminate} onChange={onCheckAllChangeSuper} checked={checkAllSuper} disabled={disabledSuper}>
           Super
       </Checkbox>
+      </Form.Item>
       <Divider />
+      <Form.Item  label="Permisos">
+
       <Checkbox.Group
       options={plain}//{
       //   label: p.label,
@@ -327,7 +330,8 @@ const [role, setRole] = useState('');
       onChange={onChangeCheck}
       value={checkedList}//[1,2,3,4,5,6,7]
     />
-      </Form.Item>
+    </Form.Item>
+      
 
       <Form.Item>
         <Button type="primary" htmlType="submit" block>

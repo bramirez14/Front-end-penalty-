@@ -4,21 +4,6 @@ import { useNavigate, useParams } from "react-router";
 import { axiosURL } from "../config/axiosURL";
 import Swal from "sweetalert2";
 
-
-const options = [
-  {
-    label: 'Apple',
-    value: 'Apple',
-  },
-  {
-    label: 'Pear',
-    value: 'Pear',
-  },
-  {
-    label: 'Orange',
-    value: 'Orange',
-  },
-];
 const { Option } = Select;
 const { Title } = Typography;
 export const UpdateUser = () => {
@@ -104,8 +89,7 @@ useEffect(() => {
     if (isConfirmed) {
       const res = await axiosURL.put(`/editar/usuario/${id}`,{ ...values,role:data.role?data.role:null,checkedList,checkedListDelete:data.listdelete});
       Swal.fire("Editado!", "Se edito con exito!!!", "success");
-      //if(res.status === 200)navigate('/lista/usuarios')
-      console.log(res);
+      if(res.status === 200)navigate('/lista/usuarios')
     }
   };
 
@@ -122,8 +106,7 @@ useEffect(() => {
       setData({...data,role:e.target.checked?e.target.name:'',list:e.target.checked ? plain.filter(p=>p.label!=='Usuarios').map(p=>p.value): []})
 
     };
-console.log(data,'IS DATA');
-console.log(plain,'is plain');
+
   return (
     <>
       <Form
