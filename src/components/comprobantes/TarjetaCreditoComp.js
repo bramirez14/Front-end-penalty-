@@ -2,6 +2,7 @@ import React from 'react'
 import { Table } from 'antd';
 import { useSelector } from 'react-redux';
 import { PdfoImg } from '../../helpers/PdfoImg';
+import { TableSearchAndExpandible } from '../table/TableSearchAndExpandible';
 export const TarjetaCreditoComp = () => {
     const dataSource= useSelector(state=>state.rendiciones.tc);
 const columns=[
@@ -41,6 +42,8 @@ const columns=[
         title: 'Tarjeta ',
         dataIndex: 'tarjeta',
         key: 'tarjeta',
+        search:true
+        
       },
       {
         title: 'Archivo',
@@ -50,8 +53,9 @@ const columns=[
       },
 ]
     return (
-        <Table 
+       /*  <Table 
         title={() => <h2>Gastos de Tarjeta de Credito</h2>}
-        dataSource={dataSource} columns={columns} />
+        dataSource={dataSource} columns={columns} /> */
+        <TableSearchAndExpandible data={dataSource} columns={columns}  />
     )
 }

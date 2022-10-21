@@ -89,10 +89,6 @@ export const HelperTABLEobj = ({
     },
 
   };
-
-  
-
-
   
   
   return (
