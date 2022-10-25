@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select, Typography, Divider, Checkbox } from "antd";
+import { Button, Form, Input, Select, Typography, Divider, Checkbox, Radio } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { axiosURL } from "../config/axiosURL";
@@ -11,15 +11,23 @@ export const UpdateUser = () => {
 const [checkedList, setCheckedList] = useState([]);
 const [plain, setPlain] = useState([])
 const [data, setData] = useState({role:'',list:[]});
+const [value, setValue] = useState('user');//radio de  role
+
 const allPermissions = async () => {
   const { data } = await axiosURL.get("/permissions/all");
+  let  response = await axiosURL.get(`/${id}`);
+console.log(response.data.role);
   let plainOptions = data.map((p) => ( {
   label: p.permission,
   value: p.id,
 }));
-setPlain(plainOptions);
-};
 
+const notUser= plainOptions.map(pl=>{if(pl.label==='Usuarios') return({...pl,disabled:true});
+    if(pl.label==='Aprobaciones') return({...pl,disabled:true})
+    return ({...pl,disabled:false})
+    })
+setPlain(response.data.role==='user'?notUser:plainOptions);
+};
 useEffect(() => {
   allPermissions();
 }, []);
@@ -28,43 +36,47 @@ useEffect(() => {
   const navigate = useNavigate();
 
   const [fields, setFields] = useState();
+
+
   const axiosGet = async () => {
-    let { data } = await axiosURL.get(`/${id}`);
-    
-    const dataId=data.permissions.map(d=> d.id);
-    setData({role:data.role,list:dataId,listdelete:dataId});
+    let  response = await axiosURL.get(`/${id}`);
+    const dataId = response.data.permissions.map(d=> d.id);
+    setData({role:response.data.role?response.data.role:'user',list:dataId.length>0?dataId:[3,4,5,6,7],listdelete:dataId});
+    setValue(response.data.role?response.data.role:'user')
+   
+
     setFields([
       {
         name: ["nombre"],
-        value: data.nombre,
+        value: response.data.nombre,
       },
       {
         name: ["apellido"],
-        value: data.apellido,
+        value: response.data.apellido,
       },
       {
         name: ["email"],
-        value: data.email,
+        value: response.data.email,
       },
       {
         name: ["nvendedor"],
-        value: data.nvendedor,
+        value: response.data.nvendedor,
       },
       {
         name: ["tipousuario"],
-        value: data.tipousuario,
+        value: response.data.tipousuario,
       },
       {
         name: ["fechaContratacion"],
-        value: data.fechaContratacion,
+        value: response.data.fechaContratacion,
       },
       {
         name: ["cel"],
-        value: data.cel,
+        value: response.data.cel,
       },
       {
         name: ["categoria"],
-        value: data.categoria,
+        value: response.data.categoria,
       },
     ]);
   };
@@ -72,6 +84,9 @@ useEffect(() => {
   useEffect(() => {
     axiosGet();
   }, []);
+
+
+ 
   const onFinish = async (values) => {
      if(data.role==='admin'&& plain.length!==data.list.length)return alert('Rol de administrador tiene que tener acesos a todos los permisos')
      if(data.role==='super' && data.list.includes(1)) return alert('Rol de super usuario no debe incluir el permiso de Usuarios')
@@ -98,15 +113,57 @@ useEffect(() => {
     setData({...data,list:list})
     setCheckedList(list);
   };
+  //ONCHAGE ADMIN
   const onCheckAllChangeAdmin = (e) => {
-       setData({...data,role:e.target.checked?e.target.name:'',list:e.target.checked ? plain.map(p=>p.value): []})
-    };
+    console.log(e.target);
+       setData({...data,role:e.target.checked?e.target.value:'',list:e.target.checked ? plain.map(p=>p.value): []})
+        const notUser= plain.map(pl => ({...pl,disabled:false}))
+       
+       setPlain(notUser);
+  // allPermissions();
+  setValue(e.target.value);
 
+
+    };
+//ONCHANGE SUPER
     const onCheckAllChangeSuper = (e) => {
-      setData({...data,role:e.target.checked?e.target.name:'',list:e.target.checked ? plain.filter(p=>p.label!=='Usuarios').map(p=>p.value): []})
+      setData({...data,role:e.target.checked?e.target.value:'',list:e.target.checked ? plain.filter(p=>p.label!=='Usuarios').map(p=>p.value): []})
+      const notUser= plain.map(pl=>{if(pl.label==='Usuarios') return({...pl,disabled:true});
+      return({...pl,disabled:false})
+      })
+     setPlain(notUser);
+    //  allPermissions();
+  setValue(e.target.value);
+
 
     };
+//ONCHAGE USUARIO
+const onCheckAllChangeUser = (e) => {
+  setData({...data,role:e.target.checked?e.target.value:'',list:e.target.checked ? plain.filter(p=>p.label!=='Usuarios'&& p.label!=='Aprobaciones').map(p=>p.value): []})
 
+  const notUser= plain.map(pl=>{if(pl.label==='Usuarios') return({...pl,disabled:true});
+  if(pl.label==='Aprobaciones') return({...pl,disabled:true})
+  return ({...pl,disabled:false})
+  })
+ setPlain(notUser);
+ 
+ setValue(e.target.value);
+
+};
+
+const onChange = (e) => {
+  switch (e.target.value) {
+    case 'admin':
+      return onCheckAllChangeAdmin(e);
+      case 'super': 
+      return onCheckAllChangeSuper(e);
+      
+        case 'user':
+          return onCheckAllChangeUser(e);
+    default:
+      break;
+  }
+};
   return (
     <>
       <Form
@@ -181,9 +238,9 @@ useEffect(() => {
           ]}>
           <Select placeholder="Tipo de usuario">
             <Option value="Gerente">Gerente</Option>
-            <Option value="Empleada">Empleada</Option>
+            {/* <Option value="Empleada">Empleada</Option> */}
             <Option value="Empleado">Empleado</Option>
-            <Option>Visitante</Option>
+            {/* <Option>Visitante</Option> */}
           </Select>
         </Form.Item>
         <Form.Item
@@ -249,14 +306,23 @@ useEffect(() => {
         </Form.Item>
         {/* permisos */}
         <Form.Item  label="Role">
-      <Checkbox name="admin"  onChange={onCheckAllChangeAdmin} checked={data.role==='admin'}
+      {/* <Checkbox name="admin"  onChange={onCheckAllChangeAdmin} checked={data.role==='admin'}
        >
-        Admin
+        Administrador
       </Checkbox>
       <Checkbox name="super" onChange={onCheckAllChangeSuper} checked={data.role==='super'} 
       >
-          Super
+          SuperUsuario
       </Checkbox>
+      <Checkbox name="user" onChange={onCheckAllChangeUser} checked={data.role==='user'} 
+      >
+          Usuario
+      </Checkbox> */}
+      <Radio.Group onChange={onChange} value={value}>
+      <Radio value='admin'>Administrador</Radio>
+      <Radio value='super'>SuperUsuario</Radio>
+      <Radio value='user'>Usuario</Radio>
+    </Radio.Group>
       </Form.Item>
 
       <Divider />

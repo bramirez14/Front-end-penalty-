@@ -9,6 +9,7 @@ import {
   Col,
   Divider,
   Checkbox,
+  Radio
 } from "antd";
 import { PeticionGET } from "../../config/PeticionGET";
 import { axiosURL } from "../../config/axiosURL";
@@ -22,7 +23,7 @@ const CheckboxGroup = Checkbox.Group;
 export const Register = () => {
   const [fecha, setFecha] = useState("");
   const [permissions, setPermissions] = useState([]);
-  
+  const [value, setValue] = useState();// value de radio
   const [checkedList, setCheckedList] = useState([]);
   const [indeterminate, setIndeterminate] = useState(false);
   const [checkAllAdmin, setCheckAllAdmin] = useState(false);
@@ -84,26 +85,62 @@ const [role, setRole] = useState('');
     setCheckAllAdmin(list.length === plain.length);
     if(list.includes(1)){return setDisabledSuper(true)}else{ return setDisabledSuper(false)}//1 es usuarios
   };
+  //ONCHANGE AD
   const onCheckAllChangeAdmin = (e) => {
-  setRole(e.target.name);
-      setDisabledSuper(!disabledSuper)
-    setCheckedList(e.target.checked ? plain.map(p=>p.value)  : []);
-    setIndeterminate(false);
-    setCheckAllAdmin(e.target.checked);
+  setRole(e.target.value);
+  setValue(e.target.value);
+  setCheckedList(e.target.checked ? plain.map(p=>p.value)  : []);
+  const notUser= plain.map(pl => ({...pl,disabled:false}))
+       
+  setPlain(notUser);
+      // setDisabledSuper(!disabledSuper)
+    // setCheckedList(e.target.checked ? plain.map(p=>p.value)  : []);
+    // setIndeterminate(false);
+    // setCheckAllAdmin(e.target.checked);
   };
+  //ONCHANGE SUPER
   const onCheckAllChangeSuper = (e) => {
-  setRole(e.target.name);
-    setDisabledAdmin(!disabledAdmin)
-     let plainWithoutUser =!disabledAdmin? plain.filter((p) => p.label!=='Usuarios'):plain;
-     let newPlain=!disabledAdmin?plain.map(p=>{ if(p.label==='Usuarios')return({...p,disabled:true})
-    return p
-    }):plain.map(p=>({...p,disabled:false}))
-    setPlain(newPlain)
-    setCheckedList(e.target.checked ? plainWithoutUser.map(p=>p.value)  : []);
-    setIndeterminate(false);
-    setCheckAllSuper(e.target.checked);
+  setRole(e.target.value);
+  setValue(e.target.value);
+  let plainWithoutUser =!disabledAdmin? plain.filter((p) => p.label!=='Usuarios'):plain;
+  setCheckedList(e.target.checked ? plainWithoutUser.map(p=>p.value)  : []);
+  const notUser= plain.map(pl=>{if(pl.label==='Usuarios') return({...pl,disabled:true});
+  return({...pl,disabled:false})
+  })
+ setPlain(notUser);
   };
+  //ONCHAGE USUARIO
+const onCheckAllChangeUser = (e) => {
+ // setData({...data,role:e.target.checked?e.target.value:'',list:e.target.checked ? plain.filter(p=>p.label!=='Usuarios'&& p.label!=='Aprobaciones').map(p=>p.value): []})
+setRole(e.target.value)
+setValue(e.target.value)
+//setCheckedList({...data,role:e.target.checked?e.target.value:'',list:e.target.checked ? plain.filter(p=>p.label!=='Usuarios'&& p.label!=='Aprobaciones').map(p=>p.value): []})
 
+  const notUser= plain.map(pl=>{if(pl.label==='Usuarios') return({...pl,disabled:true});
+  if(pl.label==='Aprobaciones') return({...pl,disabled:true})
+  return ({...pl,disabled:false})
+  })
+
+  setCheckedList(e.target.checked ? plain.filter(p=>p.label!=='Usuarios'&& p.label!=='Aprobaciones').map(p=>p.value): []);
+  setPlain(notUser)
+ setValue(e.target.value);
+
+};
+  const onChangeRadio = (e) => {
+    switch (e.target.value) {
+      case 'admin':
+        return onCheckAllChangeAdmin(e);
+        case 'super': 
+        return onCheckAllChangeSuper(e);
+        
+          case 'user':
+            return onCheckAllChangeUser(e);
+      default:
+        break;
+    }
+  };
+ // console.log(plain);
+  console.log(checkedList);
   return (
     <Form
       className="form-complete"
@@ -232,9 +269,9 @@ const [role, setRole] = useState('');
           >
             <Select placeholder="Tipo de usuario">
               <Option value="Gerente">Gerente</Option>
-              <Option value="Empleada">Empleada</Option>
+              {/* <Option value="Empleada">Empleada</Option> */}
               <Option value="Empleado">Empleado</Option>
-              <Option>Visitante</Option>
+              {/* <Option>Visitante</Option> */}
             </Select>
           </Form.Item>
 
@@ -311,12 +348,17 @@ const [role, setRole] = useState('');
         </Col>
       </Row>
       <Form.Item  label="Role">
-      <Checkbox name="admin" indeterminate={indeterminate} onChange={onCheckAllChangeAdmin} checked={checkAllAdmin} disabled={disabledAdmin}>
+    {/*   <Checkbox name="admin" indeterminate={indeterminate} onChange={onCheckAllChangeAdmin} checked={checkAllAdmin} disabled={disabledAdmin}>
         Admin
       </Checkbox>
       <Checkbox name="super" indeterminate={indeterminate} onChange={onCheckAllChangeSuper} checked={checkAllSuper} disabled={disabledSuper}>
           Super
-      </Checkbox>
+      </Checkbox> */}
+      <Radio.Group onChange={onChangeRadio} value={value}>
+      <Radio value='admin'>Administrador</Radio>
+      <Radio value='super'>SuperUsuario</Radio>
+      <Radio value='user'>Usuario</Radio>
+    </Radio.Group>
       </Form.Item>
       <Divider />
       <Form.Item  label="Permisos">
