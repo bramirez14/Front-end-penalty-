@@ -80,7 +80,7 @@ export const HelperTABLEobj = ({
   const filtrosinLupa= columns?.filter(l=>l.lupa !== true);
   const filtroconLupa= columns?.filter(l=>l.lupa === true);
   const col = filtroconLupa?.map((d) => {return {...d,...getColumnSearchProps(d.key)};});
-  const columna= [...col,...filtrosinLupa]
+  const columna= [...col,...filtrosinLupa];
   
   //sector check
   const rowSelection = {

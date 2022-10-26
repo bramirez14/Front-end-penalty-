@@ -121,7 +121,7 @@ setValue(e.target.value)
   return ({...pl,disabled:false})
   })
 
-  setCheckedList(e.target.checked ? plain.filter(p=>p.label!=='Usuarios'&& p.label!=='Aprobaciones').map(p=>p.value): []);
+  setCheckedList(e.target.checked ? plain.filter(p=>p.label!=='Usuarios'&& p.label!=='Aprobaciones'): []);
   setPlain(notUser)
  setValue(e.target.value);
 

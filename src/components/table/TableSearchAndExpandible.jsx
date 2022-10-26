@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 
   
-  export const TableSearchAndExpandible = ({ data, columns,expandible=false }) => {
+  export const TableSearchAndExpandible = ({ title, columns, data, expandible=false }) => {
     const [searchText, setSearchText] = useState("");
     const [searchedColumn, setSearchedColumn] = useState("");
     const searchInput = useRef(null);
@@ -107,6 +107,7 @@ import Highlighter from "react-highlight-words";
   })
   return (
     <Table
+    title={()=>title}
       columns={columnNew}
       dataSource={data}
       expandable={

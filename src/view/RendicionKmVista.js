@@ -7,6 +7,7 @@ import { BiDownload } from "react-icons/bi";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
 import { PeticionGET } from "../config/PeticionGET";
 import { useNavigate } from "react-router";
+import { TableSearchAndExpandible } from "../components/table/TableSearchAndExpandible";
 
 export const RendicionKmVista = () => {
   const navigate = useNavigate();
@@ -193,7 +194,7 @@ export const RendicionKmVista = () => {
           />
         </Col>
       </Row>
-      <Table
+    {/*   <Table
         columns={columns}
         expandable={{
           expandedRowRender: (record) => (
@@ -201,6 +202,11 @@ export const RendicionKmVista = () => {
           ),
         }}
         dataSource={state ? filterProcesoFinalizado : filterIncompletos}
+      /> */}
+      <TableSearchAndExpandible
+      columns={columns}
+      data={state ? filterProcesoFinalizado : filterIncompletos}
+      expandible
       />
     </>
   );
