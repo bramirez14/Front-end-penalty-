@@ -2,10 +2,10 @@ import React from "react";
 import { filtradoPorVendedor } from "../helpers/funciones";
 import { HelperTABLEobj } from "../../../helpers/HelperTABLEobj";
 import { remitos } from "./columnasRemitos";
+import { PeticionGET } from "../../config/PeticionGET";
 export const Remitos = () => {
   const todosRemitos = filtradoPorVendedor("/reportes/remitos");
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
-
   return (
     <>
       {

@@ -10,8 +10,8 @@ import { useNavigate,useParams } from 'react-router-dom';
 export const CargaRecibo = () => {
   const navigate= useNavigate();
  /**evitar que usuari 907 ingresen a la ruta */
- const N = localStorage.getItem('N');
- ( N !== "907" && N!== '901' ) && navigate("/perfil");
+//const N = localStorage.getItem('N');
+ //( N !== "907" && N!== '901' ) && navigate("/perfil");
   const { id } = useParams();
     const getRecibos= PeticionGETIntranetCobranzas(`detalle/recibo/${id}`);
     const columns = [

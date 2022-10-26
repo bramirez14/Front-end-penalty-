@@ -7,6 +7,7 @@ import { BiDownload } from "react-icons/bi";
 import { numberWithCommas } from "../components/reportes/helpers/funciones";
 import { PeticionGET } from "../config/PeticionGET";
 import { useNavigate } from "react-router";
+import { TableSearchAndExpandible } from "../components/table/TableSearchAndExpandible";
 
 export const RendicionKmVista = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export const RendicionKmVista = () => {
   const tipo = localStorage.getItem("type");
   const [km, setKm] = useState([]);
   /**evitar que usuari 905 ingresen a la ruta */
-  N !== "905" && tipo !== "Gerente" && navigate("/perfil");
+// N !== "905" && tipo !== "Gerente" && navigate("/perfil");
   const get = async () => {
     const { data } = await axiosURL.get("/todos/kilometros");
     setKm(data);
@@ -193,7 +194,7 @@ export const RendicionKmVista = () => {
           />
         </Col>
       </Row>
-      <Table
+    {/*   <Table
         columns={columns}
         expandable={{
           expandedRowRender: (record) => (
@@ -201,6 +202,11 @@ export const RendicionKmVista = () => {
           ),
         }}
         dataSource={state ? filterProcesoFinalizado : filterIncompletos}
+      /> */}
+      <TableSearchAndExpandible
+      columns={columns}
+      data={state ? filterProcesoFinalizado : filterIncompletos}
+      expandible
       />
     </>
   );

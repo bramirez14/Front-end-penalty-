@@ -132,11 +132,9 @@ export const Sidebar = ({  alertas, setAlertas, getAlertas }) => {
               </div>
               <CustomScroll heightRelativeToParent="calc(87% - 100px)">
                 {/* <div }> */}
-                {N === "901" || N === "902" || N === "903" ? (
+                
                   <MenuGerencia open={open} setOpen={setOpen} />
-                ) : (
-                  <MenuEmpleados open={open} setOpen={setOpen} />
-                )}
+                
               </CustomScroll>
             </Sider>
           </Layout>

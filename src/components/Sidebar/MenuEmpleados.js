@@ -101,7 +101,7 @@ export const MenuEmpleados = ({ open, setOpen }) => {
           <Link to="/lista/kilometros">Km </Link>
         </Menu.Item>
       </SubMenu>
-      {N === "907" && (
+    {/*   {N === "907" && ( */}
         <>
           <SubMenu
             key="sub8"
@@ -116,7 +116,7 @@ export const MenuEmpleados = ({ open, setOpen }) => {
             </Menu.Item>
           </SubMenu>
         </>
-      )}
+    {/*   )} */}
 
       {N === "0000" ? (
         ""
@@ -129,7 +129,8 @@ export const MenuEmpleados = ({ open, setOpen }) => {
           </Menu.Item>
         </SubMenu>
       )}
-      {N === "905" && (
+      {/* N905 */} 
+      {N === "905"  && (
         <SubMenu
           key="sub10"
           title="Comprobante"
