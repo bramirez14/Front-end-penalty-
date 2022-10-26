@@ -310,7 +310,7 @@ const [datosExcel, setDatosExcel] = useState([] );
     (state) => state
   );
   const todasLasSolicitudes = solicitudControlCalidad.scc;
-  const todasLasSolicitudesOrdenadas  =  todasLasSolicitudes.sort((a,b) => {
+  const todasLasSolicitudesOrdenadas  =  todasLasSolicitudes?.sort((a,b) => {
 if(b.FECEMISION < a.FECEMISION) return -1
 if (b.FECEMISION < a.FECEMISION)  return 1 
 return 0
@@ -328,7 +328,7 @@ return 0
   const data = solicitudControlCalidad.data;
   const [datoSelect, setDatoSelect] = useState(data);
   const todosExcel = ( ) => {
-    let dataExcel = todasLasSolicitudes.map((t) => ({
+    let dataExcel = todasLasSolicitudes?.map((t) => ({
       ...t,
       FECEMISION:t.FECEMISION.split('T')[0],
       FECFACT:t.FECFACT.split('T')[0],

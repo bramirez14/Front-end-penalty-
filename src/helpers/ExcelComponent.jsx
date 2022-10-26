@@ -23,24 +23,24 @@ const navigate=useNavigate();
     setLoading(true);
     let f = new FormData();
     f.append("file", values.file[0].originFileObj);
-    await axiosURL.post('/reportes/file/excel', f)
-
-   setTimeout(() => {
-   setLoading(false);
-   Swal.fire({
-    position: 'center',
-    icon: 'success',
-    title: 'Se guardó con éxito',
-    showConfirmButton: false,
-    timer: 1500
-  })
-    navigate('/')}, 7000);
-
+    let response = await axiosURL.post('/reportes/file/excel', f)
+      if (response.data.status === 200){
+        setLoading(false);
+        Swal.fire({
+         position: 'center',
+         icon: 'success',
+         title: 'Se guardó con éxito',
+         showConfirmButton: false,
+         timer: 1500
+       })
+       navigate('/')
+      }
   }
   return (
     <Form
     onFinish={onFinish}
     className='form-complete'
+    style={{width:570}}
     >
 
     <Form.Item
@@ -49,20 +49,27 @@ const navigate=useNavigate();
     valuePropName="fileList"
     getValueFromEvent={normFile}
     extra="acepta: xlsx"
+    rules={[
+      {
+        required: true,
+        message: "ingrese un archivo",
+      }
+    ]} 
+            
 
   >
     <Upload  name='file'  listType="picture" maxCount={1} accept=".xlsx"
-        beforeUpload={true}
+        beforeUpload={()=>false}
     
     >
-      <Button >Deposito</Button>
+      <Button >Ingrese un archivo Excel</Button>
     </Upload>
   </Form.Item>
   <Form.Item
        
       >
         <Button type="primary" htmlType="submit" block='true' loading={loading}>
-          Actualizar
+          Actualizar 
         </Button>
       </Form.Item>
   </Form>

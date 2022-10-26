@@ -8,17 +8,18 @@ import { numberWithCommas } from "../components/reportes/helpers/funciones";
 import { PeticionGET } from "../config/PeticionGET";
 import { PdfoImg } from "../helpers/PdfoImg";
 import { useNavigate } from "react-router";
+import { TableSearchAndExpandible } from "../components/table/TableSearchAndExpandible";
 
 export const RendicionGastosVista = ( ) => {
   const navigate= useNavigate();
-  const [state, setState] = useState(false)
+  const [state, setState] = useState(false);
   const N = localStorage.getItem("N");
-  const id = localStorage.getItem('uid')
+  const id = localStorage.getItem('uid');
   const [gasto, setGasto] = useState([]);
   const tipo = localStorage.getItem("type");
 
   /**evitar que usuario distintos a  905 ingresen a la ruta */
-  ( N !== "905" && tipo!=='Gerente') && navigate("/perfil");
+  // ( N !== "905" && tipo!=='Gerente') && navigate("/perfil");
 
   const get = async () => {
     const { data } = await axiosURL.get("/gastos");
@@ -54,6 +55,7 @@ export const RendicionGastosVista = ( ) => {
       dataIndex: "nombre",
       key: "nombre",
       width: 100,
+      search:true,
       render: (state, file) => <h5>{file.nombre}</h5>,
     },
     {
@@ -68,6 +70,7 @@ export const RendicionGastosVista = ( ) => {
       dataIndex: "fecha",
       key: "fecha",
       width: 120,
+      search:true,
       render: (state, file) => <h5>{file.fecha}</h5>,
     },
     {
@@ -235,7 +238,7 @@ export const RendicionGastosVista = ( ) => {
   <Switch checkedChildren="Pendientes" unCheckedChildren="Finalizados" defaultChecked onChange={()=>setState(!state)} style={{marginRight:10}} />
     </Col>
     </Row>
-      <Table
+  {/*     <Table
         columns={columns}
         expandable={{
           expandedRowRender: (record) => (
@@ -243,7 +246,12 @@ export const RendicionGastosVista = ( ) => {
           ),
         }}
         dataSource={state? filterProcesoFinalizado:filterIncompletos}
-        scroll={{ y: 500 }}
+        // scroll={{ y: 500 }}
+      /> */}
+      <TableSearchAndExpandible
+      columns={columns}
+      data={state? filterProcesoFinalizado:filterIncompletos}
+      expandible
       />
     </>
   );

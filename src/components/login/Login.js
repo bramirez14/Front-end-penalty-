@@ -6,7 +6,7 @@ import { UserContext } from "../../context/UserContext";
 
 export const Login = ( ) => {
 const navigate=useNavigate();
-const {setAuth} = useContext(UserContext)
+const {setAuth,setDataUser} = useContext(UserContext)
   const [errores, setErrores] = useState([]);
   const [msg, setMsg] = useState();
   const [user, setUser] = useState({
@@ -27,6 +27,8 @@ const {setAuth} = useContext(UserContext)
       "/login",
       user
     );
+    setDataUser(result.data)
+    
     let tipo= result.data.user?.tipousuario
     setErrores(result.data);
     if (!!result.data.user) {
@@ -34,6 +36,9 @@ const {setAuth} = useContext(UserContext)
      localStorage.setItem('token',result.data.token);
      localStorage.setItem('type', tipo);
      localStorage.setItem('N',result.data.user.nvendedor)
+     localStorage.setItem('role',result.data.user.role)
+     const permissions= result.data.user.permissions?.map(p=>p.permission);
+     localStorage.setItem('permissions',JSON.stringify(permissions));
      setAuth(true)
      navigate('/perfil')
       

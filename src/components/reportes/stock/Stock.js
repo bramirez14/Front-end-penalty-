@@ -4,24 +4,26 @@ import { filtradoPorVendedor } from '../helpers/funciones'
 import { columnasStock } from './columnasStock'
 
 export const Stock = () => {
-    const getSotck=filtradoPorVendedor('/stock');
+    const getStock=filtradoPorVendedor('/sql/reportes/stock');
     var mediaqueryList = window.matchMedia("(min-width: 1200px)");
     return (
       <>{
-        getSotck===undefined?
+        getStock===undefined?
         <h1 style={{marginTop:200,marginLeft:300}}>Compruebe su conexion!!!</h1>:
+        <>
+        
         <HelperTABLEobj
         title='Stock'
         hoja={'Stock'}
         namefile={'Stock'}
         columns= {columnasStock}
-        data={getSotck}
+        data={getStock}
         boton={true}
         paginas={true}
-        y={mediaqueryList.matches?400:500}
         colExcel={columnasStock}
 
         />
+        </>
       }
       </>
     )

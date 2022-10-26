@@ -1,39 +1,46 @@
+import { dateFormatDDMMYYYY } from "../helpers/funciones";
+
 export const columnasCliInhab = [
+
   {
-    title: "Vendedor",
-    dataIndex: "vendedor",
-    key: "vendedor",
+    title: "VENDEDOR",
+    dataIndex: "VENDEDOR",
+    key: "VENDEDOR",
     lupa:true,
-    render: (state, file) => <h5>{file.vendedor}</h5>,
+    render: (_, file) => <h5>{file.VENDEDOR}</h5>,
   },
   {
-    title: "Cliente",
-    dataIndex: "cliente",
-    key: "cliente",
+    title: "NOMBRE",
+    dataIndex: "NOMBRE",
+    key: "NOMBRE",
     lupa:true,
-    render: (state, file) => <h5>{file.cliente}</h5>,
+    render: (_, file) => <h5>{file.NOMBRE}</h5>,
   },
   {
-    title: "Razon Social",
-    dataIndex: "razonsoc",
-    key: "razonsoc",
+    title: "CLIENTE",
+    dataIndex: "CLIENTE",
+    key: "CLIENTE",
     lupa:true,
-    render: (state, file) => <h5>{file.razonsoc}</h5>,
+    render: (_, file) => <h5>{file.CLIENTE}</h5>,
   },
   {
-    title: "Fecha",
-    dataIndex: "fecinhab",
-    key: "fecinhab",
+    title: "RAZON SOCIAL",
+    dataIndex: "RAZONSOC",
+    key: "RAZONSOC",
     lupa:true,
-    render: (state, file) => {
-      const fecha = file.fecinhab.split("T")[0];
-      return <h5>{fecha}</h5>;
-    },
+    render: (_, file) => <h5>{file.RAZONSOC}</h5>,
   },
   {
-    title: "Motivo",
-    dataIndex: "motivo",
-    key: "motivo",
-    render: (state, file) => <h5>{file.motivo}</h5>,
+    title: "INHABILITADO",
+    dataIndex: "INHABILITADO",
+    key: "INHABILITADO",
+    render: (_, file) => <h5>{dateFormatDDMMYYYY(file.INHABILITADO)}</h5>,
+  },
+  
+  {
+    title: "MOTIVO",
+    dataIndex: "MOTIVO",
+    key: "MOTIVO",
+    render: (_, file) => <h5>{file.MOTIVO}</h5>,
   },
 ];

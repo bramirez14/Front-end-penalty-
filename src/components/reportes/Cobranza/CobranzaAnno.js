@@ -4,7 +4,7 @@ import { filtradoPorVendedor } from "../helpers/funciones";
 import { columnasCobranzasAnno } from "./columnasCobranzaAnno";
 
 export const CobranzaAnno = () => {
-  const getCobranzas = filtradoPorVendedor("/cobranza/anno");
+  const getCobranzas = filtradoPorVendedor("/sql/reportes/cobranza");
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
 
   return (
@@ -17,7 +17,7 @@ export const CobranzaAnno = () => {
         <HelperTABLEobj
           title="Cobranzas De Cada Año"
           hoja={"cobranzas "}
-          namefile={"Cobranzas"}
+          namefile={"Cobranzas Año"}
           columns={columnasCobranzasAnno}
           data={getCobranzas}
           boton={true}

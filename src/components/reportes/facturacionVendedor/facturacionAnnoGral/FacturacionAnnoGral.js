@@ -1,10 +1,10 @@
 import React from "react";
-import { PeticionGETIntranet } from "../../../../config/PeticionGET";
 import { HelperTABLEobj } from "../../../../helpers/HelperTABLEobj";
+import { filtradoPorVendedor } from "../../helpers/funciones";
 import { columnasFactAnnoGral } from "./columnasFactAnnoGral";
 
 export const FacturacionAnnoGral = () => {
-  const getFactAnnoGral = PeticionGETIntranet("/facturacion/annogral");
+  const getFactAnnoGral = filtradoPorVendedor("/reportes/facturacion/annogral");
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
 
   return (

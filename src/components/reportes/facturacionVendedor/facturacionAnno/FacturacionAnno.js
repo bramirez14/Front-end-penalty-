@@ -3,7 +3,8 @@ import { HelperTABLEobj } from "../../../../helpers/HelperTABLEobj";
 import { filtradoPorVendedor } from "../../helpers/funciones";
 import { columnasFactAnno } from "./columnasFactAnno";
 export const FacturacionAnno = () => {
-  const getFactAnno = filtradoPorVendedor("/facturacion/anno");
+  const getFactAnno = filtradoPorVendedor("/reportes/facturacion/anno");
+  
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
 
   return (

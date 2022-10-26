@@ -1,6 +1,6 @@
 {
   "name": "penalty",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -28,7 +28,7 @@
     "react-custom-scroll": "^4.3.0",
     "react-dom": "^17.0.2",
     "react-export-excel": "^0.5.3",
-    "react-highlight-words": "^0.17.0",
+    "react-highlight-words": "^0.18.0",
     "react-html-table-to-excel": "^2.0.0",
     "react-icons": "^4.3.1",
     "react-infinite-scroll-component": "^6.1.0",

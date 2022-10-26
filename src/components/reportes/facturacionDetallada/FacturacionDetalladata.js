@@ -4,7 +4,7 @@ import { filtradoPorVendedor } from '../helpers/funciones'
 import { columnasFactDet } from './columnasFactDetallada'
 
 export const FacturacionDetalladata = () => {
-    const getFactDetallada= filtradoPorVendedor('/facturacion/detallada')
+    const getFactDetallada= filtradoPorVendedor('/reportes/facturacion/detallada')
     var mediaqueryList = window.matchMedia("(min-width: 1200px)");
    // const ancho= getFactDetallada.length == 1
     return (

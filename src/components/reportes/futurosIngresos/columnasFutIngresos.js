@@ -1,33 +1,49 @@
 export const columnasFutIngresos = [
+  
   {
-    title: "Año",
-    dataIndex: "ano",
-    key: "ano",
-    render: (state, file) => <h5>{file.ano}</h5>,
-  },
-  {
-    title: "Mes",
-    dataIndex: "mes",
-    key: "mes",
-    render: (state, file) => <h5>{file.mes}</h5>,
-  },
-  {
-    title: "Articulo",
-    dataIndex: "articulo",
-    key: "articulo",
+    title: "AÑO",
+    dataIndex: "ANO",
+    key: "ANO",
     lupa:true,
-    render: (state, file) => <h5>{file.articulo}</h5>,
+    render: (state, file) => <h5>{file.ANO}</h5>,
   },
   {
-    title: "Descripcion",
-    dataIndex: "descripcion",
-    key: "descripcion",
-    render: (state, file) => <h5>{file.descripcion}</h5>,
+    title: "MES",
+    dataIndex: "MES",
+    key: "MES",
+    lupa:true,
+    render: (state, file) => <h5>{file.MES}</h5>,
   },
   {
-    title: "Unidades",
-    dataIndex: "unidades",
-    key: "unidades",
-    render: (state, file) => <h5>{file.unidades}</h5>,
+    title: "ARTICULO",
+    dataIndex: "ARTICULO",
+    key: "ARTICULO",
+    lupa:true,
+    render: (state, file) => <h5>{file.ARTICULO}</h5>,
   },
+  {
+    title: "DESCRIP",
+    dataIndex: "DESCRIP",
+    key: "DESCRIP",
+    lupa:true,
+    render: (state, file) => <h5>{file.DESCRIP}</h5>,
+  },
+  {
+    title: "UNIDADES",
+    dataIndex: "UNIDADES",
+    key: "UNIDADES",
+    render: (state, file) => <h5>{file.UNIDADES}</h5>,
+  },
+  {
+    title: "FECHA",
+    dataIndex: "FECHA",
+    key: "FECHA",
+    render: (state, file) => {
+      const date= new Date(file.FECHA)
+   const year= date.getFullYear();
+   const month = date.getMonth();
+   const day = date.getDate();
+    return<h5>{day}/{month}/{year}</h5>},
+  },
+  
 ];
