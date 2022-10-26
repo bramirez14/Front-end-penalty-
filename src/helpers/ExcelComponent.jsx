@@ -24,7 +24,6 @@ const navigate=useNavigate();
     let f = new FormData();
     f.append("file", values.file[0].originFileObj);
     let response = await axiosURL.post('/reportes/file/excel', f)
-    console.log(response.data);
       if (response.data.status === 200){
         setLoading(false);
         Swal.fire({
@@ -37,7 +36,6 @@ const navigate=useNavigate();
        navigate('/')
       }
   }
-console.log(loading);
   return (
     <Form
     onFinish={onFinish}

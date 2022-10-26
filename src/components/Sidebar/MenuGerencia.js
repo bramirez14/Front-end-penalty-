@@ -30,7 +30,6 @@ export const MenuGerencia = ({ open, setOpen }) => {
   //saque key 3
   const role = localStorage.getItem("role");
   const permissions = JSON.parse(localStorage.getItem("permissions"));
-  console.log(permissions.includes("Comprobantes"));
   return (
     <Menu
       mode="inline"
@@ -154,12 +153,12 @@ export const MenuGerencia = ({ open, setOpen }) => {
           permissions.includes("Comprobantes")) && (
           <SubMenu key="sub8" title="Comprobante" icon={<FileDoneOutlined />}>
             <Menu.Item key="27">
-              <Link to="/comprobantes/gastos"> gastos</Link>
+              <Link to="/comprobantes/gastos"> Gastos</Link>
             </Menu.Item>
             <Menu.Item key="28">
               <Link to="/comprobantes/tarjeta-credito">
                 {" "}
-                tarjeta de credito{" "}
+                Tarjeta de credito{" "}
               </Link>
             </Menu.Item>
           </SubMenu>
@@ -207,14 +206,14 @@ export const MenuGerencia = ({ open, setOpen }) => {
           permissions.includes("Orden de Pago")) && (
           <SubMenu
             key="sub10"
-            title="orden de pago"
+            title="Orden de pago"
             icon={<AccountBookOutlined />}
           >
             <Menu.Item key="32">
-              <Link to="/vista/rendicion/gasto"> gastos </Link>
+              <Link to="/vista/rendicion/gasto"> Gastos </Link>
             </Menu.Item>
             <Menu.Item key="33">
-              <Link to="/vista/rendicion/km"> km</Link>
+              <Link to="/vista/rendicion/km"> Km</Link>
             </Menu.Item>
           </SubMenu>
         )
@@ -226,13 +225,13 @@ export const MenuGerencia = ({ open, setOpen }) => {
           (permissions.includes("Pago") && (
             <SubMenu key="sub11" title="pago" icon={<PayCircleOutlined />}>
               <Menu.Item key="34">
-                <Link to="/pagos/anticipo"> sueldos </Link>
+                <Link to="/pagos/anticipo"> Sueldos </Link>
               </Menu.Item>
               <Menu.Item key="35">
-                <Link to="/pagos/gasto"> gastos </Link>
+                <Link to="/pagos/gasto"> Gastos </Link>
               </Menu.Item>
               <Menu.Item key="36">
-                <Link to="/pagos/km"> km</Link>
+                <Link to="/pagos/km"> Km</Link>
               </Menu.Item>
             </SubMenu>
           ))

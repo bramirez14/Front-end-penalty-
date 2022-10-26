@@ -33,7 +33,6 @@ setUser(userInfo.data)
 useEffect(() => {
   validateTOKEN();
 }, []);
-console.log(dataUser);
 return (
   
   <Provider store={store}>

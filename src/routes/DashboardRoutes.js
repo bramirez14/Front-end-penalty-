@@ -89,8 +89,6 @@ export const DashboardRoutes = ({ history }) => {
   const tipo = localStorage.getItem("type");
   const role = localStorage.getItem("role");
   const permissions = JSON.parse(localStorage.getItem("permissions"));
-  console.log(permissions.includes("Comprobantes"));
-
   return (
     <>
       <Sidebar
@@ -132,11 +130,6 @@ export const DashboardRoutes = ({ history }) => {
 
             {/** Calendario */}
             <Route path="/calendario" element={<Calendario />} />
-            {/** SCC */}
-          <Route element={<ProtectedRoute isAllowed={role === "admin"||role==='super'|| permissions.includes('Cobranzas')} />}>
-            <Route path="/aprobacion/scc" element={<AprobacionSCC />} />
-
-          </Route>
 
             {/** Km */}
             <Route path="/precio/km" element={<PrecioKM />} />
@@ -181,24 +174,8 @@ export const DashboardRoutes = ({ history }) => {
             <Route path="/pagos/gasto" element={<PagosAntGasto />} />
             <Route path="/pagos/km" element={<PagosKm />} />
           </Route>
-          <Route
-            path="/vista/rendicion/gasto"
-            element={<RendicionGastosVista />}
-          />
-          <Route
-            element={
-              <ProtectedRoute
-                isAllowed={
-                  role === "admin" ||
-                  role === "super" ||
-                  permissions.includes("Orden de Pago")
-                }
-              />
-            }
-          >
-            <Route path="/vista/rendicion/km" element={<RendicionKmVista />} />
-            <Route path="/vista/anicipo/sueldo" element={<AntSueldoVista />} />
-          </Route>
+          
+         
           {/**Reportes de Gestion */}
           <Route path="/reportes/gestion/remitos" element={<Remitos />} />
           <Route
@@ -240,8 +217,6 @@ export const DashboardRoutes = ({ history }) => {
           {/**Alertas */}
           <Route path="/alerta" element={<Alerta />} />
           {/** Recibos */}
-          <Route path="/recibo" element={<Recibo />} />
-          <Route path="/lista/recibo" element={<ListaRecibo />} />
           <Route path="/carga/recibo/:id" element={<CargaRecibo />} />
           {/* Tarjeta de credito */}
           <Route path="/pru" element={<ModalPDF />} />
@@ -293,6 +268,41 @@ export const DashboardRoutes = ({ history }) => {
             }
           >
             <Route path="/excel" element={<ExcelComponent />} />
+          </Route>
+          {/** SCC */}
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={
+                  role === "admin" ||
+                  role === "super" ||
+                  permissions.includes("Cobranzas")
+                }
+              />
+            }
+          >
+            <Route path="/aprobacion/scc" element={<AprobacionSCC />} />
+            <Route path="/recibo" element={<Recibo />} />
+            <Route path="/lista/recibo" element={<ListaRecibo />} />
+          </Route>
+          {/* ORDEN DE PAGO */}
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={
+                  role === "admin" ||
+                  role === "super" ||
+                  permissions.includes("Orden de Pago")
+                }
+              />
+            }
+          >
+            <Route path="/vista/rendicion/km" element={<RendicionKmVista />} />
+            <Route path="/vista/anicipo/sueldo" element={<AntSueldoVista />} />
+            <Route
+            path="/vista/rendicion/gasto"
+            element={<RendicionGastosVista />}
+          />
           </Route>
         </Routes>
       </div>

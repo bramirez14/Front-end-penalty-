@@ -27,7 +27,7 @@ export const PeticionJWT = () => {
       let noHay = datosJWT.data === "No hay token";
       let ID = id === idDB?.toString();
       let TIPO = tipo === tipoDB;
-      let Numvend = datosJWT.data.nvendedor === N;
+     // let Numvend = datosJWT.data.nvendedor === N;
       if (ID === false) {
         logout();
         contex?.setAuth(false);
@@ -35,8 +35,8 @@ export const PeticionJWT = () => {
       if (
         ok === true ||
         noHay === true ||
-        TIPO === false ||
-        Numvend === false
+        TIPO === false /* ||
+        Numvend === false */
       ) {
         logout();
         contex?.setAuth(false);

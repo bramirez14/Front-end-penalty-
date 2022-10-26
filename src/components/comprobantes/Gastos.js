@@ -5,14 +5,16 @@ import {
   Avatar,
   Descriptions,
   Divider,
-  Typography 
+  Typography,
+  Table,
+  
 
 } from "antd";
-
-import { PdfoImg } from "../../helpers/PdfoImg";
-import { numeroConComa } from "../../helpers/funcioneshelpers";
 import { PeticionGET } from "../config/PeticionGET";
-const { Title } = Typography;
+import { TableSearchAndExpandible } from "../table/TableSearchAndExpandible";
+import { columnGasto } from "./columnGasto";
+import { columnReciones } from "./columnRediciones";
+
 export const Gastos = () => {
   const [gasto, setGasto] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -22,10 +24,19 @@ export const Gastos = () => {
   };
   const onClose = () => setVisible(false);
   const GET_gastos= PeticionGET('/gastos')
-  
+  const newGastos= GET_gastos.map(g => ({...g,key:g.id,name:g.usuario.nombre,lastName:g.usuario.apellido,description:(
+    <Table dataSource={g.rendicion} columns={columnReciones} />
+  )}))
+  console.log(newGastos);
   return (
-    <>
-      <List
+    <div>
+      <TableSearchAndExpandible data={newGastos} columns={columnGasto} expandible={true}/>
+    </div>
+  )
+  
+}
+  {/*  <>
+       <List
       header={<h2>Lista de Gastos</h2>}
         style={{ margin: "auto", width: 700, backgroundColor:'#ffff',borderRadius:20, }}
         dataSource={GET_gastos}
@@ -92,6 +103,5 @@ export const Gastos = () => {
           </Descriptions>
         </div>
       </Drawer>
-    </>
-  );
-};
+    </> */}
+ 
