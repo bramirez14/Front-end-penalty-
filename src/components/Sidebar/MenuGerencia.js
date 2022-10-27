@@ -29,8 +29,8 @@ export const MenuGerencia = ({ open, setOpen }) => {
   //key = 38
   //saque key 3
   const role = localStorage.getItem("role");
-  console.log(role==='admin');
   const permissions = JSON.parse(localStorage.getItem("permissions"));
+  console.log(permissions.includes("Pago"));
   return (
     <Menu
       mode="inline"
@@ -221,10 +221,10 @@ export const MenuGerencia = ({ open, setOpen }) => {
       }
       {
         /*Pago */
-        role === "admin" ||
-          role === "super" ||
-          (permissions.includes("Pago") && (
-            <SubMenu key="sub11" title="pago" icon={<PayCircleOutlined />}>
+       (( role === "admin" ||
+          role === "super" )||
+          permissions.includes("Pago")) && (
+            <SubMenu key="sub11" title="Pago" icon={<PayCircleOutlined />}>
               <Menu.Item key="34">
                 <Link to="/pagos/anticipo"> Sueldos </Link>
               </Menu.Item>
@@ -235,7 +235,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
                 <Link to="/pagos/km"> Km</Link>
               </Menu.Item>
             </SubMenu>
-          ))
+          )
       }
     </Menu>
   );
