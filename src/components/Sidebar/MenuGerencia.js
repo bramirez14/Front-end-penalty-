@@ -29,6 +29,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
   //key = 38
   //saque key 3
   const role = localStorage.getItem("role");
+  console.log(role==='admin');
   const permissions = JSON.parse(localStorage.getItem("permissions"));
   return (
     <Menu
@@ -49,8 +50,8 @@ export const MenuGerencia = ({ open, setOpen }) => {
       )}
       {/* FIN DE USUARIOS  */}
 {/* APROBACIONES */}
-      {role === "admin" ||
-        (role === "super" && (
+      {(role === "admin" ||
+        role === "super") && (
           <SubMenu key="sub2" title="Aprobaciones" icon={<CheckOutlined />}>
             <Menu.Item key="4">
               <Link to="/aprobacion/sueldo">Sueldo</Link>
@@ -71,7 +72,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
               Km
             </Menu.Item>
           </SubMenu>
-        ))}
+        )}
         {/* FIN DE APROBACIONES */}
 {/* REPORTES DE GESTION */}
       <SubMenu key="sub3" title="Rtes de Gestion" icon={<RiseOutlined />}>
