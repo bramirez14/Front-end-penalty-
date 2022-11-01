@@ -111,7 +111,7 @@ export const Tabla = ({ usuario, setUsuario }) => {
     };
   });
 
-
+console.log(filas);
 
   return (
     <>

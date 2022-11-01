@@ -2,7 +2,8 @@ import axios from 'axios';
 // es una instancia de axios 
 /*****https://axios-http.com/es/docs/instance *****/ 
 
-const URL='http://intranet.penalty.com.ar';
+// const URL='http://intranet.penalty.com.ar';
+const URL= 'http://localhost'
 const PORT='4000'
  const axiosURL= axios.create({
 
