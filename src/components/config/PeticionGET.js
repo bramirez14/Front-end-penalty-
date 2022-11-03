@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { axiosURL, axiosURLIntranet, axiosURLIntranetCobranzas } from './axiosURL';
+import { axiosURL, axiosURLIntranet, axiosURLIntranetCobranzas } from '../config/axiosURL';
 
  const PeticionGET = (url) => {
   const [peticiones, setPeticiones] = useState([]);
