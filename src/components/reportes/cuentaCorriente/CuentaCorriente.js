@@ -5,7 +5,6 @@ import { columnasCtaCte } from "./columnasCtaCte";
 
 export const CuentaCorriente = () => {
   const getctacte = filtradoPorVendedor("/sql/reportes/ctacte");
-
   var mediaqueryList = window.matchMedia("(min-width: 1200px)");
 
   return (
