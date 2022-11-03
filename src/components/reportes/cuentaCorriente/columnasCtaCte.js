@@ -100,13 +100,11 @@ export const columnasCtaCte = [
     dataIndex: "pdf",
     key: "pdf",
     render: (_, file) => {
-      console.log(file);
       const descargarPDF = async (pdf) => {
         let res = await axiosURLIntranet.get("/remitos/pdf/comprobantes", {
           headers: { archivo: pdf },
           responseType: "blob",
         });
-        console.log(res);
         const pdfBlob = await new Blob([res.data], { type: "application/pdf" });
         saveAs(pdfBlob, `${pdf}`);
       };
