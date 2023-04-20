@@ -1,17 +1,18 @@
 import axios from 'axios';
+// es una instancia de axios 
+/*****https://axios-http.com/es/docs/instance *****/ 
 
+const URL='http://intranet.penalty.com.ar';
+const PORT='4000'
  const axiosURL= axios.create({
 
- //baseURL:'http://localhost:4000/api'
-baseURL:"http://intranet.penalty.com.ar:7000/api" 
-
-
+ baseURL:`${URL}:${PORT}/api`
  })
  
 const axiosURLIntranet = axios.create({
-baseURL:"http://intranet.penalty.com.ar:7000/api/reportes" 
+baseURL:`${URL}:${PORT}/api/reportes`
 })
 const axiosURLIntranetCobranzas = axios.create({
-baseURL:"http://intranet.penalty.com.ar:7000/api/cobranzas" 
+baseURL:`${URL}:${PORT}/api/cobranzas`
 })
 export{ axiosURL, axiosURLIntranet, axiosURLIntranetCobranzas}

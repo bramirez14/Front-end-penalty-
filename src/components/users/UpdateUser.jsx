@@ -102,7 +102,7 @@ useEffect(() => {
       confirmButtonText: "Editar!",
     });
     if (isConfirmed) {
-      const res = await axiosURL.put(`/editar/usuario/${id}`,{ ...values,role:data.role?data.role:null,checkedList,checkedListDelete:data.listdelete});
+      const res = await axiosURL.put(`/editar/usuario/${id}`,{ ...values,role:data.role?data.role:null,checkedList:data.list,checkedListDelete:data.listdelete});
       Swal.fire("Editado!", "Se edito con exito!!!", "success");
       if(res.status === 200)navigate('/lista/usuarios')
     }

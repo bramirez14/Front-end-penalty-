@@ -28,7 +28,7 @@ import {
   todosLosClientes,
 } from "../../redux/actions/scc";
 import { SccExcel } from "./excel/SccExcel";
-import { ColumnaSCC } from "./columnas/ColumnaSCC";
+import { ColumnaSCC } from "./columnas/columnaSCC";
 const { TextArea } = Input;
 
 const CollectionCreateForm = ({

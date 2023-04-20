@@ -30,6 +30,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
   //saque key 3
   const role = localStorage.getItem("role");
   const permissions = JSON.parse(localStorage.getItem("permissions"));
+  console.log(permissions.includes("Pago"));
   return (
     <Menu
       mode="inline"
@@ -49,8 +50,8 @@ export const MenuGerencia = ({ open, setOpen }) => {
       )}
       {/* FIN DE USUARIOS  */}
 {/* APROBACIONES */}
-      {role === "admin" ||
-        (role === "super" && (
+      {(role === "admin" ||
+        role === "super") && (
           <SubMenu key="sub2" title="Aprobaciones" icon={<CheckOutlined />}>
             <Menu.Item key="4">
               <Link to="/aprobacion/sueldo">Sueldo</Link>
@@ -71,7 +72,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
               Km
             </Menu.Item>
           </SubMenu>
-        ))}
+        )}
         {/* FIN DE APROBACIONES */}
 {/* REPORTES DE GESTION */}
       <SubMenu key="sub3" title="Rtes de Gestion" icon={<RiseOutlined />}>
@@ -220,10 +221,10 @@ export const MenuGerencia = ({ open, setOpen }) => {
       }
       {
         /*Pago */
-        role === "admin" ||
-          role === "super" ||
-          (permissions.includes("Pago") && (
-            <SubMenu key="sub11" title="pago" icon={<PayCircleOutlined />}>
+       (( role === "admin" ||
+          role === "super" )||
+          permissions.includes("Pago")) && (
+            <SubMenu key="sub11" title="Pago" icon={<PayCircleOutlined />}>
               <Menu.Item key="34">
                 <Link to="/pagos/anticipo"> Sueldos </Link>
               </Menu.Item>
@@ -234,7 +235,7 @@ export const MenuGerencia = ({ open, setOpen }) => {
                 <Link to="/pagos/km"> Km</Link>
               </Menu.Item>
             </SubMenu>
-          ))
+          )
       }
     </Menu>
   );
