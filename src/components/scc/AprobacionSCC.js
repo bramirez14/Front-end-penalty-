@@ -321,10 +321,8 @@ return 0
   })
 
   const getAllSccRequests = async () => {
-    console.log("me llamaron");
     try {
       const response = await axiosURL.get("/scc/todos/registros");
-      console.log(response, "is response");
       const datos = await response.data[0];
       setDataSCC(datos);
     } catch (e) {}
@@ -332,7 +330,6 @@ return 0
   useEffect(() => {
     getAllSccRequests();
   }, []);
- console.log(dataSCC,'is data scc of state');
   const newTodasLasSol = todasLasSolicitudesOrdenadas?.filter(
     (t) =>  !!t.NROCOMP 
   );
@@ -340,7 +337,6 @@ return 0
   const listaSCC = todasLasSolicitudesOrdenadas?.filter(
     (t) =>  !t.NROCOMP && t.RECHAZADO!== 'S'
   );
-  console.log(listaSCC, 'is list scc');
   const visible = modal.openModal;
   const data = solicitudControlCalidad.data;
   const [datoSelect, setDatoSelect] = useState(data);
