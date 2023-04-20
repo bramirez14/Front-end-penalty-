@@ -51,11 +51,7 @@
   },
   "scripts": {
     "start": "craco start",
-<<<<<<< HEAD
-    "dev": "set PORT=4500 craco start",
-=======
     "dev": "set PORT=3001 && craco start",
->>>>>>> main
 
     "build": "craco build",
     "test": "craco test",
