@@ -29,6 +29,7 @@ import {
 } from "../../redux/actions/scc";
 import { SccExcel } from "./excel/SccExcel";
 import { ColumnaSCC } from "./columnas/columnaSCC";
+import { axiosURL } from "../../config/axiosURL";
 const { TextArea } = Input;
 
 const CollectionCreateForm = ({
@@ -39,6 +40,7 @@ const CollectionCreateForm = ({
   status,
   setState,
   state,
+  getAllSccRequests
 }) => {
   const total =
     state.CANTPEDT00 +
@@ -71,7 +73,7 @@ const CollectionCreateForm = ({
     <Modal
       width={1100}
       visible={visible}
-      title="SCC"
+      title="SCCsss"
       onCancel={onCancel}
       footer={[
         <Button key="back" onClick={onCancel}>
@@ -86,6 +88,7 @@ const CollectionCreateForm = ({
               .then((values) => {
                 form.resetFields();
                 onCreate(values);
+                getAllSccRequests();
               })
               .catch((info) => {
               });
@@ -299,7 +302,7 @@ const CollectionCreateForm = ({
   );
 };
 export const AprobacionSCC = () => {
-
+const [dataSCC, setDataSCC] = useState([]);
   const [isAprob, setIsAprob] = useState(false);
   const [loading, setLoading] = useState(false);
 const [datosExcel, setDatosExcel] = useState([] );
@@ -309,14 +312,27 @@ const [datosExcel, setDatosExcel] = useState([] );
   const { solicitudControlCalidad, articulos, modal } = useSelector(
     (state) => state
   );
-  const todasLasSolicitudes = solicitudControlCalidad.scc;
+  const todasLasSolicitudes = dataSCC;
   const todasLasSolicitudesOrdenadas  =  todasLasSolicitudes?.sort((a,b) => {
 if(b.FECEMISION < a.FECEMISION) return -1
 if (b.FECEMISION < a.FECEMISION)  return 1 
 return 0
 
   })
- 
+
+  const getAllSccRequests = async () => {
+    console.log("me llamaron");
+    try {
+      const response = await axiosURL.get("/scc/todos/registros");
+      console.log(response, "is response");
+      const datos = await response.data[0];
+      setDataSCC(datos);
+    } catch (e) {}
+  };
+  useEffect(() => {
+    getAllSccRequests();
+  }, []);
+ console.log(dataSCC,'is data scc of state');
   const newTodasLasSol = todasLasSolicitudesOrdenadas?.filter(
     (t) =>  !!t.NROCOMP 
   );
@@ -324,6 +340,7 @@ return 0
   const listaSCC = todasLasSolicitudesOrdenadas?.filter(
     (t) =>  !t.NROCOMP && t.RECHAZADO!== 'S'
   );
+  console.log(listaSCC, 'is list scc');
   const visible = modal.openModal;
   const data = solicitudControlCalidad.data;
   const [datoSelect, setDatoSelect] = useState(data);
@@ -340,9 +357,9 @@ return 0
   useEffect(() => {
     setDatoSelect(data);
   }, [data]);
-  useEffect(() => {
-    dispatch(todasLasSCC());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(todasLasSCC());
+  // }, [dispatch]);
   useEffect(() => {
     dispatch(todasLasTalles());
   }, [dispatch]);
@@ -434,6 +451,7 @@ if(buscandoNroSCC.CANTPED <= total){
         status={status}
         setState={setDatoSelect}
         state={datoSelect}
+        getAllSccRequests={getAllSccRequests}
       />
      { todasLasSolicitudes?.length === 0 ? '':
       <Row style={{ marginTop: 20, marginBottom: 20 }}>
