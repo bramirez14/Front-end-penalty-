@@ -4,7 +4,7 @@ import axios from 'axios';
 
  const URL='http://intranet.penalty.com.ar';
 //const URL= 'http://localhost'
-const PORT='4000'
+const PORT='7000'
  const axiosURL= axios.create({
 
  baseURL:`${URL}:${PORT}/api`
