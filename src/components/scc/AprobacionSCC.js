@@ -73,7 +73,7 @@ const CollectionCreateForm = ({
     <Modal
       width={1100}
       visible={visible}
-      title="SCCsss"
+      title="SCC"
       onCancel={onCancel}
       footer={[
         <Button key="back" onClick={onCancel}>
