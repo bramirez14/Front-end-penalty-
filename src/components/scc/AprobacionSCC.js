@@ -58,23 +58,12 @@ const CollectionCreateForm = ({
     state.CANTPEDT14+
     state.CANTPED ;
     const totalReal= !total ? state.CANTPED : total 
-    console.log(!total,'is total');
-console.log(totalReal, 'is total real');
   const change = (e) => {
     const { value, name } = e.target;
-    // console.log(value );
-    // if( typeof value === 'number'){
-    //   console.log('is number');
-    //   const newData = { ...state, CANTPED: totalReal + value };
-    //     setState(newData);
-    // }
     const newObj = { ...state, [name]: parseInt(value) };
     setState(newObj);
   };
-  // useEffect(() => {
-  //   const newData = { ...state, CANTPED: totalReal };
-  //   setState(newData);
-  // }, [total]);
+
   const [form] = Form.useForm();
 
   return (
