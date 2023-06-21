@@ -13,9 +13,7 @@ import {
   Table,
   Tag,
   Result,
-  Progress,
   Switch,
-  InputNumber,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -42,7 +40,7 @@ const CollectionCreateForm = ({
   state,
   getAllSccRequests
 }) => {
-  const total =
+  const total = 
     state.CANTPEDT00 +
     state.CANTPEDT01 +
     state.CANTPEDT02 +
@@ -57,18 +55,28 @@ const CollectionCreateForm = ({
     state.CANTPEDT11 +
     state.CANTPEDT12 +
     state.CANTPEDT13 +
-    state.CANTPEDT14;
-
+    state.CANTPEDT14+
+    state.CANTPED ;
+    const totalReal= !total ? state.CANTPED : total 
+    console.log(!total,'is total');
+console.log(totalReal, 'is total real');
   const change = (e) => {
     const { value, name } = e.target;
+    // console.log(value );
+    // if( typeof value === 'number'){
+    //   console.log('is number');
+    //   const newData = { ...state, CANTPED: totalReal + value };
+    //     setState(newData);
+    // }
     const newObj = { ...state, [name]: parseInt(value) };
     setState(newObj);
   };
-  useEffect(() => {
-    const newData = { ...state, CANTPED: total };
-    setState(newData);
-  }, [total]);
+  // useEffect(() => {
+  //   const newData = { ...state, CANTPED: totalReal };
+  //   setState(newData);
+  // }, [total]);
   const [form] = Form.useForm();
+
   return (
     <Modal
       width={1100}
@@ -107,13 +115,13 @@ const CollectionCreateForm = ({
         <Form form={form} layout="inline" onChange={change}>
           <Row gutter={[20, 20]}>
             <Form.Item label="S.C.C Nro">
-              <Input value={state.NROSCC} />
+              <Input value={state.NROSCC}  />
             </Form.Item>
             <Form.Item label="Cliente">
               <Input value={state.CLIENTE} />
             </Form.Item>
-            <Form.Item label="Art">
-              <Input value={state.CLIENTE} />
+            <Form.Item label="Artículo">
+              <Input value={state.ARTICULO} />
             </Form.Item>
 
             <Form.Item
@@ -142,8 +150,8 @@ const CollectionCreateForm = ({
 
             <Col span={3}>
               <Form.Item label={state.ALFA01}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT00"
                   value={state.CANTPEDT00}
                   min={0}
@@ -152,8 +160,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA02}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT01"
                   value={state.CANTPEDT01}
                   min={0}
@@ -162,8 +170,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA03}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT02"
                   value={state.CANTPEDT02}
                   min={0}
@@ -172,8 +180,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA04}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT03"
                   value={state.CANTPEDT03}
                   min={0}
@@ -182,8 +190,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA05}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT04"
                   value={state.CANTPEDT04}
                   min={0}
@@ -192,8 +200,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA06}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT05"
                   value={state.CANTPEDT05}
                   min={0}
@@ -202,8 +210,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA07}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT06"
                   value={state.CANTPEDT06}
                   min={0}
@@ -212,8 +220,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA08}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT07"
                   value={state.CANTPEDT07}
                   min={0}
@@ -222,8 +230,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA09}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT08"
                   value={state.CANTPEDT08}
                   min={0}
@@ -232,8 +240,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA10}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT09"
                   value={state.CANTPEDT09}
                   min={0}
@@ -242,8 +250,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA11}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT10"
                   value={state.CANTPEDT10}
                   min={0}
@@ -252,8 +260,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA12}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT11"
                   value={state.CANTPEDT11}
                   min={0}
@@ -262,8 +270,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA13}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT12"
                   value={state.CANTPEDT12}
                   min={0}
@@ -272,8 +280,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA14}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT13"
                   value={state.CANTPEDT13}
                   min={0}
@@ -282,8 +290,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={3}>
               <Form.Item label={state.ALFA15}>
-                <InputNumber
-                  controls={false}
+                <Input
+                type="number"
                   name="CANTPEDT14"
                   value={state.CANTPEDT14}
                   min={0}
@@ -292,7 +300,8 @@ const CollectionCreateForm = ({
             </Col>
             <Col span={4}>
               <Form.Item label="Total">
-                <InputNumber controls={false} value={state.CANTPED} min={0} />
+                <Input
+                type value={state.CANTPED + totalReal} min={0} />
               </Form.Item>
             </Col>
           </Row>
@@ -312,6 +321,7 @@ const [datosExcel, setDatosExcel] = useState([] );
   const { solicitudControlCalidad, articulos, modal } = useSelector(
     (state) => state
   );
+
   const todasLasSolicitudes = dataSCC;
   const todasLasSolicitudesOrdenadas  =  todasLasSolicitudes?.sort((a,b) => {
 if(b.FECEMISION < a.FECEMISION) return -1
