@@ -55,8 +55,8 @@ const CollectionCreateForm = ({
     state.CANTPEDT11 +
     state.CANTPEDT12 +
     state.CANTPEDT13 +
-    state.CANTPEDT14+
-    state.CANTPED ;
+    state.CANTPEDT14;
+    // state.CANTPED ;
     const totalReal= !total ? state.CANTPED : total 
   const change = (e) => {
     const { value, name } = e.target;
@@ -65,7 +65,7 @@ const CollectionCreateForm = ({
   };
 
   const [form] = Form.useForm();
-
+console.log(state.CANTPED,'is cantped');
   return (
     <Modal
       width={1100}
