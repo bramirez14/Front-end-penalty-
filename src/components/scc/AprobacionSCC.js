@@ -57,7 +57,7 @@ const CollectionCreateForm = ({
     state.CANTPEDT13 +
     state.CANTPEDT14;
     // state.CANTPED ;
-    const totalReal= !total ? state.CANTPED : total 
+    // const totalReal= !total ? state.CANTPED : total 
   const change = (e) => {
     const { value, name } = e.target;
     const newObj = { ...state, [name]: parseInt(value) };
@@ -290,7 +290,7 @@ console.log(state.CANTPED,'is cantped');
             <Col span={4}>
               <Form.Item label="Total">
                 <Input
-                type value={state.CANTPED + totalReal} min={0} />
+                type value={state.CANTPED + total} min={0} />
               </Form.Item>
             </Col>
           </Row>
