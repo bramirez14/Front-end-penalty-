@@ -14,6 +14,7 @@ import {
   Tag,
   Result,
   Switch,
+  InputNumber,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -289,8 +290,8 @@ console.log(state.CANTPED,'is cantped');
             </Col>
             <Col span={4}>
               <Form.Item label="Total">
-                <Input
-                type value={total} min={0} max={state.CANTPED }/>
+                <InputNumber
+               value={total} min={0} max={state.CANTPED}/>
               </Form.Item>
             </Col>
           </Row>
