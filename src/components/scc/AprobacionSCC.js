@@ -290,7 +290,7 @@ console.log(state.CANTPED,'is cantped');
             <Col span={4}>
               <Form.Item label="Total">
                 <Input
-                type value={state.CANTPED + total} min={0} />
+                type value={total} min={0} max={state.CANTPED }/>
               </Form.Item>
             </Col>
           </Row>
